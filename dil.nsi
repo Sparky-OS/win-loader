@@ -158,6 +158,55 @@ UninstPage instfiles
 
 Var /GLOBAL c
 
+Function .onInit
+  InitPluginsDir
+
+  ; Initialise $c
+  ReadEnvStr $c SystemDrive
+  ${If} $c == ""
+    ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
+    StrCpy $c "c:"
+  ${Endif}
+  StrCpy $INSTDIR "$c\debian"
+  SetOutPath $INSTDIR
+
+  ; we need 3 GiB to install debian
+  ; FIXME: maybe we should ask whether user wants dual boot or nuking windoze completely first
+  StrCpy $0 3145728 ; == 3 GiB
+  StrCpy $1 $c
+  Call CheckSpaceFunc
+  IntCmp $2 1 +2
+  MessageBox MB_OK "You do not seem to have enough free disk space in drive $c.  For a complete \
+desktop install, it is recommended that you have at least 3 GB of free disk.  If you already have a \
+separate disk or partition to install Debian, or if you plan to replace Windows completely, you can \
+safely ignore this warning."
+
+  ; and we refuse to start the installer with less than 30 MiB
+  StrCpy $0 30720 ; == 30 MiB
+  StrCpy $1 $c
+  Call CheckSpaceFunc
+  IntCmp $2 1 +3
+  MessageBox MB_OK "Error: not enough free disk space.  Aborting install."
+  Quit
+FunctionEnd
+
+Function ShowGraphics
+  ; Write the uninstall keys for Windows
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
+
+  File /oname=$PLUGINSDIR\graphics.ini graphics.ini
+  ; FIXME: I don't know how to refer to $PLUGINSDIR from graphics.ini, so let's install them in $INSTDIR
+  File gtk.bmp gtk.bmp
+  File text.bmp text.bmp
+  File /oname=$PLUGINSDIR\warning.ini warning.ini
+
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$c\debian\gtk.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$c\debian\text.bmp"
+  InstallOptions::dialog $PLUGINSDIR\graphics.ini
+FunctionEnd
+
 Section "Debian-Installer Loader"
   test64::get_arch
   Var /GLOBAL arch
@@ -214,55 +263,6 @@ Section "Debian-Installer Loader"
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
   WriteIniStr "$c\boot.ini" "operating systems" "$c\grldr" '"Debian Installer"'
 SectionEnd
-
-Function .onInit
-  InitPluginsDir
-
-  ; Initialise $c
-  ReadEnvStr $c SystemDrive
-  ${If} $c == ""
-    ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
-    StrCpy $c "c:"
-  ${Endif}
-  StrCpy $INSTDIR "$c\debian"
-  SetOutPath $INSTDIR
-
-  ; we need 3 GiB to install debian
-  ; FIXME: maybe we should ask whether user wants dual boot or nuking windoze completely first
-  StrCpy $0 3145728 ; == 3 GiB
-  StrCpy $1 $c
-  Call CheckSpaceFunc
-  IntCmp $2 1 +2
-  MessageBox MB_OK "You do not seem to have enough free disk space in drive $c.  For a complete \
-desktop install, it is recommended that you have at least 3 GB of free disk.  If you already have a \
-separate disk or partition to install Debian, or if you plan to replace Windows completely, you can \
-safely ignore this warning."
-
-  ; and we refuse to start the installer with less than 30 MiB
-  StrCpy $0 30720 ; == 30 MiB
-  StrCpy $1 $c
-  Call CheckSpaceFunc
-  IntCmp $2 1 +3
-  MessageBox MB_OK "Error: not enough free disk space.  Aborting install."
-  Quit
-FunctionEnd
-
-Function ShowGraphics
-  ; Write the uninstall keys for Windows
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
-
-  File /oname=$PLUGINSDIR\graphics.ini graphics.ini
-  ; FIXME: I don't know how to refer to $PLUGINSDIR from graphics.ini, so let's install them in $INSTDIR
-  File gtk.bmp gtk.bmp
-  File text.bmp text.bmp
-  File /oname=$PLUGINSDIR\warning.ini warning.ini
-
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$c\debian\gtk.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$c\debian\text.bmp"
-  InstallOptions::dialog $PLUGINSDIR\graphics.ini
-FunctionEnd
 
 Function ShowWarning
   InstallOptions::dialog $PLUGINSDIR\warning.ini
