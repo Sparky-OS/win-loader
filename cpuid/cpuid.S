@@ -1,7 +1,7 @@
 /*
  * int check_64bit (void)
  *
- * Checks wether 64-bit mode is supported
+ * Checks whether 64-bit mode is supported
  *
  * Stolen from a patch originaly intended for syslinux (http://syslinux.zytor.com/archives/2007-January/007832.html)
  * Copyright (C) 2007 Byron Stanoszek <gandalf@winds.org>

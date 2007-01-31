@@ -160,7 +160,7 @@ UninstPage instfiles
 Section "Debian-Installer Loader"
   SetOutPath $INSTDIR
   ; we need 3 GB to install debian
-  ; FIXME: add a check here and warn the user (preferably, after asking wether she wants dual boot or nuking windoze completely)
+  ; FIXME: add a check here and warn the user (preferably, after asking whether she wants dual boot or nuking windoze completely)
 
   ; Write the uninstall keys for Windows
   WriteUninstaller "$INSTDIR\Uninstall.exe"
