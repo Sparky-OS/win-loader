@@ -148,6 +148,7 @@ InstallDir "c:\debian"
 ; Pages
 
 Page license
+Page custom ShowGraphics
 Page instfiles
 Page custom ShowWarning LeaveWarning
 
@@ -158,7 +159,6 @@ UninstPage instfiles
 
 ; The stuff to install
 Section "Debian-Installer Loader"
-  SetOutPath $INSTDIR
   ; we need 3 GB to install debian
   ; FIXME: add a check here and warn the user (preferably, after asking whether she wants dual boot or nuking windoze completely)
 
@@ -171,14 +171,27 @@ Section "Debian-Installer Loader"
   Var /GLOBAL arch
   StrCpy $arch $0
 
-  NSISdl::download http://ftp.us.debian.org/debian/dists/testing/main/installer-$arch/current/images/netboot/debian-installer/$arch/linux linux
+  Var /GLOBAL fellow_hacker
+  StrCpy $fellow_hacker "aba"
+  StrCmp $arch "amd64" +2
+    StrCpy $fellow_hacker "joeyh"
+
+  Var /GLOBAL gtk
+  ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
+  StrCmp $0 "1" 0 +2
+    StrCpy $gtk "gtk/"
+
+  Var /GLOBAL base_url
+  StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
+
+  NSISdl::download $base_url/linux linux
   Pop $R0
   StrCmp $R0 "success" +4
     StrCmp $R0 "cancel" +2
       MessageBox MB_OK "Error: $R0"
       Quit
 
-  NSISdl::download http://ftp.us.debian.org/debian/dists/testing/main/installer-$arch/current/images/netboot/debian-installer/$arch/initrd.gz initrd.gz
+  NSISdl::download $base_url/initrd.gz initrd.gz
   Pop $R0
   StrCmp $R0 "success" +4
     StrCmp $R0 "cancel" +2
@@ -187,9 +200,12 @@ Section "Debian-Installer Loader"
 
   File /oname=c:\grldr "grub\grldr"
   File /oname=c:\grub "grub\grub"
-; gtk support is waiting on #408535
-;  File /oname=c:\menu.lst "grub\gtk-menu.lst"
-  File /oname=c:\menu.lst "grub\text-menu.lst"
+  File "grub\gtk-menu.lst"
+  File "grub\text-menu.lst"
+  StrCmp $gtk "gtk/" +3
+    CopyFiles /SILENT /FILESONLY "$INSTDIR\text-menu.lst" "c:\menu.lst"
+    Goto +2
+  CopyFiles /SILENT /FILESONLY "$INSTDIR\gtk-menu.lst" "c:\menu.lst"
 
   IfFileExists "c:\boot.ini" +3 0
     MessageBox MB_OK "Error: c:\boot.ini not found.  Your version of Windows might be too old, or damaged."
@@ -199,7 +215,16 @@ SectionEnd
 
 Function .onInit
   InitPluginsDir
+  File /oname=$PLUGINSDIR\graphics.ini graphics.ini
+  ; FIXME: I don't know how to refer to $PLUGINSDIR from graphics.ini, so let's install them in $INSTDIR
+  SetOutPath $INSTDIR
+  File gtk.bmp gtk.bmp
+  File text.bmp text.bmp
   File /oname=$PLUGINSDIR\warning.ini warning.ini
+FunctionEnd
+
+Function ShowGraphics
+  InstallOptions::dialog $PLUGINSDIR\graphics.ini
 FunctionEnd
 
 Function ShowWarning
