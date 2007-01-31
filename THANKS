@@ -6,3 +6,4 @@ Thanks to:
 - Nullsoft, for creating such a wonderful install system, and releasing it as free software.
 - The hackers at #nsis (irc.landoleet.org) for advice in NSIS scripting.
 - Amir Szekely <kichik@netvision.net.il> for LogicLib patch and other cleanup.
+- Ryan Moore <moorerw@westminster.edu>, for hints about detecting the root drive.
