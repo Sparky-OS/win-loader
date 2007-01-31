@@ -162,11 +162,13 @@ Function .onInit
   InitPluginsDir
 
   ; Initialise $c
+  ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
   ReadEnvStr $c SystemDrive
   ${If} $c == ""
     ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
     StrCpy $c "c:"
   ${Endif}
+
   StrCpy $INSTDIR "$c\debian"
   SetOutPath $INSTDIR
 
@@ -278,6 +280,15 @@ FunctionEnd
 ; Uninstaller
 
 Section "Uninstall"
+  ; Initialise $c
+  ; FIXME: this blurb is duplicated in the installer.  keep in sync!
+  ReadEnvStr $c SystemDrive
+  ${If} $c == ""
+    ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
+;    StrCpy $c "c:"
+  ${Endif}
+
+  MessageBox MB_OK "I'm going to edit $c\boot.ini"
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
   DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
