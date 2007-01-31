@@ -141,9 +141,6 @@ LicenseLangString license ${LANG_WELSH} license\en.txt
 LicenseData $(license)
 LicenseForceSelection checkbox
 
-; The default installation directory
-InstallDir "c:\debian"
-
 ;--------------------------------
 
 ; Pages
@@ -157,6 +154,8 @@ UninstPage uninstConfirm
 UninstPage instfiles
 
 ;--------------------------------
+
+Var /GLOBAL c
 
 ; The stuff to install
 Section "Debian-Installer Loader"
@@ -174,7 +173,7 @@ Section "Debian-Installer Loader"
 
   Var /GLOBAL fellow_hacker
   ${If} $arch == "i386"
-     StrCpy $fellow_hacker "joeyh"
+    StrCpy $fellow_hacker "joeyh"
   ${Else}
     StrCpy $fellow_hacker "aba"
   ${EndIf}
@@ -206,22 +205,22 @@ Section "Debian-Installer Loader"
     Quit
   ${EndIf}
 
-  File /oname=c:\grldr "grub\grldr"
-  File /oname=c:\grub "grub\grub"
+  File /oname=$c\grldr "grub\grldr"
+  File /oname=$c\grub "grub\grub"
   ${If} $gtk == "gtk/"
-    File /oname=C:\menu.lst "grub\gtk-menu.lst"
+    File /oname=$c\menu.lst "grub\gtk-menu.lst"
   ${Else}
-    File /oname=C:\menu.lst "grub\text-menu.lst"
+    File /oname=$c\menu.lst "grub\text-menu.lst"
   ${EndIf}
 
-  ${Unless} ${FileExists} "c:\boot.ini"
-    MessageBox MB_OK "Error: c:\boot.ini not found.  Your version of Windows might be too old, or damaged."
+  ${Unless} ${FileExists} "$c\boot.ini"
+    MessageBox MB_OK "Error: $c\boot.ini not found.  Your version of Windows might be too old, or damaged."
     Quit
   ${Endif}
 
-  SetFileAttributes "c:\boot.ini" NORMAL
-  SetFileAttributes "c:\boot.ini" SYSTEM|HIDDEN
-  WriteIniStr "c:\boot.ini" "operating systems" "c:\grldr" '"Debian Installer"'
+  SetFileAttributes "$c\boot.ini" NORMAL
+  SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
+  WriteIniStr "$c\boot.ini" "operating systems" "$c\grldr" '"Debian Installer"'
 SectionEnd
 
 Function .onInit
@@ -232,9 +231,17 @@ Function .onInit
   File gtk.bmp gtk.bmp
   File text.bmp text.bmp
   File /oname=$PLUGINSDIR\warning.ini warning.ini
+  ReadEnvStr $c SystemDrive
+  ${If} $c == ""
+    ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
+    StrCpy $c "c:"
+  ${Endif}
+  StrCpy $INSTDIR "$c\debian"
 FunctionEnd
 
 Function ShowGraphics
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$c\debian\gtk.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$c\debian\text.bmp"
   InstallOptions::dialog $PLUGINSDIR\graphics.ini
 FunctionEnd
 
@@ -252,13 +259,13 @@ FunctionEnd
 ; Uninstaller
 
 Section "Uninstall"
-  SetFileAttributes "c:\boot.ini" NORMAL
-  SetFileAttributes "c:\boot.ini" SYSTEM|HIDDEN
-  DeleteINIStr "c:\boot.ini" "operating systems" "c:\grldr"
+  SetFileAttributes "$c\boot.ini" NORMAL
+  SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
+  DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
-  Delete c:\grldr
-  Delete c:\grub
-  Delete c:\menu.lst
+  Delete $c\grldr
+  Delete $c\grub
+  Delete $c\menu.lst
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
   RMDir  $INSTDIR
