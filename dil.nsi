@@ -219,6 +219,8 @@ Section "Debian-Installer Loader"
     Quit
   ${Endif}
 
+  SetFileAttributes "c:\boot.ini" NORMAL
+  SetFileAttributes "c:\boot.ini" SYSTEM|HIDDEN
   WriteIniStr "c:\boot.ini" "operating systems" "c:\grldr" '"Debian Installer"'
 SectionEnd
 
@@ -250,6 +252,8 @@ FunctionEnd
 ; Uninstaller
 
 Section "Uninstall"
+  SetFileAttributes "c:\boot.ini" NORMAL
+  SetFileAttributes "c:\boot.ini" SYSTEM|HIDDEN
   DeleteINIStr "c:\boot.ini" "operating systems" "c:\grldr"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
   Delete c:\grldr
