@@ -288,7 +288,6 @@ Section "Uninstall"
 ;    StrCpy $c "c:"
   ${Endif}
 
-  MessageBox MB_OK "I'm going to edit $c\boot.ini"
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
   DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
