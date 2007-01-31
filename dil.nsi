@@ -27,6 +27,7 @@ OutFile "debian.exe"
 ;RequestExecutionLevel highest
 
 !addplugindir cpuid
+!include LogicLib.nsh
 
 ; First is default
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
@@ -172,44 +173,52 @@ Section "Debian-Installer Loader"
   StrCpy $arch $0
 
   Var /GLOBAL fellow_hacker
-  StrCpy $fellow_hacker "aba"
-  StrCmp $arch "amd64" +2
-    StrCpy $fellow_hacker "joeyh"
+  ${If} $arch == "i386"
+     StrCpy $fellow_hacker "joeyh"
+  ${Else}
+    StrCpy $fellow_hacker "aba"
+  ${EndIf}
 
   Var /GLOBAL gtk
   ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
-  StrCmp $0 "1" 0 +2
+  ${If} $0 == "1"
     StrCpy $gtk "gtk/"
+  ${Endif}
 
   Var /GLOBAL base_url
   StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
 
-  NSISdl::download $base_url/linux linux
+  NSISdl::download $base_url/linux $INSTDIR\linux
   Pop $R0
-  StrCmp $R0 "success" +4
-    StrCmp $R0 "cancel" +2
-      MessageBox MB_OK "Error: $R0"
-      Quit
+  ${If} $R0 != "success"
+    ${If} $R0 != "cancel"
+       MessageBox MB_OK "Error: $R0"
+    ${EndIf}
+    Quit
+  ${EndIf}
 
-  NSISdl::download $base_url/initrd.gz initrd.gz
+  NSISdl::download $base_url/initrd.gz $INSTDIR\initrd.gz
   Pop $R0
-  StrCmp $R0 "success" +4
-    StrCmp $R0 "cancel" +2
-      MessageBox MB_OK "Error: $R0"
-      Quit
+  ${If} $R0 != "success"
+    ${If} $R0 != "cancel"
+       MessageBox MB_OK "Error: $R0"
+    ${EndIf}
+    Quit
+  ${EndIf}
 
   File /oname=c:\grldr "grub\grldr"
   File /oname=c:\grub "grub\grub"
-  File "grub\gtk-menu.lst"
-  File "grub\text-menu.lst"
-  StrCmp $gtk "gtk/" +3
-    CopyFiles /SILENT /FILESONLY "$INSTDIR\text-menu.lst" "c:\menu.lst"
-    Goto +2
-  CopyFiles /SILENT /FILESONLY "$INSTDIR\gtk-menu.lst" "c:\menu.lst"
+  ${If} $gtk == "gtk/"
+    File /oname=C:\menu.lst "grub\gtk-menu.lst"
+  ${Else}
+    File /oname=C:\menu.lst "grub\text-menu.lst"
+  ${EndIf}
 
-  IfFileExists "c:\boot.ini" +3 0
+  ${Unless} ${FileExists} "c:\boot.ini"
     MessageBox MB_OK "Error: c:\boot.ini not found.  Your version of Windows might be too old, or damaged."
     Quit
+  ${Endif}
+
   WriteIniStr "c:\boot.ini" "operating systems" "c:\grldr" '"Debian Installer"'
 SectionEnd
 
@@ -246,5 +255,7 @@ Section "Uninstall"
   Delete c:\grldr
   Delete c:\grub
   Delete c:\menu.lst
-  RMDir /r "$INSTDIR"
+  Delete $INSTDIR\linux
+  Delete $INSTDIR\initrd.gz
+  RMDir  $INSTDIR
 SectionEnd
