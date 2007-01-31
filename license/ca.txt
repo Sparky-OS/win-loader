@@ -1,0 +1,8 @@
+Debian-Installer Loader
+Copyright © 2007  Robert Millan
+
+Aquest programa és lliure; el podeu redistribuir i/o modificar d'acord amb els termes de la Llicència pública general de GNU tal i com la publica la Free Software Foundation; tant se val la versió 2 de la Llicència com (si ho preferiu) qualsevol versió posterior.
+
+Aquest programa es distribueix amb l'esperança que serà útil, però SENSE CAP GARANTIA; ni tant sols amb la garantia de COMERCIALITZABILITAT O APTITUD PER A PROPÒSITS DETERMINATS.  Vegeu la Llicència general pública de GNU per a més detalls.
+
+Hauríeu d'haver rebut una còpia de la llicència pública general de GNU amb aquest programa; si no, escriviu a la Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.

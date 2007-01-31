@@ -1,0 +1,19 @@
+hiddenmenu
+default		2
+timeout		0
+color		cyan/blue white/blue
+
+title		Standard
+root		(hd0,0)
+kernel		/debian/linux video=vesa:ywrap,mtrr vga=788 --
+initrd		/debian/initrd.gz
+
+title		Expert
+root		(hd0,0)
+kernel		/debian/linux priority=low video=vesa:ywrap,mtrr vga=788 --
+initrd		/debian/initrd.gz
+
+title		Auto
+root		(hd0,0)
+kernel		/debian/linux priority=critical video=vesa:ywrap,mtrr vga=788 --
+initrd		/debian/initrd.gz

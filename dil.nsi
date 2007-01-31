@@ -1,0 +1,225 @@
+; Debian-Installer Loader
+; Copyright © 2007  Robert Millan <rmh@aybabtu.com>
+;
+; This program is free software; you can redistribute it and/or modify
+; it under the terms of the GNU General Public License as published by
+; the Free Software Foundation; either version 2 of the License, or
+; (at your option) any later version.
+;
+; This program is distributed in the hope that it will be useful,
+; but WITHOUT ANY WARRANTY; without even the implied warranty of
+; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+; GNU General Public License for more details.
+;
+; You should have received a copy of the GNU General Public License along
+; with this program; if not, write to the Free Software Foundation, Inc.,
+; 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
+; SetCompressor must _always_ be the first command
+SetCompressor /SOLID lzma
+Name "Debian-Installer Loader"
+Icon "swirl.ico"
+UninstallIcon "swirl.ico"
+XPStyle on
+OutFile "debian.exe"
+
+; will need this for vista
+;RequestExecutionLevel highest
+
+!addplugindir cpuid
+
+; First is default
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Albanian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Arabic.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Basque.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Belarusian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Bosnian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Breton.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Bulgarian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Catalan.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Croatian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Czech.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Danish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Dutch.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Estonian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Farsi.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Finnish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\French.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\German.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Greek.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Hebrew.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Hungarian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Icelandic.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Indonesian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Irish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Italian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Japanese.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Korean.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Kurdish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Latvian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Lithuanian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Luxembourgish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Macedonian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Malay.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Mongolian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Norwegian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Polish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\PortugueseBR.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Portuguese.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Romanian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Russian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\SerbianLatin.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Serbian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\SimpChinese.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Slovak.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Slovenian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Spanish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Swedish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Thai.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\TradChinese.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Turkish.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Ukrainian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Welsh.nlf"
+
+; License
+; Please see license/DO-NOT-TRANSLATE
+
+LicenseLangString license ${LANG_ALBANIAN} license\en.txt
+LicenseLangString license ${LANG_ARABIC} license\en.txt
+LicenseLangString license ${LANG_BASQUE} license\en.txt
+LicenseLangString license ${LANG_BELARUSIAN} license\en.txt
+LicenseLangString license ${LANG_BOSNIAN} license\en.txt
+LicenseLangString license ${LANG_BRETON} license\en.txt
+LicenseLangString license ${LANG_BULGARIAN} license\en.txt
+LicenseLangString license ${LANG_CATALAN} license\ca.txt
+LicenseLangString license ${LANG_CROATIAN} license\en.txt
+LicenseLangString license ${LANG_CZECH} license\en.txt
+LicenseLangString license ${LANG_DANISH} license\en.txt
+LicenseLangString license ${LANG_DUTCH} license\en.txt
+LicenseLangString license ${LANG_ENGLISH} license\en.txt
+LicenseLangString license ${LANG_ESTONIAN} license\en.txt
+LicenseLangString license ${LANG_FARSI} license\en.txt
+LicenseLangString license ${LANG_FINNISH} license\en.txt
+LicenseLangString license ${LANG_FRENCH} license\en.txt
+LicenseLangString license ${LANG_GERMAN} license\en.txt
+LicenseLangString license ${LANG_GREEK} license\en.txt
+LicenseLangString license ${LANG_HEBREW} license\en.txt
+LicenseLangString license ${LANG_HUNGARIAN} license\en.txt
+LicenseLangString license ${LANG_ICELANDIC} license\en.txt
+LicenseLangString license ${LANG_INDONESIAN} license\en.txt
+LicenseLangString license ${LANG_IRISH} license\en.txt
+LicenseLangString license ${LANG_ITALIAN} license\en.txt
+LicenseLangString license ${LANG_JAPANESE} license\en.txt
+LicenseLangString license ${LANG_KOREAN} license\en.txt
+LicenseLangString license ${LANG_KURDISH} license\en.txt
+LicenseLangString license ${LANG_LATVIAN} license\en.txt
+LicenseLangString license ${LANG_LITHUANIAN} license\en.txt
+LicenseLangString license ${LANG_LUXEMBOURGISH} license\en.txt
+LicenseLangString license ${LANG_MACEDONIAN} license\en.txt
+LicenseLangString license ${LANG_MALAY} license\en.txt
+LicenseLangString license ${LANG_MONGOLIAN} license\en.txt
+LicenseLangString license ${LANG_NORWEGIAN} license\en.txt
+LicenseLangString license ${LANG_POLISH} license\en.txt
+LicenseLangString license ${LANG_PORTUGUESEBR} license\en.txt
+LicenseLangString license ${LANG_PORTUGUESE} license\en.txt
+LicenseLangString license ${LANG_ROMANIAN} license\en.txt
+LicenseLangString license ${LANG_RUSSIAN} license\en.txt
+LicenseLangString license ${LANG_SERBIANLATIN} license\en.txt
+LicenseLangString license ${LANG_SERBIAN} license\en.txt
+LicenseLangString license ${LANG_SIMPCHINESE} license\en.txt
+LicenseLangString license ${LANG_SLOVAK} license\en.txt
+LicenseLangString license ${LANG_SLOVENIAN} license\en.txt
+LicenseLangString license ${LANG_SPANISH} license\es.txt
+LicenseLangString license ${LANG_SWEDISH} license\en.txt
+LicenseLangString license ${LANG_THAI} license\en.txt
+LicenseLangString license ${LANG_TRADCHINESE} license\en.txt
+LicenseLangString license ${LANG_TURKISH} license\en.txt
+LicenseLangString license ${LANG_UKRAINIAN} license\en.txt
+LicenseLangString license ${LANG_WELSH} license\en.txt
+LicenseData $(license)
+LicenseForceSelection checkbox
+
+; The default installation directory
+InstallDir "c:\debian"
+
+;--------------------------------
+
+; Pages
+
+Page license
+Page instfiles
+Page custom ShowWarning LeaveWarning
+
+UninstPage uninstConfirm
+UninstPage instfiles
+
+;--------------------------------
+
+; The stuff to install
+Section "Debian-Installer Loader"
+  SetOutPath $INSTDIR
+  ; we need 3 GB to install debian
+  ; FIXME: add a check here and warn the user (preferably, after asking wether she wants dual boot or nuking windoze completely)
+
+  ; Write the uninstall keys for Windows
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
+
+  test64::get_arch
+  Var /GLOBAL arch
+  StrCpy $arch $0
+
+  NSISdl::download http://ftp.us.debian.org/debian/dists/testing/main/installer-$arch/current/images/netboot/debian-installer/$arch/linux linux
+  Pop $R0
+  StrCmp $R0 "success" +4
+    StrCmp $R0 "cancel" +2
+      MessageBox MB_OK "Error: $R0"
+      Quit
+
+  NSISdl::download http://ftp.us.debian.org/debian/dists/testing/main/installer-$arch/current/images/netboot/debian-installer/$arch/initrd.gz initrd.gz
+  Pop $R0
+  StrCmp $R0 "success" +4
+    StrCmp $R0 "cancel" +2
+      MessageBox MB_OK "Error: $R0"
+      Quit
+
+  File /oname=c:\grldr "grub\grldr"
+  File /oname=c:\grub "grub\grub"
+; gtk support is waiting on #408535
+;  File /oname=c:\menu.lst "grub\gtk-menu.lst"
+  File /oname=c:\menu.lst "grub\text-menu.lst"
+
+  IfFileExists "c:\boot.ini" +3 0
+    MessageBox MB_OK "Error: c:\boot.ini not found.  Your version of Windows might be too old, or damaged."
+    Quit
+  WriteIniStr "c:\boot.ini" "operating systems" "c:\grldr" '"Debian Installer"'
+SectionEnd
+
+Function .onInit
+  InitPluginsDir
+  File /oname=$PLUGINSDIR\warning.ini warning.ini
+FunctionEnd
+
+Function ShowWarning
+  InstallOptions::dialog $PLUGINSDIR\warning.ini
+FunctionEnd
+
+Function LeaveWarning
+  MessageBox MB_YESNO|MB_ICONQUESTION "Do you want to reboot now?" IDNO +2
+  Reboot
+FunctionEnd
+
+;--------------------------------
+
+; Uninstaller
+
+Section "Uninstall"
+  DeleteINIStr "c:\boot.ini" "operating systems" "c:\grldr"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
+  Delete c:\grldr
+  Delete c:\grub
+  Delete c:\menu.lst
+  RMDir /r "$INSTDIR"
+SectionEnd
