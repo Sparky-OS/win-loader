@@ -1,17 +1,15 @@
 default		2
 color		cyan/blue white/blue
+find		--set-root /debian/initrd.gz
 
 title		Standard
-root		(hd0,0)
 kernel		/debian/linux vga=normal --
 initrd		/debian/initrd.gz
 
 title		Expert
-root		(hd0,0)
 kernel		/debian/linux priority=low vga=normal --
 initrd		/debian/initrd.gz
 
 title		Auto
-root		(hd0,0)
 kernel		/debian/linux priority=critical vga=normal --
 initrd		/debian/initrd.gz
