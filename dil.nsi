@@ -285,6 +285,8 @@ Section "Uninstall"
   Delete $c\grldr
   Delete $c\grub
   Delete $c\menu.lst
+  Delete $INSTDIR\gtk.bmp
+  Delete $INSTDIR\text.bmp
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
   RMDir  $INSTDIR
