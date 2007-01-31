@@ -1,5 +1,5 @@
 hiddenmenu
-default		2
+default		0
 timeout		0
 color		cyan/blue white/blue
 find		--set-root /debian/initrd.gz
