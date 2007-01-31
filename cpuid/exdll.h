@@ -1,5 +1,4 @@
-/* Obtained from NSIS source.  Should really be used dynamicaly, but the debian
-   package doesn't yet provide it.  --rmh */
+/* Obtained from NSIS source.  Should really be used dynamicaly (waiting on #408646) */
 
 #ifndef _EXDLL_H_
 #define _EXDLL_H_

@@ -1,5 +1,3 @@
-cpuid/exdll.h was obtained from NSIS source tree.
-
 grub/grldr and grub/grub were compiled (from unmodified source) using
 GRUB 0.97 (ftp://alpha.gnu.org/gnu/grub/) with grub_for_dos 0.4.2
 patchset/build-tree (http://sourceforge.net/projects/grub4dos).
