@@ -6,7 +6,7 @@ debian.exe: dil.nsi warning.ini graphics.ini cpuid/test64.dll grub/text-menu.lst
 
 cpuid/test64.dll: cpuid/cpuid.S cpuid/plugin.c
 	i586-mingw32msvc-gcc -Os cpuid/cpuid.S cpuid/plugin.c -shared -o cpuid/test64.dll -I/usr/i586-mingw32msvc/include
-	strip plugins/test64.dll
+	strip cpuid/test64.dll
 
 clean:
 	rm -f cpuid/*.dll cpuid/*.exe debian.exe *~ */*~
