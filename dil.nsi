@@ -26,8 +26,12 @@ OutFile "debian.exe"
 ; will need this for vista
 ;RequestExecutionLevel highest
 
-!addplugindir cpuid
 !include LogicLib.nsh
+!include FileFunc.nsh ; GetRoot / un.GetRoot
+!insertmacro GetRoot
+!insertmacro un.GetRoot
+
+!addplugindir cpuid
 !include checkspacefree.nsh
 
 ; First is default
@@ -163,11 +167,7 @@ Function ShowGraphics
 
   ; Initialise $c
   ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
-  ReadEnvStr $c SystemDrive
-  ${If} $c == ""
-    ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
-    StrCpy $c "c:"
-  ${Endif}
+  ${GetRoot} $WINDIR $c
 
   StrCpy $INSTDIR "$c\debian"
   SetOutPath $INSTDIR
@@ -280,11 +280,7 @@ FunctionEnd
 Section "Uninstall"
   ; Initialise $c
   ; FIXME: this blurb is duplicated in the installer.  keep in sync!
-  ReadEnvStr $c SystemDrive
-  ${If} $c == ""
-    ; notably, this is needed for wine.  see http://bugs.winehq.org/show_bug.cgi?id=7292
-;    StrCpy $c "c:"
-  ${Endif}
+  ${un.GetRoot} $WINDIR $c
 
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
