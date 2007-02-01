@@ -158,7 +158,7 @@ UninstPage instfiles
 
 Var /GLOBAL c
 
-Function .onInit
+Function ShowGraphics
   InitPluginsDir
 
   ; Initialise $c
@@ -190,9 +190,7 @@ safely ignore this warning."
   IntCmp $2 1 +3
   MessageBox MB_OK "Error: not enough free disk space.  Aborting install."
   Quit
-FunctionEnd
 
-Function ShowGraphics
   ; Write the uninstall keys for Windows
   WriteUninstaller "$INSTDIR\Uninstall.exe"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
