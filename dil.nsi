@@ -293,5 +293,6 @@ Section "Uninstall"
   Delete $INSTDIR\text.bmp
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
-  RMDir  $INSTDIR
+  Delete /REBOOTOK $INSTDIR\Uninstall.exe
+  RMDir /REBOOTOK $INSTDIR
 SectionEnd
