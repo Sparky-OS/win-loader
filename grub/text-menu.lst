@@ -9,7 +9,3 @@ initrd		/debian/initrd.gz
 title		Expert
 kernel		/debian/linux priority=low vga=normal --
 initrd		/debian/initrd.gz
-
-title		Auto
-kernel		/debian/linux priority=critical vga=normal --
-initrd		/debian/initrd.gz
