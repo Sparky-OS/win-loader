@@ -1,6 +1,6 @@
 all: debian.exe
 
-debian.exe: dil.nsi warning.ini graphics.ini cpuid/test64.dll grub/text-menu.lst grub/gtk-menu.lst grub/grub grub/grldr swirl.ico
+debian.exe: dil.nsi warning.ini graphics.ini cpuid/test64.dll grub/grub grub/grldr swirl.ico
 	makensis dil.nsi
 	du -h debian.exe
 

@@ -27,7 +27,7 @@ OutFile "debian.exe"
 ;RequestExecutionLevel highest
 
 !include LogicLib.nsh
-!include FileFunc.nsh ; GetRoot / un.GetRoot
+!include FileFunc.nsh
 !insertmacro GetRoot
 !insertmacro un.GetRoot
 
@@ -161,6 +161,7 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
+Var /GLOBAL preseed
 
 Function ShowGraphics
   InitPluginsDir
@@ -248,11 +249,39 @@ Section "Debian-Installer Loader"
 
   File /oname=$c\grldr "grub\grldr"
   File /oname=$c\grub "grub\grub"
-  ${If} $gtk == "gtk/"
-    File /oname=$c\menu.lst "grub\gtk-menu.lst"
-  ${Else}
-    File /oname=$c\menu.lst "grub\text-menu.lst"
+
+  ; preseed hostname
+  System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  ${If} $2 != 0
+    ${If} $0 == ""
+      StrCpy $0 "dummy"
+    ${Endif}
+    StrCpy $preseed "$preseed hostname=$0"
   ${EndIf}
+
+  ; preseed domain
+  System::Call "kernel32.dll::GetComputerNameExW(i 2,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  ${If} $2 != 0
+    ${If} $0 == ""
+      StrCpy $0 "dummy"
+    ${Endif}
+    StrCpy $preseed "$preseed domain=$0"
+  ${EndIf}
+
+  ${If} $gtk == "gtk/"
+    StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
+  ${Else}
+    StrCpy $preseed "$preseed vga=normal"
+  ${EndIf}
+
+  FileOpen $0 $c\menu.lst w
+  FileWrite $0 "hiddenmenu$\n\
+default		0$\n\
+timeout		0$\n\
+find		--set-root /debian/initrd.gz$\n\
+kernel		/debian/linux $preseed --$\n\
+initrd		/debian/initrd.gz$\n"
+  FileClose $0
 
   ${Unless} ${FileExists} "$c\boot.ini"
     MessageBox MB_OK "Error: $c\boot.ini not found.  Your version of Windows might be too old, or damaged."
