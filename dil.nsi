@@ -249,6 +249,7 @@ Section "Debian-Installer Loader"
   File /oname=$c\grldr "grub\grldr"
   File /oname=$c\grub "grub\grub"
 
+  ; ***************************************** PRESEEDING SECTION BEGINS *******************************************
   ; Initialise $preseed
   Var /GLOBAL preseed
   StrCpy $preseed "interface=auto"
@@ -271,6 +272,14 @@ Section "Debian-Installer Loader"
     StrCpy $preseed "$preseed domain=$0"
   ${EndIf}
 
+  ; preseed timezone
+  File /oname=$PLUGINSDIR\timezones.ini timezones.ini
+  ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
+  ReadINIStr $0 $PLUGINSDIR\timezones.ini "timezones" "$0"
+  ${If} $0 != ""
+    StrCpy $preseed "$preseed time/zone=$0"
+  ${Endif}
+
   ${If} $gtk == "gtk/"
     StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
   ${Else}
@@ -283,6 +292,7 @@ find	--set-root /debian/initrd.gz$\n\
 kernel	/debian/linux $preseed --$\n\
 initrd	/debian/initrd.gz$\n"
   FileClose $0
+  ; ***************************************** PRESEEDING SECTION ENDS *******************************************
 
   ${Unless} ${FileExists} "$c\boot.ini"
     MessageBox MB_OK "Error: $c\boot.ini not found.  Your version of Windows might be too old, or damaged."
