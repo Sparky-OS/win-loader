@@ -161,7 +161,6 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
-Var /GLOBAL preseed
 
 Function ShowGraphics
   InitPluginsDir
@@ -249,6 +248,10 @@ Section "Debian-Installer Loader"
 
   File /oname=$c\grldr "grub\grldr"
   File /oname=$c\grub "grub\grub"
+
+  ; Initialise $preseed
+  Var /GLOBAL preseed
+  StrCpy $preseed "interface=auto"
 
   ; preseed hostname
   System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
