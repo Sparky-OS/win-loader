@@ -254,7 +254,7 @@ Section "Debian-Installer Loader"
   System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
   ${If} $2 != 0
     ${If} $0 == ""
-      StrCpy $0 "dummy"
+      StrCpy $0 "debian"
     ${Endif}
     StrCpy $preseed "$preseed hostname=$0"
   ${EndIf}
@@ -263,7 +263,7 @@ Section "Debian-Installer Loader"
   System::Call "kernel32.dll::GetComputerNameExW(i 2,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
   ${If} $2 != 0
     ${If} $0 == ""
-      StrCpy $0 "dummy"
+      StrCpy $0 "localdomain"
     ${Endif}
     StrCpy $preseed "$preseed domain=$0"
   ${EndIf}
