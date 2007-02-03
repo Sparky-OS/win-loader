@@ -275,12 +275,10 @@ Section "Debian-Installer Loader"
   ${EndIf}
 
   FileOpen $0 $c\menu.lst w
-  FileWrite $0 "hiddenmenu$\n\
-default		0$\n\
-timeout		0$\n\
-find		--set-root /debian/initrd.gz$\n\
-kernel		/debian/linux $preseed --$\n\
-initrd		/debian/initrd.gz$\n"
+  FileWrite $0 "\
+find	--set-root /debian/initrd.gz$\n\
+kernel	/debian/linux $preseed --$\n\
+initrd	/debian/initrd.gz$\n"
   FileClose $0
 
   ${Unless} ${FileExists} "$c\boot.ini"
