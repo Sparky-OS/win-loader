@@ -228,7 +228,22 @@ Section "Debian-Installer Loader"
   Var /GLOBAL base_url
   StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
 
-  NSISdl::download $base_url/linux $INSTDIR\linux
+  ; keep $proxy for preseeding later
+  Var /GLOBAL proxy
+  Var /GLOBAL nsisdl_proxy
+  ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
+  IntCmp $0 1 0 proxyless
+  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
+  StrCmp $0 "" proxyless
+  StrCpy $proxy "$0"
+proxyless:
+  ${If} $proxy == ""
+    StrCpy $nsisdl_proxy "/NOIEPROXY"
+  ${Else}
+    StrCpy $nsisdl_proxy "/PROXY $proxy"
+  ${Endif}
+
+  NSISdl::download $nsisdl_proxy $base_url/linux $INSTDIR\linux
   Pop $R0
   ${If} $R0 != "success"
     ${If} $R0 != "cancel"
@@ -237,7 +252,7 @@ Section "Debian-Installer Loader"
     Quit
   ${EndIf}
 
-  NSISdl::download $base_url/initrd.gz $INSTDIR\initrd.gz
+  NSISdl::download $nsisdl_proxy $base_url/initrd.gz $INSTDIR\initrd.gz
   Pop $R0
   ${If} $R0 != "success"
     ${If} $R0 != "cancel"
@@ -271,6 +286,11 @@ Section "Debian-Installer Loader"
     ${Endif}
     StrCpy $preseed "$preseed domain=$0"
   ${EndIf}
+
+  ; preseed proxy
+  ${If} $proxy != ""
+    StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
+  ${Endif}
 
   ; preseed timezone
   File /oname=$PLUGINSDIR\timezones.ini timezones.ini
