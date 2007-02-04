@@ -238,12 +238,13 @@ Section "Debian-Installer Loader"
 
   Var /GLOBAL proxy
   StrCpy $proxy "/NOIEPROXY"
+  StrCpy $preseed "$preseed mirror/http/proxy="
   ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
   IntCmp $0 1 0 proxyless
   ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
   StrCmp $0 "" proxyless
-  StrCpy $preseed "$preseed mirror/http/proxy=http://$0/"
   StrCpy $proxy "/PROXY $0"
+  StrCpy $preseed "$preseedhttp://$0/"
 proxyless:
 
   NSISdl::download $proxy $base_url/linux $INSTDIR\linux
