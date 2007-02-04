@@ -161,9 +161,13 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
+Var /GLOBAL preseed
 
 Function ShowGraphics
   InitPluginsDir
+
+  ; Initialise $preseed
+  StrCpy $preseed "interface=auto"
 
   ; Initialise $c
   ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
@@ -223,27 +227,26 @@ Section "Debian-Installer Loader"
   ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
   ${If} $0 == "1"
     StrCpy $gtk "gtk/"
-  ${Endif}
+    StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
+  ${Else}
+    StrCpy $preseed "$preseed vga=normal"
+  ${EndIf}
+
 
   Var /GLOBAL base_url
   StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
 
-  ; keep $proxy for preseeding later
   Var /GLOBAL proxy
-  Var /GLOBAL nsisdl_proxy
+  StrCpy $proxy "/NOIEPROXY"
   ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
   IntCmp $0 1 0 proxyless
   ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
   StrCmp $0 "" proxyless
-  StrCpy $proxy "$0"
+  StrCpy $preseed "$preseed mirror/http/proxy=http://$0/"
+  StrCpy $proxy "/PROXY $0"
 proxyless:
-  ${If} $proxy == ""
-    StrCpy $nsisdl_proxy "/NOIEPROXY"
-  ${Else}
-    StrCpy $nsisdl_proxy "/PROXY $proxy"
-  ${Endif}
 
-  NSISdl::download $nsisdl_proxy $base_url/linux $INSTDIR\linux
+  NSISdl::download $proxy $base_url/linux $INSTDIR\linux
   Pop $R0
   ${If} $R0 != "success"
     ${If} $R0 != "cancel"
@@ -252,7 +255,7 @@ proxyless:
     Quit
   ${EndIf}
 
-  NSISdl::download $nsisdl_proxy $base_url/initrd.gz $INSTDIR\initrd.gz
+  NSISdl::download $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
   Pop $R0
   ${If} $R0 != "success"
     ${If} $R0 != "cancel"
@@ -263,11 +266,6 @@ proxyless:
 
   File /oname=$c\grldr "grub\grldr"
   File /oname=$c\grub "grub\grub"
-
-  ; ***************************************** PRESEEDING SECTION BEGINS *******************************************
-  ; Initialise $preseed
-  Var /GLOBAL preseed
-  StrCpy $preseed "interface=auto"
 
   ; preseed hostname
   System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
@@ -287,11 +285,6 @@ proxyless:
     StrCpy $preseed "$preseed domain=$0"
   ${EndIf}
 
-  ; preseed proxy
-  ${If} $proxy != ""
-    StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
-  ${Endif}
-
   ; preseed timezone
   File /oname=$PLUGINSDIR\timezones.ini timezones.ini
   ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
@@ -300,19 +293,12 @@ proxyless:
     StrCpy $preseed "$preseed time/zone=$0"
   ${Endif}
 
-  ${If} $gtk == "gtk/"
-    StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
-  ${Else}
-    StrCpy $preseed "$preseed vga=normal"
-  ${EndIf}
-
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
 find	--set-root /debian/initrd.gz$\n\
 kernel	/debian/linux $preseed --$\n\
 initrd	/debian/initrd.gz$\n"
   FileClose $0
-  ; ***************************************** PRESEEDING SECTION ENDS *******************************************
 
   ${Unless} ${FileExists} "$c\boot.ini"
     MessageBox MB_OK "Error: $c\boot.ini not found.  Your version of Windows might be too old, or damaged."
