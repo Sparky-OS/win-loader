@@ -286,12 +286,25 @@ proxyless:
     StrCpy $preseed "$preseed domain=$0"
   ${EndIf}
 
-  ; preseed timezone
+  ; needed by: timezones, keymaps
   File /oname=$PLUGINSDIR\maps.ini maps.ini
+
+  ; preseed timezone
   ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
   ReadINIStr $0 $PLUGINSDIR\maps.ini "timezones" "$0"
   ${If} $0 != ""
     StrCpy $preseed "$preseed time/zone=$0"
+  ${Endif}
+
+  ; preseed keymap
+  System::Call "user32.dll::GetKeyboardLayout(i 0)i.r0"
+  ; lower word is the locale identifier (higher word is a handler to the actual layout)
+  IntOp $0 $0 & 0x0000FFFF
+  IntFmt $0 "0x%04X" $0
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
+  ; FIXME: do we need to support non-AT keyboards here?
+  ${If} $0 != ""
+    StrCpy $preseed "$preseed console-keymaps-at/keymap=$0"
   ${Endif}
 
   FileOpen $0 $c\menu.lst w
