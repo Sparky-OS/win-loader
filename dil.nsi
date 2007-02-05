@@ -268,15 +268,6 @@ proxyless:
   File /oname=$c\grldr "grub\grldr"
   File /oname=$c\grub "grub\grub"
 
-  ; preseed hostname
-  System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
-  ${If} $2 != 0
-    ${If} $0 == ""
-      StrCpy $0 "debian"
-    ${Endif}
-    StrCpy $preseed "$preseed hostname=$0"
-  ${EndIf}
-
   ; preseed domain
   System::Call "kernel32.dll::GetComputerNameExW(i 2,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
   ${If} $2 != 0
@@ -296,6 +287,10 @@ proxyless:
     StrCpy $preseed "$preseed time/zone=$0"
   ${Endif}
 
+  ; IMPORTANT NOTE: after this point, preseeding only sets default, but doesn't
+  ; hide templates from the user
+  StrCpy $preseed "$preseed preseed/interactive=true"
+
   ; preseed keymap
   System::Call "user32.dll::GetKeyboardLayout(i 0)i.r0"
   ; lower word is the locale identifier (higher word is a handler to the actual layout)
@@ -306,6 +301,15 @@ proxyless:
   ${If} $0 != ""
     StrCpy $preseed "$preseed console-keymaps-at/keymap=$0"
   ${Endif}
+
+  ; preseed hostname
+  System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  ${If} $2 != 0
+    ${If} $0 == ""
+      StrCpy $0 "debian"
+    ${Endif}
+    StrCpy $preseed "$preseed hostname=$0"
+  ${EndIf}
 
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
