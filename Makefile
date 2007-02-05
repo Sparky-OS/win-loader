@@ -1,6 +1,6 @@
 all: debian.exe
 
-debian.exe: dil.nsi checkspacefree.nsh warning.ini graphics.ini timezones.ini cpuid/test64.dll grub/grub grub/grldr swirl.ico
+debian.exe: dil.nsi checkspacefree.nsh warning.ini graphics.ini maps.ini cpuid/test64.dll grub/grub grub/grldr swirl.ico
 	makensis dil.nsi
 	du -h debian.exe
 

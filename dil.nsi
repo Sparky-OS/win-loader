@@ -287,9 +287,9 @@ proxyless:
   ${EndIf}
 
   ; preseed timezone
-  File /oname=$PLUGINSDIR\timezones.ini timezones.ini
+  File /oname=$PLUGINSDIR\maps.ini maps.ini
   ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
-  ReadINIStr $0 $PLUGINSDIR\timezones.ini "timezones" "$0"
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "timezones" "$0"
   ${If} $0 != ""
     StrCpy $preseed "$preseed time/zone=$0"
   ${Endif}
