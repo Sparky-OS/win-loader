@@ -41,7 +41,6 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language files\Arabic.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Basque.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Belarusian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Bosnian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Breton.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Bulgarian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Catalan.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Croatian.nlf"
@@ -49,34 +48,27 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language files\Czech.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Danish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Dutch.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Estonian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Farsi.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Finnish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\French.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\German.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Greek.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Hebrew.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Hungarian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Icelandic.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Indonesian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Irish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Italian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Japanese.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Korean.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Kurdish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Latvian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Lithuanian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Luxembourgish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Macedonian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Malay.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Mongolian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Norwegian.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\NorwegianNynorsk.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Polish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\PortugueseBR.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Portuguese.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Romanian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Russian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\SerbianLatin.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Serbian.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\SimpChinese.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Slovak.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Slovenian.nlf"
@@ -86,7 +78,6 @@ LoadLanguageFile "${NSISDIR}\Contrib\Language files\Thai.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\TradChinese.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Turkish.nlf"
 LoadLanguageFile "${NSISDIR}\Contrib\Language files\Ukrainian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Welsh.nlf"
 
 ; License
 ; Please see license/DO-NOT-TRANSLATE
@@ -96,7 +87,6 @@ LicenseLangString license ${LANG_ARABIC} license\en.txt
 LicenseLangString license ${LANG_BASQUE} license\en.txt
 LicenseLangString license ${LANG_BELARUSIAN} license\en.txt
 LicenseLangString license ${LANG_BOSNIAN} license\en.txt
-LicenseLangString license ${LANG_BRETON} license\en.txt
 LicenseLangString license ${LANG_BULGARIAN} license\en.txt
 LicenseLangString license ${LANG_CATALAN} license\ca.txt
 LicenseLangString license ${LANG_CROATIAN} license\en.txt
@@ -105,34 +95,27 @@ LicenseLangString license ${LANG_DANISH} license\en.txt
 LicenseLangString license ${LANG_DUTCH} license\en.txt
 LicenseLangString license ${LANG_ENGLISH} license\en.txt
 LicenseLangString license ${LANG_ESTONIAN} license\en.txt
-LicenseLangString license ${LANG_FARSI} license\en.txt
 LicenseLangString license ${LANG_FINNISH} license\en.txt
 LicenseLangString license ${LANG_FRENCH} license\en.txt
 LicenseLangString license ${LANG_GERMAN} license\en.txt
 LicenseLangString license ${LANG_GREEK} license\en.txt
 LicenseLangString license ${LANG_HEBREW} license\en.txt
 LicenseLangString license ${LANG_HUNGARIAN} license\en.txt
-LicenseLangString license ${LANG_ICELANDIC} license\en.txt
 LicenseLangString license ${LANG_INDONESIAN} license\en.txt
-LicenseLangString license ${LANG_IRISH} license\en.txt
 LicenseLangString license ${LANG_ITALIAN} license\en.txt
 LicenseLangString license ${LANG_JAPANESE} license\en.txt
 LicenseLangString license ${LANG_KOREAN} license\en.txt
 LicenseLangString license ${LANG_KURDISH} license\en.txt
 LicenseLangString license ${LANG_LATVIAN} license\en.txt
 LicenseLangString license ${LANG_LITHUANIAN} license\en.txt
-LicenseLangString license ${LANG_LUXEMBOURGISH} license\en.txt
 LicenseLangString license ${LANG_MACEDONIAN} license\en.txt
-LicenseLangString license ${LANG_MALAY} license\en.txt
-LicenseLangString license ${LANG_MONGOLIAN} license\en.txt
 LicenseLangString license ${LANG_NORWEGIAN} license\en.txt
+LicenseLangString license ${LANG_NORWEGIANNYNORSK} license\en.txt
 LicenseLangString license ${LANG_POLISH} license\en.txt
 LicenseLangString license ${LANG_PORTUGUESEBR} license\en.txt
 LicenseLangString license ${LANG_PORTUGUESE} license\en.txt
 LicenseLangString license ${LANG_ROMANIAN} license\en.txt
 LicenseLangString license ${LANG_RUSSIAN} license\en.txt
-LicenseLangString license ${LANG_SERBIANLATIN} license\en.txt
-LicenseLangString license ${LANG_SERBIAN} license\en.txt
 LicenseLangString license ${LANG_SIMPCHINESE} license\en.txt
 LicenseLangString license ${LANG_SLOVAK} license\en.txt
 LicenseLangString license ${LANG_SLOVENIAN} license\en.txt
@@ -142,7 +125,6 @@ LicenseLangString license ${LANG_THAI} license\en.txt
 LicenseLangString license ${LANG_TRADCHINESE} license\en.txt
 LicenseLangString license ${LANG_TURKISH} license\en.txt
 LicenseLangString license ${LANG_UKRAINIAN} license\en.txt
-LicenseLangString license ${LANG_WELSH} license\en.txt
 LicenseData $(license)
 LicenseForceSelection checkbox
 
@@ -163,11 +145,168 @@ UninstPage instfiles
 Var /GLOBAL c
 Var /GLOBAL preseed
 
-Function ShowGraphics
+Function .onInit
   InitPluginsDir
 
+  ; needed by: timezones, keymaps, languages
+  File /oname=$PLUGINSDIR\maps.ini maps.ini
+
+  ; default to English
+  StrCpy $LANGUAGE 1033
+
+  ; Language selection dialog
+  Push ""
+  Push ${LANG_ALBANIAN}
+  Push Albanian
+  Push ${LANG_ARABIC}
+  Push Arabic
+  Push ${LANG_BASQUE}
+  Push Basque
+  Push ${LANG_BELARUSIAN}
+  Push Belarusian
+  Push unsupported
+  Push Bengali
+  Push ${LANG_BOSNIAN}
+  Push Bosnian
+  Push ${LANG_BULGARIAN}
+  Push Bulgarian
+  Push ${LANG_CATALAN}
+  Push Catalan
+  Push ${LANG_SIMPCHINESE}
+  Push "Chinese (Simplified)"
+  Push ${LANG_TRADCHINESE}
+  Push "Chinese (Traditional)"
+  Push ${LANG_CROATIAN}
+  Push Croatian
+  Push ${LANG_CZECH}
+  Push Czech
+  Push ${LANG_DANISH}
+  Push Danish
+  Push ${LANG_DUTCH}
+  Push Dutch
+  Push unsupported
+  Push Dzongkha
+  Push ${LANG_ENGLISH}
+  Push English
+  Push unsupported
+  Push Esperanto
+  Push ${LANG_ESTONIAN}
+  Push Estonian
+  Push ${LANG_FINNISH}
+  Push Finnish
+  Push ${LANG_FRENCH}
+  Push French
+  Push unsupported
+  Push Galician
+  Push unsupported
+  Push Georgian
+  Push ${LANG_GERMAN}
+  Push German
+  Push ${LANG_GREEK}
+  Push Greek
+  Push unsupported
+  Push Gujarati
+  Push ${LANG_HEBREW}
+  Push Hebrew
+  Push unsupported
+  Push Hindi
+  Push ${LANG_HUNGARIAN}
+  Push Hungarian
+  Push ${LANG_INDONESIAN}
+  Push Indonesian
+  Push ${LANG_ITALIAN}
+  Push Italian
+  Push ${LANG_JAPANESE}
+  Push Japanese
+  Push unsupported
+  Push Khmer
+  Push ${LANG_KOREAN}
+  Push Korean
+  Push ${LANG_KURDISH}
+  Push Kurdish
+  Push ${LANG_LATVIAN}
+  Push Latvian
+  Push ${LANG_LITHUANIAN}
+  Push Lithuanian
+  Push unsupported
+  Push Malayalam
+  Push ${LANG_MACEDONIAN}
+  Push Macedonian
+  Push unsupported
+  Push Nepali
+  Push unsupported
+  Push "Northern Sami"
+  Push ${LANG_NORWEGIAN}
+  Push "Norwegian Bokmaal"
+  Push ${LANG_NORWEGIANNYNORSK}
+  Push "Norwegian Nynorsk"
+  Push ${LANG_POLISH}
+  Push Polish
+  Push ${LANG_PORTUGUESEBR}
+  Push "Portuguese (Brazil)"
+  Push ${LANG_PORTUGUESE}
+  Push Portuguese
+  Push unsupported
+  Push "Punjabi (Gurmukhi)"
+  Push ${LANG_ROMANIAN}
+  Push Romanian
+  Push ${LANG_RUSSIAN}
+  Push Russian
+  Push ${LANG_SLOVAK}
+  Push Slovak
+  Push ${LANG_SLOVENIAN}
+  Push Slovenian
+  Push ${LANG_SPANISH}
+  Push Spanish
+  Push ${LANG_SWEDISH}
+  Push Swedish
+  Push unsupported
+  Push Tagalog
+  Push unsupported
+  Push Tamil
+  Push ${LANG_THAI}
+  Push Thai
+  Push ${LANG_TURKISH}
+  Push Turkish
+  Push ${LANG_UKRAINIAN}
+  Push Ukrainian
+  Push unsupported
+  Push Vietnamese
+  Push unsupported
+  Push Wolof
+
+  Push A ; A means auto count languages
+         ; for the auto count to work the first empty push (Push "") must remain
+  LangDLL::LangDialog "Choose language" "Please choose the language used for \
+the installation process. This language will be the default language for the \
+final system."
+
+  Pop $LANGUAGE
+  ${If} $LANGUAGE == "cancel"
+    Abort
+  ${Endif}
+
+  ; Note: Possible API abuse here.  Nsis *seems* to fallback sanely to English
+  ; when $LANGUAGE == "unsupported", so we'll use that to decide wether to
+  ; preseed later.
+
+  ${If} $LANGUAGE == "unsupported"
+    ; Translators: your language is supported by d-i, but not yet by nsis.
+    ; Please get your translation in nsis before translating win32-loader.
+    MessageBox MB_OK "Because the language you have selected is not supported \
+by this stage of the installer, English will be used for now.  On the second \
+(and last) stage of the install process, you will be able to select it."
+  ${Endif}
+FunctionEnd
+
+Function ShowGraphics
   ; Initialise $preseed
   StrCpy $preseed "interface=auto"
+
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
+  ${If} $0 != ""
+;    StrCpy $preseed "$preseed locale=$0_XX"
+  ${Endif}
 
   ; Initialise $c
   ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
@@ -276,9 +415,6 @@ proxyless:
     ${Endif}
     StrCpy $preseed "$preseed domain=$0"
   ${EndIf}
-
-  ; needed by: timezones, keymaps
-  File /oname=$PLUGINSDIR\maps.ini maps.ini
 
   ; preseed timezone
   ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
