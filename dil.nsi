@@ -336,9 +336,11 @@ safely ignore this warning."
   File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
   File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
   File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
-
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" "Select install mode:"
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" "Graphical install (recommended)"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" "Text install"
   InstallOptions::dialog $PLUGINSDIR\graphics.ini
 FunctionEnd
 
@@ -436,6 +438,11 @@ proxyless:
 ; ********************************************** Display customisation dialog now
   Var /GLOBAL boot_ini
   File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" "Debian-Installer Loader will be setup with the following parameters.  Do NOT change any of these unless you know what you're doing!"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" "NSISdl proxy settings (host:port):"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" "Location of boot.ini:"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" "Debconf preseed line:"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" "Base URL for netboot images (linux and initrd.gz):"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$c\boot.ini"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
@@ -507,6 +514,17 @@ SectionEnd
 
 Function ShowWarning
   File /oname=$PLUGINSDIR\warning.ini templates/warning.ini
+  WriteINIStr $PLUGINSDIR\warning.ini "Field 1" "Text" 'VERY IMPORTANT NOTICE:$\n$\nYou \
+need to reboot in order to proceed with your Debian install.  During your next boot, you \
+will be asked whether you want to start Windows or "Debian Installer".  Choose \
+"Debian Installer" to continue the install process.$\n$\nDuring the install process, \
+you will be offered the possibility of either reducing your Windows partition to install \
+Debian or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that you \
+have previously made a backup of your data.  Nor the authors of this loader neither the \
+Debian project will take ANY RESPONSIBILITY in the event of data loss.$\n$\nOnce your \
+Debian install is complete (and if you have chosen to keep Windows in your disk), you \
+can uninstall the Debian-Installer Loader through the Windows Add/Remove Programs dialog \
+in Control Panel.$\n$\nEnjoy!'
   InstallOptions::dialog $PLUGINSDIR\warning.ini
 FunctionEnd
 
