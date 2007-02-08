@@ -134,8 +134,9 @@ LicenseForceSelection checkbox
 
 Page license
 Page custom ShowGraphics
+Page custom ShowCustom
 Page instfiles
-Page custom ShowWarning LeaveWarning
+Page custom ShowWarning
 
 UninstPage uninstConfirm
 UninstPage instfiles
@@ -300,26 +301,19 @@ by this stage of the installer, English will be used for now.  On the second \
 FunctionEnd
 
 Function ShowGraphics
-  ; Initialise $preseed
+; Do initialisations as early as possible, but not before license has been
+; accepted unless absolutely necessary.
+
+; ********************************************** Initialise $preseed
   StrCpy $preseed "interface=auto"
-
-  ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
-  ReadRegStr $1 HKCU "Control Panel\International" sCountry
-  ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
-
-  ${If} $0 != ""
-    ${If} $1 != ""
-      StrCpy $preseed "$preseed locale=$0_$1"
-    ${Endif}
-  ${Endif}
-
-  ; Initialise $c
+; ********************************************** Initialise $c
   ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
   ${GetRoot} $WINDIR $c
 
   StrCpy $INSTDIR "$c\debian"
   SetOutPath $INSTDIR
 
+  ; Do space checks soon, because they're an abort condition
   ; we need 3 GiB to install debian
   ; FIXME: maybe we should ask whether user wants dual boot or nuking windoze completely first
   StrCpy $0 3145728 ; == 3 GiB
@@ -339,34 +333,45 @@ safely ignore this warning."
   MessageBox MB_OK "Error: not enough free disk space.  Aborting install."
   Quit
 
-  ; Write the uninstall keys for Windows
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
-
   File /oname=$PLUGINSDIR\graphics.ini graphics.ini
-  ; FIXME: I don't know how to refer to $PLUGINSDIR from graphics.ini, so let's install them in $INSTDIR
-  File gtk.bmp gtk.bmp
-  File text.bmp text.bmp
-  File /oname=$PLUGINSDIR\warning.ini warning.ini
+  File /oname=$PLUGINSDIR\gtk.bmp gtk.bmp
+  File /oname=$PLUGINSDIR\text.bmp text.bmp
 
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$c\debian\gtk.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$c\debian\text.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
   InstallOptions::dialog $PLUGINSDIR\graphics.ini
 FunctionEnd
 
-Section "Debian-Installer Loader"
+Function ShowCustom
+
+; Gather all the missing information before ShowCustom is displayed
+
+; Preseed proxy first, so that it'll be more visible in ShowCustom
+; ********************************************** Initialise proxy and preseed it
+  Var /GLOBAL proxy
+  StrCpy $proxy ""
+  ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
+  IntCmp $0 1 0 proxyless
+  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
+  StrCmp $0 "" proxyless
+  StrCpy $proxy "$0"
+proxyless:
+  ${If} $proxy != ""
+    StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
+  ${Else}
+    StrCpy $preseed "$preseed mirror/http/proxy="
+  ${Endif}
+
+; ********************************************** Initialise base_url + Preseed vga mode
   test64::get_arch
   Var /GLOBAL arch
   StrCpy $arch $0
-
   Var /GLOBAL fellow_hacker
   ${If} $arch == "i386"
     StrCpy $fellow_hacker "joeyh"
   ${Else}
     StrCpy $fellow_hacker "aba"
   ${EndIf}
-
   Var /GLOBAL gtk
   ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
   ${If} $0 == "1"
@@ -375,21 +380,91 @@ Section "Debian-Installer Loader"
   ${Else}
     StrCpy $preseed "$preseed vga=normal"
   ${EndIf}
-
-
   Var /GLOBAL base_url
   StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
 
-  Var /GLOBAL proxy
-  StrCpy $proxy "/NOIEPROXY"
-  StrCpy $preseed "$preseed mirror/http/proxy="
-  ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
-  IntCmp $0 1 0 proxyless
-  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
-  StrCmp $0 "" proxyless
-  StrCpy $proxy "/PROXY $0"
-  StrCpy $preseed "$preseedhttp://$0/"
-proxyless:
+; ********************************************** preseed locale
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
+  ReadRegStr $1 HKCU "Control Panel\International" sCountry
+  ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
+  ${If} $0 != ""
+    ${If} $1 != ""
+      StrCpy $preseed "$preseed locale=$0_$1"
+    ${Endif}
+  ${Endif}
+
+; ********************************************** preseed domain
+  System::Call "kernel32.dll::GetComputerNameExW(i 2,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  ${If} $2 != 0
+    ${If} $0 == ""
+      StrCpy $0 "localdomain"
+    ${Endif}
+    StrCpy $preseed "$preseed domain=$0"
+  ${EndIf}
+
+; ********************************************** preseed timezone
+  ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "timezones" "$0"
+  ${If} $0 != ""
+    StrCpy $preseed "$preseed time/zone=$0"
+  ${Endif}
+
+; ********************************************** IMPORTANT NOTE: after this point,
+; preseeding only sets default, but doesn't hide templates from the user
+  StrCpy $preseed "$preseed preseed/interactive=true"
+
+; ********************************************** preseed keymap
+  System::Call "user32.dll::GetKeyboardLayout(i 0)i.r0"
+  ; lower word is the locale identifier (higher word is a handler to the actual layout)
+  IntOp $0 $0 & 0x0000FFFF
+  IntFmt $0 "0x%04X" $0
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
+  ; FIXME: do we need to support non-AT keyboards here?
+  ${If} $0 != ""
+    StrCpy $preseed "$preseed console-keymaps-at/keymap=$0"
+  ${Endif}
+
+; ********************************************** preseed hostname
+  System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  ${If} $2 != 0
+    ${If} $0 == ""
+      StrCpy $0 "debian"
+    ${Endif}
+    StrCpy $preseed "$preseed hostname=$0"
+  ${EndIf}
+
+; ********************************************** Display customisation dialog now
+  Var /GLOBAL boot_ini
+  File /oname=$PLUGINSDIR\custom.ini custom.ini
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$c\boot.ini"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 9" "State" "$preseed"
+  InstallOptions::dialog $PLUGINSDIR\custom.ini
+  ReadINIStr $proxy	$PLUGINSDIR\custom.ini "Field 6" "State"
+  ReadINIStr $boot_ini	$PLUGINSDIR\custom.ini "Field 7" "State"
+  ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
+  ReadINIStr $preseed	$PLUGINSDIR\custom.ini "Field 9" "State"
+FunctionEnd
+
+Section "Debian-Installer Loader"
+
+; ******************************************************************************
+; ***************************************** THIS IS WHERE THE REAL ACTION STARTS
+; ******************************************************************************
+
+  ; Up to this point, we haven't modified host system.  The first modification
+  ; we want to do is preparing the Uninstaller (so that in case something went
+  ; wrong, our half-install can be undone).
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
+
+  ${If} $proxy == ""
+    StrCpy $proxy /NOIEPROXY
+  ${Else}
+    StrCpy $proxy "/PROXY $proxy"
+  ${Endif}
 
   NSISdl::download $proxy $base_url/linux $INSTDIR\linux
   Pop $R0
@@ -412,46 +487,6 @@ proxyless:
   File /oname=$c\grldr "grub\grldr"
   File /oname=$c\grub "grub\grub"
 
-  ; preseed domain
-  System::Call "kernel32.dll::GetComputerNameExW(i 2,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
-  ${If} $2 != 0
-    ${If} $0 == ""
-      StrCpy $0 "localdomain"
-    ${Endif}
-    StrCpy $preseed "$preseed domain=$0"
-  ${EndIf}
-
-  ; preseed timezone
-  ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
-  ReadINIStr $0 $PLUGINSDIR\maps.ini "timezones" "$0"
-  ${If} $0 != ""
-    StrCpy $preseed "$preseed time/zone=$0"
-  ${Endif}
-
-  ; IMPORTANT NOTE: after this point, preseeding only sets default, but doesn't
-  ; hide templates from the user
-  StrCpy $preseed "$preseed preseed/interactive=true"
-
-  ; preseed keymap
-  System::Call "user32.dll::GetKeyboardLayout(i 0)i.r0"
-  ; lower word is the locale identifier (higher word is a handler to the actual layout)
-  IntOp $0 $0 & 0x0000FFFF
-  IntFmt $0 "0x%04X" $0
-  ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
-  ; FIXME: do we need to support non-AT keyboards here?
-  ${If} $0 != ""
-    StrCpy $preseed "$preseed console-keymaps-at/keymap=$0"
-  ${Endif}
-
-  ; preseed hostname
-  System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
-  ${If} $2 != 0
-    ${If} $0 == ""
-      StrCpy $0 "debian"
-    ${Endif}
-    StrCpy $preseed "$preseed hostname=$0"
-  ${EndIf}
-
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
 find	--set-root /debian/initrd.gz$\n\
@@ -459,21 +494,23 @@ kernel	/debian/linux $preseed --$\n\
 initrd	/debian/initrd.gz$\n"
   FileClose $0
 
-  ${Unless} ${FileExists} "$c\boot.ini"
-    MessageBox MB_OK "Error: $c\boot.ini not found.  Your version of Windows might be too old, or damaged."
+; ********************************************** Do boot.ini last, because it's the most dangerous
+  ${Unless} ${FileExists} "$boot_ini"
+    MessageBox MB_OK "Error: $boot_ini not found.  Your version of Windows might be too old, or damaged."
     Quit
   ${Endif}
 
-  SetFileAttributes "$c\boot.ini" NORMAL
-  SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
-  WriteIniStr "$c\boot.ini" "operating systems" "$c\grldr" '"Debian Installer"'
+  SetFileAttributes "$boot_ini" NORMAL
+  SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
+  WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"Debian Installer"'
 SectionEnd
 
 Function ShowWarning
+  File /oname=$PLUGINSDIR\warning.ini warning.ini
   InstallOptions::dialog $PLUGINSDIR\warning.ini
 FunctionEnd
 
-Function LeaveWarning
+Function .onInstSuccess
   MessageBox MB_YESNO|MB_ICONQUESTION "Do you want to reboot now?" IDNO +2
   Reboot
 FunctionEnd
@@ -494,8 +531,6 @@ Section "Uninstall"
   Delete $c\grldr
   Delete $c\grub
   Delete $c\menu.lst
-  Delete $INSTDIR\gtk.bmp
-  Delete $INSTDIR\text.bmp
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
   Delete /REBOOTOK $INSTDIR\Uninstall.exe
