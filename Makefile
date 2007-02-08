@@ -8,5 +8,10 @@ cpuid/test64.dll: cpuid/cpuid.S cpuid/plugin.c
 	i586-mingw32msvc-gcc -Os cpuid/cpuid.S cpuid/plugin.c -shared -o cpuid/test64.dll -I/usr/i586-mingw32msvc/include
 	i586-mingw32msvc-strip cpuid/test64.dll
 
+maps.ini: maps.ini.in /usr/share/iso-codes/iso_3166.tab
+	cp maps.ini.in maps.ini
+	echo -en "\n[countries]\n" >> maps.ini
+	while read a b ; do echo "$$b=$$a" ; done < /usr/share/iso-codes/iso_3166.tab >> maps.ini
+
 clean:
-	rm -f cpuid/*.dll cpuid/*.exe debian.exe *~ */*~
+	rm -f cpuid/*.dll cpuid/*.exe debian.exe *~ */*~ maps.ini

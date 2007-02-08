@@ -304,8 +304,13 @@ Function ShowGraphics
   StrCpy $preseed "interface=auto"
 
   ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
+  ReadRegStr $1 HKCU "Control Panel\International" sCountry
+  ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
+
   ${If} $0 != ""
-;    StrCpy $preseed "$preseed locale=$0_XX"
+    ${If} $1 != ""
+      StrCpy $preseed "$preseed locale=$0_$1"
+    ${Endif}
   ${Endif}
 
   ; Initialise $c

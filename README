@@ -2,7 +2,7 @@
 Build instructions
 ~~~~~~~~~~~~~~~~~~
 
-  sudo apt-get install nsis mingw32
+  sudo apt-get install nsis mingw32 iso-codes
   make
 
 That's all.
