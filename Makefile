@@ -1,6 +1,8 @@
 all: debian.exe
 
-debian.exe: dil.nsi checkspacefree.nsh warning.ini graphics.ini maps.ini custom.ini cpuid/test64.dll grub/grub grub/grldr swirl.ico
+debian.exe: dil.nsi checkspacefree.nsh maps.ini \
+		templates/graphics.ini templates/custom.ini templates/warning.ini \
+		cpuid/test64.dll grub/grub grub/grldr swirl.ico
 	makensis dil.nsi
 	du -h debian.exe
 
