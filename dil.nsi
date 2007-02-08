@@ -333,9 +333,9 @@ safely ignore this warning."
   MessageBox MB_OK "Error: not enough free disk space.  Aborting install."
   Quit
 
-  File /oname=$PLUGINSDIR\graphics.ini graphics.ini
-  File /oname=$PLUGINSDIR\gtk.bmp gtk.bmp
-  File /oname=$PLUGINSDIR\text.bmp text.bmp
+  File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
+  File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
+  File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
 
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
@@ -435,7 +435,7 @@ proxyless:
 
 ; ********************************************** Display customisation dialog now
   Var /GLOBAL boot_ini
-  File /oname=$PLUGINSDIR\custom.ini custom.ini
+  File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
   WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$c\boot.ini"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
@@ -506,7 +506,7 @@ initrd	/debian/initrd.gz$\n"
 SectionEnd
 
 Function ShowWarning
-  File /oname=$PLUGINSDIR\warning.ini warning.ini
+  File /oname=$PLUGINSDIR\warning.ini templates/warning.ini
   InstallOptions::dialog $PLUGINSDIR\warning.ini
 FunctionEnd
 
