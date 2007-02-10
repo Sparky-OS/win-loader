@@ -491,8 +491,8 @@ Section "Debian-Installer Loader"
     Quit
   ${EndIf}
 
-  File /oname=$c\grldr "grub\grldr"
-  File /oname=$c\grub "grub\grub"
+  File /oname=$c\grldr "contrib/grldr"
+  File /oname=$c\grub "contrib/grub"
 
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
