@@ -209,10 +209,6 @@ proxyless:
     StrCpy $preseed "$preseed time/zone=$0"
   ${Endif}
 
-; ********************************************** IMPORTANT NOTE: after this point,
-; preseeding only sets default, but doesn't hide templates from the user
-  StrCpy $preseed "$preseed preseed/interactive=true"
-
 ; ********************************************** preseed keymap
   System::Call "user32.dll::GetKeyboardLayout(i 0)i.r0"
   ; lower word is the locale identifier (higher word is a handler to the actual layout)
@@ -221,7 +217,7 @@ proxyless:
   ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
   ; FIXME: do we need to support non-AT keyboards here?
   ${If} $0 != ""
-    StrCpy $preseed "$preseed console-keymaps-at/keymap=$0"
+    StrCpy $preseed "$preseed console-keymaps-at/keymap?=$0"
   ${Endif}
 
 ; ********************************************** preseed hostname
@@ -230,7 +226,7 @@ proxyless:
     ${If} $0 == ""
       StrCpy $0 "debian"
     ${Endif}
-    StrCpy $preseed "$preseed hostname=$0"
+    StrCpy $preseed "$preseed hostname?=$0"
   ${EndIf}
 
 ; ********************************************** Display customisation dialog now
