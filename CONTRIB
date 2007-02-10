@@ -1,3 +1,7 @@
-grub/grldr and grub/grub were compiled (from unmodified source) using
+contrib/grldr and contrib/grub were compiled (from unmodified source) using
 GRUB 0.97 (ftp://alpha.gnu.org/gnu/grub/) with grub_for_dos 0.4.2
 patchset/build-tree (http://sourceforge.net/projects/grub4dos).
+
+contrib/System.dll cannot be compiled from source (see #319999), so it was
+obtained from the NSIS 2.23 binary distribution:
+http://nsis.sourceforge.net/Download
