@@ -17,7 +17,11 @@
 
 ; SetCompressor must _always_ be the first command
 SetCompressor /SOLID lzma
-Name "Debian-Installer Loader"
+
+; First is default
+!include l10n/templates/en.nsh
+
+Name $(program_name)
 Icon "swirl.ico"
 UninstallIcon "swirl.ico"
 XPStyle on
@@ -34,97 +38,8 @@ OutFile "debian.exe"
 !addplugindir cpuid
 !include checkspacefree.nsh
 
-; First is default
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Albanian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Arabic.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Basque.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Belarusian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Bosnian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Bulgarian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Catalan.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Croatian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Czech.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Danish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Dutch.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Estonian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Finnish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\French.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\German.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Greek.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Hebrew.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Hungarian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Indonesian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Italian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Japanese.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Korean.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Kurdish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Latvian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Lithuanian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Macedonian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Norwegian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\NorwegianNynorsk.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Polish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\PortugueseBR.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Portuguese.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Romanian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Russian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\SimpChinese.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Slovak.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Slovenian.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Spanish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Swedish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Thai.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\TradChinese.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Turkish.nlf"
-LoadLanguageFile "${NSISDIR}\Contrib\Language files\Ukrainian.nlf"
+;--------------------------------
 
-; License
-; Please see license/DO-NOT-TRANSLATE
-
-LicenseLangString license ${LANG_ALBANIAN} license\en.txt
-LicenseLangString license ${LANG_ARABIC} license\en.txt
-LicenseLangString license ${LANG_BASQUE} license\en.txt
-LicenseLangString license ${LANG_BELARUSIAN} license\en.txt
-LicenseLangString license ${LANG_BOSNIAN} license\en.txt
-LicenseLangString license ${LANG_BULGARIAN} license\en.txt
-LicenseLangString license ${LANG_CATALAN} license\ca.txt
-LicenseLangString license ${LANG_CROATIAN} license\en.txt
-LicenseLangString license ${LANG_CZECH} license\en.txt
-LicenseLangString license ${LANG_DANISH} license\en.txt
-LicenseLangString license ${LANG_DUTCH} license\en.txt
-LicenseLangString license ${LANG_ENGLISH} license\en.txt
-LicenseLangString license ${LANG_ESTONIAN} license\en.txt
-LicenseLangString license ${LANG_FINNISH} license\en.txt
-LicenseLangString license ${LANG_FRENCH} license\en.txt
-LicenseLangString license ${LANG_GERMAN} license\en.txt
-LicenseLangString license ${LANG_GREEK} license\en.txt
-LicenseLangString license ${LANG_HEBREW} license\en.txt
-LicenseLangString license ${LANG_HUNGARIAN} license\en.txt
-LicenseLangString license ${LANG_INDONESIAN} license\en.txt
-LicenseLangString license ${LANG_ITALIAN} license\en.txt
-LicenseLangString license ${LANG_JAPANESE} license\en.txt
-LicenseLangString license ${LANG_KOREAN} license\en.txt
-LicenseLangString license ${LANG_KURDISH} license\en.txt
-LicenseLangString license ${LANG_LATVIAN} license\en.txt
-LicenseLangString license ${LANG_LITHUANIAN} license\en.txt
-LicenseLangString license ${LANG_MACEDONIAN} license\en.txt
-LicenseLangString license ${LANG_NORWEGIAN} license\en.txt
-LicenseLangString license ${LANG_NORWEGIANNYNORSK} license\en.txt
-LicenseLangString license ${LANG_POLISH} license\en.txt
-LicenseLangString license ${LANG_PORTUGUESEBR} license\en.txt
-LicenseLangString license ${LANG_PORTUGUESE} license\en.txt
-LicenseLangString license ${LANG_ROMANIAN} license\en.txt
-LicenseLangString license ${LANG_RUSSIAN} license\en.txt
-LicenseLangString license ${LANG_SIMPCHINESE} license\en.txt
-LicenseLangString license ${LANG_SLOVAK} license\en.txt
-LicenseLangString license ${LANG_SLOVENIAN} license\en.txt
-LicenseLangString license ${LANG_SPANISH} license\es.txt
-LicenseLangString license ${LANG_SWEDISH} license\en.txt
-LicenseLangString license ${LANG_THAI} license\en.txt
-LicenseLangString license ${LANG_TRADCHINESE} license\en.txt
-LicenseLangString license ${LANG_TURKISH} license\en.txt
-LicenseLangString license ${LANG_UKRAINIAN} license\en.txt
 LicenseData $(license)
 LicenseForceSelection checkbox
 
@@ -157,124 +72,10 @@ Function .onInit
 
   ; Language selection dialog
   Push ""
-  Push ${LANG_ALBANIAN}
-  Push Albanian
-  Push ${LANG_ARABIC}
-  Push Arabic
-  Push ${LANG_BASQUE}
-  Push Basque
-  Push ${LANG_BELARUSIAN}
-  Push Belarusian
-  Push unsupported
-  Push Bengali
-  Push ${LANG_BOSNIAN}
-  Push Bosnian
-  Push ${LANG_BULGARIAN}
-  Push Bulgarian
-  Push ${LANG_CATALAN}
-  Push Catalan
-  Push ${LANG_SIMPCHINESE}
-  Push "Chinese (Simplified)"
-  Push ${LANG_TRADCHINESE}
-  Push "Chinese (Traditional)"
-  Push ${LANG_CROATIAN}
-  Push Croatian
-  Push ${LANG_CZECH}
-  Push Czech
-  Push ${LANG_DANISH}
-  Push Danish
-  Push ${LANG_DUTCH}
-  Push Dutch
-  Push unsupported
-  Push Dzongkha
   Push ${LANG_ENGLISH}
   Push English
   Push unsupported
-  Push Esperanto
-  Push ${LANG_ESTONIAN}
-  Push Estonian
-  Push ${LANG_FINNISH}
-  Push Finnish
-  Push ${LANG_FRENCH}
-  Push French
-  Push unsupported
-  Push Galician
-  Push unsupported
-  Push Georgian
-  Push ${LANG_GERMAN}
-  Push German
-  Push ${LANG_GREEK}
-  Push Greek
-  Push unsupported
-  Push Gujarati
-  Push ${LANG_HEBREW}
-  Push Hebrew
-  Push unsupported
-  Push Hindi
-  Push ${LANG_HUNGARIAN}
-  Push Hungarian
-  Push ${LANG_INDONESIAN}
-  Push Indonesian
-  Push ${LANG_ITALIAN}
-  Push Italian
-  Push ${LANG_JAPANESE}
-  Push Japanese
-  Push unsupported
-  Push Khmer
-  Push ${LANG_KOREAN}
-  Push Korean
-  Push ${LANG_KURDISH}
-  Push Kurdish
-  Push ${LANG_LATVIAN}
-  Push Latvian
-  Push ${LANG_LITHUANIAN}
-  Push Lithuanian
-  Push unsupported
-  Push Malayalam
-  Push ${LANG_MACEDONIAN}
-  Push Macedonian
-  Push unsupported
-  Push Nepali
-  Push unsupported
-  Push "Northern Sami"
-  Push ${LANG_NORWEGIAN}
-  Push "Norwegian Bokmaal"
-  Push ${LANG_NORWEGIANNYNORSK}
-  Push "Norwegian Nynorsk"
-  Push ${LANG_POLISH}
-  Push Polish
-  Push ${LANG_PORTUGUESEBR}
-  Push "Portuguese (Brazil)"
-  Push ${LANG_PORTUGUESE}
-  Push Portuguese
-  Push unsupported
-  Push "Punjabi (Gurmukhi)"
-  Push ${LANG_ROMANIAN}
-  Push Romanian
-  Push ${LANG_RUSSIAN}
-  Push Russian
-  Push ${LANG_SLOVAK}
-  Push Slovak
-  Push ${LANG_SLOVENIAN}
-  Push Slovenian
-  Push ${LANG_SPANISH}
-  Push Spanish
-  Push ${LANG_SWEDISH}
-  Push Swedish
-  Push unsupported
-  Push Tagalog
-  Push unsupported
-  Push Tamil
-  Push ${LANG_THAI}
-  Push Thai
-  Push ${LANG_TURKISH}
-  Push Turkish
-  Push ${LANG_UKRAINIAN}
-  Push Ukrainian
-  Push unsupported
-  Push Vietnamese
-  Push unsupported
-  Push Wolof
+  Push Other
 
   Push A ; A means auto count languages
          ; for the auto count to work the first empty push (Push "") must remain
@@ -320,27 +121,24 @@ Function ShowGraphics
   StrCpy $1 $c
   Call CheckSpaceFunc
   IntCmp $2 1 +2
-  MessageBox MB_OK "You do not seem to have enough free disk space in drive $c.  For a complete \
-desktop install, it is recommended that you have at least 3 GB of free disk.  If you already have a \
-separate disk or partition to install Debian, or if you plan to replace Windows completely, you can \
-safely ignore this warning."
+  MessageBox MB_OK $(not_enough_space_for_debian)
 
   ; and we refuse to start the installer with less than 30 MiB
   StrCpy $0 30720 ; == 30 MiB
   StrCpy $1 $c
   Call CheckSpaceFunc
   IntCmp $2 1 +3
-  MessageBox MB_OK "Error: not enough free disk space.  Aborting install."
+  MessageBox MB_OK $(not_enough_space_for_loader)
   Quit
 
   File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
   File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
   File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" "Select install mode:"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" "Graphical install (recommended)"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" "Text install"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
   InstallOptions::dialog $PLUGINSDIR\graphics.ini
 FunctionEnd
 
@@ -438,11 +236,11 @@ proxyless:
 ; ********************************************** Display customisation dialog now
   Var /GLOBAL boot_ini
   File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" "Debian-Installer Loader will be setup with the following parameters.  Do NOT change any of these unless you know what you're doing!"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" "NSISdl proxy settings (host:port):"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" "Location of boot.ini:"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" "Debconf preseed line:"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" "Base URL for netboot images (linux and initrd.gz):"
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" $(custom1)
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" $(custom2)
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" $(custom3)
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" $(custom4)
+  WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" $(custom5)
   WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$c\boot.ini"
   WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
@@ -464,7 +262,7 @@ Section "Debian-Installer Loader"
   ; we want to do is preparing the Uninstaller (so that in case something went
   ; wrong, our half-install can be undone).
   WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" "Debian-Installer Loader"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" $(program_name)
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
 
   ${If} $proxy == ""
@@ -473,20 +271,20 @@ Section "Debian-Installer Loader"
     StrCpy $proxy "/PROXY $proxy"
   ${Endif}
 
-  NSISdl::download $proxy $base_url/linux $INSTDIR\linux
+  NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/linux $INSTDIR\linux
   Pop $R0
   ${If} $R0 != "success"
     ${If} $R0 != "cancel"
-       MessageBox MB_OK "Error: $R0"
+       MessageBox MB_OK "$(error): $R0"
     ${EndIf}
     Quit
   ${EndIf}
 
-  NSISdl::download $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
+  NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
   Pop $R0
   ${If} $R0 != "success"
     ${If} $R0 != "cancel"
-       MessageBox MB_OK "Error: $R0"
+       MessageBox MB_OK "$(error): $R0"
     ${EndIf}
     Quit
   ${EndIf}
@@ -503,33 +301,23 @@ initrd	/debian/initrd.gz$\n"
 
 ; ********************************************** Do boot.ini last, because it's the most dangerous
   ${Unless} ${FileExists} "$boot_ini"
-    MessageBox MB_OK "Error: $boot_ini not found.  Your version of Windows might be too old, or damaged."
+    MessageBox MB_OK $(boot_ini_not_found)
     Quit
   ${Endif}
 
   SetFileAttributes "$boot_ini" NORMAL
   SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
-  WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"Debian Installer"'
+  WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
 SectionEnd
 
 Function ShowWarning
   File /oname=$PLUGINSDIR\warning.ini templates/warning.ini
-  WriteINIStr $PLUGINSDIR\warning.ini "Field 1" "Text" 'VERY IMPORTANT NOTICE:$\n$\nYou \
-need to reboot in order to proceed with your Debian install.  During your next boot, you \
-will be asked whether you want to start Windows or "Debian Installer".  Choose \
-"Debian Installer" to continue the install process.$\n$\nDuring the install process, \
-you will be offered the possibility of either reducing your Windows partition to install \
-Debian or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that you \
-have previously made a backup of your data.  Nor the authors of this loader neither the \
-Debian project will take ANY RESPONSIBILITY in the event of data loss.$\n$\nOnce your \
-Debian install is complete (and if you have chosen to keep Windows in your disk), you \
-can uninstall the Debian-Installer Loader through the Windows Add/Remove Programs dialog \
-in Control Panel.$\n$\nEnjoy!'
+  WriteINIStr $PLUGINSDIR\warning.ini "Field 1" "Text" '$(warning)'
   InstallOptions::dialog $PLUGINSDIR\warning.ini
 FunctionEnd
 
 Function .onInstSuccess
-  MessageBox MB_YESNO|MB_ICONQUESTION "Do you want to reboot now?" IDNO +2
+  MessageBox MB_YESNO|MB_ICONQUESTION $(reboot_now) IDNO +2
   Reboot
 FunctionEnd
 

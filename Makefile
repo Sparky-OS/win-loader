@@ -4,6 +4,7 @@ debian.exe: dil.nsi checkspacefree.nsh maps.ini \
 		templates/graphics.ini templates/custom.ini templates/warning.ini \
 		cpuid/test64.dll swirl.ico \
 		contrib/grub contrib/grldr contrib/System.dll
+	$(MAKE) -C l10n
 	makensis dil.nsi
 	du -h debian.exe
 
@@ -17,4 +18,5 @@ maps.ini: maps.ini.in /usr/share/iso-codes/iso_3166.tab
 	while read a b ; do echo "$$b=$$a" ; done < /usr/share/iso-codes/iso_3166.tab >> maps.ini
 
 clean:
+	$(MAKE) -C l10n clean
 	rm -f cpuid/*.dll cpuid/*.exe debian.exe *~ */*~ maps.ini

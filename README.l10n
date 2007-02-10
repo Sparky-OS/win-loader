@@ -1,0 +1,25 @@
+Steps to add a new language
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+dil.nsi: add the following lines (each in appropiate place):
+
+  !include l10n/templates/en.nsh
+
+  ; LANG_MYLANGUAGE must be a valid string recognised by Nsis.  If your
+  ; language is not yet supported by Nsis, please translate the missing
+  ; Nsis part first.
+  Push ${LANG_MYLANGUAGE}
+  Push Mylanguage
+
+l10n/generate_template.sh: tell the script how to identify the charset that
+is used on Windows.
+
+  case $LANGUAGE in
+    blah)
+  	charset=my_windows_charset ;;
+    *)	charset=utf-8 ;;
+  esac
+
+l10n/po/: write your .po file as usual.
+
+l10n/Makefile: add your language to LINGUAS variable.

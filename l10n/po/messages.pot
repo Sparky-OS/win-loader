@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-10 16:11+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: generate_template.sh:14
+msgid "English.nlf"
+msgstr ""
+
+#: generate_template.sh:15 generate_template.sh:16 generate_template.sh:17
+#: generate_template.sh:18 generate_template.sh:19 generate_template.sh:20
+#: generate_template.sh:21 generate_template.sh:22 generate_template.sh:23
+#: generate_template.sh:24 generate_template.sh:25 generate_template.sh:26
+#: generate_template.sh:27 generate_template.sh:28 generate_template.sh:29
+#: generate_template.sh:30 generate_template.sh:31 generate_template.sh:32
+#: generate_template.sh:33 generate_template.sh:34 generate_template.sh:35
+#: generate_template.sh:36 generate_template.sh:37 generate_template.sh:38
+#: generate_template.sh:39
+msgid "LANG_ENGLISH"
+msgstr ""
+
+#: generate_template.sh:16
+msgid "Debian-Installer Loader"
+msgstr ""
+
+#: generate_template.sh:17
+msgid "Debian Installer"
+msgstr ""
+
+#: generate_template.sh:18
+msgid ""
+"You do not seem to have enough free disk space in drive @DOLLAR@c.  For a "
+"complete desktop install, it is recommended that you have at least 3 GB of "
+"free disk.  If you already have a separate disk or partition to install "
+"Debian, or if you plan to replace Windows completely, you can safely ignore "
+"this warning."
+msgstr ""
+
+#: generate_template.sh:19
+msgid "Error: not enough free disk space.  Aborting install."
+msgstr ""
+
+#: generate_template.sh:20
+msgid "Select install mode:"
+msgstr ""
+
+#: generate_template.sh:21
+msgid "Graphical install (recommended)"
+msgstr ""
+
+#: generate_template.sh:22
+msgid "Text install"
+msgstr ""
+
+#: generate_template.sh:23
+msgid ""
+"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
+"change any of these unless you know what you're doing!"
+msgstr ""
+
+#: generate_template.sh:24
+msgid "NSISdl proxy settings (host:port):"
+msgstr ""
+
+#: generate_template.sh:25
+msgid "Location of boot.ini:"
+msgstr ""
+
+#: generate_template.sh:26
+msgid "Debconf preseed line:"
+msgstr ""
+
+#: generate_template.sh:27
+msgid "Base URL for netboot images (linux and initrd.gz):"
+msgstr ""
+
+#: generate_template.sh:28
+msgid "Downloading %s"
+msgstr ""
+
+#: generate_template.sh:29
+msgid "Connecting ..."
+msgstr ""
+
+#: generate_template.sh:30
+msgid "second"
+msgstr ""
+
+#: generate_template.sh:31
+msgid "minute"
+msgstr ""
+
+#: generate_template.sh:32
+msgid "hour"
+msgstr ""
+
+#: generate_template.sh:33
+msgid "s"
+msgstr ""
+
+#: generate_template.sh:34
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr ""
+
+#: generate_template.sh:35
+msgid " (%d %s%s remaining)"
+msgstr ""
+
+#: generate_template.sh:36
+msgid "Error"
+msgstr ""
+
+#: generate_template.sh:37
+msgid ""
+"Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
+"old, or damaged."
+msgstr ""
+
+#: generate_template.sh:38
+msgid ""
+"'VERY IMPORTANT NOTICE:@DOLLAR@\\n@DOLLAR@\\nYou need to reboot in order to "
+"proceed with your Debian install.  During your next boot, you will be asked "
+"whether you want to start Windows or \"Debian Installer\".  Choose \"Debian "
+"Installer\" to continue the install process.@DOLLAR@\\n@DOLLAR@\\nDuring the "
+"install process, you will be offered the possibility of either reducing your "
+"Windows partition to install Debian or completely replacing it.  In both "
+"cases, it is STRONGLY RECOMMENDED that you have previously made a backup of "
+"your data.  Nor the authors of this loader neither the Debian project will "
+"take ANY RESPONSIBILITY in the event of data loss.@DOLLAR@\\n@DOLLAR@\\nOnce "
+"your Debian install is complete (and if you have chosen to keep Windows in "
+"your disk), you can uninstall the Debian-Installer Loader through the "
+"Windows Add/Remove Programs dialog in Control Panel.@DOLLAR@\\n@DOLLAR@"
+"\\nEnjoy!'"
+msgstr ""
+
+#: generate_template.sh:39
+msgid "Do you want to reboot now?"
+msgstr ""
