@@ -1,6 +1,6 @@
 LINGUAS=en
 
-all: $(foreach lang, $(LINGUAS), templates/$(lang).nsh)
+all: $(foreach lang, $(LINGUAS), templates/$(lang).nsh) po/messages.pot
 
 templates/en.nsh: generate_template.sh
 	mkdir -p templates

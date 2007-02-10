@@ -31,6 +31,10 @@ LangString nsisdl3 \${`gettext LANG_ENGLISH`} "`gettext "second"`"
 LangString nsisdl4 \${`gettext LANG_ENGLISH`} "`gettext "minute"`"
 LangString nsisdl5 \${`gettext LANG_ENGLISH`} "`gettext "hour"`"
 LangString nsisdl6 \${`gettext LANG_ENGLISH`} "`gettext "s"`"
+; This string is appended to "second", "minute" or "hour" to make plurals.
+; I know it's quite unfortunate.  An alternate method for translating NSISdl
+; has been proposed [1] but in the meantime we'll have to cope with this.
+; [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 LangString nsisdl7 \${`gettext LANG_ENGLISH`} "`gettext "%dkB (%d%%) of %dkB at %d.%01dkB/s"`"
 LangString nsisdl8 \${`gettext LANG_ENGLISH`} "`gettext " (%d %s%s remaining)"`"
 LangString error \${`gettext LANG_ENGLISH`} "`gettext "Error"`"
