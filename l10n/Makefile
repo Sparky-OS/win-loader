@@ -6,10 +6,14 @@ templates/en.nsh: generate_template.sh
 	mkdir -p templates
 	LANGUAGE=C ./generate_template.sh > $@
 
-templates/%.nsh: po/%.po generate_template.sh
+templates/%.nsh: po/%.po generate_template.sh po/messages.pot
 	mkdir -p templates locale/$*/LC_MESSAGES
+	msgmerge -U po/$*.po po/messages.pot
 	msgfmt -c --statistics -o locale/$*/LC_MESSAGES/win32-loader.mo $<
 	LANGUAGE=$* ./generate_template.sh > $@
+
+po/messages.pot: generate_template.sh
+	xgettext $^ -o $@
 
 clean:
 	rm -rf *~ templates locale
