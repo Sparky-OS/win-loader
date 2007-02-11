@@ -1,11 +1,11 @@
 all: debian.exe
 
-debian.exe: dil.nsi checkspacefree.nsh maps.ini \
+debian.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/graphics.ini templates/custom.ini templates/warning.ini \
 		cpuid/test64.dll swirl.ico \
 		contrib/grub contrib/grldr contrib/System.dll
 	$(MAKE) -C l10n
-	makensis dil.nsi
+	makensis main.nsi
 	du -h debian.exe
 
 cpuid/test64.dll: cpuid/cpuid.S cpuid/plugin.c

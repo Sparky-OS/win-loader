@@ -1,7 +1,7 @@
 Steps to add a new language
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-dil.nsi: add the following lines (each in appropiate place):
+main.nsi: add the following lines (each in appropiate place):
 
   !include l10n/templates/en.nsh
 
