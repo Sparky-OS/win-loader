@@ -1,18 +1,12 @@
+
 Steps to add a new language
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-main.nsi: add the following lines (each in appropiate place):
+- l10n/po/: Write your .po file as usual.
 
-  !include l10n/templates/en.nsh
+- l10n/Makefile: Add your language to LINGUAS variable.
 
-  ; LANG_MYLANGUAGE must be a valid string recognised by Nsis.  If your
-  ; language is not yet supported by Nsis, please translate the missing
-  ; Nsis part first.
-  Push ${LANG_MYLANGUAGE}
-  Push Mylanguage
-
-l10n/generate_template.sh: tell the script how to identify the charset that
-is used on Windows.
+- l10n/generate_template.sh: Tell the script how to identify the charset that is used on Windows.
 
   case $LANGUAGE in
     blah)
@@ -20,6 +14,21 @@ is used on Windows.
     *)	charset=utf-8 ;;
   esac
 
-l10n/po/: write your .po file as usual.
+Enabling it in the installer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-l10n/Makefile: add your language to LINGUAS variable.
+** PLEASE ** only do this when you have tested it works!  (wine-based test
+is ok).  If you can't test it, just skip this part untill somebody who can
+confirm it adds the missing bits.
+
+In main.nsi, add the following lines (each in appropiate place):
+
+  !include l10n/templates/$LANG.nsh
+
+  [...]
+
+  ; LANG_MYLANGUAGE must be a valid string recognised by Nsis.  If your
+  ; language is not yet supported by Nsis, please translate the missing
+  ; Nsis part first.
+  Push ${LANG_MYLANGUAGE}
+  Push Mylanguage
