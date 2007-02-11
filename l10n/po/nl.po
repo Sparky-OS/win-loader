@@ -163,7 +163,7 @@ msgstr ""
 "het verlies van gegevens.\\n\\nNadat uw Debian installatie "
 "voltooid is (en als u ervoor heeft gekozen om Windows te behouden), kunt u "
 "de Lader voor het Debian Installatiesysteem verwijderen via de optie "
-"\"Software\" in het Configuratiescherm."
+"'Software' in het Configuratiescherm."
 
 #: generate_template.sh:45
 msgid "Do you want to reboot now?"
