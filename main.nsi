@@ -22,6 +22,7 @@ SetCompressor /SOLID lzma
 !include l10n/templates/en.nsh
 !include l10n/templates/cs.nsh
 !include l10n/templates/fr.nsh
+!include l10n/templates/nl.nsh
 !include l10n/templates/sv.nsh
 
 Name $(program_name)
@@ -75,10 +76,12 @@ Function .onInit
 
   ; Language selection dialog
   Push ""
-  Push ${LANG_ENGLISH}
-  Push English
   Push ${LANG_CZECH}
   Push Czech
+  Push ${LANG_DUTCH}
+  Push Dutch
+  Push ${LANG_ENGLISH}
+  Push English
   Push ${LANG_FRENCH}
   Push French
   Push ${LANG_SWEDISH}
