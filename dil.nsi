@@ -20,6 +20,7 @@ SetCompressor /SOLID lzma
 
 ; First is default
 !include l10n/templates/en.nsh
+!include l10n/templates/cs.nsh
 !include l10n/templates/fr.nsh
 
 Name $(program_name)
@@ -75,6 +76,8 @@ Function .onInit
   Push ""
   Push ${LANG_ENGLISH}
   Push English
+  Push ${LANG_CZECH}
+  Push Czech
   Push ${LANG_FRENCH}
   Push French
   Push unsupported

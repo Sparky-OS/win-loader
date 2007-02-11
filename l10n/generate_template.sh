@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
 case $LANGUAGE in
+  cs)
+	charset=windows-1250 ;;
   ca|es|de|fr)
 	charset=windows-1252 ;;
   *)	charset=windows-1252 ;;

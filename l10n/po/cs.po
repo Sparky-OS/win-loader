@@ -1,0 +1,170 @@
+# Czech translation of win32-loader.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the win32-loader package.
+# Miroslav Kure <kurem@debian.cz>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: win32-loader\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-11 19:29+0100\n"
+"PO-Revision-Date: 2007-02-11 19:33+0100\n"
+"Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: generate_template.sh:16
+msgid "English.nlf"
+msgstr "Czech.nlf"
+
+#: generate_template.sh:17 generate_template.sh:18 generate_template.sh:19
+#: generate_template.sh:20 generate_template.sh:21 generate_template.sh:22
+#: generate_template.sh:23 generate_template.sh:24 generate_template.sh:25
+#: generate_template.sh:26 generate_template.sh:27 generate_template.sh:28
+#: generate_template.sh:29 generate_template.sh:30 generate_template.sh:31
+#: generate_template.sh:32 generate_template.sh:33 generate_template.sh:34
+#: generate_template.sh:35 generate_template.sh:40 generate_template.sh:41
+#: generate_template.sh:42 generate_template.sh:43 generate_template.sh:44
+#: generate_template.sh:45
+msgid "LANG_ENGLISH"
+msgstr "LANG_CZECH"
+
+#: generate_template.sh:18
+msgid "Debian-Installer Loader"
+msgstr "Zavaděč instalace Debianu"
+
+#: generate_template.sh:19
+msgid "Debian Installer"
+msgstr "Instalace Debianu"
+
+#: generate_template.sh:20
+msgid ""
+"There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
+"complete desktop install, it is recommended that you have at least 3 GB of "
+"free disk.  If there is already a separate disk or partition to install "
+"Debian, or if you plan to replace Windows completely, you can safely ignore "
+"this warning."
+msgstr ""
+"Zdá se, že na disku @DOLLAR@c není dostatek volného místa. Pro kompletní "
+"desktopovou instalaci je doporučeno mít alespoň 3 GB volného místa. Jestliže "
+"již máte pro instalaci Debianu vyhrazený samostatný disk nebo diskovou "
+"oblast, případně pokud plánujete kompletní nahrazení Windows, můžete toto "
+"varování ignorovat."
+
+#: generate_template.sh:21
+msgid "Error: not enough free disk space.  Aborting install."
+msgstr "Chyba: nedostatek volného místa. Ruším instalaci."
+
+#: generate_template.sh:22
+msgid "Select install mode:"
+msgstr "Vyberte způsob instalace:"
+
+#: generate_template.sh:23
+msgid "Graphical install (recommended)"
+msgstr "Grafická instalace (doporučeno)"
+
+#: generate_template.sh:24
+msgid "Text install"
+msgstr "Textová instalace"
+
+#: generate_template.sh:25
+msgid ""
+"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
+"change any of these unless you know what you're doing."
+msgstr ""
+"Zavaděč instalace Debianu bude nastaven s následujícími parametry. Pokud "
+"nevíte co děláte, žádný z parametrů NEMĚŇTE."
+
+#: generate_template.sh:26
+msgid "NSISdl proxy settings (host:port):"
+msgstr "Nastavení NSISdl proxy (počítač:port):"
+
+#: generate_template.sh:27
+msgid "Location of boot.ini:"
+msgstr "Umístění boot.ini:"
+
+#: generate_template.sh:28
+msgid "Debconf preseed line:"
+msgstr "Řádka s přednastavením debconfu:"
+
+#: generate_template.sh:29
+msgid "Base URL for netboot images (linux and initrd.gz):"
+msgstr "Základní URL pro netboot obrazy (linux a initrd.gz):"
+
+#: generate_template.sh:30
+msgid "Downloading %s"
+msgstr "Stahuji %s"
+
+#: generate_template.sh:31
+msgid "Connecting ..."
+msgstr "Připojuji ..."
+
+#: generate_template.sh:32
+msgid "second"
+msgstr "sek."
+
+#: generate_template.sh:33
+msgid "minute"
+msgstr "min."
+
+#: generate_template.sh:34
+msgid "hour"
+msgstr "hod."
+
+#: generate_template.sh:35
+msgid "s"
+msgstr " "
+
+#: generate_template.sh:40
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%dkB (%d%%) z %dkB při %d.%01dkB/s"
+
+#: generate_template.sh:41
+msgid " (%d %s%s remaining)"
+msgstr " (zbývá %d %s%s)"
+
+#: generate_template.sh:42
+msgid "Error"
+msgstr "Chyba"
+
+#: generate_template.sh:43
+msgid ""
+"Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
+"old, or damaged."
+msgstr ""
+"Chyba: @DOLLAR@boot_ini nebyl nalezen. Vaše verze Windows je nejspíš příliš "
+"stará, nebo poškozená."
+
+#: generate_template.sh:44
+msgid ""
+"VERY IMPORTANT NOTICE:@DOLLAR@\\n@DOLLAR@\\nYou need to reboot in order to "
+"proceed with your Debian install.  During your next boot, you will be asked "
+"whether you want to start Windows or Debian Installer.  Choose Debian "
+"Installer to continue the install process.@DOLLAR@\\n@DOLLAR@\\nDuring the "
+"install process, you will be offered the possibility of either reducing your "
+"Windows partition to install Debian or completely replacing it.  In both "
+"cases, it is STRONGLY RECOMMENDED that you have previously made a backup of "
+"your data.  Nor the authors of this loader neither the Debian project will "
+"take ANY RESPONSIBILITY in the event of data loss.@DOLLAR@\\n@DOLLAR@\\nOnce "
+"your Debian install is complete (and if you have chosen to keep Windows in "
+"your disk), you can uninstall the Debian-Installer Loader through the "
+"Windows Add/Remove Programs dialog in Control Panel."
+msgstr ""
+"VELMI DŮLEŽITÁ POZNÁMKA:@DOLLAR@\\n@DOLLAR@\\nAbyste mohli pokračovat v "
+"instalaci Debianu, musíte počítač restartovat. Během příštího startu budete "
+"dotázáni, zda chcete spustit Windows nebo instalaci Debianu. Pro pokračování "
+"v instalaci zvolte z nabídky instalaci Debianu.@DOLLAR@\\n@DOLLAR@\\nBěhem "
+"instalace vám bude nabídnuta možnost zmenšit stávající oblast s Windows a do "
+"prázdného místa nainstalovat Debian, případně oblast s Windows Debianem "
+"nahradit úplně. V obou případech je DŮRAZNĚ DOPORUČENO zazálohovat cenná "
+"data. Autoři tohoto zavaděče ani projekt Debian NENESOU ŽÁDNOU ZODPOVĚDNOST "
+"za případnou ztrátu dat.@DOLLAR@\\n@DOLLAR@\\nPokud se rozhodnete na svém "
+"disku ponechat Windows i Debian, můžete po dokončení instalace odstranit "
+"tento zavaděč instalace Debianu pomocí dialogu Přidat nebo odebrat programy "
+"v Ovládacích panelech."
+
+#: generate_template.sh:45
+msgid "Do you want to reboot now?"
+msgstr "Chcete nyní restartovat?"
