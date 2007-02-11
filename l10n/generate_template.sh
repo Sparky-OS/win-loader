@@ -1,9 +1,9 @@
 #!/bin/bash -e
 
 case $LANGUAGE in
-  ca|es|fr)
+  ca|es|de|fr)
 	charset=windows-1252 ;;
-  *)	charset=utf-8 ;;
+  *)	charset=windows-1252 ;;
 esac
 
 . /usr/bin/gettext.sh
