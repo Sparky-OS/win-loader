@@ -1,4 +1,4 @@
-LINGUAS=en cs fr sv
+LINGUAS=en cs fr nl sv
 
 all: $(foreach lang, $(LINGUAS), templates/$(lang).nsh) po/messages.pot
 
