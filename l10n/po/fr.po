@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-11 13:11+0100\n"
+"POT-Creation-Date: 2007-02-11 19:50+0100\n"
 "PO-Revision-Date: 2007-02-11 09:50+0100\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -16,35 +16,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: generate_template.sh:14
+#: generate_template.sh:16
 msgid "English.nlf"
 msgstr "French.nlf"
 
-#: generate_template.sh:15 generate_template.sh:16 generate_template.sh:17
-#: generate_template.sh:18 generate_template.sh:19 generate_template.sh:20
-#: generate_template.sh:21 generate_template.sh:22 generate_template.sh:23
-#: generate_template.sh:24 generate_template.sh:25 generate_template.sh:26
-#: generate_template.sh:27 generate_template.sh:28 generate_template.sh:29
-#: generate_template.sh:30 generate_template.sh:31 generate_template.sh:32
-#: generate_template.sh:33 generate_template.sh:38 generate_template.sh:39
-#: generate_template.sh:40 generate_template.sh:41 generate_template.sh:42
-#: generate_template.sh:43
+#: generate_template.sh:17 generate_template.sh:18 generate_template.sh:19
+#: generate_template.sh:20 generate_template.sh:21 generate_template.sh:22
+#: generate_template.sh:23 generate_template.sh:24 generate_template.sh:25
+#: generate_template.sh:26 generate_template.sh:27 generate_template.sh:28
+#: generate_template.sh:29 generate_template.sh:30 generate_template.sh:31
+#: generate_template.sh:32 generate_template.sh:33 generate_template.sh:34
+#: generate_template.sh:35 generate_template.sh:40 generate_template.sh:41
+#: generate_template.sh:42 generate_template.sh:43 generate_template.sh:44
+#: generate_template.sh:45
 msgid "LANG_ENGLISH"
 msgstr "LANG_FRENCH"
 
-#: generate_template.sh:16
+#: generate_template.sh:18
 msgid "Debian-Installer Loader"
 msgstr "Chargeur de l'installateur Debian"
 
-#: generate_template.sh:17
+#: generate_template.sh:19
 msgid "Debian Installer"
 msgstr "Installateur Debian"
 
-#: generate_template.sh:18
+#: generate_template.sh:20
+#, fuzzy
 msgid ""
-"You do not seem to have enough free disk space in drive @DOLLAR@c.  For a "
+"There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
 "complete desktop install, it is recommended that you have at least 3 GB of "
-"free disk.  If you already have a separate disk or partition to install "
+"free disk.  If there is already a separate disk or partition to install "
 "Debian, or if you plan to replace Windows completely, you can safely ignore "
 "this warning."
 msgstr ""
@@ -54,84 +55,85 @@ msgstr ""
 "partition séparée pour l'installation de Debian ou si vous prévoyez de "
 "remplacer entièrement Windows, vous pouvez ignorer cet avertissement."
 
-#: generate_template.sh:19
+#: generate_template.sh:21
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Espace disque insuffisant. Installation interrompue."
 
-#: generate_template.sh:20
+#: generate_template.sh:22
 msgid "Select install mode:"
 msgstr "Mode d'installation :"
 
-#: generate_template.sh:21
+#: generate_template.sh:23
 msgid "Graphical install (recommended)"
 msgstr "Installation en mode graphique (recommandé)"
 
-#: generate_template.sh:22
+#: generate_template.sh:24
 msgid "Text install"
 msgstr "Installation en mode texte"
 
-#: generate_template.sh:23
+#: generate_template.sh:25
+#, fuzzy
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
-"change any of these unless you know what you're doing!"
+"change any of these unless you know what you're doing."
 msgstr ""
 "Le chargeur de l'installateur Debian sera configuré avec les paramètres "
 "suivants. Vous ne devriez pas les modifier à moins d'avoir la certitude que "
 "cela est nécessaire."
 
-#: generate_template.sh:24
+#: generate_template.sh:26
 msgid "NSISdl proxy settings (host:port):"
 msgstr "Réglage du mandataire NSISdl (hôte:port) :"
 
-#: generate_template.sh:25
+#: generate_template.sh:27
 msgid "Location of boot.ini:"
 msgstr "Emplacement du fichier « boot.ini » :"
 
-#: generate_template.sh:26
+#: generate_template.sh:28
 msgid "Debconf preseed line:"
 msgstr "Préconfiguration de l'installateur :"
 
-#: generate_template.sh:27
+#: generate_template.sh:29
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL de base pour les images netboot (linux et initrd.gz) :"
 
-#: generate_template.sh:28
+#: generate_template.sh:30
 msgid "Downloading %s"
 msgstr "Téléchargement de %s"
 
-#: generate_template.sh:29
+#: generate_template.sh:31
 msgid "Connecting ..."
 msgstr "Connexion..."
 
-#: generate_template.sh:30
+#: generate_template.sh:32
 msgid "second"
 msgstr "seconde"
 
-#: generate_template.sh:31
+#: generate_template.sh:33
 msgid "minute"
 msgstr "minute"
 
-#: generate_template.sh:32
+#: generate_template.sh:34
 msgid "hour"
 msgstr "heure"
 
-#: generate_template.sh:33
+#: generate_template.sh:35
 msgid "s"
 msgstr "s"
 
-#: generate_template.sh:38
+#: generate_template.sh:40
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) sur %dkB à %d.%01dko/s"
 
-#: generate_template.sh:39
+#: generate_template.sh:41
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s restant)"
 
-#: generate_template.sh:40
+#: generate_template.sh:42
 msgid "Error"
 msgstr "Erreur"
 
-#: generate_template.sh:41
+#: generate_template.sh:43
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
 "old, or damaged."
@@ -139,22 +141,20 @@ msgstr ""
 "Erreur: @DOLLAR@boot_ini n'existe pas.  Version de Windows non gérée ou "
 "installation endommagée."
 
-#: generate_template.sh:42
+#: generate_template.sh:44
 #, fuzzy
 msgid ""
-"VERY IMPORTANT NOTICE:@DOLLAR@\\n@DOLLAR@\\nYou need to reboot in order to "
-"proceed with your Debian install.  During your next boot, you will be asked "
-"whether you want to start Windows or Debian Installer.  Choose Debian "
-"Installer to continue the install process.@DOLLAR@\\n@DOLLAR@\\nDuring the "
-"install process, you will be offered the possibility of either reducing your "
-"Windows partition to install Debian or completely replacing it.  In both "
-"cases, it is STRONGLY RECOMMENDED that you have previously made a backup of "
-"your data.  Nor the authors of this loader neither the Debian project will "
-"take ANY RESPONSIBILITY in the event of data loss.@DOLLAR@\\n@DOLLAR@\\nOnce "
-"your Debian install is complete (and if you have chosen to keep Windows in "
-"your disk), you can uninstall the Debian-Installer Loader through the "
-"Windows Add/Remove Programs dialog in Control Panel.@DOLLAR@\\n@DOLLAR@"
-"\\nEnjoy!"
+"VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
+"Debian install.  During your next boot, you will be asked whether you want "
+"to start Windows or Debian Installer.  Choose Debian Installer to continue "
+"the install process.\\n\\nDuring the install process, you will be offered "
+"the possibility of either reducing your Windows partition to install Debian "
+"or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that "
+"you have previously made a backup of your data.  Nor the authors of this "
+"loader neither the Debian project will take ANY RESPONSIBILITY in the event "
+"of data loss.\\n\\nOnce your Debian install is complete (and if you have "
+"chosen to keep Windows in your disk), you can uninstall the Debian-Installer "
+"Loader through the Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
 "Avertissement important :@DOLLAR@\\n@DOLLAR@\\nIl est nécessaire de "
 "redémarrer afin d'installer Debian. Au prochain redémarrage, vous aurez le "
@@ -170,6 +170,6 @@ msgstr ""
 "« Ajout/suppression de programmes » du Panneau de Configuration.@DOLLAR@"
 "\\n@DOLLAR@\\n"
 
-#: generate_template.sh:43
+#: generate_template.sh:45
 msgid "Do you want to reboot now?"
 msgstr "Voulez-vous redémarrer maintenant ?"
