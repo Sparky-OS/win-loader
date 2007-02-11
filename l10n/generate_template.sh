@@ -3,7 +3,7 @@
 case $LANGUAGE in
   cs)
 	charset=windows-1250 ;;
-  ca|es|de|fr)
+  ca|es|de|fr|sv)
 	charset=windows-1252 ;;
   *)	charset=windows-1252 ;;
 esac

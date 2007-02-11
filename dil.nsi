@@ -22,6 +22,7 @@ SetCompressor /SOLID lzma
 !include l10n/templates/en.nsh
 !include l10n/templates/cs.nsh
 !include l10n/templates/fr.nsh
+!include l10n/templates/sv.nsh
 
 Name $(program_name)
 Icon "swirl.ico"
@@ -80,8 +81,10 @@ Function .onInit
   Push Czech
   Push ${LANG_FRENCH}
   Push French
+  Push ${LANG_SWEDISH}
+  Push Swedish
   Push unsupported
-  Push Other
+  Push "-- Not in this list --"
 
   Push A ; A means auto count languages
          ; for the auto count to work the first empty push (Push "") must remain
@@ -101,9 +104,10 @@ final system."
   ${If} $LANGUAGE == "unsupported"
     ; Translators: your language is supported by d-i, but not yet by nsis.
     ; Please get your translation in nsis before translating win32-loader.
-    MessageBox MB_OK "Because the language you have selected is not supported \
-by this stage of the installer, English will be used for now.  On the second \
-(and last) stage of the install process, you will be able to select it."
+    MessageBox MB_OK "Because your language is not supported by this \
+stage of the installer, English will be used for now.  On the second \
+(and last) stage of the install process, you will be offered a much \
+wider choice, where your language is more likely to be present."
   ${Endif}
 FunctionEnd
 
