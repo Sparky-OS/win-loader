@@ -17,7 +17,7 @@ LoadLanguageFile "\${NSISDIR}\Contrib\Language files\\`gettext English.nlf`"
 LicenseLangString license \${`gettext LANG_ENGLISH`} license\en.txt
 LangString program_name \${`gettext LANG_ENGLISH`} "`gettext "Debian-Installer Loader"`"
 LangString d-i \${`gettext LANG_ENGLISH`} "`gettext "Debian Installer"`"
-LangString not_enough_space_for_debian \${`gettext LANG_ENGLISH`} "`gettext "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a complete desktop install, it is recommended that you have at least 3 GB of free disk.  If there is already a separate disk or partition to install Debian, or if you plan to replace Windows completely, you can safely ignore this warning."`"
+LangString not_enough_space_for_debian \${`gettext LANG_ENGLISH`} "`gettext "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a complete desktop install, it is recommended to have at least 3 GB of free disk.  If there is already a separate disk or partition to install Debian, or if you plan to replace Windows completely, you can safely ignore this warning."`"
 LangString not_enough_space_for_loader \${`gettext LANG_ENGLISH`} "`gettext "Error: not enough free disk space.  Aborting install."`"
 LangString graphics1 \${`gettext LANG_ENGLISH`} "`gettext "Select install mode:"`"
 LangString graphics2 \${`gettext LANG_ENGLISH`} "`gettext "Graphical install (recommended)"`"
