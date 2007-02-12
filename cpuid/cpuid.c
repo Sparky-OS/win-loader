@@ -4,8 +4,6 @@
   - http://download.intel.com/design/Xeon/applnots/24161831.pdf
 */
 
-#include <stdio.h>
-
 /* stolen from linux/include/asm-i386/processor.h */
 static inline unsigned int
 cpuid_edx (unsigned int op)
