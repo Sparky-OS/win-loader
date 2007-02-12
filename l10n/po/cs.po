@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-12 14:35+0100\n"
+"POT-Creation-Date: 2007-02-12 17:29+0100\n"
 "PO-Revision-Date: 2007-02-11 19:33+0100\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -79,7 +79,8 @@ msgstr ""
 "nevíte co děláte, žádný z parametrů NEMĚŇTE."
 
 #: generate_template.sh:26
-msgid "NSISdl proxy settings (host:port):"
+#, fuzzy
+msgid "Proxy settings (host:port):"
 msgstr "Nastavení NSISdl proxy (počítač:port):"
 
 #: generate_template.sh:27

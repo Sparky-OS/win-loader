@@ -159,8 +159,7 @@ Function ShowCustom
 
 ; Gather all the missing information before ShowCustom is displayed
 
-; Preseed proxy first, so that it'll be more visible in ShowCustom
-; ********************************************** Initialise proxy and preseed it
+; ********************************************** Initialise proxy
   Var /GLOBAL proxy
   StrCpy $proxy ""
   ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
@@ -169,11 +168,6 @@ Function ShowCustom
   StrCmp $0 "" proxyless
   StrCpy $proxy "$0"
 proxyless:
-  ${If} $proxy != ""
-    StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
-  ${Else}
-    StrCpy $preseed "$preseed mirror/http/proxy="
-  ${Endif}
 
 ; ********************************************** Initialise base_url + Preseed vga mode
   test64::get_arch
@@ -259,6 +253,15 @@ proxyless:
   ReadINIStr $boot_ini	$PLUGINSDIR\custom.ini "Field 7" "State"
   ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
   ReadINIStr $preseed	$PLUGINSDIR\custom.ini "Field 9" "State"
+
+; do this inmediately after custom.ini, because proxy settings can be
+; overriden there
+; ********************************************** Preseed proxy
+  ${If} $proxy == ""
+    StrCpy $preseed "$preseed mirror/http/proxy="
+  ${Else}
+    StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
+  ${Endif}
 FunctionEnd
 
 Section "Debian-Installer Loader"

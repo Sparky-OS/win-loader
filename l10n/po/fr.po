@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-12 14:35+0100\n"
+"POT-Creation-Date: 2007-02-12 17:29+0100\n"
 "PO-Revision-Date: 2007-02-11 09:50+0100\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -82,7 +82,8 @@ msgstr ""
 "cela est nécessaire."
 
 #: generate_template.sh:26
-msgid "NSISdl proxy settings (host:port):"
+#, fuzzy
+msgid "Proxy settings (host:port):"
 msgstr "Réglage du mandataire NSISdl (hôte:port) :"
 
 #: generate_template.sh:27
