@@ -52,6 +52,7 @@ LicenseForceSelection checkbox
 ; Pages
 
 Page license
+Page custom ShowExpert
 Page custom ShowGraphics
 Page custom ShowCustom
 Page instfiles
@@ -114,7 +115,7 @@ wider choice, where your language is more likely to be present."
   ${Endif}
 FunctionEnd
 
-Function ShowGraphics
+Function ShowExpert
 ; Do initialisations as early as possible, but not before license has been
 ; accepted unless absolutely necessary.
 
@@ -144,7 +145,26 @@ Function ShowGraphics
   MessageBox MB_OK $(not_enough_space_for_loader)
   Quit
 
+  File /oname=$PLUGINSDIR\expert.ini	templates/expert.ini
+  WriteINIStr $PLUGINSDIR\expert.ini "Field 1" "Text" $(expert1)
+  WriteINIStr $PLUGINSDIR\expert.ini "Field 2" "Text" $(expert2)
+  WriteINIStr $PLUGINSDIR\expert.ini "Field 3" "Text" $(expert3)
+  InstallOptions::dialog $PLUGINSDIR\expert.ini
+
+  Var /GLOBAL expert
+  ReadINIStr $0 $PLUGINSDIR\expert.ini "Field 3" "State"
+  ${If} $0 == "1"
+    StrCpy $expert true
+  ${Else}
+    StrCpy $expert false
+  ${Endif}
+FunctionEnd
+
+Function ShowGraphics
   File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
+  ${If} $expert == false
+    Return
+  ${Endif}
   File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
   File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
@@ -156,7 +176,6 @@ Function ShowGraphics
 FunctionEnd
 
 Function ShowCustom
-
 ; Gather all the missing information before ShowCustom is displayed
 
 ; ********************************************** Initialise proxy
@@ -236,23 +255,31 @@ proxyless:
     StrCpy $preseed "$preseed hostname?=$0"
   ${EndIf}
 
+; ********************************************** preseed priority
+  ${If} $expert == true
+    StrCpy $preseed "$preseed priority=low"
+  ${Endif}
+
 ; ********************************************** Display customisation dialog now
   Var /GLOBAL boot_ini
-  File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" $(custom1)
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" $(custom2)
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" $(custom3)
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" $(custom4)
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" $(custom5)
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$c\boot.ini"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
-  WriteINIStr $PLUGINSDIR\custom.ini "Field 9" "State" "$preseed"
-  InstallOptions::dialog $PLUGINSDIR\custom.ini
-  ReadINIStr $proxy	$PLUGINSDIR\custom.ini "Field 6" "State"
-  ReadINIStr $boot_ini	$PLUGINSDIR\custom.ini "Field 7" "State"
-  ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
-  ReadINIStr $preseed	$PLUGINSDIR\custom.ini "Field 9" "State"
+  StrCpy $boot_ini "$c\boot.ini"
+  ${If} $expert == true
+    File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" $(custom1)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" $(custom2)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" $(custom3)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" $(custom4)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" $(custom5)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$boot_ini"
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 9" "State" "$preseed"
+    InstallOptions::dialog $PLUGINSDIR\custom.ini
+    ReadINIStr $proxy		$PLUGINSDIR\custom.ini "Field 6" "State"
+    ReadINIStr $boot_ini	$PLUGINSDIR\custom.ini "Field 7" "State"
+    ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
+    ReadINIStr $preseed		$PLUGINSDIR\custom.ini "Field 9" "State"
+  ${Endif}
 
 ; do this inmediately after custom.ini, because proxy settings can be
 ; overriden there

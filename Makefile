@@ -1,7 +1,7 @@
 all: debian.exe
 
 debian.exe: main.nsi checkspacefree.nsh maps.ini \
-		templates/graphics.ini templates/custom.ini templates/warning.ini \
+		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
 		cpuid/test64.dll swirl.ico \
 		contrib/grub contrib/grldr contrib/System.dll
 	$(MAKE) -C l10n
