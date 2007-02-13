@@ -6,14 +6,6 @@ Steps to add a new language
 
 - l10n/Makefile: Add your language to LINGUAS variable.
 
-- l10n/generate_template.sh: Tell the script how to identify the charset that is used on Windows.
-
-  case $LANGUAGE in
-    blah)
-  	charset=my_windows_charset ;;
-    *)	charset=utf-8 ;;
-  esac
-
 Enabling it in the installer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
