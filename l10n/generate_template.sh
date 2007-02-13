@@ -1,17 +1,12 @@
 #!/bin/bash -e
 
-# check wine/tools/wmc/lang.c
-case $LANGUAGE in
-  cs|sk)
-	charset=windows-1250 ;;
-  ca|es|de|fr|nl|sv)
-	charset=windows-1252 ;;
-  *)	charset=windows-1252 ;;
-esac
-
 . /usr/bin/gettext.sh
 export TEXTDOMAIN=win32-loader
 export TEXTDOMAINDIR=${PWD}/locale
+
+# translate: This must be the string used by Windows to represent your
+# translate: language.  If you don't know, check [wine]/tools/wmc/lang.c.
+charset=`gettext windows-1252`
 
 # translate: This must be a valid string recognised by Nsis.  If your
 # translate: language is not yet supported by Nsis, please translate the

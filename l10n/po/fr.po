@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-14 00:06+0100\n"
+"POT-Creation-Date: 2007-02-14 00:15+0100\n"
 "PO-Revision-Date: 2007-02-13 19:45+0100\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -16,16 +16,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
+#. translate: This must be the string used by Windows to represent your
+#. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c.
+#: generate_template.sh:9
+msgid "windows-1252"
+msgstr "windows-1252"
+
 #. translate: This must be a valid string recognised by Nsis.  If your
 #. translate: language is not yet supported by Nsis, please translate the
 #. translate: missing Nsis part first.
-#: generate_template.sh:19
+#: generate_template.sh:14
 msgid "LANG_ENGLISH"
 msgstr "LANG_FRENCH"
 
 #. translate: The nlf file for your language should be found in
 #. translate: /usr/share/nsis/Contrib/Language files/
-#: generate_template.sh:24
+#: generate_template.sh:19
 msgid "English.nlf"
 msgstr "French.nlf"
 
@@ -33,15 +39,15 @@ msgstr "French.nlf"
 #. translate: You may, however, use single quotes (') or « » just fine.
 #. translate: Also note that only the subset of UTF-8 that can be converted to the
 #. translate: corresponding windows-xxxx charset should be used.
-#: generate_template.sh:30
+#: generate_template.sh:25
 msgid "Debian-Installer Loader"
 msgstr "Chargeur de l'installateur Debian"
 
-#: generate_template.sh:31
+#: generate_template.sh:26
 msgid "Debian Installer"
 msgstr "Installateur Debian"
 
-#: generate_template.sh:32
+#: generate_template.sh:27
 msgid ""
 "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
 "complete desktop install, it is recommended to have at least 3 GB of free "
@@ -55,19 +61,19 @@ msgstr ""
 "partition séparée pour l'installation de Debian ou si vous prévoyez de "
 "remplacer entièrement Windows, vous pouvez ignorer cet avertissement."
 
-#: generate_template.sh:33
+#: generate_template.sh:28
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Espace disque insuffisant. Installation interrompue."
 
-#: generate_template.sh:34 generate_template.sh:37
+#: generate_template.sh:29 generate_template.sh:32
 msgid "Select install mode:"
 msgstr "Mode d'installation :"
 
-#: generate_template.sh:35
+#: generate_template.sh:30
 msgid "Normal mode.  Recommended for most users."
 msgstr "Mode normal. Recommandé pour la plupart des utilisateurs."
 
-#: generate_template.sh:36
+#: generate_template.sh:31
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -75,16 +81,16 @@ msgstr ""
 "Mode expert. Recommandé pour les utilisateurs qui souhaitent avoir un "
 "contrôle complet de l'installation."
 
-#: generate_template.sh:38
+#: generate_template.sh:33
 #, fuzzy
 msgid "Graphical install"
 msgstr "Installation en mode graphique (recommandé)"
 
-#: generate_template.sh:39
+#: generate_template.sh:34
 msgid "Text install"
 msgstr "Installation en mode texte"
 
-#: generate_template.sh:40
+#: generate_template.sh:35
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
@@ -93,39 +99,39 @@ msgstr ""
 "suivants. Vous ne devriez pas les modifier à moins d'avoir la certitude que "
 "cela est nécessaire."
 
-#: generate_template.sh:41
+#: generate_template.sh:36
 msgid "Proxy settings (host:port):"
 msgstr "Réglage du mandataire (« proxy ») (hôte:port) :"
 
-#: generate_template.sh:42
+#: generate_template.sh:37
 msgid "Location of boot.ini:"
 msgstr "Emplacement du fichier « boot.ini » :"
 
-#: generate_template.sh:43
+#: generate_template.sh:38
 msgid "Debconf preseed line:"
 msgstr "Préconfiguration de l'installateur :"
 
-#: generate_template.sh:44
+#: generate_template.sh:39
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL de base pour les images netboot (linux et initrd.gz) :"
 
-#: generate_template.sh:45
+#: generate_template.sh:40
 msgid "Downloading %s"
 msgstr "Téléchargement de %s"
 
-#: generate_template.sh:46
+#: generate_template.sh:41
 msgid "Connecting ..."
 msgstr "Connexion..."
 
-#: generate_template.sh:47
+#: generate_template.sh:42
 msgid "second"
 msgstr "seconde"
 
-#: generate_template.sh:48
+#: generate_template.sh:43
 msgid "minute"
 msgstr "minute"
 
-#: generate_template.sh:49
+#: generate_template.sh:44
 msgid "hour"
 msgstr "heure"
 
@@ -133,23 +139,23 @@ msgstr "heure"
 #. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
 #. translate: has been proposed [1] but in the meantime we'll have to cope with this.
 #. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
-#: generate_template.sh:54
+#: generate_template.sh:49
 msgid "s"
 msgstr "s"
 
-#: generate_template.sh:55
+#: generate_template.sh:50
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) sur %dkB à %d.%01dko/s"
 
-#: generate_template.sh:56
+#: generate_template.sh:51
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s restant)"
 
-#: generate_template.sh:57
+#: generate_template.sh:52
 msgid "Error"
 msgstr "Erreur"
 
-#: generate_template.sh:58
+#: generate_template.sh:53
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
 "old, or damaged."
@@ -157,7 +163,7 @@ msgstr ""
 "Erreur: @DOLLAR@boot_ini n'existe pas.  Version de Windows non gérée ou "
 "installation endommagée."
 
-#: generate_template.sh:59
+#: generate_template.sh:54
 msgid ""
 "VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
 "Debian install.  During your next boot, you will be asked whether you want "
@@ -184,6 +190,6 @@ msgstr ""
 "Debian en utilisant « Ajout/suppression de programmes » du Panneau de "
 "Configuration."
 
-#: generate_template.sh:60
+#: generate_template.sh:55
 msgid "Do you want to reboot now?"
 msgstr "Voulez-vous redémarrer maintenant ?"
