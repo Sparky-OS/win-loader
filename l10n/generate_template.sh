@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
+# check wine/tools/wmc/lang.c
 case $LANGUAGE in
-  cs)
+  cs|sk)
 	charset=windows-1250 ;;
   ca|es|de|fr|nl|sv)
 	charset=windows-1252 ;;
