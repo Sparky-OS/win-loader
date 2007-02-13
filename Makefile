@@ -8,8 +8,8 @@ debian.exe: main.nsi checkspacefree.nsh maps.ini \
 	makensis main.nsi
 	du -h debian.exe
 
-cpuid/test64.dll: cpuid/cpuid.S cpuid/plugin.c
-	i586-mingw32msvc-gcc -Os cpuid/cpuid.S cpuid/plugin.c -shared -o cpuid/test64.dll
+cpuid/test64.dll: cpuid/cpuid.c cpuid/plugin.c
+	i586-mingw32msvc-gcc -Os cpuid/cpuid.c cpuid/plugin.c -shared -o cpuid/test64.dll
 	i586-mingw32msvc-strip cpuid/test64.dll
 
 maps.ini: maps.ini.in /usr/share/iso-codes/iso_3166.tab
