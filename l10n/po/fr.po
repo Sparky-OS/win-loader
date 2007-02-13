@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-13 17:56+0100\n"
-"PO-Revision-Date: 2007-02-11 09:50+0100\n"
+"PO-Revision-Date: 2007-02-13 19:45+0100\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,6 @@ msgid "Debian Installer"
 msgstr "Installateur Debian"
 
 #: generate_template.sh:31
-#, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
 "complete desktop install, it is recommended to have at least 3 GB of free "
@@ -66,13 +65,13 @@ msgstr "Mode d'installation :"
 
 #: generate_template.sh:34
 msgid "Normal mode.  Recommended for most users."
-msgstr ""
+msgstr "Mode normal. Recommandé pour la plupart des utilisateurs."
 
 #: generate_template.sh:35
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
-msgstr ""
+msgstr "Mode expert. Recommandé pour les utilisateurs qui souhaitent avoir un contrôle complet de l'installation."
 
 #: generate_template.sh:37
 msgid "Graphical install (recommended)"
@@ -83,7 +82,6 @@ msgid "Text install"
 msgstr "Installation en mode texte"
 
 #: generate_template.sh:39
-#, fuzzy
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
@@ -93,9 +91,8 @@ msgstr ""
 "cela est nécessaire."
 
 #: generate_template.sh:40
-#, fuzzy
 msgid "Proxy settings (host:port):"
-msgstr "Réglage du mandataire NSISdl (hôte:port) :"
+msgstr "Réglage du mandataire (« proxy ») (hôte:port) :"
 
 #: generate_template.sh:41
 msgid "Location of boot.ini:"
@@ -158,7 +155,6 @@ msgstr ""
 "installation endommagée."
 
 #: generate_template.sh:58
-#, fuzzy
 msgid ""
 "VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
 "Debian install.  During your next boot, you will be asked whether you want "
@@ -172,20 +168,20 @@ msgid ""
 "chosen to keep Windows in your disk), you can uninstall the Debian-Installer "
 "Loader through the Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
-"Avertissement important :@DOLLAR@\\n@DOLLAR@\\nIl est nécessaire de "
+"Avertissement important :\\n\\nIl est nécessaire de "
 "redémarrer afin d'installer Debian. Au prochain redémarrage, vous aurez le "
 "choix de démarrer Windows ou « Debian Installer ». Ce dernier choix vous "
-"permettra de continuer l'installation.@DOLLAR@\\n@DOLLAR@\\nPendant "
+"permettra de continuer l'installation.\\n\\nPendant "
 "l'installation, il vous sera proposé de réduire la taille de la partition "
 "Windows pour installer Debian ou bien la remplacer entièrement. Dans les "
 "deux cas, il est fortement recommandé de sauvegarder préalablement vos "
 "données. Ni les auteurs de cet outil de lancement de l'installateur Debian "
 "ni le projet Debian ne peuvent être tenus comme responsables en cas de perte "
-"de données.@DOLLAR@\\n@DOLLAR@\\nUne fois l'installation de Debian terminée, "
+"de données.\\n\\nUne fois l'installation de Debian terminée, "
 "vous pouvez désinstaller le charger de l'installateur Debian en utilisant "
-"« Ajout/suppression de programmes » du Panneau de Configuration.@DOLLAR@"
-"\\n@DOLLAR@\\n"
+"« Ajout/suppression de programmes » du Panneau de Configuration."
 
 #: generate_template.sh:59
 msgid "Do you want to reboot now?"
 msgstr "Voulez-vous redémarrer maintenant ?"
+
