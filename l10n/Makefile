@@ -13,7 +13,7 @@ templates/%.nsh: po/%.po generate_template.sh po/messages.pot
 	LANGUAGE=$* ./generate_template.sh > $@
 
 po/messages.pot: generate_template.sh
-	xgettext $^ -o $@
+	xgettext --from-code=utf-8 -ctranslate $^ -o $@
 
 clean:
 	rm -rf *~ templates locale
