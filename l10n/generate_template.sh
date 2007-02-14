@@ -5,7 +5,8 @@ export TEXTDOMAIN=win32-loader
 export TEXTDOMAINDIR=${PWD}/locale
 
 # translate: This must be the string used by Windows to represent your
-# translate: language.  If you don't know, check [wine]/tools/wmc/lang.c.
+# translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
+# translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
 charset=`gettext windows-1252`
 
 # translate: This must be a valid string recognised by Nsis.  If your
