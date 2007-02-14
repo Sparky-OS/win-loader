@@ -21,6 +21,7 @@ SetCompressor /SOLID lzma
 ; First is default
 !include l10n/templates/en.nsh
 !include l10n/templates/cs.nsh
+!include l10n/templates/fi.nsh
 !include l10n/templates/fr.nsh
 !include l10n/templates/nl.nsh
 !include l10n/templates/sk.nsh
@@ -84,6 +85,8 @@ Function .onInit
   Push Dutch
   Push ${LANG_ENGLISH}
   Push English
+  Push ${LANG_FINNISH}
+  Push Finnish
   Push ${LANG_FRENCH}
   Push French
   Push ${LANG_SLOVAK}
