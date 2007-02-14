@@ -19,7 +19,7 @@ msgstr ""
 #. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c.
 #: generate_template.sh:9
 msgid "windows-1252"
-msgstr ""
+msgstr "windows-1250"
 
 #. translate: This must be a valid string recognised by Nsis.  If your
 #. translate: language is not yet supported by Nsis, please translate the
