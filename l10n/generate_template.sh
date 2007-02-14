@@ -1,5 +1,15 @@
 #!/bin/bash -e
 
+# make sure gettext output is in UTF-8
+unset LC_CTYPE
+while read a b ; do
+  if [ "$b" = "UTF-8" ] ; then
+    export LC_CTYPE=$a
+    break
+  fi
+done < /etc/locale.gen
+[ "$LC_CTYPE" ]
+
 . /usr/bin/gettext.sh
 export TEXTDOMAIN=win32-loader
 export TEXTDOMAINDIR=${PWD}/locale
