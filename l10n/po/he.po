@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-13 17:56+0100\n"
+"POT-Creation-Date: 2007-02-15 10:04+0100\n"
 "PO-Revision-Date: 2007-02-13 23:26+0200\n"
 "Last-Translator: Lior Kaplan <kaplan@debian.org>\n"
 "Language-Team: Hebrew <debian-hebrew-common@lists.alioth.debian.org>\n"
@@ -16,16 +16,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
+#. translate: This must be the string used by Windows to represent your
+#. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
+#. translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
+#: generate_template.sh:20
+msgid "windows-1252"
+msgstr "windows-1255"
+
 #. translate: This must be a valid string recognised by Nsis.  If your
 #. translate: language is not yet supported by Nsis, please translate the
 #. translate: missing Nsis part first.
-#: generate_template.sh:18
+#: generate_template.sh:25
 msgid "LANG_ENGLISH"
 msgstr "LANG_HEBREW"
 
 #. translate: The nlf file for your language should be found in
 #. translate: /usr/share/nsis/Contrib/Language files/
-#: generate_template.sh:23
+#: generate_template.sh:30
 msgid "English.nlf"
 msgstr "Hebrew.nlf"
 
@@ -33,88 +40,95 @@ msgstr "Hebrew.nlf"
 #. translate: You may, however, use single quotes (') or « » just fine.
 #. translate: Also note that only the subset of UTF-8 that can be converted to the
 #. translate: corresponding windows-xxxx charset should be used.
-#: generate_template.sh:29
+#: generate_template.sh:36
 msgid "Debian-Installer Loader"
 msgstr "טעינת תוכנית ההתקנה של דביאן"
 
-#: generate_template.sh:30
+#: generate_template.sh:37
 msgid "Debian Installer"
 msgstr "תוכנית ההתקנה של דביאן"
 
-#: generate_template.sh:31
+#: generate_template.sh:38
 msgid ""
 "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
 "complete desktop install, it is recommended to have at least 3 GB of free "
 "disk.  If there is already a separate disk or partition to install Debian, "
 "or if you plan to replace Windows completely, you can safely ignore this "
 "warning."
-msgstr "נראה שאין מספיק נפח דיסק פנוי בכונן @DOLLAR@c.  עבור התקנת מלאה של תחנת עבודה, מומלץ שיהיה לפחות 3 GB של נפח דיסק פנוי. אם כבר יש דיסק או מחיצה נפרדת כדי להתקין עליהם את דביאן, או שאתה מתכוון להחליף את חלונות לחלוטין, אתה יכול להתעלם מאזהרה זאת"
+msgstr ""
+"נראה שאין מספיק נפח דיסק פנוי בכונן @DOLLAR@c.  עבור התקנת מלאה של תחנת "
+"עבודה, מומלץ שיהיה לפחות 3 GB של נפח דיסק פנוי. אם כבר יש דיסק או מחיצה "
+"נפרדת כדי להתקין עליהם את דביאן, או שאתה מתכוון להחליף את חלונות לחלוטין, "
+"אתה יכול להתעלם מאזהרה זאת"
 
-#: generate_template.sh:32
+#: generate_template.sh:39
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "שגיאה: אין מספיק נפח דיסק פנוי. מבטל את ההתקנה."
 
-#: generate_template.sh:33 generate_template.sh:36
+#: generate_template.sh:40 generate_template.sh:43
 msgid "Select install mode:"
 msgstr "בחר צורת התקנה:"
 
-#: generate_template.sh:34
+#: generate_template.sh:41
 msgid "Normal mode.  Recommended for most users."
 msgstr "התקנה רגילה.  מומלצת עבור רוב המשתמשים."
 
-#: generate_template.sh:35
+#: generate_template.sh:42
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
 msgstr "התקנה מומחים. ממולצת למשתמש מומחים שרוצים שליטה מלאה בתהליך ההתקנה."
 
-#: generate_template.sh:37
-msgid "Graphical install (recommended)"
+#: generate_template.sh:44
+#, fuzzy
+msgid "Graphical install"
 msgstr "התקנה גרפית (מומלץ)"
 
-#: generate_template.sh:38
+#: generate_template.sh:45
 msgid "Text install"
 msgstr "התקנה טקסוטאלית"
 
-#: generate_template.sh:39
+#: generate_template.sh:46
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
-msgstr "טעינת תוכנית ההתקנה של דביאן תוגדר עם הפרמטרים הבאים. אל תשנה אותם אלא אם הנך בטוח במה שאתה עושה."
+msgstr ""
+"טעינת תוכנית ההתקנה של דביאן תוגדר עם הפרמטרים הבאים. אל תשנה אותם אלא אם "
+"הנך בטוח במה שאתה עושה."
 
-#: generate_template.sh:40
+#: generate_template.sh:47
 msgid "Proxy settings (host:port):"
 msgstr "הגדרות פרוקסי (host:port):"
 
-#: generate_template.sh:41
+#: generate_template.sh:48
 msgid "Location of boot.ini:"
 msgstr "מיקום של הקובץ boot.ini:"
 
-#: generate_template.sh:42
+#: generate_template.sh:49
 msgid "Debconf preseed line:"
 msgstr "שורת תשובות מוכנות מראש של Debconf:"
 
-#: generate_template.sh:43
+#: generate_template.sh:50
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "כתובת בסיס עבור תמונות התקנת רשת (קבצי linux ו-initrd.gz):"
 
-#: generate_template.sh:44
+#: generate_template.sh:51
 msgid "Downloading %s"
 msgstr "מוריד את %s"
 
-#: generate_template.sh:45
+#: generate_template.sh:52
 msgid "Connecting ..."
 msgstr "מתחבר ..."
 
-#: generate_template.sh:46
+#: generate_template.sh:53
 msgid "second"
 msgstr "שניות"
 
-#: generate_template.sh:47
+#: generate_template.sh:54
 msgid "minute"
 msgstr "דקות"
 
-#: generate_template.sh:48
+#: generate_template.sh:55
 msgid "hour"
 msgstr "שעות"
 
@@ -122,29 +136,29 @@ msgstr "שעות"
 #. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
 #. translate: has been proposed [1] but in the meantime we'll have to cope with this.
 #. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
-#: generate_template.sh:53
+#: generate_template.sh:60
 msgid "s"
 msgstr " "
 
-#: generate_template.sh:54
+#: generate_template.sh:61
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 
-#: generate_template.sh:55
+#: generate_template.sh:62
 msgid " (%d %s%s remaining)"
 msgstr " (נשארו %d %s%s)"
 
-#: generate_template.sh:56
+#: generate_template.sh:63
 msgid "Error"
 msgstr "שגיאה"
 
-#: generate_template.sh:57
+#: generate_template.sh:64
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
 "old, or damaged."
 msgstr "שגיאה: @DOLLAR@boot_ini לא נמצא. הגרסה של חלונות ישנה מידי או פגומה."
 
-#: generate_template.sh:58
+#: generate_template.sh:65
 msgid ""
 "VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
 "Debian install.  During your next boot, you will be asked whether you want "
@@ -159,7 +173,6 @@ msgid ""
 "Loader through the Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
 
-#: generate_template.sh:59
+#: generate_template.sh:66
 msgid "Do you want to reboot now?"
 msgstr "לאתחל את המחשב עכשיו?"
-
