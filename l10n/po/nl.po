@@ -83,9 +83,8 @@ msgstr ""
 "het installatieproces wensen."
 
 #: generate_template.sh:44
-#, fuzzy
 msgid "Graphical install"
-msgstr "Grafische installatie (aanbevolen)"
+msgstr "Grafische installatie"
 
 #: generate_template.sh:45
 msgid "Text install"

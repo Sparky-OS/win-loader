@@ -82,9 +82,8 @@ msgstr ""
 "instalací úplnou kontrolu."
 
 #: generate_template.sh:44
-#, fuzzy
 msgid "Graphical install"
-msgstr "Grafická instalace (doporučeno)"
+msgstr "Grafická instalace"
 
 #: generate_template.sh:45
 msgid "Text install"

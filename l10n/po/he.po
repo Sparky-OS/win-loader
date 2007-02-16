@@ -80,9 +80,8 @@ msgid ""
 msgstr "התקנה מומחים. ממולצת למשתמש מומחים שרוצים שליטה מלאה בתהליך ההתקנה."
 
 #: generate_template.sh:44
-#, fuzzy
 msgid "Graphical install"
-msgstr "התקנה גרפית (מומלץ)"
+msgstr "התקנה גרפית"
 
 #: generate_template.sh:45
 msgid "Text install"

@@ -81,9 +81,8 @@ msgstr ""
 "täysi hallinta on tärkeää."
 
 #: generate_template.sh:44
-#, fuzzy
 msgid "Graphical install"
-msgstr "Graafinen asennus (suositeltava)"
+msgstr "Graafinen asennus"
 
 #: generate_template.sh:45
 msgid "Text install"
