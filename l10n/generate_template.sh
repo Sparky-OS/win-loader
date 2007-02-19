@@ -8,7 +8,10 @@ while read a b ; do
     break
   fi
 done < /etc/locale.gen
-[ "$LC_CTYPE" ]
+if ! [ "$LC_CTYPE" ] ; then
+  echo "No UTF-8 locale could be found in /etc/locale.gen"
+  exit 1
+fi
 
 . /usr/bin/gettext.sh
 export TEXTDOMAIN=win32-loader
