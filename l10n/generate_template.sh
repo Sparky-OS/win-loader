@@ -9,7 +9,7 @@ while read a b ; do
   fi
 done < /etc/locale.gen
 if ! [ "$LC_CTYPE" ] ; then
-  echo "No UTF-8 locale could be found in /etc/locale.gen"
+  echo "Run \"sudo dpkg-reconfigure locales\" and add at least one UTF-8 locale there."
   exit 1
 fi
 
