@@ -20,6 +20,7 @@ SetCompressor /SOLID lzma
 
 ; First is default
 !include l10n/templates/en.nsh
+!include l10n/templates/bg.nsh
 !include l10n/templates/cs.nsh
 !include l10n/templates/fi.nsh
 !include l10n/templates/fr.nsh
@@ -81,6 +82,8 @@ Function .onInit
 
   ; Language selection dialog
   Push ""
+  Push ${LANG_BULGARIAN}
+  Push Bulgarian
   Push ${LANG_CZECH}
   Push Czech
   Push ${LANG_DUTCH}

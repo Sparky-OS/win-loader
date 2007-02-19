@@ -1,0 +1,198 @@
+# Bulgarian translation of Debian Installer for Win32.
+# Copyright (C) 2007 THE Debian Installer for Win32'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Debian Installer for Win32 package.
+# somnivm <EMAIL@ADDRESS>, 2007.
+# , fuzzy
+# somnivm <EMAIL@ADDRESS>, 2007.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Debian Installer for Win32 ALL\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-15 10:04+0100\n"
+"PO-Revision-Date: 2007-02-19 02:46+0100\n"
+"Last-Translator: Pavel Bliznakov <pavel@pavel-bliznakov.com>\n"
+"Language-Team: Bulgarian <bg@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. translate: This must be the string used by Windows to represent your
+#. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
+#. translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
+#: generate_template.sh:20
+msgid "windows-1252"
+msgstr "windows-1251"
+
+#. translate: This must be a valid string recognised by Nsis.  If your
+#. translate: language is not yet supported by Nsis, please translate the
+#. translate: missing Nsis part first.
+#: generate_template.sh:25
+msgid "LANG_ENGLISH"
+msgstr "LANG_BULGARIAN"
+
+#. translate: The nlf file for your language should be found in
+#. translate: /usr/share/nsis/Contrib/Language files/
+#: generate_template.sh:30
+msgid "English.nlf"
+msgstr "Bulgarian.nlf"
+
+#. translate: Please do NOT use double quotes (") anywhere from now on.  These break build!
+#. translate: You may, however, use single quotes (') or « » just fine.
+#. translate: Also note that only the subset of UTF-8 that can be converted to the
+#. translate: corresponding windows-xxxx charset should be used.
+#: generate_template.sh:36
+msgid "Debian-Installer Loader"
+msgstr "Програма за зареждане на Дебиан инсталатора"
+
+#: generate_template.sh:37
+msgid "Debian Installer"
+msgstr "Дебиан инсталатор"
+
+#: generate_template.sh:38
+msgid ""
+"There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
+"complete desktop install, it is recommended to have at least 3 GB of free "
+"disk.  If there is already a separate disk or partition to install Debian, "
+"or if you plan to replace Windows completely, you can safely ignore this "
+"warning."
+msgstr ""
+"Изглежда, че няма достатъчно свободно дисково пространство на устройство "
+"@DOLLAR@c.  За пълна инсталация е препоръчително да имате поне 3ГБ свободно "
+"място. Ако вече имате отделен диск или дял върху който ще инсталирате Дебиан "
+"или планирате напълно да заместите Уиндоус, можете да игнорирате това "
+"предупреждение."
+
+#: generate_template.sh:39
+msgid "Error: not enough free disk space.  Aborting install."
+msgstr ""
+"Грешка: няма достатъчно свободно дисково пространство. Прекъсване на "
+"инсталацията."
+
+#: generate_template.sh:40 generate_template.sh:43
+msgid "Select install mode:"
+msgstr "Изберете режим на инсталация:"
+
+#: generate_template.sh:41
+msgid "Normal mode.  Recommended for most users."
+msgstr "Нормален режим:  Препоръчителен за повечето потребители."
+
+#: generate_template.sh:42
+msgid ""
+"Expert mode.  Recommended for expert users who want full control of the "
+"install process."
+msgstr ""
+"Експертен режим:  Препоръчителен за напреднали потребители, които искат "
+"пълен контрол върху инсталационния процес."
+
+#: generate_template.sh:44
+msgid "Graphical install"
+msgstr "Графична инсталация"
+
+#: generate_template.sh:45
+msgid "Text install"
+msgstr "Инсталация в текстов режим"
+
+#: generate_template.sh:46
+msgid ""
+"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
+"change any of these unless you know what you're doing."
+msgstr ""
+"Програмата за зареждане на Дебиан инсталатора ще бъде настроена със следните "
+"параметри.  НЕ променяйте нищо, ако не знаете какво точно правите."
+
+#: generate_template.sh:47
+msgid "Proxy settings (host:port):"
+msgstr "Настройки на прокси (машина:порт):"
+
+#: generate_template.sh:48
+msgid "Location of boot.ini:"
+msgstr "Местонахождение на boot.ini:"
+
+#: generate_template.sh:49
+msgid "Debconf preseed line:"
+msgstr "Преконфигурация на инсталатора:"
+
+#: generate_template.sh:50
+msgid "Base URL for netboot images (linux and initrd.gz):"
+msgstr "Базов адрес за netboot images (linux и initrd.gz):"
+
+#: generate_template.sh:51
+msgid "Downloading %s"
+msgstr "Сваляне на %s"
+
+#: generate_template.sh:52
+msgid "Connecting ..."
+msgstr "Свързване..."
+
+#: generate_template.sh:53
+msgid "second"
+msgstr "секунди"
+
+#: generate_template.sh:54
+msgid "minute"
+msgstr "минути"
+
+#: generate_template.sh:55
+msgid "hour"
+msgstr "часа"
+
+#. translate: This string is appended to "second", "minute" or "hour" to make plurals.
+#. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
+#. translate: has been proposed [1] but in the meantime we'll have to cope with this.
+#. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
+#: generate_template.sh:60
+msgid "s"
+msgstr " "
+
+#: generate_template.sh:61
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%dкб·(%d%%)·от·%dкб·на·%d.%01dкБ/сек."
+
+#: generate_template.sh:62
+msgid " (%d %s%s remaining)"
+msgstr " (остават %d %s%s)"
+
+#: generate_template.sh:63
+msgid "Error"
+msgstr "Грешка"
+
+#: generate_template.sh:64
+msgid ""
+"Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
+"old, or damaged."
+msgstr ""
+"Грешка: @DOLLAR@boot_ini не беше намерен.  Версията Ви на Уиндоус може да е "
+"прекалено стара или повредена."
+
+#: generate_template.sh:65
+msgid ""
+"VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
+"Debian install.  During your next boot, you will be asked whether you want "
+"to start Windows or Debian Installer.  Choose Debian Installer to continue "
+"the install process.\\n\\nDuring the install process, you will be offered "
+"the possibility of either reducing your Windows partition to install Debian "
+"or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that "
+"you have previously made a backup of your data.  Nor the authors of this "
+"loader neither the Debian project will take ANY RESPONSIBILITY in the event "
+"of data loss.\\n\\nOnce your Debian install is complete (and if you have "
+"chosen to keep Windows in your disk), you can uninstall the Debian-Installer "
+"Loader through the Windows Add/Remove Programs dialog in Control Panel."
+msgstr ""
+"МНОГО ВАЖНА ЗАБЕЛЕЖКА:\\n\\nТрябва да рестартирате компютъра, за да "
+"продължите инсталацията на Дебиан.  При следващото зареждане ще бъдете "
+"попитани дали искате да заредите Уиндоус или Дебиан инсталатора. Изберете "
+"Debian Installer, за да продължите инсталационния процес.\\n\\nПо време на "
+"инсталацията ще Ви бъде предложена възможността да смалите дяла на Уиндоус, "
+"за да инсталирате Дебиан или напълно да го замените.  И в двата случая е "
+"СИЛНО ПРЕПОРЪЧИТЕЛНО предварително да сте направили резервно копие на "
+"данните си.  Авторите на този проект и тези на проекта Дебиан НЕ ПОЕМАТ "
+"НИКАКВА ОТГОВОРНОСТ в случай на загуба на данни.\\n\\nВеднъж привършена "
+"инсталацията на Дебиан (и ако сте избрали да запазите Уиндоус), можете да "
+"деинсталирате програмата за зареждане на Дебиан инсталатора в Уиндоус от Add/"
+"Remove Programs в Control Panel."
+
+#: generate_template.sh:66
+msgid "Do you want to reboot now?"
+msgstr "Искате ли да рестартирате сега?"
