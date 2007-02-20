@@ -1,0 +1,199 @@
+# translation of de.po to 
+# translation of de.po to
+# translation of de.po to
+# translation of de.po to German
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Christian Perrier <bubulle@debian.org>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: de\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-15 10:04+0100\n"
+"PO-Revision-Date: 2007-02-19 23:53+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#. translate: This must be the string used by Windows to represent your
+#. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
+#. translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
+#: generate_template.sh:20
+msgid "windows-1252"
+msgstr "windows-1252"
+
+#. translate: This must be a valid string recognised by Nsis.  If your
+#. translate: language is not yet supported by Nsis, please translate the
+#. translate: missing Nsis part first.
+#: generate_template.sh:25
+msgid "LANG_ENGLISH"
+msgstr "LANG_GERMAN"
+
+#. translate: The nlf file for your language should be found in
+#. translate: /usr/share/nsis/Contrib/Language files/
+#: generate_template.sh:30
+msgid "English.nlf"
+msgstr "German.nlf"
+
+#. translate: Please do NOT use double quotes (") anywhere from now on.  These break build!
+#. translate: You may, however, use single quotes (') or « » just fine.
+#. translate: Also note that only the subset of UTF-8 that can be converted to the
+#. translate: corresponding windows-xxxx charset should be used.
+#: generate_template.sh:36
+msgid "Debian-Installer Loader"
+msgstr "Debian-Installer Ladeprogramm"
+
+#: generate_template.sh:37
+msgid "Debian Installer"
+msgstr "Debian Installer "
+
+#: generate_template.sh:38
+msgid ""
+"There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
+"complete desktop install, it is recommended to have at least 3 GB of free "
+"disk.  If there is already a separate disk or partition to install Debian, "
+"or if you plan to replace Windows completely, you can safely ignore this "
+"warning."
+msgstr ""
+"Der Platz auf Laufwerk @DOLLAR@c scheint nicht auszureichen.  Für die "
+"Installation eines kompletten grafischen Systems wird mindestens 3 GB freier "
+"Festplattenplatz empfohlen.  Wenn bereits eine separate Festplatte oder "
+"Partition existiert, um darauf Debian zu installieren oder wenn Sie planen, "
+"Windows komplett zu ersetzen, können Sie diese Warnung ignorieren."
+
+#: generate_template.sh:39
+msgid "Error: not enough free disk space.  Aborting install."
+msgstr ""
+"Fehler: Nicht genügend Platz auf der Festplatte.  Breche Installation ab."
+
+#: generate_template.sh:40 generate_template.sh:43
+msgid "Select install mode:"
+msgstr "Wählen Sie die Art der Installation:"
+
+#: generate_template.sh:41
+msgid "Normal mode.  Recommended for most users."
+msgstr "Normaler Modus. Für die meisten Benutzer empfohlen."
+
+#: generate_template.sh:42
+msgid ""
+"Expert mode.  Recommended for expert users who want full control of the "
+"install process."
+msgstr ""
+"Expertenmodus.  Empfohlen für fortgeschrittene Benutzer, die volle Kontrolle "
+"über den Installationsprozeß haben wollen."
+
+#: generate_template.sh:44
+msgid "Graphical install"
+msgstr "Grafische Installation"
+
+#: generate_template.sh:45
+msgid "Text install"
+msgstr "Installation im Textmodus"
+
+#: generate_template.sh:46
+msgid ""
+"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
+"change any of these unless you know what you're doing."
+msgstr ""
+"Das Debian-Installer Ladeprogramm verwendet folgende Parameter.  Ändern Sie "
+"NICHTS, wenn Sie nicht wissen, was Sie tun."
+
+#: generate_template.sh:47
+msgid "Proxy settings (host:port):"
+msgstr "Proxyeinstellungen (host:port):"
+
+#: generate_template.sh:48
+msgid "Location of boot.ini:"
+msgstr "Speicherort der boot.ini:"
+
+#: generate_template.sh:49
+msgid "Debconf preseed line:"
+msgstr "Bootoptionen des Debian Installers:"
+
+#: generate_template.sh:50
+msgid "Base URL for netboot images (linux and initrd.gz):"
+msgstr "URL für die Netzinstallations Images (linux und initrd.gz):"
+
+#: generate_template.sh:51
+msgid "Downloading %s"
+msgstr "Lade %s herunter"
+
+#: generate_template.sh:52
+msgid "Connecting ..."
+msgstr "Verbinde..."
+
+#: generate_template.sh:53
+msgid "second"
+msgstr "zweites"
+
+#: generate_template.sh:54
+msgid "minute"
+msgstr "Minute"
+
+#: generate_template.sh:55
+msgid "hour"
+msgstr "Stunde"
+
+#. translate: This string is appended to "second", "minute" or "hour" to make plurals.
+#. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
+#. translate: has been proposed [1] but in the meantime we'll have to cope with this.
+#. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
+#: generate_template.sh:60
+msgid "s"
+msgstr "n"
+
+#: generate_template.sh:61
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%dkB (%d%%) von %dkB bei %d.%01dkB/s"
+
+#: generate_template.sh:62
+msgid " (%d %s%s remaining)"
+msgstr " (%d %s%s verbleiben)"
+
+#: generate_template.sh:63
+msgid "Error"
+msgstr "Fehler"
+
+#: generate_template.sh:64
+msgid ""
+"Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
+"old, or damaged."
+msgstr ""
+"Fehler: @DOLLAR@boot_ini wurde nicht gefunden.  Diese Version von Windows "
+"könnte zu alt oder aber zerstört sein."
+
+#: generate_template.sh:65
+msgid ""
+"VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
+"Debian install.  During your next boot, you will be asked whether you want "
+"to start Windows or Debian Installer.  Choose Debian Installer to continue "
+"the install process.\\n\\nDuring the install process, you will be offered "
+"the possibility of either reducing your Windows partition to install Debian "
+"or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that "
+"you have previously made a backup of your data.  Nor the authors of this "
+"loader neither the Debian project will take ANY RESPONSIBILITY in the event "
+"of data loss.\\n\\nOnce your Debian install is complete (and if you have "
+"chosen to keep Windows in your disk), you can uninstall the Debian-Installer "
+"Loader through the Windows Add/Remove Programs dialog in Control Panel."
+msgstr ""
+"WICHTIGER HINWEIS:\\n\\nSie müssen den Rechner neustarten, um mit der "
+"Debianinstallation fortzufahren.  Beim nächsten Neustart können Sie "
+"auswählen, ob Sie Windows oder den Debianinstaller starten wollen.  Wenn Sie "
+"den Debianinstaller auswählen, wird der Installationsprozeß fortgeführt.\\n"
+"\\nWährend der Installation wird es die Möglichkeit geben, entweder Ihre "
+"Windowspartition zu verkleinern oder vollständig zu ersetzen.  In beiden "
+"Fällen wird DRINGEND EMPFOHLEN, vorher eine Sicherung Ihrer Daten zu "
+"machen.  Weder die Autoren dieses Ladeprogramms noch das Debianprojekt "
+"werden IRGENDEINE VERANTWORTUNG übernehmen, falls Sie Ihre Daten verlieren."
+"\\n\\nWenn die Debianinstallation abgeschlossen ist (und Sie Windows auf der "
+"Festplatte behalten haben), können Sie das Debian Installer Ladeprogramm in "
+"der Windows-Systemsteuerung mit dem 'Programme Ändern/Entfernen' Dialog "
+"deinstallieren."
+
+#: generate_template.sh:66
+msgid "Do you want to reboot now?"
+msgstr "Wollen Sie den Rechner jetzt neustarten?"
