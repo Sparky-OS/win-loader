@@ -79,7 +79,7 @@ Function .onInit
   File /oname=$PLUGINSDIR\maps.ini maps.ini
 
   ; default to English
-  StrCpy $LANGUAGE 1033
+  StrCpy $LANGUAGE ${LANG_ENGLISH}
 
   ; Language selection dialog
   Push ""
