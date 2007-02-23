@@ -123,13 +123,17 @@ final system."
   ; when $LANGUAGE == "unsupported", so we'll use that to decide wether to
   ; preseed later.
 
+  Var /GLOBAL unsupported_language
   ${If} $LANGUAGE == "unsupported"
+    StrCpy $unsupported_language true
     ; Translators: your language is supported by d-i, but not yet by nsis.
     ; Please get your translation in nsis before translating win32-loader.
     MessageBox MB_OK "Because your language is not supported by this \
 stage of the installer, English will be used for now.  On the second \
 (and last) stage of the install process, you will be offered a much \
 wider choice, where your language is more likely to be present."
+  ${Else}
+    StrCpy $unsupported_language false
   ${Endif}
 FunctionEnd
 
@@ -228,12 +232,14 @@ proxyless:
   StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
 
 ; ********************************************** preseed locale
-  ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
-  ReadRegStr $1 HKCU "Control Panel\International" sCountry
-  ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
-  ${If} $0 != ""
-    ${If} $1 != ""
-      StrCpy $preseed "$preseed locale=$0_$1"
+  ${If} $unsupported_language == false
+    ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
+    ReadRegStr $1 HKCU "Control Panel\International" sCountry
+    ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
+    ${If} $0 != ""
+      ${If} $1 != ""
+        StrCpy $preseed "$preseed locale=$0_$1"
+      ${Endif}
     ${Endif}
   ${Endif}
 
