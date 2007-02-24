@@ -27,15 +27,15 @@ charset=`gettext windows-1252`
 # translate: missing Nsis part first.
 nsis_lang=`gettext LANG_ENGLISH`
 
-iconv -f utf-8 -t ${charset} << EOF | sed -e "s/@DOLLAR@/$/g"
-;# translate: The nlf file for your language should be found in
-;# translate: /usr/share/nsis/Contrib/Language files/
+grep -v "^# translate:" << EOF | iconv -f utf-8 -t ${charset} | sed -e "s/@DOLLAR@/$/g"
+# translate: The nlf file for your language should be found in
+# translate: /usr/share/nsis/Contrib/Language files/
 LoadLanguageFile "\${NSISDIR}\Contrib\Language files\\`gettext English.nlf`"
 LicenseLangString license \${$nsis_lang} license\en.txt
-;# translate: Please do NOT use double quotes (") anywhere from now on.  These break build!
-;# translate: You may, however, use single quotes (') or « » just fine.
-;# translate: Also note that only the subset of UTF-8 that can be converted to the
-;# translate: corresponding windows-xxxx charset should be used.
+# translate: Please do NOT use double quotes (") anywhere from now on.  These break build!
+# translate: You may, however, use single quotes (') or « » just fine.
+# translate: Also note that only the subset of UTF-8 that can be converted to the
+# translate: corresponding windows-xxxx charset should be used.
 LangString program_name \${$nsis_lang} "`gettext "Debian-Installer Loader"`"
 LangString d-i \${$nsis_lang} "`gettext "Debian Installer"`"
 LangString not_enough_space_for_debian \${$nsis_lang} "`gettext "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a complete desktop install, it is recommended to have at least 3 GB of free disk.  If there is already a separate disk or partition to install Debian, or if you plan to replace Windows completely, you can safely ignore this warning."`"
@@ -56,10 +56,10 @@ LangString nsisdl2 \${$nsis_lang} "`gettext "Connecting ..."`"
 LangString nsisdl3 \${$nsis_lang} "`gettext "second"`"
 LangString nsisdl4 \${$nsis_lang} "`gettext "minute"`"
 LangString nsisdl5 \${$nsis_lang} "`gettext "hour"`"
-;# translate: This string is appended to "second", "minute" or "hour" to make plurals.
-;# translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
-;# translate: has been proposed [1] but in the meantime we'll have to cope with this.
-;# translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
+# translate: This string is appended to "second", "minute" or "hour" to make plurals.
+# translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
+# translate: has been proposed [1] but in the meantime we'll have to cope with this.
+# translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 LangString nsisdl6 \${$nsis_lang} "`gettext "s"`"
 LangString nsisdl7 \${$nsis_lang} "`gettext "%dkB (%d%%) of %dkB at %d.%01dkB/s"`"
 LangString nsisdl8 \${$nsis_lang} "`gettext " (%d %s%s remaining)"`"
