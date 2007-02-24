@@ -71,6 +71,7 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
+Var /GLOBAL d
 Var /GLOBAL preseed
 
 Function .onInit
@@ -203,26 +204,10 @@ FunctionEnd
 Function ShowCustom
 ; Gather all the missing information before ShowCustom is displayed
 
-; ********************************************** Initialise proxy
-  Var /GLOBAL proxy
-  StrCpy $proxy ""
-  ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
-  IntCmp $0 1 0 proxyless
-  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
-  StrCmp $0 "" proxyless
-  StrCpy $proxy "$0"
-proxyless:
-
-; ********************************************** Initialise base_url + Preseed vga mode
+; ********************************************** Initialise arch + Preseed vga mode
   test64::get_arch
   Var /GLOBAL arch
   StrCpy $arch $0
-  Var /GLOBAL fellow_hacker
-  ${If} $arch == "i386"
-    StrCpy $fellow_hacker "joeyh"
-  ${Else}
-    StrCpy $fellow_hacker "aba"
-  ${EndIf}
   Var /GLOBAL gtk
   ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
   ${If} $0 == "1"
@@ -231,8 +216,49 @@ proxyless:
   ${Else}
     StrCpy $preseed "$preseed vga=normal"
   ${EndIf}
+
+; ********************************************** CD-based install
+  ${GetRoot} $EXEDIR $d
+  Var /GLOBAL linux
+  Var /GLOBAL initrd
+  Var /GLOBAL use_network
+  StrCpy $use_network true
+  IfFileExists $d\win32-loader.ini 0 cdless
+  ReadINIStr $linux $d\win32-loader.ini "$arch" "$gtklinux"
+  ReadINIStr $initrd $d\win32-loader.ini "$arch" "$gtkinitrd"
+  ${If} $linux == ""
+    Goto cdless
+  ${Endif}
+  ${If} $initrd == ""
+    Goto cdless
+  ${Endif}
+  StrCpy $use_network false
+cdless:
+
+; ********************************************** Initialise base_url
   Var /GLOBAL base_url
-  StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
+  ${If} $use_network == true
+    Var /GLOBAL fellow_hacker
+    ${If} $arch == "i386"
+      StrCpy $fellow_hacker "joeyh"
+    ${Else}
+      StrCpy $fellow_hacker "aba"
+    ${EndIf}
+    StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
+  ${Endif}
+
+; ********************************************** Initialise proxy
+  Var /GLOBAL proxy
+  StrCpy $proxy ""
+  ${If} $use_network == false
+    Goto proxyless
+  ${Endif}
+  ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
+  IntCmp $0 1 0 proxyless
+  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
+  StrCmp $0 "" proxyless
+  StrCpy $proxy "$0"
+proxyless:
 
 ; ********************************************** preseed locale
   ${If} $unsupported_language == false
@@ -331,29 +357,40 @@ Section "Debian-Installer Loader"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" $(program_name)
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
 
-  ${If} $proxy == ""
-    StrCpy $proxy /NOIEPROXY
+  ${If} $use_network == false
+    CopyFiles /FILESONLY "$EXEDIR\$linux" "$INSTDIR\linux"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error): CopyFiles"
+      Quit
+    CopyFiles /FILESONLY "$EXEDIR\$initrd" "$INSTDIR\initrd.gz"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error): CopyFiles"
+      Quit
   ${Else}
-    StrCpy $proxy "/PROXY $proxy"
+    ${If} $proxy == ""
+      StrCpy $proxy /NOIEPROXY
+    ${Else}
+      StrCpy $proxy "/PROXY $proxy"
+    ${Endif}
+
+    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/linux $INSTDIR\linux
+    Pop $R0
+    ${If} $R0 != "success"
+      ${If} $R0 != "cancel"
+         MessageBox MB_OK "$(error): $R0"
+      ${EndIf}
+      Quit
+    ${EndIf}
+
+    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
+    Pop $R0
+    ${If} $R0 != "success"
+      ${If} $R0 != "cancel"
+         MessageBox MB_OK "$(error): $R0"
+      ${EndIf}
+      Quit
+    ${EndIf}
   ${Endif}
-
-  NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/linux $INSTDIR\linux
-  Pop $R0
-  ${If} $R0 != "success"
-    ${If} $R0 != "cancel"
-       MessageBox MB_OK "$(error): $R0"
-    ${EndIf}
-    Quit
-  ${EndIf}
-
-  NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
-  Pop $R0
-  ${If} $R0 != "success"
-    ${If} $R0 != "cancel"
-       MessageBox MB_OK "$(error): $R0"
-    ${EndIf}
-    Quit
-  ${EndIf}
 
   File /oname=$c\grldr "contrib/grldr"
   File /oname=$c\grub "contrib/grub"

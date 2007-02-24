@@ -17,6 +17,31 @@ maps.ini: maps.ini.in /usr/share/iso-codes/iso_3166.tab
 	echo -en "\n[countries]\n" >> maps.ini
 	while read a b ; do echo "$$b=$$a" ; done < /usr/share/iso-codes/iso_3166.tab >> maps.ini
 
+iso: debian.iso
+debian.iso: debian.exe win32-loader.ini autorun.inf \
+  netboot/install.386/vmlinuz netboot/install.386/initrd.gz netboot/install.386/gtk/initrd.gz \
+  netboot/install.amd/vmlinuz netboot/install.amd/initrd.gz netboot/install.amd/gtk/initrd.gz
+	mkisofs -r -J -o $@ debian.exe win32-loader.ini autorun.inf netboot
+
+netboot/install.386/vmlinuz:
+	mkdir -p netboot/install.386
+	wget http://people.debian.org/~joeyh/d-i/images/daily/netboot/debian-installer/i386/linux -O $@
+netboot/install.386/initrd.gz:
+	mkdir -p netboot/install.386
+	wget http://people.debian.org/~joeyh/d-i/images/daily/netboot/debian-installer/i386/initrd.gz -O $@
+netboot/install.386/gtk/initrd.gz:
+	mkdir -p netboot/install.386/gtk
+	wget http://people.debian.org/~joeyh/d-i/images/daily/netboot/gtk/debian-installer/i386/initrd.gz -O $@
+netboot/install.amd/vmlinuz:
+	mkdir -p netboot/install.amd
+	wget http://people.debian.org/~aba/d-i/images/daily/netboot/debian-installer/amd64/linux -O $@
+netboot/install.amd/initrd.gz:
+	mkdir -p netboot/install.amd
+	wget http://people.debian.org/~aba/d-i/images/daily/netboot/debian-installer/amd64/initrd.gz -O $@
+netboot/install.amd/gtk/initrd.gz:
+	mkdir -p netboot/install.amd/gtk
+	wget http://people.debian.org/~aba/d-i/images/daily/netboot/gtk/debian-installer/amd64/initrd.gz -O $@
+
 clean:
 	$(MAKE) -C l10n clean
-	rm -f cpuid/*.dll cpuid/*.exe debian.exe *~ */*~ maps.ini
+	rm -f cpuid/*.dll cpuid/*.exe debian.exe debian.iso *~ */*~ maps.ini
