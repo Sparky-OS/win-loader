@@ -1,0 +1,193 @@
+# Copyright (C) 2007 Robert Millan <rmh@aybabtu.com>
+# This file is distributed under the same license as the PACKAGE package.
+# Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: win32-loader VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-24 11:31+0100\n"
+"PO-Revision-Date: 2007-02-24 14:22+0900\n"
+"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Japanese\n"
+"X-Poedit-Country: JAPAN\n"
+
+#. translate: This must be the string used by Windows to represent your
+#. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
+#. translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
+#: generate_template.sh:23
+msgid "windows-1252"
+msgstr "shift-jis"
+
+#. translate: This must be a valid string recognised by Nsis.  If your
+#. translate: language is not yet supported by Nsis, please translate the
+#. translate: missing Nsis part first.
+#: generate_template.sh:28
+msgid "LANG_ENGLISH"
+msgstr "LANG_JAPANESE"
+
+#. translate: The nlf file for your language should be found in
+#. translate: /usr/share/nsis/Contrib/Language files/
+#: generate_template.sh:33
+msgid "English.nlf"
+msgstr "Japanese.nlf"
+
+#. translate: Please do NOT use double quotes (") anywhere from now on.  These break build!
+#. translate: You may, however, use single quotes (') or « » just fine.
+#. translate: Also note that only the subset of UTF-8 that can be converted to the
+#. translate: corresponding windows-xxxx charset should be used.
+#: generate_template.sh:39
+msgid "Debian-Installer Loader"
+msgstr "Debian-Installer 起動ツール"
+
+#: generate_template.sh:40
+msgid "Debian Installer"
+msgstr "Debian インストーラ"
+
+#: generate_template.sh:41
+msgid ""
+"There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
+"complete desktop install, it is recommended to have at least 3 GB of free "
+"disk.  If there is already a separate disk or partition to install Debian, "
+"or if you plan to replace Windows completely, you can safely ignore this "
+"warning."
+msgstr ""
+"ドライブ @DOLLAR@c に十分な空き領域が存在しないようです。デスクトップ環境をす"
+"べてインストールするには、少なくとも 3 GB の空きディスク領域を確保することを"
+"お勧めします。もし Debian をインストールするために別のディスクを用意していた"
+"り、ディスク領域を分割していたりしていた場合、あるいは完全に Windows を上書き"
+"するつもりであれば、この警告を無視して構いません。"
+
+#: generate_template.sh:42
+msgid "Error: not enough free disk space.  Aborting install."
+msgstr "エラー: ディスクの空き領域が足りません。インストールを終了します。"
+
+#: generate_template.sh:43 generate_template.sh:46
+msgid "Select install mode:"
+msgstr "インストールモードを選んでください:"
+
+#: generate_template.sh:44
+msgid "Normal mode.  Recommended for most users."
+msgstr "通常モード。一般ユーザにお勧め。"
+
+#: generate_template.sh:45
+msgid ""
+"Expert mode.  Recommended for expert users who want full control of the "
+"install process."
+msgstr ""
+"上級モード。インストール作業を全て確認したいという熟練のユーザにお勧め。"
+
+#: generate_template.sh:47
+msgid "Graphical install"
+msgstr "グラフィカルインストーラ"
+
+#: generate_template.sh:48
+msgid "Text install"
+msgstr "テキストインストーラ"
+
+#: generate_template.sh:49
+msgid ""
+"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
+"change any of these unless you know what you're doing."
+msgstr ""
+"Debian-Installer 起動ツールは以下のパラメータを元に設定されます。何をしている"
+"のかを理解せずに以下を変更「しない」でください。"
+
+#: generate_template.sh:50
+msgid "Proxy settings (host:port):"
+msgstr "プロキシの設定 (ホスト名:ポート番号):"
+
+#: generate_template.sh:51
+msgid "Location of boot.ini:"
+msgstr "boot.ini ファイルの位置"
+
+#: generate_template.sh:52
+msgid "Debconf preseed line:"
+msgstr "debconf preseed 行:"
+
+#: generate_template.sh:53
+msgid "Base URL for netboot images (linux and initrd.gz):"
+msgstr "netboot イメージ (Linux と initrd.gz) のベース URL:"
+
+#: generate_template.sh:54
+msgid "Downloading %s"
+msgstr "%s をダウンロード中"
+
+#: generate_template.sh:55
+msgid "Connecting ..."
+msgstr "接続しています..."
+
+#: generate_template.sh:56
+msgid "second"
+msgstr "秒"
+
+#: generate_template.sh:57
+msgid "minute"
+msgstr "分"
+
+#: generate_template.sh:58
+msgid "hour"
+msgstr "時間"
+
+#. translate: This string is appended to "second", "minute" or "hour" to make plurals.
+#. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
+#. translate: has been proposed [1] but in the meantime we'll have to cope with this.
+#. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
+#: generate_template.sh:63
+msgid "s"
+msgstr "秒"
+
+# msgstr "%4$dkB 中 %1$dkB (%2$d%3$%) 完了 at %5$d.%6$01dkB/秒"
+#: generate_template.sh:64
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%dkB (%d%%) / %dkB at %d.%01dkB/秒"
+
+#: generate_template.sh:65
+msgid " (%d %s%s remaining)"
+msgstr " (%d 残り時間 %s%s)"
+
+#: generate_template.sh:66
+msgid "Error"
+msgstr "エラー"
+
+#: generate_template.sh:67
+msgid ""
+"Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
+"old, or damaged."
+msgstr ""
+"エラー: @DOLLAR@boot_ini が見つかりません。Windows のバージョンが古い、あるい"
+"はシステムが損傷しています。"
+
+#: generate_template.sh:68
+msgid ""
+"VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
+"Debian install.  During your next boot, you will be asked whether you want "
+"to start Windows or Debian Installer.  Choose Debian Installer to continue "
+"the install process.\\n\\nDuring the install process, you will be offered "
+"the possibility of either reducing your Windows partition to install Debian "
+"or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that "
+"you have previously made a backup of your data.  Nor the authors of this "
+"loader neither the Debian project will take ANY RESPONSIBILITY in the event "
+"of data loss.\\n\\nOnce your Debian install is complete (and if you have "
+"chosen to keep Windows in your disk), you can uninstall the Debian-Installer "
+"Loader through the Windows Add/Remove Programs dialog in Control Panel."
+msgstr ""
+"とても重要なお知らせ:\\n\\nDebian のインストールを続けるには再起動する必要が"
+"あります。次回の起動時に、Windows を起動するか Debian インストーラを起動する"
+"かを尋ねられます。インストール作業を続けるためには Debian インストーラを選択"
+"してください。\\n\\nインストール作業中、Debian をインストールするために "
+"Windows 領域を縮小するのか、あるいは完全に上書きするのかを尋ねられたりするで"
+"しょう。どちらにしても、事前にデータのバックアップを行っておくことを「強くお"
+"勧めします」。データの損傷・消失が起こった場合、この起動ツールの作者、もしく"
+"は Debian プロジェクトは「何の責任も負いません」。\\n\\n一旦、Debian が完全に"
+"インストールされた (そして Windows をディスクに残しておくと決めた) 場合、"
+"Debian インストーラ起動ツールはコントロールパネルの「プログラムの追加と削除」"
+"画面からアンインストールできます。"
+
+#: generate_template.sh:69
+msgid "Do you want to reboot now?"
+msgstr "今すぐ再起動しますか?"

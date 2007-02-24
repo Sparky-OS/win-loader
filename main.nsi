@@ -26,6 +26,7 @@ SetCompressor /SOLID lzma
 !include l10n/templates/fi.nsh
 !include l10n/templates/fr.nsh
 !include l10n/templates/he.nsh
+!include l10n/templates/ja.nsh
 !include l10n/templates/nl.nsh
 !include l10n/templates/pt.nsh
 !include l10n/templates/sk.nsh
@@ -95,6 +96,8 @@ Function .onInit
   Push Finnish
   Push ${LANG_FRENCH}
   Push French
+  Push ${LANG_JAPANESE}
+  Push Japanese
   Push ${LANG_GERMAN}
   Push German
   Push ${LANG_HEBREW}
