@@ -50,6 +50,7 @@ OutFile "debian.exe"
 
 !addplugindir cpuid
 !include checkspacefree.nsh
+!include getwindowsversion.nsh
 
 ;--------------------------------
 
@@ -176,6 +177,18 @@ Function ShowExpert
   IntCmp $2 1 +3
   MessageBox MB_OK $(not_enough_space_for_loader)
   Quit
+
+  ; Windows version is another abort condition
+  Call GetWindowsVersion
+  Pop $0
+  StrCpy $1 $0 3
+  StrCmp $1 "NT " windows_version_ok
+  StrCmp $0 "2000" windows_version_ok
+  StrCmp $0 "XP" windows_version_ok
+  StrCmp $0 "2003" windows_version_ok
+  MessageBox MB_OK $(unsupported_version_of_windows)
+  Quit
+windows_version_ok:
 
   File /oname=$PLUGINSDIR\expert.ini	templates/expert.ini
   WriteINIStr $PLUGINSDIR\expert.ini "Field 1" "Text" $(expert1)

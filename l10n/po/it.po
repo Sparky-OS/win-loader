@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-24 11:31+0100\n"
+"POT-Creation-Date: 2007-02-28 17:30+0100\n"
 "PO-Revision-Date: 2007-02-25 08:45+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -65,15 +65,19 @@ msgstr ""
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Errore: spazio disco libero non sufficiente. Installazione abortita."
 
-#: generate_template.sh:43 generate_template.sh:46
+#: generate_template.sh:43
+msgid "This program doesn't support Windows @DOLLAR@0 yet."
+msgstr ""
+
+#: generate_template.sh:44 generate_template.sh:47
 msgid "Select install mode:"
 msgstr "Selezionare il metodo di installazione:"
 
-#: generate_template.sh:44
+#: generate_template.sh:45
 msgid "Normal mode.  Recommended for most users."
 msgstr "Normale. Raccomandato per la maggioranza degli utenti."
 
-#: generate_template.sh:45
+#: generate_template.sh:46
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -81,15 +85,15 @@ msgstr ""
 "Esperto. Raccomandato per gli utenti esperti che vogliono il controllo "
 "completo sul processo di installazione."
 
-#: generate_template.sh:47
+#: generate_template.sh:48
 msgid "Graphical install"
 msgstr "Installazione grafica"
 
-#: generate_template.sh:48
+#: generate_template.sh:49
 msgid "Text install"
 msgstr "Installazione testuale"
 
-#: generate_template.sh:49
+#: generate_template.sh:50
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
@@ -97,39 +101,39 @@ msgstr ""
 "Debian-installer Loader sarà impostato con i seguenti parametri. Non "
 "modificarne alcuno se non si sa quello che si sta facendo."
 
-#: generate_template.sh:50
+#: generate_template.sh:51
 msgid "Proxy settings (host:port):"
 msgstr "Impostazione del proxy (host:porta):"
 
-#: generate_template.sh:51
+#: generate_template.sh:52
 msgid "Location of boot.ini:"
 msgstr "Posizione di boot.ini:"
 
-#: generate_template.sh:52
+#: generate_template.sh:53
 msgid "Debconf preseed line:"
 msgstr "Linea di preconfigurazione di debconf:"
 
-#: generate_template.sh:53
+#: generate_template.sh:54
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL base delle immagini di netboot (linux e initrd.gz):"
 
-#: generate_template.sh:54
+#: generate_template.sh:55
 msgid "Downloading %s"
 msgstr "Scaricamento in corso %s"
 
-#: generate_template.sh:55
+#: generate_template.sh:56
 msgid "Connecting ..."
 msgstr "Connessione in corso"
 
-#: generate_template.sh:56
+#: generate_template.sh:57
 msgid "second"
 msgstr "secondo"
 
-#: generate_template.sh:57
+#: generate_template.sh:58
 msgid "minute"
 msgstr "minuto"
 
-#: generate_template.sh:58
+#: generate_template.sh:59
 msgid "hour"
 msgstr "ora"
 
@@ -137,23 +141,23 @@ msgstr "ora"
 #. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
 #. translate: has been proposed [1] but in the meantime we'll have to cope with this.
 #. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
-#: generate_template.sh:63
+#: generate_template.sh:64
 msgid "s"
 msgstr " "
 
-#: generate_template.sh:64
+#: generate_template.sh:65
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) su %dkB a %d.%01dkB/s"
 
-#: generate_template.sh:65
+#: generate_template.sh:66
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s rimanenti)"
 
-#: generate_template.sh:66
+#: generate_template.sh:67
 msgid "Error"
 msgstr "Errore"
 
-#: generate_template.sh:67
+#: generate_template.sh:68
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Your version of Windows might be too "
 "old, or damaged."
@@ -161,7 +165,7 @@ msgstr ""
 "Errore: @DOLLAR@boot_ini non trovato. La versione di Windows potrebbe essere "
 "troppo vecchia o danneggiata."
 
-#: generate_template.sh:68
+#: generate_template.sh:69
 msgid ""
 "VERY IMPORTANT NOTICE:\\n\\nYou need to reboot in order to proceed with your "
 "Debian install.  During your next boot, you will be asked whether you want "
@@ -188,6 +192,6 @@ msgstr ""
 "Debian-Installer Loader usando Aggiungi/Rimuovi programmi dal Pannello di "
 "Controllo di Windows."
 
-#: generate_template.sh:69
+#: generate_template.sh:70
 msgid "Do you want to reboot now?"
 msgstr "Riavviare ora?"
