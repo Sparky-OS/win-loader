@@ -38,7 +38,7 @@ Name $(program_name)
 Icon "swirl.ico"
 UninstallIcon "swirl.ico"
 XPStyle on
-OutFile "debian.exe"
+OutFile "win32-loader.exe"
 
 ; will need this for vista
 ;RequestExecutionLevel highest
