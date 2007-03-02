@@ -1,23 +1,19 @@
-# translation of de.new.po to
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to
+# translation of de.po to German
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Christian Perrier <bubulle@debian.org>, 2007.
+# Copyright (C) Jan Keller <bananenscheibe@gmx.de>, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: de.new\n"
+"Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-28 17:30+0100\n"
-"PO-Revision-Date: 2007-02-20 23:50+0100\n"
+"PO-Revision-Date: 2007-03-02 19:22+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #. translate: This must be the string used by Windows to represent your
 #. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
@@ -67,12 +63,11 @@ msgstr ""
 
 #: generate_template.sh:42
 msgid "Error: not enough free disk space.  Aborting install."
-msgstr ""
-"Fehler: Nicht genügend Platz auf der Festplatte.  Breche Installation ab."
+msgstr "Fehler: Nicht genügend Platz auf der Festplatte.  Breche Installation ab."
 
 #: generate_template.sh:43
 msgid "This program doesn't support Windows @DOLLAR@0 yet."
-msgstr ""
+msgstr "Dieses Programm unterstützt Windows @DOLLAR@0 noch nicht. "
 
 #: generate_template.sh:44 generate_template.sh:47
 msgid "Select install mode:"
@@ -200,3 +195,4 @@ msgstr ""
 #: generate_template.sh:70
 msgid "Do you want to reboot now?"
 msgstr "Wollen Sie den Rechner jetzt neustarten?"
+
