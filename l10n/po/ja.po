@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: win32-loader VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-28 17:30+0100\n"
-"PO-Revision-Date: 2007-02-24 14:22+0900\n"
+"PO-Revision-Date: 2007-03-25 19:19+0900\n"
 "Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr "エラー: ディスクの空き領域が足りません。インスト�
 
 #: generate_template.sh:43
 msgid "This program doesn't support Windows @DOLLAR@0 yet."
-msgstr ""
+msgstr "このプログラムはまだ Windows @DOLLAR@0 をサポートしていません。"
 
 #: generate_template.sh:44 generate_template.sh:47
 msgid "Select install mode:"
