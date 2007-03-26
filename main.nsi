@@ -260,13 +260,7 @@ cdless:
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url
   ${If} $use_network == true
-    Var /GLOBAL fellow_hacker
-    ${If} $arch == "i386"
-      StrCpy $fellow_hacker "joeyh"
-    ${Else}
-      StrCpy $fellow_hacker "aba"
-    ${EndIf}
-    StrCpy $base_url "http://people.debian.org/~$fellow_hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
+    StrCpy $base_url "http://ftp.nl.debian.org/debian/dists/etch/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
   ${Endif}
 
 ; ********************************************** Initialise proxy
