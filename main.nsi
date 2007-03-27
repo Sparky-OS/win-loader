@@ -183,12 +183,13 @@ Function ShowExpert
 
   ; Windows version is another abort condition
   Call GetWindowsVersion
-  Pop $0
-  StrCpy $1 $0 3
+  Var /GLOBAL windows_version
+  Pop $windows_version
+  StrCpy $1 $windows_version 3
 ;  StrCmp $1 "NT " windows_version_ok
-  StrCmp $0 "2000" windows_version_ok
-  StrCmp $0 "XP" windows_version_ok
-  StrCmp $0 "2003" windows_version_ok
+  StrCmp $windows_version "2000" windows_version_ok
+  StrCmp $windows_version "XP" windows_version_ok
+  StrCmp $windows_version "2003" windows_version_ok
   MessageBox MB_OK $(unsupported_version_of_windows)
   Quit
 windows_version_ok:

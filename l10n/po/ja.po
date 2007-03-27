@@ -67,8 +67,8 @@ msgid "Error: not enough free disk space.  Aborting install."
 msgstr "エラー: ディスクの空き領域が足りません。インストールを終了します。"
 
 #: generate_template.sh:43
-msgid "This program doesn't support Windows @DOLLAR@0 yet."
-msgstr "このプログラムはまだ Windows @DOLLAR@0 をサポートしていません。"
+msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
+msgstr "このプログラムはまだ Windows @DOLLAR@windows_version をサポートしていません。"
 
 #: generate_template.sh:44 generate_template.sh:47
 msgid "Select install mode:"

@@ -67,7 +67,7 @@ msgstr ""
 "Erro: não existe espaço livre em disco suficiente.  A abortar a instalação."
 
 #: generate_template.sh:43
-msgid "This program doesn't support Windows @DOLLAR@0 yet."
+msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
 msgstr ""
 
 #: generate_template.sh:44 generate_template.sh:47

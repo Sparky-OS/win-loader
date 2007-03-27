@@ -67,8 +67,8 @@ msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Fout: onvoldoende vrije schijfruimte. Installatie wordt afgebroken."
 
 #: generate_template.sh:43
-msgid "This program doesn't support Windows @DOLLAR@0 yet."
-msgstr "Windows @DOLLAR@0 wordt nog niet ondersteund door dit programma."
+msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
+msgstr "Windows @DOLLAR@windows_version wordt nog niet ondersteund door dit programma."
 
 #: generate_template.sh:44 generate_template.sh:47
 msgid "Select install mode:"
