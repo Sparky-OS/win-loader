@@ -185,7 +185,7 @@ Function ShowExpert
   Call GetWindowsVersion
   Pop $0
   StrCpy $1 $0 3
-  StrCmp $1 "NT " windows_version_ok
+;  StrCmp $1 "NT " windows_version_ok
   StrCmp $0 "2000" windows_version_ok
   StrCmp $0 "XP" windows_version_ok
   StrCmp $0 "2003" windows_version_ok
