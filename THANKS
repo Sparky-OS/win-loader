@@ -7,3 +7,4 @@ Thanks to:
 - The hackers at #nsis (irc.landoleet.org) for advice in NSIS scripting.
 - Amir Szekely <kichik@netvision.net.il> for LogicLib patch and other cleanup.
 - Ryan Moore <moorerw@westminster.edu>, for hints about detecting the root drive.
+- Scott Edwards <debian@foss.daxal.com>, for hunting down 9x/nt4 portability problems.
