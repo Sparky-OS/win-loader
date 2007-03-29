@@ -410,7 +410,6 @@ Section "Debian-Installer Loader"
   ${Endif}
 
   File /oname=$c\grldr "contrib/grldr"
-  File /oname=$c\grub "contrib/grub"
 
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
@@ -420,8 +419,8 @@ initrd	/debian/initrd.gz$\n"
   FileClose $0
 
 ; ********************************************** Needed for systems with compressed NTFS
-  nsExec::Exec "compact /u $c\grldr $c\grub $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz"
-  ; in my tests, uncompressing $c\grub and $c\menu.lst wasn't necessary, but better be safe than sorry
+  nsExec::Exec "compact /u $c\grldr $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz"
+  ; in my tests, uncompressing $c\menu.lst wasn't necessary, but better be safe than sorry
 
 ; ********************************************** Do boot.ini last, because it's the most dangerous
   ${Unless} ${FileExists} "$boot_ini"
@@ -459,7 +458,6 @@ Section "Uninstall"
   DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
   Delete $c\grldr
-  Delete $c\grub
   Delete $c\menu.lst
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
