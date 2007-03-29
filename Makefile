@@ -3,7 +3,7 @@ all: win32-loader.exe
 win32-loader.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
 		cpuid/test64.dll swirl.ico license/en.txt \
-		contrib/grub contrib/grldr contrib/System.dll
+		contrib/grub.exe contrib/grldr contrib/System.dll
 	$(MAKE) -C l10n
 	makensis main.nsi
 	du -h win32-loader.exe

@@ -66,6 +66,13 @@ LangString nsisdl7 \${$nsis_lang} "`gettext "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 LangString nsisdl8 \${$nsis_lang} "`gettext " (%d %s%s remaining)"`"
 LangString error \${$nsis_lang} "`gettext "Error"`"
 LangString boot_ini_not_found \${$nsis_lang} "`gettext "Error: @DOLLAR@boot_ini not found.  Is this really Windows @DOLLAR@windows_version?"`"
-LangString warning \${$nsis_lang} "`gettext "VERY IMPORTANT NOTICE:\n\nYou need to reboot in order to proceed with your Debian install.  During your next boot, you will be asked whether you want to start Windows or Debian Installer.  Choose Debian Installer to continue the install process.\n\nDuring the install process, you will be offered the possibility of either reducing your Windows partition to install Debian or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that you have previously made a backup of your data.  Nor the authors of this loader neither the Debian project will take ANY RESPONSIBILITY in the event of data loss.\n\nOnce your Debian install is complete (and if you have chosen to keep Windows in your disk), you can uninstall the Debian-Installer Loader through the Windows Add/Remove Programs dialog in Control Panel."`"
+LangString warning1 \${$nsis_lang} "`gettext "VERY IMPORTANT NOTICE:\n\n"`"
+# translate: The following two strings are mutualy exclussive.  win32-loader
+# translate: will display one or the other depending on version of Windows.
+# translate: Take into account that either option has to make sense in our
+# translate: current context (i.e. be careful when using pronouns, etc).
+LangString warning2_direct \${$nsis_lang} "`gettext "The second stage of this install process will now be started.  After your confirmation, this program will restart Windows in DOS mode, and automaticaly load Debian Installer.\n\n"`"
+LangString warning2_reboot \${$nsis_lang} "`gettext "You need to reboot in order to proceed with your Debian install.  During your next boot, you will be asked whether you want to start Windows or Debian Installer.  Choose Debian Installer to continue with the install process.\n\n"`"
+LangString warning3 \${$nsis_lang} "`gettext "During the install process, you will be offered the possibility of either reducing your Windows partition to install Debian or completely replacing it.  In both cases, it is STRONGLY RECOMMENDED that you have previously made a backup of your data.  Nor the authors of this loader neither the Debian project will take ANY RESPONSIBILITY in the event of data loss.\n\nOnce your Debian install is complete (and if you have chosen to keep Windows in your disk), you can uninstall the Debian-Installer Loader through the Windows Add/Remove Programs dialog in Control Panel."`"
 LangString reboot_now \${$nsis_lang} "`gettext "Do you want to reboot now?"`"
 EOF

@@ -182,14 +182,31 @@ Function ShowExpert
   Quit
 
   ; Windows version is another abort condition
-  Call GetWindowsVersion
   Var /GLOBAL windows_version
+  Var /GLOBAL windows_boot_method
+  Var /GLOBAL nsisdl_is_broken
+  StrCpy $nsisdl_is_broken false
+  Call GetWindowsVersion
   Pop $windows_version
   StrCpy $1 $windows_version 3
-;  StrCmp $1 "NT " windows_version_ok
-  StrCmp $windows_version "2000" windows_version_ok
-  StrCmp $windows_version "XP" windows_version_ok
-  StrCmp $windows_version "2003" windows_version_ok
+  ${If} $1 == "NT "
+    StrCpy $nsisdl_is_broken true
+    StrCpy $windows_boot_method ntldr
+    Goto windows_version_ok
+  ${Endif}
+  ${If} $windows_version == "95"
+  ${OrIf} $windows_version == "98"
+  ${OrIf} $windows_version == "ME"
+    StrCpy $nsisdl_is_broken true
+    StrCpy $windows_boot_method direct
+    Goto windows_version_ok
+  ${Endif}
+  ${If} $windows_version == "2000"
+  ${OrIf} $windows_version == "XP"
+  ${OrIf} $windows_version == "2003"
+    StrCpy $windows_boot_method ntldr
+    Goto windows_version_ok
+  ${Endif}
   MessageBox MB_OK $(unsupported_version_of_windows)
   Quit
 windows_version_ok:
@@ -384,32 +401,40 @@ Section "Debian-Installer Loader"
       MessageBox MB_OK "$(error): CopyFiles"
       Quit
   ${Else}
-    ${If} $proxy == ""
-      StrCpy $proxy /NOIEPROXY
+    ${If} $nsisdl_is_broken == true
+      ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
+      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
+      ; Do NOT, ever, let wget append its download to existing files!!
+      Delete $INSTDIR\linux
+      Delete $INSTDIR\initrd.gz
+      SetOutPath $INSTDIR
+      ExecWait '"$PLUGINSDIR\wget.exe" -c $base_url/linux $base_url/initrd.gz'
     ${Else}
-      StrCpy $proxy "/PROXY $proxy"
+      ${If} $proxy == ""
+        StrCpy $proxy /NOIEPROXY
+      ${Else}
+        StrCpy $proxy "/PROXY $proxy"
+      ${Endif}
+
+      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/linux $INSTDIR\linux
+      Pop $R0
+      ${If} $R0 != "success"
+        ${If} $R0 != "cancel"
+           MessageBox MB_OK "$(error): $R0"
+        ${EndIf}
+        Quit
+      ${EndIf}
+
+      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
+      Pop $R0
+      ${If} $R0 != "success"
+        ${If} $R0 != "cancel"
+           MessageBox MB_OK "$(error): $R0"
+        ${EndIf}
+        Quit
+      ${EndIf}
     ${Endif}
-
-    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/linux $INSTDIR\linux
-    Pop $R0
-    ${If} $R0 != "success"
-      ${If} $R0 != "cancel"
-         MessageBox MB_OK "$(error): $R0"
-      ${EndIf}
-      Quit
-    ${EndIf}
-
-    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
-    Pop $R0
-    ${If} $R0 != "success"
-      ${If} $R0 != "cancel"
-         MessageBox MB_OK "$(error): $R0"
-      ${EndIf}
-      Quit
-    ${EndIf}
   ${Endif}
-
-  File /oname=$c\grldr "contrib/grldr"
 
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
@@ -422,26 +447,42 @@ initrd	/debian/initrd.gz$\n"
   nsExec::Exec "compact /u $c\grldr $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz"
   ; in my tests, uncompressing $c\menu.lst wasn't necessary, but better be safe than sorry
 
-; ********************************************** Do boot.ini last, because it's the most dangerous
-  ${Unless} ${FileExists} "$boot_ini"
-    MessageBox MB_OK $(boot_ini_not_found)
-    Quit
+; ********************************************** Do bootloader last, because it's the most dangerous
+  ${If} $windows_boot_method == ntldr
+    File /oname=$c\grldr "contrib/grldr"
+    ${Unless} ${FileExists} "$boot_ini"
+      MessageBox MB_OK $(boot_ini_not_found)
+      Quit
+    ${Endif}
+    SetFileAttributes "$boot_ini" NORMAL
+    SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
+    WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
   ${Endif}
 
-  SetFileAttributes "$boot_ini" NORMAL
-  SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
-  WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
+  ${If} $windows_boot_method == direct
+    File /oname=$INSTDIR\grub.exe "contrib/grub.exe"
+  ${Endif}
 SectionEnd
 
 Function ShowWarning
+  Var /GLOBAL warning2
+  ${If} $windows_boot_method == direct
+    StrCpy $warning2 $(warning2_direct)
+  ${Else}
+    StrCpy $warning2 $(warning2_reboot)
+  ${Endif}
   File /oname=$PLUGINSDIR\warning.ini templates/warning.ini
-  WriteINIStr $PLUGINSDIR\warning.ini "Field 1" "Text" '$(warning)'
+  WriteINIStr $PLUGINSDIR\warning.ini "Field 1" "Text" '$(warning1)$warning2$(warning3)'
   InstallOptions::dialog $PLUGINSDIR\warning.ini
 FunctionEnd
 
 Function .onInstSuccess
-  MessageBox MB_YESNO|MB_ICONQUESTION $(reboot_now) IDNO +2
-  Reboot
+  ${If} $windows_boot_method == direct
+    Exec '"$INSTDIR\grub.exe"'
+  ${Else}
+    MessageBox MB_YESNO|MB_ICONQUESTION $(reboot_now) IDNO +2
+    Reboot
+  ${Endif}
 FunctionEnd
 
 ;--------------------------------
@@ -459,6 +500,7 @@ Section "Uninstall"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
   Delete $c\grldr
   Delete $c\menu.lst
+  Delete $INSTDIR\grub.exe
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
   Delete /REBOOTOK $INSTDIR\Uninstall.exe
