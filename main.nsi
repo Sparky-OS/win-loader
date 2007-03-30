@@ -396,11 +396,11 @@ Section "Debian-Installer Loader"
     ClearErrors
     CopyFiles /FILESONLY "$EXEDIR\$linux" "$INSTDIR\linux"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error): failed to copy $EXEDIR\$linux to $INSTDIR\linux"
+      MessageBox MB_OK "$(error_copyfiles1) $EXEDIR\$linux $(error_copyfiles2) $INSTDIR\linux$(error_copyfiles3)"
       Quit
     CopyFiles /FILESONLY "$EXEDIR\$initrd" "$INSTDIR\initrd.gz"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error): failed to copy $EXEDIR\$initrd to $INSTDIR\initrd.gz"
+      MessageBox MB_OK "$(error_copyfiles1) $EXEDIR\$initrd $(error_copyfiles2) $INSTDIR\initrd.gz$(error_copyfiles3)"
       Quit
   ${Else}
     ${If} $nsisdl_is_broken == true
@@ -473,7 +473,7 @@ initrd	/debian/initrd.gz$\n"
       nsExec::ExecToStack '"bcdedit" /create /d "$(d-i)" /application bootsector'
       Pop $0
       ${If} $0 != 0
-        MessageBox MB_OK "$(error): unable to run bcdedit.exe."
+        MessageBox MB_OK "$(error_exec1) bcdedit.exe$(error_exec2)"
         Quit
       ${Endif}
       Pop $0 ; "The entry {id} was successfully created"
@@ -527,7 +527,7 @@ Section "Uninstall"
     nsExec::Exec '"bcdedit" /delete $0'
     Pop $0
     ${If} $0 != 0
-      MessageBox MB_OK "$(error): unable to run bcdedit.exe."
+      MessageBox MB_OK "$(error_exec1) bcdedit.exe$(error_exec2)"
     ${Endif}
   ${Endif}
 

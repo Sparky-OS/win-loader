@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-30 23:57+0200\n"
+"POT-Creation-Date: 2007-03-31 00:22+0200\n"
 "PO-Revision-Date: 2007-03-31 00:08+0200\n"
 "Last-Translator: Frans Pop <elendil@planet.nl>\n"
 "Language-Team: Dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -160,13 +160,33 @@ msgstr " (%d %s%s resteert)"
 msgid "Error"
 msgstr "Fout"
 
-#: win32-loader.sh:68
+#. translate: The following three strings are used to construct a single phrase
+#: win32-loader.sh:69
+msgid "Error: failed to copy"
+msgstr ""
+
+#: win32-loader.sh:70
+msgid "to"
+msgstr ""
+
+#: win32-loader.sh:71 win32-loader.sh:74
+msgid "."
+msgstr ""
+
+#. translate: The following two strings are used to construct a single phrase
+#: win32-loader.sh:73
+msgid "Error: unable to run"
+msgstr ""
+
+#: win32-loader.sh:75
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
 "@DOLLAR@windows_version?"
-msgstr "Fout: @DOLLAR@boot_ini niet gevonden. Is dit echt Windows @DOLLAR@windows_version?"
+msgstr ""
+"Fout: @DOLLAR@boot_ini niet gevonden. Is dit echt Windows "
+"@DOLLAR@windows_version?"
 
-#: win32-loader.sh:69
+#: win32-loader.sh:76
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "ZEER BELANGRIJKE MELDING:\\n\\n"
 
@@ -174,22 +194,29 @@ msgstr "ZEER BELANGRIJKE MELDING:\\n\\n"
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: win32-loader.sh:74
+#: win32-loader.sh:81
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
-msgstr "De tweede fase van het installatieproces zal nu worden gestart. Als u deze dialoog bevestigt, zal Windows opnieuw worden opgestart in DOS-modus en zal vervolgens automatisch het Debian Installatiesysteem worden geladen.\\n\\n"
+msgstr ""
+"De tweede fase van het installatieproces zal nu worden gestart. Als u deze "
+"dialoog bevestigt, zal Windows opnieuw worden opgestart in DOS-modus en zal "
+"vervolgens automatisch het Debian Installatiesysteem worden geladen.\\n\\n"
 
-#: win32-loader.sh:75
+#: win32-loader.sh:82
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
 "Debian Installer.  Choose Debian Installer to continue with the install "
 "process.\\n\\n"
-msgstr "U dient het systeem opnieuw op te starten om de installatie van Debian te vervolgen. Tijdens het opstartproces zal u worden gevraagd of u Windows of Debian Installer wilt starten. Kies Debian Installer om het installatieproces te vervolgen.\\n\\n"
+msgstr ""
+"U dient het systeem opnieuw op te starten om de installatie van Debian te "
+"vervolgen. Tijdens het opstartproces zal u worden gevraagd of u Windows of "
+"Debian Installer wilt starten. Kies Debian Installer om het "
+"installatieproces te vervolgen.\\n\\n"
 
-#: win32-loader.sh:76
+#: win32-loader.sh:83
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
@@ -200,17 +227,16 @@ msgid ""
 "your disk), you can uninstall the Debian-Installer Loader through the "
 "Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
-"Tijdens de installatie "
-"wordt u de mogelijkheid geboden om ofwel uw Windows partitie te verkleinen "
-"voor de installatie van Debian of om het volledig te vervangen. In beide "
-"gevallen wordt u dringend aangeraden om vooraf een veiligheidskopie van uw "
-"gegevens te maken. Noch de auteurs van deze lader, noch het Debian project "
-"accepteren enige aansprakelijkheid bij het verlies van gegevens.\\n\\nNadat "
-"uw Debian installatie is voltooid (en als u ervoor heeft gekozen om Windows "
-"te behouden), kunt u de Lader voor het Debian Installatiesysteem verwijderen "
-"via de optie 'Software' in het Configuratiescherm."
+"Tijdens de installatie wordt u de mogelijkheid geboden om ofwel uw Windows "
+"partitie te verkleinen voor de installatie van Debian of om het volledig te "
+"vervangen. In beide gevallen wordt u dringend aangeraden om vooraf een "
+"veiligheidskopie van uw gegevens te maken. Noch de auteurs van deze lader, "
+"noch het Debian project accepteren enige aansprakelijkheid bij het verlies "
+"van gegevens.\\n\\nNadat uw Debian installatie is voltooid (en als u ervoor "
+"heeft gekozen om Windows te behouden), kunt u de Lader voor het Debian "
+"Installatiesysteem verwijderen via de optie 'Software' in het "
+"Configuratiescherm."
 
-#: win32-loader.sh:77
+#: win32-loader.sh:84
 msgid "Do you want to reboot now?"
 msgstr "Wilt u uw systeem nu herstarten?"
-
