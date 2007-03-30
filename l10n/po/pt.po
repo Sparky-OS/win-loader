@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-29 22:59+0200\n"
+"POT-Creation-Date: 2007-03-30 23:57+0200\n"
 "PO-Revision-Date: 2007-02-13 22:18+0000\n"
 "Last-Translator: Miguel Figueiredo <elmig@debianpt.org>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 #. translate: This must be the string used by Windows to represent your
 #. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
 #. translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
-#: generate_template.sh:23
+#: win32-loader.sh:23
 msgid "windows-1252"
 msgstr "windows-1252"
 
 #. translate: This must be a valid string recognised by Nsis.  If your
 #. translate: language is not yet supported by Nsis, please translate the
 #. translate: missing Nsis part first.
-#: generate_template.sh:28
+#: win32-loader.sh:28
 msgid "LANG_ENGLISH"
 msgstr "LANG_PORTUGUESE"
 
 #. translate: The nlf file for your language should be found in
 #. translate: /usr/share/nsis/Contrib/Language files/
-#: generate_template.sh:33
+#: win32-loader.sh:33
 msgid "English.nlf"
 msgstr "Portuguese.nlf"
 
@@ -39,15 +39,15 @@ msgstr "Portuguese.nlf"
 #. translate: You may, however, use single quotes (') or « » just fine.
 #. translate: Also note that only the subset of UTF-8 that can be converted to the
 #. translate: corresponding windows-xxxx charset should be used.
-#: generate_template.sh:39
+#: win32-loader.sh:39
 msgid "Debian-Installer Loader"
 msgstr "Programa de arranque do Debian-Installer"
 
-#: generate_template.sh:40
+#: win32-loader.sh:40
 msgid "Debian Installer"
 msgstr "Instalador Debian"
 
-#: generate_template.sh:41
+#: win32-loader.sh:41
 msgid ""
 "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
 "complete desktop install, it is recommended to have at least 3 GB of free "
@@ -61,24 +61,24 @@ msgstr ""
 "se planeia substituir completamente o Windows, pode ignorar este aviso em "
 "segurança."
 
-#: generate_template.sh:42
+#: win32-loader.sh:42
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr ""
 "Erro: não existe espaço livre em disco suficiente.  A abortar a instalação."
 
-#: generate_template.sh:43
+#: win32-loader.sh:43
 msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
 msgstr ""
 
-#: generate_template.sh:44 generate_template.sh:47
+#: win32-loader.sh:44 win32-loader.sh:47
 msgid "Select install mode:"
 msgstr "Escolha o modo de instalação:"
 
-#: generate_template.sh:45
+#: win32-loader.sh:45
 msgid "Normal mode.  Recommended for most users."
 msgstr "Modo normal. Recomendado para a maioria dos utilizadores."
 
-#: generate_template.sh:46
+#: win32-loader.sh:46
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -86,15 +86,15 @@ msgstr ""
 "Modo Avançado.  Recomendado para utilizadores avançados que querem o "
 "controlo total do processo de instalação."
 
-#: generate_template.sh:48
+#: win32-loader.sh:48
 msgid "Graphical install"
 msgstr "Instalação gráfica"
 
-#: generate_template.sh:49
+#: win32-loader.sh:49
 msgid "Text install"
 msgstr "Instalação em modo de texto"
 
-#: generate_template.sh:50
+#: win32-loader.sh:50
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
@@ -102,39 +102,39 @@ msgstr ""
 "O programa de arranque do Debian-Installer será configurado com os seguintes "
 "parâmetros. NÃO altere nenhum destes a menos que saiba o que está a fazer."
 
-#: generate_template.sh:51
+#: win32-loader.sh:51
 msgid "Proxy settings (host:port):"
 msgstr "Configurações do proxy (máquina:porto):"
 
-#: generate_template.sh:52
+#: win32-loader.sh:52
 msgid "Location of boot.ini:"
 msgstr "Localização do boot.ini:"
 
-#: generate_template.sh:53
+#: win32-loader.sh:53
 msgid "Debconf preseed line:"
 msgstr "Linha de preseed do Debconf:"
 
-#: generate_template.sh:54
+#: win32-loader.sh:54
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL base para as imagens netboot (linux e initrd.gz):"
 
-#: generate_template.sh:55
+#: win32-loader.sh:55
 msgid "Downloading %s"
 msgstr "A fazer o download de %s"
 
-#: generate_template.sh:56
+#: win32-loader.sh:56
 msgid "Connecting ..."
 msgstr "A ligar..."
 
-#: generate_template.sh:57
+#: win32-loader.sh:57
 msgid "second"
 msgstr "segundo"
 
-#: generate_template.sh:58
+#: win32-loader.sh:58
 msgid "minute"
 msgstr "minuto"
 
-#: generate_template.sh:59
+#: win32-loader.sh:59
 msgid "hour"
 msgstr "hora"
 
@@ -142,23 +142,23 @@ msgstr "hora"
 #. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
 #. translate: has been proposed [1] but in the meantime we'll have to cope with this.
 #. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
-#: generate_template.sh:64
+#: win32-loader.sh:64
 msgid "s"
 msgstr "s"
 
-#: generate_template.sh:65
+#: win32-loader.sh:65
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) de (%dKB a %d.%01dkB/s"
 
-#: generate_template.sh:66
+#: win32-loader.sh:66
 msgid " (%d %s%s remaining)"
 msgstr " (faltam %d %s%s)"
 
-#: generate_template.sh:67
+#: win32-loader.sh:67
 msgid "Error"
 msgstr "Erro"
 
-#: generate_template.sh:68
+#: win32-loader.sh:68
 #, fuzzy
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
@@ -167,7 +167,7 @@ msgstr ""
 "Erro: @DOLLAR@boot_ini não encontrado.  A sua versão do Windows pode ser "
 "demasiado antiga, ou estar danificada."
 
-#: generate_template.sh:69
+#: win32-loader.sh:69
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr ""
 
@@ -175,14 +175,14 @@ msgstr ""
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: generate_template.sh:74
+#: win32-loader.sh:74
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
 msgstr ""
 
-#: generate_template.sh:75
+#: win32-loader.sh:75
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -190,7 +190,7 @@ msgid ""
 "process.\\n\\n"
 msgstr ""
 
-#: generate_template.sh:76
+#: win32-loader.sh:76
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -216,6 +216,6 @@ msgstr ""
 "através da caixa de diálogo Adicionar/Remover Programas no Painel de "
 "Controlo."
 
-#: generate_template.sh:77
+#: win32-loader.sh:77
 msgid "Do you want to reboot now?"
 msgstr "Deseja reiniciar agora?"
