@@ -41,9 +41,6 @@ UninstallIcon "swirl.ico"
 XPStyle on
 OutFile "win32-loader.exe"
 
-; will need this for vista
-;RequestExecutionLevel highest
-
 !include LogicLib.nsh
 !include FileFunc.nsh
 !insertmacro GetRoot
@@ -205,6 +202,10 @@ Function ShowExpert
   ${OrIf} $windows_version == "XP"
   ${OrIf} $windows_version == "2003"
     StrCpy $windows_boot_method ntldr
+    Goto windows_version_ok
+  ${Endif}
+  ${If} $windows_version == "Vista"
+    StrCpy $windows_boot_method bootmgr
     Goto windows_version_ok
   ${Endif}
   MessageBox MB_OK $(unsupported_version_of_windows)
@@ -392,13 +393,14 @@ Section "Debian-Installer Loader"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
 
   ${If} $use_network == false
+    ClearErrors
     CopyFiles /FILESONLY "$EXEDIR\$linux" "$INSTDIR\linux"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error): CopyFiles"
+      MessageBox MB_OK "$(error): failed to copy $EXEDIR\$linux to $INSTDIR\linux"
       Quit
     CopyFiles /FILESONLY "$EXEDIR\$initrd" "$INSTDIR\initrd.gz"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error): CopyFiles"
+      MessageBox MB_OK "$(error): failed to copy $EXEDIR\$initrd to $INSTDIR\initrd.gz"
       Quit
   ${Else}
     ${If} $nsisdl_is_broken == true
@@ -444,7 +446,7 @@ initrd	/debian/initrd.gz$\n"
   FileClose $0
 
 ; ********************************************** Needed for systems with compressed NTFS
-  nsExec::Exec "compact /u $c\grldr $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz"
+  nsExec::Exec '"compact" /u $c\grldr $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz'
   ; in my tests, uncompressing $c\menu.lst wasn't necessary, but better be safe than sorry
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
@@ -461,6 +463,24 @@ initrd	/debian/initrd.gz$\n"
 
   ${If} $windows_boot_method == direct
     File /oname=$INSTDIR\grub.exe "contrib/grub.exe"
+  ${Endif}
+
+  ${If} $windows_boot_method == bootmgr
+    File /oname=$c\grldr.mbr "contrib/grldr.mbr"
+    File /oname=$c\grldr "contrib/grldr"
+    ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
+    ${If} $0 == ""
+      nsExec::ExecToStack '"bcdedit" /create /d "$(d-i)" /application bootsector'
+      Pop $0 ; 0
+      Pop $0 ; "The entry {id} was successfully created"
+      StrCpy $0 $0 38 10
+      ; $0 holds the boot id.  Write it down, both for installer idempotency
+      ; and for uninstaller.
+      WriteRegStr HKLM "Software\Debian\Debian-Installer Loader" "bootmgr" "$0"
+    ${Endif}
+    nsExec::Exec '"bcdedit" /set $0 device boot'
+    nsExec::Exec '"bcdedit" /set $0 path \grldr.mbr'
+    nsExec::Exec '"bcdedit" /displayorder $0 /addlast'
   ${Endif}
 SectionEnd
 
@@ -497,8 +517,16 @@ Section "Uninstall"
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
   DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
+
+  ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
+  ${If} $0 != ""
+    nsExec::Exec '"bcdedit" /delete $0'
+  ${Endif}
+
+  DeleteRegKey HKLM "Software\Debian\Debian-Installer Loader"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
   Delete $c\grldr
+  Delete $c\grldr.mbr
   Delete $c\menu.lst
   Delete $INSTDIR\grub.exe
   Delete $INSTDIR\linux
