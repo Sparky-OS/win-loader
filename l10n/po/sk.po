@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-29 22:59+0200\n"
-"PO-Revision-Date: 2007-02-13 22:08+0100\n"
+"PO-Revision-Date: 2007-03-30 06:43+0200\n"
 "Last-Translator: Peter Mann <Peter.Mann@tuke.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +75,7 @@ msgstr "Zvoľte spôsob inštalácie:"
 
 #: generate_template.sh:45
 msgid "Normal mode.  Recommended for most users."
-msgstr "Štandartný spôsob.  Odporúča sa pre väčšinu pouťívateľov."
+msgstr "Štandartný spôsob.  Odporúča sa pre väčšinu používateľov."
 
 #: generate_template.sh:46
 msgid ""
