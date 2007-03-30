@@ -471,7 +471,11 @@ initrd	/debian/initrd.gz$\n"
     ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
     ${If} $0 == ""
       nsExec::ExecToStack '"bcdedit" /create /d "$(d-i)" /application bootsector'
-      Pop $0 ; 0
+      Pop $0
+      ${If} $0 != 0
+        MessageBox MB_OK "$(error): unable to run bcdedit.exe."
+        Quit
+      ${Endif}
       Pop $0 ; "The entry {id} was successfully created"
       StrCpy $0 $0 38 10
       ; $0 holds the boot id.  Write it down, both for installer idempotency
@@ -521,6 +525,10 @@ Section "Uninstall"
   ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
   ${If} $0 != ""
     nsExec::Exec '"bcdedit" /delete $0'
+    Pop $0
+    ${If} $0 != 0
+      MessageBox MB_OK "$(error): unable to run bcdedit.exe."
+    ${Endif}
   ${Endif}
 
   DeleteRegKey HKLM "Software\Debian\Debian-Installer Loader"
