@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-31 14:27+0200\n"
-"PO-Revision-Date: 2007-02-13 21:21+0100\n"
+"PO-Revision-Date: 2007-03-31 14:40+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Chyba: nedostatek volného místa. Ruším instalaci."
 
 #: win32-loader.sh:43
 msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
-msgstr ""
+msgstr "Tento program zatím nepodporuje Windows @DOLLAR@windows_version."
 
 #: win32-loader.sh:44 win32-loader.sh:47
 msgid "Select install mode:"
@@ -159,24 +159,23 @@ msgstr "Chyba"
 
 #: win32-loader.sh:68
 msgid "Error: failed to copy @DOLLAR@0 to @DOLLAR@1."
-msgstr ""
+msgstr "Chyba: nepodařilo se zkopírovat @DOLLAR@0 do @DOLLAR@1."
 
 #: win32-loader.sh:69
 msgid "Error: unable to run @DOLLAR@0."
-msgstr ""
+msgstr "Chyba: napodařilo se spustit @DOLLAR@0."
 
 #: win32-loader.sh:70
-#, fuzzy
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
 "@DOLLAR@windows_version?"
 msgstr ""
-"Chyba: @DOLLAR@boot_ini nebyl nalezen. Vaše verze Windows je nejspíš příliš "
-"stará, nebo poškozená."
+"Chyba: @DOLLAR@boot_ini nebyl nalezen. Je toto opravdu Windows  "
+"@DOLLAR@windows_version?"
 
 #: win32-loader.sh:71
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
-msgstr ""
+msgstr "DŮLEŽITÁ POZNÁMKA:\\n\\n"
 
 #. translate: The following two strings are mutualy exclussive.  win32-loader
 #. translate: will display one or the other depending on version of Windows.
@@ -188,6 +187,8 @@ msgid ""
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
 msgstr ""
+"Nyní se spustí druhá část instalace. Po potvrzení se Windows restartují do "
+"DOSu a automaticky spustí instalaci Debianu."
 
 #: win32-loader.sh:77
 msgid ""
@@ -196,9 +197,12 @@ msgid ""
 "Debian Installer.  Choose Debian Installer to continue with the install "
 "process.\\n\\n"
 msgstr ""
+"Abyste mohli pokračovat v instalaci Debianu, musíte počítač restartovat. "
+"Během příštího startu budete dotázáni, zda chcete spustit Windows nebo "
+"instalaci Debianu. Pro pokračování v instalaci zvolte z nabídky instalaci "
+"Debianu.\\n\\n"
 
 #: win32-loader.sh:78
-#, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
@@ -209,17 +213,14 @@ msgid ""
 "your disk), you can uninstall the Debian-Installer Loader through the "
 "Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
-"VELMI DŮLEŽITÁ POZNÁMKA:\\n\\nAbyste mohli pokračovat v instalaci Debianu, "
-"musíte počítač restartovat. Během příštího startu budete dotázáni, zda "
-"chcete spustit Windows nebo instalaci Debianu. Pro pokračování v instalaci "
-"zvolte z nabídky instalaci Debianu.\\n\\nBěhem instalace vám bude nabídnuta "
-"možnost zmenšit stávající oblast s Windows a do prázdného místa nainstalovat "
-"Debian, případně oblast s Windows Debianem nahradit úplně. V obou případech "
-"je DŮRAZNĚ DOPORUČENO zazálohovat cenná data. Autoři tohoto zavaděče ani "
-"projekt Debian NENESOU ŽÁDNOU ZODPOVĚDNOST za případnou ztrátu dat.\\n"
-"\\nPokud se rozhodnete na svém disku ponechat Windows i Debian, můžete po "
-"dokončení instalace odstranit tento zavaděč instalace Debianu pomocí dialogu "
-"Přidat nebo odebrat programy v Ovládacích panelech."
+"Během instalace vám bude nabídnuta možnost zmenšit stávající oblast s Windows "
+"a do prázdného místa nainstalovat Debian, případně oblast s Windows Debianem "
+"nahradit úplně. V obou případech je DŮRAZNĚ DOPORUČENO zazálohovat cenná "
+"data. Autoři tohoto zavaděče ani projekt Debian NENESOU ŽÁDNOU ZODPOVĚDNOST "
+"za případnou ztrátu dat.\\n\\nPokud se rozhodnete na svém disku ponechat "
+"Windows i Debian, můžete po dokončení instalace odstranit tento zavaděč "
+"instalace Debianu pomocí dialogu Přidat nebo odebrat programy v Ovládacích "
+"panelech."
 
 #: win32-loader.sh:79
 msgid "Do you want to reboot now?"
