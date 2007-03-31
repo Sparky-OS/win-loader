@@ -65,13 +65,8 @@ LangString nsisdl6 \${$nsis_lang} "`gettext "s"`"
 LangString nsisdl7 \${$nsis_lang} "`gettext "%dkB (%d%%) of %dkB at %d.%01dkB/s"`"
 LangString nsisdl8 \${$nsis_lang} "`gettext " (%d %s%s remaining)"`"
 LangString error \${$nsis_lang} "`gettext "Error"`"
-# translate: The following three strings are used to construct a single phrase
-LangString error_copyfiles1 \${$nsis_lang} "`gettext "Error: failed to copy"`"
-LangString error_copyfiles2 \${$nsis_lang} "`gettext "to"`"
-LangString error_copyfiles3 \${$nsis_lang} "`gettext "."`"
-# translate: The following two strings are used to construct a single phrase
-LangString error_exec1 \${$nsis_lang} "`gettext "Error: unable to run"`"
-LangString error_exec2 \${$nsis_lang} "`gettext "."`"
+LangString error_copyfiles \${$nsis_lang} "`gettext "Error: failed to copy @DOLLAR@0 to @DOLLAR@1."`"
+LangString error_exec \${$nsis_lang} "`gettext "Error: unable to run @DOLLAR@0."`"
 LangString boot_ini_not_found \${$nsis_lang} "`gettext "Error: @DOLLAR@boot_ini not found.  Is this really Windows @DOLLAR@windows_version?"`"
 LangString warning1 \${$nsis_lang} "`gettext "VERY IMPORTANT NOTICE:\n\n"`"
 # translate: The following two strings are mutualy exclussive.  win32-loader

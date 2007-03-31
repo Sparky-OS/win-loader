@@ -395,12 +395,16 @@ Section "Debian-Installer Loader"
   ${If} $use_network == false
     ClearErrors
     CopyFiles /FILESONLY "$EXEDIR\$linux" "$INSTDIR\linux"
-    IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles1) $EXEDIR\$linux $(error_copyfiles2) $INSTDIR\linux$(error_copyfiles3)"
+    IfErrors 0 +5
+      StrCpy $0 "$EXEDIR\$linux"
+      StrCpy $1 "$INSTDIR\linux"
+      MessageBox MB_OK "$(error_copyfiles)"
       Quit
     CopyFiles /FILESONLY "$EXEDIR\$initrd" "$INSTDIR\initrd.gz"
-    IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles1) $EXEDIR\$initrd $(error_copyfiles2) $INSTDIR\initrd.gz$(error_copyfiles3)"
+    IfErrors 0 +5
+      StrCpy $0 "$EXEDIR\$initrd"
+      StrCpy $1 "$INSTDIR\initrd.gz"
+      MessageBox MB_OK "$(error_copyfiles)"
       Quit
   ${Else}
     ${If} $nsisdl_is_broken == true
@@ -473,7 +477,8 @@ initrd	/debian/initrd.gz$\n"
       nsExec::ExecToStack '"bcdedit" /create /d "$(d-i)" /application bootsector'
       Pop $0
       ${If} $0 != 0
-        MessageBox MB_OK "$(error_exec1) bcdedit.exe$(error_exec2)"
+        StrCpy $0 bcdedit.exe
+        MessageBox MB_OK "$(error_exec)"
         Quit
       ${Endif}
       Pop $0 ; "The entry {id} was successfully created"
@@ -527,7 +532,8 @@ Section "Uninstall"
     nsExec::Exec '"bcdedit" /delete $0'
     Pop $0
     ${If} $0 != 0
-      MessageBox MB_OK "$(error_exec1) bcdedit.exe$(error_exec2)"
+      StrCpy $0 bcdedit.exe
+      MessageBox MB_OK "$(error_exec)"
     ${Endif}
   ${Endif}
 
