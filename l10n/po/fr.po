@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-31 00:22+0200\n"
+"POT-Creation-Date: 2007-03-31 14:27+0200\n"
 "PO-Revision-Date: 2007-02-14 23:24+0100\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -159,25 +159,15 @@ msgstr " (%d %s%s restant)"
 msgid "Error"
 msgstr "Erreur"
 
-#. translate: The following three strings are used to construct a single phrase
+#: win32-loader.sh:68
+msgid "Error: failed to copy @DOLLAR@0 to @DOLLAR@1."
+msgstr ""
+
 #: win32-loader.sh:69
-msgid "Error: failed to copy"
+msgid "Error: unable to run @DOLLAR@0."
 msgstr ""
 
 #: win32-loader.sh:70
-msgid "to"
-msgstr ""
-
-#: win32-loader.sh:71 win32-loader.sh:74
-msgid "."
-msgstr ""
-
-#. translate: The following two strings are used to construct a single phrase
-#: win32-loader.sh:73
-msgid "Error: unable to run"
-msgstr ""
-
-#: win32-loader.sh:75
 #, fuzzy
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
@@ -186,7 +176,7 @@ msgstr ""
 "Erreur: @DOLLAR@boot_ini n'existe pas.  Version de Windows non gérée ou "
 "installation endommagée."
 
-#: win32-loader.sh:76
+#: win32-loader.sh:71
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr ""
 
@@ -194,14 +184,14 @@ msgstr ""
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: win32-loader.sh:81
+#: win32-loader.sh:76
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
 msgstr ""
 
-#: win32-loader.sh:82
+#: win32-loader.sh:77
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -209,7 +199,7 @@ msgid ""
 "process.\\n\\n"
 msgstr ""
 
-#: win32-loader.sh:83
+#: win32-loader.sh:78
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -234,6 +224,6 @@ msgstr ""
 "Debian en utilisant « Ajout/suppression de programmes » du Panneau de "
 "Configuration."
 
-#: win32-loader.sh:84
+#: win32-loader.sh:79
 msgid "Do you want to reboot now?"
 msgstr "Voulez-vous redémarrer maintenant ?"
