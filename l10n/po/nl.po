@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-31 00:22+0200\n"
-"PO-Revision-Date: 2007-03-31 00:08+0200\n"
+"PO-Revision-Date: 2007-03-31 10:56+0200\n"
 "Last-Translator: Frans Pop <elendil@planet.nl>\n"
 "Language-Team: Dutch <debian-l10n-dutch@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -163,20 +163,20 @@ msgstr "Fout"
 #. translate: The following three strings are used to construct a single phrase
 #: win32-loader.sh:69
 msgid "Error: failed to copy"
-msgstr ""
+msgstr "Fout bij kopiëren van"
 
 #: win32-loader.sh:70
 msgid "to"
-msgstr ""
+msgstr "naar"
 
 #: win32-loader.sh:71 win32-loader.sh:74
 msgid "."
-msgstr ""
+msgstr "."
 
 #. translate: The following two strings are used to construct a single phrase
 #: win32-loader.sh:73
 msgid "Error: unable to run"
-msgstr ""
+msgstr "Fout bij uitvoeren van"
 
 #: win32-loader.sh:75
 msgid ""
@@ -240,3 +240,4 @@ msgstr ""
 #: win32-loader.sh:84
 msgid "Do you want to reboot now?"
 msgstr "Wilt u uw systeem nu herstarten?"
+
