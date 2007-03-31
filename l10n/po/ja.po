@@ -1,4 +1,4 @@
-f# Copyright (C) 2007 Robert Millan <rmh@aybabtu.com>
+# Copyright (C) 2007 Robert Millan <rmh@aybabtu.com>
 # This file is distributed under the same license as the win32-loader package.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2007.
 #
