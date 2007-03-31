@@ -265,8 +265,8 @@ Function ShowCustom
   Var /GLOBAL use_network
   StrCpy $use_network true
   IfFileExists $d\win32-loader.ini 0 cdless
-  ReadINIStr $linux $d\win32-loader.ini "$arch" "$gtklinux"
-  ReadINIStr $initrd $d\win32-loader.ini "$arch" "$gtkinitrd"
+  ReadINIStr $linux $d\win32-loader.ini "installer" "$arch/$gtklinux"
+  ReadINIStr $initrd $d\win32-loader.ini "installer" "$arch/$gtkinitrd"
   ${If} $linux == ""
     Goto cdless
   ${Endif}
