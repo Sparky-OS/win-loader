@@ -1,5 +1,5 @@
 # translation of de.po to German
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the win32-loader package.
 # Copyright (C) Jan Keller <bananenscheibe@gmx.de>, 2007.
 #
 msgid ""
@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-31 14:27+0200\n"
-"PO-Revision-Date: 2007-03-02 19:22+0100\n"
+"PO-Revision-Date: 2007-04-01 20:52+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -63,13 +63,11 @@ msgstr ""
 
 #: win32-loader.sh:42
 msgid "Error: not enough free disk space.  Aborting install."
-msgstr ""
-"Fehler: Nicht genügend Platz auf der Festplatte.  Breche Installation ab."
+msgstr "Fehler: Nicht genügend Platz auf der Festplatte.  Breche Installation ab."
 
 #: win32-loader.sh:43
 msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
-msgstr ""
-"Dieses Programm unterstützt Windows @DOLLAR@windows_version noch nicht. "
+msgstr "Dieses Programm unterstützt Windows @DOLLAR@windows_version noch nicht. "
 
 #: win32-loader.sh:44 win32-loader.sh:47
 msgid "Select install mode:"
@@ -161,24 +159,21 @@ msgstr "Fehler"
 
 #: win32-loader.sh:68
 msgid "Error: failed to copy @DOLLAR@0 to @DOLLAR@1."
-msgstr ""
+msgstr "Fehler: kopieren von@DOLLAR@0 nach @DOLLAR@1 ist fehlgeschlagen."
 
 #: win32-loader.sh:69
 msgid "Error: unable to run @DOLLAR@0."
-msgstr ""
+msgstr "Fehler: kann @DOLLAR@0 nicht ausführen."
 
 #: win32-loader.sh:70
-#, fuzzy
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
 "@DOLLAR@windows_version?"
-msgstr ""
-"Fehler: @DOLLAR@boot_ini wurde nicht gefunden.  Diese Version von Windows "
-"könnte zu alt oder aber zerstört sein."
+msgstr "Fehler: @DOLLAR@boot_ini wurde nicht gefunden.  Ist das wirklich Windows @DOLLAR@windows_version?"
 
 #: win32-loader.sh:71
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
-msgstr ""
+msgstr "WICHTIGER HINWEIS:\\n\\n"
 
 #. translate: The following two strings are mutualy exclussive.  win32-loader
 #. translate: will display one or the other depending on version of Windows.
@@ -189,7 +184,7 @@ msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
-msgstr ""
+msgstr "Die zweite Stufe des Installationsprozesses wird nun gestartet.  Nach Ihrer Bestätigung wird dieses Programm Windows im DOS-Modus neustarten und den Debian installer automatisch laden.\\n\\n"
 
 #: win32-loader.sh:77
 msgid ""
@@ -198,9 +193,10 @@ msgid ""
 "Debian Installer.  Choose Debian Installer to continue with the install "
 "process.\\n\\n"
 msgstr ""
+"Sie müssen den Rechner neustarten, um mit der Debianinstallation fortzufahren.  Beim nächsten Neustart können Sie "
+"auswählen, ob Sie Windows oder den Debianinstaller starten wollen.  Wählen Sie den Debianinstaller, um den Installationsprozeß fortzusetzen.\\n\\n"
 
 #: win32-loader.sh:78
-#, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
@@ -211,19 +207,12 @@ msgid ""
 "your disk), you can uninstall the Debian-Installer Loader through the "
 "Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
-"WICHTIGER HINWEIS:\\n\\nSie müssen den Rechner neustarten, um mit der "
-"Debianinstallation fortzufahren.  Beim nächsten Neustart können Sie "
-"auswählen, ob Sie Windows oder den Debianinstaller starten wollen.  Wenn Sie "
-"den Debianinstaller auswählen, wird der Installationsprozeß fortgeführt.\\n"
-"\\nWährend der Installation wird es die Möglichkeit geben, entweder Ihre "
-"Windowspartition zu verkleinern oder vollständig zu ersetzen.  In beiden "
-"Fällen wird DRINGEND EMPFOHLEN, vorher eine Sicherung Ihrer Daten zu "
-"machen.  Weder die Autoren dieses Ladeprogramms noch das Debianprojekt "
-"werden IRGENDEINE VERANTWORTUNG übernehmen, falls Sie Ihre Daten verlieren."
-"\\n\\nWenn die Debianinstallation abgeschlossen ist (und Sie Windows auf der "
-"Festplatte behalten haben), können Sie dieses Ladeprogramm in der Windows "
-"Systemsteuerung mit dem 'Programme Ändern/Entfernen' Dialog deinstallieren."
+"Während der Installation ist es möglich, entweder Ihre Windowspartition zu verkleinern um Debian zu installieren oder sie vollständig zu ersetzen. "
+"In beiden Fällen wird DRINGEND EMPFOHLEN, vorher eine Sicherung Ihrer Daten zu machen. "
+"Weder die Autoren dieses Ladeprogramms noch das Debianprojekt "
+"werden IRGENDEINE VERANTWORTUNG übernehmen, falls Sie Ihre Daten verlieren.\\n\\nWenn die Debianinstallation abgeschlossen ist (und Sie Windows auf der Festplatte behalten haben), können Sie dieses Ladeprogramm mit dem'Programme Ändern/Entfernen Dialog in der Windows Systemsteuerung deinstallieren."
 
 #: win32-loader.sh:79
 msgid "Do you want to reboot now?"
 msgstr "Wollen Sie den Rechner jetzt neustarten?"
+
