@@ -193,7 +193,6 @@ Function ShowExpert
   ${Endif}
   ${If} $windows_version == "95"
   ${OrIf} $windows_version == "98"
-  ${OrIf} $windows_version == "ME"
     StrCpy $nsisdl_is_broken true
     StrCpy $windows_boot_method direct
     Goto windows_version_ok
