@@ -467,6 +467,7 @@ initrd	/debian/initrd.gz$\n"
 
   ${If} $windows_boot_method == direct
     File /oname=$INSTDIR\grub.exe "contrib/grub.exe"
+    File /oname=$INSTDIR\grub.pif "contrib/grub.pif"
   ${Endif}
 
   ${If} $windows_boot_method == bootmgr
@@ -507,7 +508,7 @@ FunctionEnd
 
 Function .onInstSuccess
   ${If} $windows_boot_method == direct
-    Exec '"$INSTDIR\grub.exe"'
+    Exec '"$INSTDIR\grub.pif"'
   ${Else}
     MessageBox MB_YESNO|MB_ICONQUESTION $(reboot_now) IDNO +2
     Reboot
@@ -543,6 +544,7 @@ Section "Uninstall"
   Delete $c\grldr.mbr
   Delete $c\menu.lst
   Delete $INSTDIR\grub.exe
+  Delete $INSTDIR\grub.pif
   Delete $INSTDIR\linux
   Delete $INSTDIR\initrd.gz
   Delete /REBOOTOK $INSTDIR\Uninstall.exe
