@@ -3,10 +3,16 @@ all: win32-loader.exe
 win32-loader.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
 		cpuid/test64.dll swirl.ico license/en.txt \
-		contrib/grub.exe contrib/grldr contrib/System.dll
+		contrib/grub.exe contrib/grldr contrib/grldr.mbr \
+		contrib/wget.exe \
+		contrib/System.dll
 	$(MAKE) -C l10n
 	makensis main.nsi
 	du -h win32-loader.exe
+
+contrib/grub.exe contrib/grldr contrib/grldr.mbr contrib/wget.exe contrib/System.dll:
+	@echo "Get the contrib tarball from http://goodbye-microsoft.com/pub/"
+	@exit 1
 
 cpuid/test64.dll: cpuid/cpuid.c cpuid/plugin.c
 	i586-mingw32msvc-gcc -Wl,--file-alignment,512 -Os cpuid/cpuid.c cpuid/plugin.c -shared -o cpuid/test64.dll
