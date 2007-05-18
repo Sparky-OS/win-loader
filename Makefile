@@ -1,6 +1,6 @@
 
 PACKAGE	:= win32-loader
-VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) ([^-]*-\(.*\)).*/\1/g")
+VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 
 all: win32-loader.exe
 

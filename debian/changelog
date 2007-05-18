@@ -1,4 +1,4 @@
-win32-loader (0.0.1-0.5.1) UNRELEASED; urgency=low
+win32-loader (0.5.1) UNRELEASED; urgency=low
 
   * Initial release (Closes: #425038).
 
