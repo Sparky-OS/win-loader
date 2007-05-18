@@ -1,11 +1,13 @@
 /*
- *  cpuid plugin for win32-loader
- *  Copyright (C) 1994  Linus Torvalds
+ *  cpuid.c - test for long mode using cpuid instruction
  *  Copyright (C) 2007  Robert Millan <rmh@aybabtu.com>
+ *  Based on gcc/gcc/config/i386/driver-i386.c
+ *  Copyright (C) 2006, 2007  Free Software Foundation, Inc.
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation.
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -17,70 +19,44 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/**********************************************************
-      stolen from linux/arch/i386/kernel/cpu/common.c
- **********************************************************/
+#define cpuid(num,a,b,c,d) \
+  asm volatile ("xchgl %%ebx, %1; cpuid; xchgl %%ebx, %1" \
+		: "=a" (a), "=r" (b), "=c" (c), "=d" (d)  \
+		: "0" (num))
 
-/* Standard macro to see if a specific flag is changeable */
-static inline int
-flag_is_changeable_p (unsigned int flag)
-{
-  unsigned int f1, f2;
-  asm ("pushfl\n\t"
-       "pushfl\n\t"
-       "popl %0\n\t"
-       "movl %0,%1\n\t"
-       "xorl %2,%0\n\t"
-       "pushl %0\n\t"
-       "popfl\n\t"
-       "pushfl\n\t"
-       "popl %0\n\t"
-       "popfl\n\t"
-       : "=&r" (f1), "=&r" (f2)
-       :"ir" (flag));
-  return ((f1 ^ f2) & flag) != 0;
-}
+#define bit_LM (1 << 29)
 
-#ifndef X86_EFLAGS_ID
-#define X86_EFLAGS_ID 0x00200000 /* CPUID detection flag */
-#endif
-
-/**********************************************************
-      stolen from linux/include/asm-i386/processor.h
- **********************************************************/
-
-static inline unsigned int
-cpuid_eax(unsigned int op)
-{
-  unsigned int eax;
-  __asm__("cpuid": "=a" (eax): "0" (op): "bx", "cx", "dx");
-  return eax;
-}
-
-static inline unsigned int
-cpuid_edx (unsigned int op)
-{
-  unsigned int eax, edx;
-  __asm__ ("cpuid": "=a" (eax), "=d" (edx): "0" (op):"bx", "cx");
-  return edx;
-}
-
-/**********************************************************
-  Based on specs from:
-  - http://www.amd.com/us-en/assets/content_type/white_papers_and_tech_docs/25481.pdf
-  - http://download.intel.com/design/Xeon/applnots/24161831.pdf
- **********************************************************/
-
+int
 check_64bit ()
 {
-  /* probe for CPUID instruction */
-  if (!flag_is_changeable_p (X86_EFLAGS_ID))
-    return 0;
+  unsigned int eax, ebx, ecx, edx;
+  unsigned int max_level;
+  unsigned int ext_level;
+  unsigned char has_longmode = 0;
 
-  /* probe for 0x80000001-level CPUID support */
-  if (cpuid_eax (0x80000000) < 0x80000001)
-    return 0;
+  /* See if we can use cpuid.  */
+  asm volatile ("pushfl; pushfl; popl %0; movl %0,%1; xorl %2,%0;"
+		"pushl %0; popfl; pushfl; popl %0; popfl"
+		: "=&r" (eax), "=&r" (ebx)
+		: "i" (0x00200000));
+  if (((eax ^ ebx) & 0x00200000) == 0)
+    goto done;
 
-  /* probe for 64-bit support */
-  return (cpuid_edx (0x80000001) & (1 << 29)) ? 1 : 0;
+  /* Check the highest input value for eax.  */
+  cpuid (0, eax, ebx, ecx, edx);
+  /* We only look at the first four characters.  */
+  max_level = eax;
+  if (max_level == 0)
+    goto done;
+
+  cpuid (0x80000000, eax, ebx, ecx, edx);
+  ext_level = eax;
+  if (ext_level < 0x80000000)
+    goto done;
+
+  cpuid (0x80000001, eax, ebx, ecx, edx);
+  has_longmode = !!(edx & bit_LM);
+
+done:
+  return has_longmode;
 }
