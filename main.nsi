@@ -34,6 +34,7 @@ SetCompressor /SOLID lzma
 !include l10n/templates/ru.nsh
 !include l10n/templates/sk.nsh
 !include l10n/templates/sv.nsh
+!include l10n/templates/tr.nsh
 
 Name $(program_name)
 Icon "swirl.ico"
@@ -116,6 +117,8 @@ Function .onInit
   Push Slovak
   Push ${LANG_SWEDISH}
   Push Swedish
+  Push ${LANG_TURKISH}
+  Push Turkish
   Push unsupported
   Push "-- Not in this list --"
 
