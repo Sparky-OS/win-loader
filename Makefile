@@ -1,8 +1,12 @@
+
+PACKAGE	:= win32-loader
+VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) ([^-]*-\(.*\)).*/\1/g")
+
 all: win32-loader.exe
 
 win32-loader.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
-		cpuid/test64.dll swirl.ico license/en.txt \
+		cpuid/test64.dll swirl.ico license \
 		contrib/grub.exe contrib/grub.pif contrib/grldr contrib/grldr.mbr \
 		contrib/wget.exe \
 		contrib/System.dll
@@ -14,9 +18,12 @@ contrib/grub.exe contrib/grub.pif contrib/grldr contrib/grldr.mbr contrib/wget.e
 	@echo "Get the contrib tarball from http://goodbye-microsoft.com/pub/"
 	@exit 1
 
+license: license.in
+	sed -e "s/@VERSION@/$(VERSION)/g" < $^ > $@
+
 cpuid/test64.dll: cpuid/cpuid.c cpuid/plugin.c
-	i586-mingw32msvc-gcc -Wl,--file-alignment,512 -Os cpuid/cpuid.c cpuid/plugin.c -shared -o cpuid/test64.dll
-	i586-mingw32msvc-strip cpuid/test64.dll
+	i586-mingw32msvc-gcc -Wl,--file-alignment,512 -Os $^ -shared -o $@
+	i586-mingw32msvc-strip $@
 
 maps.ini: maps.ini.in /usr/share/iso-codes/iso_3166.tab
 	cp maps.ini.in maps.ini

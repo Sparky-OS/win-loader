@@ -48,7 +48,7 @@ grep -v "^# translate:" << EOF | iconv -f utf-8 -t ${charset} | sed -e "s/@DOLLA
 # translate: The nlf file for your language should be found in
 # translate: /usr/share/nsis/Contrib/Language files/
 LoadLanguageFile "\${NSISDIR}\Contrib\Language files\\`gettext English.nlf`"
-LicenseLangString license \${$nsis_lang} license\en.txt
+LicenseLangString license \${$nsis_lang} license
 # translate: Please do NOT use double quotes (") anywhere from now on.  These break build!
 # translate: You may, however, use single quotes (') or « » just fine.
 # translate: Also note that only the subset of UTF-8 that can be converted to the
