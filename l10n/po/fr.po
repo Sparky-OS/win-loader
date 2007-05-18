@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-31 14:27+0200\n"
+"POT-Creation-Date: 2007-05-18 17:32+0200\n"
 "PO-Revision-Date: 2007-03-31 17:25+0200\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -19,20 +19,20 @@ msgstr ""
 #. translate: This must be the string used by Windows to represent your
 #. translate: language.  If you don't know, check [wine]/tools/wmc/lang.c,
 #. translate: or http://www.microsoft.com/globaldev/reference/WinCP.mspx
-#: win32-loader.sh:23
+#: win32-loader.sh:40
 msgid "windows-1252"
 msgstr "windows-1252"
 
 #. translate: This must be a valid string recognised by Nsis.  If your
 #. translate: language is not yet supported by Nsis, please translate the
 #. translate: missing Nsis part first.
-#: win32-loader.sh:28
+#: win32-loader.sh:45
 msgid "LANG_ENGLISH"
 msgstr "LANG_FRENCH"
 
 #. translate: The nlf file for your language should be found in
 #. translate: /usr/share/nsis/Contrib/Language files/
-#: win32-loader.sh:33
+#: win32-loader.sh:50
 msgid "English.nlf"
 msgstr "French.nlf"
 
@@ -40,15 +40,15 @@ msgstr "French.nlf"
 #. translate: You may, however, use single quotes (') or « » just fine.
 #. translate: Also note that only the subset of UTF-8 that can be converted to the
 #. translate: corresponding windows-xxxx charset should be used.
-#: win32-loader.sh:39
+#: win32-loader.sh:56
 msgid "Debian-Installer Loader"
 msgstr "Chargeur de l'installateur Debian"
 
-#: win32-loader.sh:40
+#: win32-loader.sh:57
 msgid "Debian Installer"
 msgstr "Installateur Debian"
 
-#: win32-loader.sh:41
+#: win32-loader.sh:58
 msgid ""
 "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a "
 "complete desktop install, it is recommended to have at least 3 GB of free "
@@ -62,23 +62,25 @@ msgstr ""
 "partition séparée pour l'installation de Debian ou si vous prévoyez de "
 "remplacer entièrement Windows, vous pouvez ignorer cet avertissement."
 
-#: win32-loader.sh:42
+#: win32-loader.sh:59
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Espace disque insuffisant. Installation interrompue."
 
-#: win32-loader.sh:43
+#: win32-loader.sh:60
 msgid "This program doesn't support Windows @DOLLAR@windows_version yet."
-msgstr "Ce programme ne gère pas encore la version @DOLLAR@windows_version de Windows."
+msgstr ""
+"Ce programme ne gère pas encore la version @DOLLAR@windows_version de "
+"Windows."
 
-#: win32-loader.sh:44 win32-loader.sh:47
+#: win32-loader.sh:61 win32-loader.sh:64
 msgid "Select install mode:"
 msgstr "Mode d'installation :"
 
-#: win32-loader.sh:45
+#: win32-loader.sh:62
 msgid "Normal mode.  Recommended for most users."
 msgstr "Mode normal. Recommandé pour la plupart des utilisateurs."
 
-#: win32-loader.sh:46
+#: win32-loader.sh:63
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -86,15 +88,15 @@ msgstr ""
 "Mode expert. Recommandé pour les utilisateurs qui souhaitent avoir un "
 "contrôle complet de l'installation."
 
-#: win32-loader.sh:48
+#: win32-loader.sh:65
 msgid "Graphical install"
 msgstr "Installation en mode graphique"
 
-#: win32-loader.sh:49
+#: win32-loader.sh:66
 msgid "Text install"
 msgstr "Installation en mode texte"
 
-#: win32-loader.sh:50
+#: win32-loader.sh:67
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
@@ -103,39 +105,39 @@ msgstr ""
 "suivants. Vous ne devriez pas les modifier à moins d'avoir la certitude que "
 "cela est nécessaire."
 
-#: win32-loader.sh:51
+#: win32-loader.sh:68
 msgid "Proxy settings (host:port):"
 msgstr "Réglage du mandataire (« proxy ») (hôte:port) :"
 
-#: win32-loader.sh:52
+#: win32-loader.sh:69
 msgid "Location of boot.ini:"
 msgstr "Emplacement du fichier « boot.ini » :"
 
-#: win32-loader.sh:53
+#: win32-loader.sh:70
 msgid "Debconf preseed line:"
 msgstr "Préconfiguration de l'installateur :"
 
-#: win32-loader.sh:54
+#: win32-loader.sh:71
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL de base pour les images netboot (linux et initrd.gz) :"
 
-#: win32-loader.sh:55
+#: win32-loader.sh:72
 msgid "Downloading %s"
 msgstr "Téléchargement de %s"
 
-#: win32-loader.sh:56
+#: win32-loader.sh:73
 msgid "Connecting ..."
 msgstr "Connexion..."
 
-#: win32-loader.sh:57
+#: win32-loader.sh:74
 msgid "second"
 msgstr "seconde"
 
-#: win32-loader.sh:58
+#: win32-loader.sh:75
 msgid "minute"
 msgstr "minute"
 
-#: win32-loader.sh:59
+#: win32-loader.sh:76
 msgid "hour"
 msgstr "heure"
 
@@ -143,37 +145,39 @@ msgstr "heure"
 #. translate: I know it's quite unfortunate.  An alternate method for translating NSISdl
 #. translate: has been proposed [1] but in the meantime we'll have to cope with this.
 #. translate: [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
-#: win32-loader.sh:64
+#: win32-loader.sh:81
 msgid "s"
 msgstr "s"
 
-#: win32-loader.sh:65
+#: win32-loader.sh:82
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) sur %dkB à %d.%01dko/s"
 
-#: win32-loader.sh:66
+#: win32-loader.sh:83
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s restant)"
 
-#: win32-loader.sh:67
+#: win32-loader.sh:84
 msgid "Error"
 msgstr "Erreur"
 
-#: win32-loader.sh:68
+#: win32-loader.sh:85
 msgid "Error: failed to copy @DOLLAR@0 to @DOLLAR@1."
 msgstr "Erreur : échec de la copie de @DOLLAR@0 sur @DOLLAR@1."
 
-#: win32-loader.sh:69
+#: win32-loader.sh:86
 msgid "Error: unable to run @DOLLAR@0."
 msgstr "Erreur : impossible d'exécuter @DOLLAR@0."
 
-#: win32-loader.sh:70
+#: win32-loader.sh:87
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
 "@DOLLAR@windows_version?"
-msgstr "Erreur: @DOLLAR@boot_ini n'existe pas. Ce système est-il vraiment Windows @DOLLARwindows_version ?"
+msgstr ""
+"Erreur: @DOLLAR@boot_ini n'existe pas. Ce système est-il vraiment Windows "
+"@DOLLARwindows_version ?"
 
-#: win32-loader.sh:71
+#: win32-loader.sh:88
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "Note très importante :\\n\\n"
 
@@ -181,22 +185,29 @@ msgstr "Note très importante :\\n\\n"
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: win32-loader.sh:76
+#: win32-loader.sh:93
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
-msgstr "La deuxième étape du processus d'installation va maintenant être démarrée. Après confirmation, ce programme va redémarrer Windows en mode DOS et charger automatiquement l'installateur de Debian.\\n\\n"
+msgstr ""
+"La deuxième étape du processus d'installation va maintenant être démarrée. "
+"Après confirmation, ce programme va redémarrer Windows en mode DOS et "
+"charger automatiquement l'installateur de Debian.\\n\\n"
 
-#: win32-loader.sh:77
+#: win32-loader.sh:94
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
 "Debian Installer.  Choose Debian Installer to continue with the install "
 "process.\\n\\n"
-msgstr "Il est indispensable de redémarrer pou rinstaller Debian. Au prochain démarrage, vous pourrez choisir de démarrer Windows ou l'installation de Debian. Vous devez choisir cette dernière option pour continuer le processus d'installation.\\n\\n"
+msgstr ""
+"Il est indispensable de redémarrer pou rinstaller Debian. Au prochain "
+"démarrage, vous pourrez choisir de démarrer Windows ou l'installation de "
+"Debian. Vous devez choisir cette dernière option pour continuer le processus "
+"d'installation.\\n\\n"
 
-#: win32-loader.sh:78
+#: win32-loader.sh:95
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
@@ -207,17 +218,16 @@ msgid ""
 "your disk), you can uninstall the Debian-Installer Loader through the "
 "Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
-"Pendant l'installation, il vous sera proposé "
-"de réduire la taille de la partition Windows pour installer Debian ou bien "
-"la remplacer entièrement. Dans les deux cas, il est fortement recommandé de "
-"sauvegarder préalablement vos données. Ni les auteurs de cet outil de "
-"lancement de l'installateur Debian ni le projet Debian ne peuvent être tenus "
-"comme responsables en cas de perte de données.\\n\\nUne fois l'installation "
-"de Debian terminée (et si vous avez choisi de garder Windows sur le disque), vous pouvez désinstaller le chargeur de l'installateur "
-"Debian en utilisant « Ajout/suppression de programmes » du Panneau de "
-"Configuration."
+"Pendant l'installation, il vous sera proposé de réduire la taille de la "
+"partition Windows pour installer Debian ou bien la remplacer entièrement. "
+"Dans les deux cas, il est fortement recommandé de sauvegarder préalablement "
+"vos données. Ni les auteurs de cet outil de lancement de l'installateur "
+"Debian ni le projet Debian ne peuvent être tenus comme responsables en cas "
+"de perte de données.\\n\\nUne fois l'installation de Debian terminée (et si "
+"vous avez choisi de garder Windows sur le disque), vous pouvez désinstaller "
+"le chargeur de l'installateur Debian en utilisant « Ajout/suppression de "
+"programmes » du Panneau de Configuration."
 
-#: win32-loader.sh:79
+#: win32-loader.sh:96
 msgid "Do you want to reboot now?"
 msgstr "Voulez-vous redémarrer maintenant ?"
-
