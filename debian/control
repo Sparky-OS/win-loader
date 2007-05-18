@@ -1,0 +1,18 @@
+Source: win32-loader
+Section: utils
+Priority: extra
+Maintainer: Robert Millan <rmh@aybabtu.com>
+Build-Depends: cdbs, debhelper (>= 5), nsis, mingw32, iso-codes, gettext
+Standards-Version: 3.7.2
+
+Package: win32-loader
+Architecture: all
+Suggests: wine
+Description: Debian-Installer loader for win32
+ This package provides a win32 program that can be used as a loader for
+ Debian Installer, acting as a more user-friendly boot mechanism than
+ traditional BIOS-based boot.
+ .
+ It can act as a standalone netboot loader (for a practical example, see
+ http://goodbye-microsoft.com/), or as a cdrom/usb-disk add-on that starts
+ a media-based install.

@@ -1,8 +1,0 @@
-
-Build instructions
-~~~~~~~~~~~~~~~~~~
-
-  sudo apt-get install nsis mingw32 iso-codes gettext
-  make
-
-That's all.

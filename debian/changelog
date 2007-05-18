@@ -1,0 +1,6 @@
+win32-loader (0.0.1-0.5.1) UNRELEASED; urgency=low
+
+  * Initial release (Closes: #425038).
+
+ -- Robert Millan <rmh@aybabtu.com>  Fri, 18 May 2007 18:25:34 +0200
+
