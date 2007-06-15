@@ -165,6 +165,14 @@ Function ShowExpert
   SetOutPath $INSTDIR
 
   ; Do space checks soon, because they're an abort condition
+  ; we refuse to start the installer with less than 30 MiB
+  StrCpy $0 30720 ; == 30 MiB
+  StrCpy $1 $c
+  Call CheckSpaceFunc
+  IntCmp $2 1 +3
+  MessageBox MB_OK $(not_enough_space_for_loader)
+  Quit
+
   ; we need 3 GiB to install debian
   ; FIXME: maybe we should ask whether user wants dual boot or nuking windoze completely first
   StrCpy $0 3145728 ; == 3 GiB
@@ -172,14 +180,6 @@ Function ShowExpert
   Call CheckSpaceFunc
   IntCmp $2 1 +2
   MessageBox MB_OK $(not_enough_space_for_debian)
-
-  ; and we refuse to start the installer with less than 30 MiB
-  StrCpy $0 30720 ; == 30 MiB
-  StrCpy $1 $c
-  Call CheckSpaceFunc
-  IntCmp $2 1 +3
-  MessageBox MB_OK $(not_enough_space_for_loader)
-  Quit
 
   ; Windows version is another abort condition
   Var /GLOBAL windows_version
