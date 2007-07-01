@@ -304,8 +304,9 @@ proxyless:
     ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
     ${If} $0 != ""
       ${If} $1 != ""
-        StrCpy $preseed "$preseed locale=$0_$1"
+        StrCpy $0 "$0_$1"
       ${Endif}
+      StrCpy $preseed "$preseed locale=$0"
     ${Endif}
   ${Endif}
 
