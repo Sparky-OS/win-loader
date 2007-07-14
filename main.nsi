@@ -47,6 +47,7 @@ OutFile "win32-loader.exe"
 !insertmacro un.GetRoot
 
 !addplugindir cpuid
+!addplugindir systeminfo
 !include checkspacefree.nsh
 !include getwindowsversion.nsh
 
@@ -310,7 +311,9 @@ proxyless:
   ${Endif}
 
 ; ********************************************** preseed domain
-  System::Call "kernel32.dll::GetComputerNameExW(i 2,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  systeminfo::domain
+  Pop $2
+  Pop $0
   ${If} $2 != 0
     ${If} $0 == ""
       StrCpy $0 "localdomain"
@@ -326,7 +329,8 @@ proxyless:
   ${Endif}
 
 ; ********************************************** preseed keymap
-  System::Call "user32.dll::GetKeyboardLayout(i 0)i.r0"
+  systeminfo::keyboard_layout
+  Pop $0
   ; lower word is the locale identifier (higher word is a handler to the actual layout)
   IntOp $0 $0 & 0x0000FFFF
   IntFmt $0 "0x%04X" $0
@@ -337,7 +341,9 @@ proxyless:
   ${Endif}
 
 ; ********************************************** preseed hostname
-  System::Call "kernel32.dll::GetComputerNameExW(i 1,w .r0,*i ${NSIS_MAX_STRLEN} r1)i.r2"
+  systeminfo::hostname
+  Pop $2
+  Pop $0
   ${If} $2 != 0
     ${If} $0 == ""
       StrCpy $0 "debian"
