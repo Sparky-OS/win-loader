@@ -57,4 +57,8 @@ netboot/install.amd/gtk/initrd.gz:
 
 clean:
 	$(MAKE) -C l10n clean
-	rm -f cpuid/*.dll cpuid/*.exe win32-loader.exe win32-loader.iso *~ */*~ maps.ini
+	rm -f cpuid/*.dll cpuid/*.exe win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
+
+distclean: clean
+	rm -f debian/compat
+	rm -rf netboot
