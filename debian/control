@@ -1,5 +1,5 @@
 Source: win32-loader
-Section: contrib/utils
+Section: utils
 Priority: extra
 Maintainer: Robert Millan <rmh@debian.org>
 Build-Depends: cdbs, debhelper (>= 5), nsis (>= 2.25-1), mingw32, iso-codes, gettext
