@@ -4,10 +4,6 @@ VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*
 
 all: win32-loader.exe
 
-clean:
-	$(MAKE) -C l10n clean
-	rm -f cpuid/*.dll cpuid/*.exe win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
-
 win32-loader.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
 		cpuid/test64.dll swirl.ico license \
@@ -58,3 +54,7 @@ netboot/install.amd/initrd.gz:
 netboot/install.amd/gtk/initrd.gz:
 	mkdir -p netboot/install.amd/gtk
 	wget http://people.debian.org/~aba/d-i/images/daily/netboot/gtk/debian-installer/amd64/initrd.gz -O $@
+
+clean:
+	$(MAKE) -C l10n clean
+	rm -f cpuid/*.dll cpuid/*.exe win32-loader.exe win32-loader.iso *~ */*~ maps.ini

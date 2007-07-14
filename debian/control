@@ -1,7 +1,7 @@
 Source: win32-loader
 Section: contrib/utils
 Priority: extra
-Maintainer: Robert Millan <rmh@aybabtu.com>
+Maintainer: Robert Millan <rmh@debian.org>
 Build-Depends: cdbs, debhelper (>= 5), nsis, mingw32, iso-codes, gettext
 Standards-Version: 3.7.2
 
