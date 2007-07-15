@@ -387,6 +387,39 @@ proxyless:
   ${Endif}
 FunctionEnd
 
+Function Download
+    ; Base URL
+    Pop $0
+    ; Target dir
+    Pop $1
+    ; Filename
+    Pop $2
+    ${If} $nsisdl_is_broken == true
+      ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
+      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
+      ; Do NOT, ever, let wget append its download to existing files!!
+      Delete "$1\$2"
+      SetOutPath "$1"
+      ExecWait '"$PLUGINSDIR\wget.exe" -c $0/$2'
+    ${Else}
+      Var /GLOBAL nsisdl_proxy
+      ${If} $proxy == ""
+        StrCpy $nsisdl_proxy /NOIEPROXY
+      ${Else}
+        StrCpy $nsisdl_proxy "/PROXY $proxy"
+      ${Endif}
+
+      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $1\$2
+      Pop $R0
+      ${If} $R0 != "success"
+        ${If} $R0 != "cancel"
+           MessageBox MB_OK "$(error): $R0"
+        ${EndIf}
+        Quit
+      ${EndIf}
+    ${Endif}
+FunctionEnd
+
 Section "Debian-Installer Loader"
 
 ; ******************************************************************************
@@ -402,52 +435,27 @@ Section "Debian-Installer Loader"
 
   ${If} $use_network == false
     ClearErrors
-    CopyFiles /FILESONLY "$EXEDIR\$linux" "$INSTDIR\linux"
-    IfErrors 0 +5
-      StrCpy $0 "$EXEDIR\$linux"
-      StrCpy $1 "$INSTDIR\linux"
+    StrCpy $0 "$EXEDIR\$linux"
+    StrCpy $1 "$INSTDIR\linux"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
       MessageBox MB_OK "$(error_copyfiles)"
       Quit
-    CopyFiles /FILESONLY "$EXEDIR\$initrd" "$INSTDIR\initrd.gz"
-    IfErrors 0 +5
-      StrCpy $0 "$EXEDIR\$initrd"
-      StrCpy $1 "$INSTDIR\initrd.gz"
+    StrCpy $0 "$EXEDIR\$initrd"
+    StrCpy $1 "$INSTDIR\initrd.gz"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
       MessageBox MB_OK "$(error_copyfiles)"
       Quit
   ${Else}
-    ${If} $nsisdl_is_broken == true
-      ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
-      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
-      ; Do NOT, ever, let wget append its download to existing files!!
-      Delete $INSTDIR\linux
-      Delete $INSTDIR\initrd.gz
-      SetOutPath $INSTDIR
-      ExecWait '"$PLUGINSDIR\wget.exe" -c $base_url/linux $base_url/initrd.gz'
-    ${Else}
-      ${If} $proxy == ""
-        StrCpy $proxy /NOIEPROXY
-      ${Else}
-        StrCpy $proxy "/PROXY $proxy"
-      ${Endif}
-
-      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/linux $INSTDIR\linux
-      Pop $R0
-      ${If} $R0 != "success"
-        ${If} $R0 != "cancel"
-           MessageBox MB_OK "$(error): $R0"
-        ${EndIf}
-        Quit
-      ${EndIf}
-
-      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $proxy $base_url/initrd.gz $INSTDIR\initrd.gz
-      Pop $R0
-      ${If} $R0 != "success"
-        ${If} $R0 != "cancel"
-           MessageBox MB_OK "$(error): $R0"
-        ${EndIf}
-        Quit
-      ${EndIf}
-    ${Endif}
+    Push "linux"
+    Push "$INSTDIR"
+    Push "$base_url"
+    Call Download
+    Push "initrd.gz"
+    Push "$INSTDIR"
+    Push "$base_url"
+    Call Download
   ${Endif}
 
   FileOpen $0 $c\menu.lst w
