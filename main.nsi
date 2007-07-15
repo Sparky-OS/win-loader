@@ -74,6 +74,7 @@ UninstPage instfiles
 
 Var /GLOBAL c
 Var /GLOBAL preseed
+Var /GLOBAL proxy
 
 Function .onInit
   InitPluginsDir
@@ -228,6 +229,49 @@ windows_version_ok:
   ${Endif}
 FunctionEnd
 
+!ifdef NETWORK_BASE_URL
+
+Function Download
+    ; Base URL
+    Pop $0
+    ; Target dir
+    Pop $1
+    ; Filename
+    Pop $2
+    ; Let it fail?
+    Pop $3
+    ${If} $nsisdl_is_broken == true
+      ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
+      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
+      ; Do NOT, ever, let wget append its download to existing files!!
+      Delete "$1\$2"
+      SetOutPath "$1"
+      ExecWait '"$PLUGINSDIR\wget.exe" -c $0/$2'
+      StrCpy $0 "success" ; no error detection
+    ${Else}
+      Var /GLOBAL nsisdl_proxy
+      ${If} $proxy == ""
+        StrCpy $nsisdl_proxy /NOIEPROXY
+      ${Else}
+        StrCpy $nsisdl_proxy "/PROXY $proxy"
+      ${Endif}
+
+      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $1\$2
+      Pop $R0
+      ${If} $R0 != "success"
+        ${If} $R0 != "cancel"
+           MessageBox MB_OK "$(error): $R0"
+        ${EndIf}
+        ${If} $3 == "false"
+          Quit
+        ${Endif}
+      ${EndIf}
+      StrCpy $0 "$R0"
+    ${Endif}
+FunctionEnd
+
+!endif
+
 Function ShowGraphics
   File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
   ${If} $expert == false
@@ -300,7 +344,6 @@ ini_is_ok:
 !endif
 
 ; ********************************************** Initialise proxy (even when in network-less mode, for the sake of preseeding)
-  Var /GLOBAL proxy
   StrCpy $proxy ""
   ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
   IntCmp $0 1 0 proxyless
@@ -368,6 +411,18 @@ proxyless:
     StrCpy $preseed "$preseed priority=low"
   ${Endif}
 
+!ifdef NETWORK_BASE_URL
+; ********************************************** if ${NETWORK_BASE_URL} provides a preseed.cfg, use it
+  Push true
+  Push "preseed.cfg"
+  Push "$PLUGINSDIR"
+  Push "${NETWORK_BASE_URL}"
+  Call Download
+  ${If} $0 == "success"
+    StrCpy $preseed "$preseed preseed/url=${NETWORK_BASE_URL}/preseed.cfg"
+  ${Endif}
+!endif
+
 ; ********************************************** Display customisation dialog now
   Var /GLOBAL boot_ini
   StrCpy $boot_ini "$c\boot.ini"
@@ -395,50 +450,13 @@ proxyless:
 
 ; do this inmediately after custom.ini, because proxy settings can be
 ; overriden there
-; ********************************************** Preseed proxy
+; ********************************************** preseed proxy
   ${If} $proxy == ""
     StrCpy $preseed "$preseed mirror/http/proxy="
   ${Else}
     StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
   ${Endif}
 FunctionEnd
-
-!ifdef NETWORK_BASE_URL
-
-Function Download
-    ; Base URL
-    Pop $0
-    ; Target dir
-    Pop $1
-    ; Filename
-    Pop $2
-    ${If} $nsisdl_is_broken == true
-      ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
-      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
-      ; Do NOT, ever, let wget append its download to existing files!!
-      Delete "$1\$2"
-      SetOutPath "$1"
-      ExecWait '"$PLUGINSDIR\wget.exe" -c $0/$2'
-    ${Else}
-      Var /GLOBAL nsisdl_proxy
-      ${If} $proxy == ""
-        StrCpy $nsisdl_proxy /NOIEPROXY
-      ${Else}
-        StrCpy $nsisdl_proxy "/PROXY $proxy"
-      ${Endif}
-
-      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $1\$2
-      Pop $R0
-      ${If} $R0 != "success"
-        ${If} $R0 != "cancel"
-           MessageBox MB_OK "$(error): $R0"
-        ${EndIf}
-        Quit
-      ${EndIf}
-    ${Endif}
-FunctionEnd
-
-!endif
 
 Section "Debian-Installer Loader"
 
@@ -468,10 +486,12 @@ Section "Debian-Installer Loader"
     MessageBox MB_OK "$(error_copyfiles)"
     Quit
 !else
+  Push "false"
   Push "linux"
   Push "$INSTDIR"
   Push "$base_url"
   Call Download
+  Push "false"
   Push "initrd.gz"
   Push "$INSTDIR"
   Push "$base_url"
@@ -496,6 +516,7 @@ initrd	/debian/initrd.gz$\n"
       Quit
     ${Endif}
 !ifdef NETWORK_BASE_URL
+    Push "false"
     Push "grldr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
@@ -516,10 +537,12 @@ initrd	/debian/initrd.gz$\n"
 
   ${If} $windows_boot_method == direct
 !ifdef NETWORK_BASE_URL
+    Push "false"
     Push "grub.exe"
     Push "$INSTDIR"
     Push "${NETWORK_BASE_URL}"
     Call Download
+    Push "false"
     Push "grub.pif"
     Push "$INSTDIR"
     Push "${NETWORK_BASE_URL}"
@@ -543,10 +566,12 @@ initrd	/debian/initrd.gz$\n"
 
   ${If} $windows_boot_method == bootmgr
 !ifdef NETWORK_BASE_URL
+    Push "false"
     Push "grldr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
+    Push "false"
     Push "grldr.mbr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
