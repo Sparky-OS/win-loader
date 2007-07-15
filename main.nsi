@@ -73,7 +73,6 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
-Var /GLOBAL d
 Var /GLOBAL preseed
 
 Function .onInit
@@ -269,6 +268,7 @@ Function ShowCustom
 !else
 
 ; ********************************************** Media-based install
+  Var /GLOBAL d
   ${GetRoot} $EXEDIR $d
   Var /GLOBAL linux
   Var /GLOBAL initrd
