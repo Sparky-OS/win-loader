@@ -198,7 +198,8 @@ Function ShowExpert
   ${OrIf} $windows_version == "98"
     StrCpy $nsisdl_is_broken true
     StrCpy $windows_boot_method direct
-    Goto windows_version_ok
+; disabled due to failed assertions caused by systeminfo plugin
+;    Goto windows_version_ok
   ${Endif}
   ${If} $windows_version == "2000"
   ${OrIf} $windows_version == "XP"
@@ -242,7 +243,8 @@ Function Download
     Pop $3
     ${If} $nsisdl_is_broken == true
       ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
-      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
+; disabled due to failed assertions in systeminfo plugin
+;      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
       ; Do NOT, ever, let wget append its download to existing files!!
       Delete "$1\$2"
       SetOutPath "$1"
