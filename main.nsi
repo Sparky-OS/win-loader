@@ -260,36 +260,48 @@ Function ShowCustom
     StrCpy $preseed "$preseed vga=normal"
   ${EndIf}
 
-; ********************************************** CD-based install
-  ${GetRoot} $EXEDIR $d
-  Var /GLOBAL linux
-  Var /GLOBAL initrd
-  Var /GLOBAL use_network
-  StrCpy $use_network true
-  IfFileExists $d\win32-loader.ini 0 cdless
-  ReadINIStr $linux $d\win32-loader.ini "installer" "$arch/$gtklinux"
-  ReadINIStr $initrd $d\win32-loader.ini "installer" "$arch/$gtkinitrd"
-  ${If} $linux == ""
-    Goto cdless
-  ${Endif}
-  ${If} $initrd == ""
-    Goto cdless
-  ${Endif}
-  StrCpy $use_network false
-cdless:
+!ifdef NETWORK_BASE_URL
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url
-  ${If} $use_network == true
-    StrCpy $base_url "http://ftp.nl.debian.org/debian/dists/etch/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
-  ${Endif}
+  StrCpy $base_url "http://ftp.nl.debian.org/debian/dists/etch/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
 
-; ********************************************** Initialise proxy
+!else
+
+; ********************************************** Media-based install
+  ${GetRoot} $EXEDIR $d
+  Var /GLOBAL linux
+  Var /GLOBAL initrd
+  Var /GLOBAL grldr
+  Var /GLOBAL grldr_mbr
+  Var /GLOBAL grub_exe
+  Var /GLOBAL grub_pif
+  IfFileExists $d\win32-loader.ini +3 0
+    MessageBox MB_OK "$(error_missing_ini)"
+    Quit
+  ReadINIStr $linux	$d\win32-loader.ini "installer" "$arch/$gtklinux"
+  ReadINIStr $initrd	$d\win32-loader.ini "installer" "$arch/$gtkinitrd"
+  ReadINIStr $grldr	$d\win32-loader.ini "grub" "grldr"
+  ReadINIStr $grldr_mbr	$d\win32-loader.ini "grub" "grldr.mbr"
+  ReadINIStr $grub_exe	$d\win32-loader.ini "grub" "grub.exe"
+  ReadINIStr $grub_pif	$d\win32-loader.ini "grub" "grub.pif"
+  StrCmp $linux		"" incomplete_ini
+  StrCmp $initrd	"" incomplete_ini
+  StrCmp $grldr		"" incomplete_ini
+  StrCmp $grldr_mbr	"" incomplete_ini
+  StrCmp $grub_exe	"" incomplete_ini
+  StrCmp $grub_pif	"" incomplete_ini
+  Goto ini_is_ok
+incomplete_ini:
+  MessageBox MB_OK "$(error_incomplete_ini)"
+  Quit
+ini_is_ok:
+
+!endif
+
+; ********************************************** Initialise proxy (even when in network-less mode, for the sake of preseeding)
   Var /GLOBAL proxy
   StrCpy $proxy ""
-  ${If} $use_network == false
-    Goto proxyless
-  ${Endif}
   ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
   IntCmp $0 1 0 proxyless
   ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
@@ -368,12 +380,16 @@ proxyless:
     WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" $(custom5)
     WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
     WriteINIStr $PLUGINSDIR\custom.ini "Field 7" "State" "$boot_ini"
+!ifdef NETWORK_BASE_URL
     WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
+!endif
     WriteINIStr $PLUGINSDIR\custom.ini "Field 9" "State" "$preseed"
     InstallOptions::dialog $PLUGINSDIR\custom.ini
     ReadINIStr $proxy		$PLUGINSDIR\custom.ini "Field 6" "State"
     ReadINIStr $boot_ini	$PLUGINSDIR\custom.ini "Field 7" "State"
+!ifdef NETWORK_BASE_URL
     ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
+!endif
     ReadINIStr $preseed		$PLUGINSDIR\custom.ini "Field 9" "State"
   ${Endif}
 
@@ -386,6 +402,8 @@ proxyless:
     StrCpy $preseed "$preseed mirror/http/proxy=http://$proxy/"
   ${Endif}
 FunctionEnd
+
+!ifdef NETWORK_BASE_URL
 
 Function Download
     ; Base URL
@@ -420,6 +438,8 @@ Function Download
     ${Endif}
 FunctionEnd
 
+!endif
+
 Section "Debian-Installer Loader"
 
 ; ******************************************************************************
@@ -433,30 +453,30 @@ Section "Debian-Installer Loader"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" $(program_name)
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\uninstall.exe"
 
-  ${If} $use_network == false
-    ClearErrors
-    StrCpy $0 "$EXEDIR\$linux"
-    StrCpy $1 "$INSTDIR\linux"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$initrd"
-    StrCpy $1 "$INSTDIR\initrd.gz"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
-      Quit
-  ${Else}
-    Push "linux"
-    Push "$INSTDIR"
-    Push "$base_url"
-    Call Download
-    Push "initrd.gz"
-    Push "$INSTDIR"
-    Push "$base_url"
-    Call Download
-  ${Endif}
+!ifndef NETWORK_BASE_URL
+  ClearErrors
+  StrCpy $0 "$EXEDIR\$linux"
+  StrCpy $1 "$INSTDIR\linux"
+  CopyFiles /FILESONLY "$0" "$1"
+  IfErrors 0 +3
+    MessageBox MB_OK "$(error_copyfiles)"
+    Quit
+  StrCpy $0 "$EXEDIR\$initrd"
+  StrCpy $1 "$INSTDIR\initrd.gz"
+  CopyFiles /FILESONLY "$0" "$1"
+  IfErrors 0 +3
+    MessageBox MB_OK "$(error_copyfiles)"
+    Quit
+!else
+  Push "linux"
+  Push "$INSTDIR"
+  Push "$base_url"
+  Call Download
+  Push "initrd.gz"
+  Push "$INSTDIR"
+  Push "$base_url"
+  Call Download
+!endif
 
   FileOpen $0 $c\menu.lst w
   FileWrite $0 "\
@@ -471,24 +491,81 @@ initrd	/debian/initrd.gz$\n"
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
   ${If} $windows_boot_method == ntldr
-    File /oname=$c\grldr "contrib/grldr"
     ${Unless} ${FileExists} "$boot_ini"
       MessageBox MB_OK $(boot_ini_not_found)
       Quit
     ${Endif}
+!ifdef NETWORK_BASE_URL
+    Push "grldr"
+    Push "$c"
+    Push "${NETWORK_BASE_URL}"
+    Call Download
+!else
+    ClearErrors
+    StrCpy $0 "$EXEDIR\$grldr"
+    StrCpy $1 "$c\grldr"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error_copyfiles)"
+      Quit
+!endif
     SetFileAttributes "$boot_ini" NORMAL
     SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
     WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
   ${Endif}
 
   ${If} $windows_boot_method == direct
-    File /oname=$INSTDIR\grub.exe "contrib/grub.exe"
-    File /oname=$INSTDIR\grub.pif "contrib/grub.pif"
+!ifdef NETWORK_BASE_URL
+    Push "grub.exe"
+    Push "$INSTDIR"
+    Push "${NETWORK_BASE_URL}"
+    Call Download
+    Push "grub.pif"
+    Push "$INSTDIR"
+    Push "${NETWORK_BASE_URL}"
+    Call Download
+!else
+    ClearErrors
+    StrCpy $0 "$EXEDIR\$grub_exe"
+    StrCpy $1 "$INSTDIR\grub.exe"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$grub_pif"
+    StrCpy $1 "$INSTDIR\grub.pif"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error_copyfiles)"
+      Quit
+!endif
   ${Endif}
 
   ${If} $windows_boot_method == bootmgr
-    File /oname=$c\grldr.mbr "contrib/grldr.mbr"
-    File /oname=$c\grldr "contrib/grldr"
+!ifdef NETWORK_BASE_URL
+    Push "grldr"
+    Push "$c"
+    Push "${NETWORK_BASE_URL}"
+    Call Download
+    Push "grldr.mbr"
+    Push "$c"
+    Push "${NETWORK_BASE_URL}"
+    Call Download
+!else
+    ClearErrors
+    StrCpy $0 "$EXEDIR\$grldr"
+    StrCpy $1 "$c\grldr"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$grldr_mbr"
+    StrCpy $1 "$c\grldr.mbr"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK "$(error_copyfiles)"
+      Quit
+!endif
     ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
     ${If} $0 == ""
       nsExec::ExecToStack '"bcdedit" /create /d "$(d-i)" /application bootsector'
