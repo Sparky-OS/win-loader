@@ -13,7 +13,8 @@ all: win32-loader.exe
 
 win32-loader.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
-		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll swirl.ico license \
+		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
+		swirl.ico license \
 		contrib/wget.exe
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
@@ -31,6 +32,10 @@ plugins/cpuid/test64.dll: plugins/cpuid/cpuid.c plugins/cpuid/plugin.c
 	$(STRIP) $@
 
 plugins/systeminfo/systeminfo.dll: plugins/systeminfo/systeminfo.c
+	$(CC) -Wl,--file-alignment,512 $^ -shared -o $@
+	$(STRIP) $@
+
+plugins/string.dll: plugins/string.c
 	$(CC) -Wl,--file-alignment,512 $^ -shared -o $@
 	$(STRIP) $@
 
@@ -70,7 +75,7 @@ netboot/install.amd/gtk/initrd.gz:
 
 clean:
 	$(MAKE) -C l10n clean
-	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
+	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
 
 distclean: clean
 	rm -f debian/compat

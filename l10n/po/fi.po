@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-15 12:26+0200\n"
+"POT-Creation-Date: 2007-07-17 17:28+0200\n"
 "PO-Revision-Date: 2007-02-14 11:39+0200\n"
 "Last-Translator: Tommi Vainikainen <thv@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -174,6 +174,10 @@ msgid "Error: unable to run @DOLLAR@0."
 msgstr ""
 
 #: win32-loader.sh:88
+msgid "Error: failed to parse bcdedit.exe output."
+msgstr ""
+
+#: win32-loader.sh:89
 #, fuzzy
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
@@ -182,7 +186,7 @@ msgstr ""
 "Virhe: @DOLLAR@boot_ini ei löydy. Windows-versiosi saattaa olla liian vanha "
 "taikka vahingoittunut."
 
-#: win32-loader.sh:89
+#: win32-loader.sh:90
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr ""
 
@@ -190,14 +194,14 @@ msgstr ""
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: win32-loader.sh:94
+#: win32-loader.sh:95
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
 msgstr ""
 
-#: win32-loader.sh:95
+#: win32-loader.sh:96
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -205,7 +209,7 @@ msgid ""
 "process.\\n\\n"
 msgstr ""
 
-#: win32-loader.sh:96
+#: win32-loader.sh:97
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -230,6 +234,6 @@ msgstr ""
 "lataimen Windowsissa Ohjauspaneelin (Control Panel) kohdasta Lisää tai "
 "poista sovelluksia (Add/Remove Programs)."
 
-#: win32-loader.sh:97
+#: win32-loader.sh:98
 msgid "Do you want to reboot now?"
 msgstr "Haluatko uudelleenkäynnistää nyt?"

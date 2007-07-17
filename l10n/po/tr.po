@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debian-Installer Loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-15 12:26+0200\n"
+"POT-Creation-Date: 2007-07-17 17:28+0200\n"
 "PO-Revision-Date: 2007-04-15 20:42+0300\n"
 "Last-Translator: Recai Oktaş <roktas@debian.org>\n"
 "Language-Team: Debian L10n Turkish <debian-l10n-turkish@lists.debian.org>\n"
@@ -178,6 +178,10 @@ msgid "Error: unable to run @DOLLAR@0."
 msgstr "Hata: @DOLLAR@0 çalıştırılamadı."
 
 #: win32-loader.sh:88
+msgid "Error: failed to parse bcdedit.exe output."
+msgstr ""
+
+#: win32-loader.sh:89
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
 "@DOLLAR@windows_version?"
@@ -185,7 +189,7 @@ msgstr ""
 "Hata: @DOLLAR@boot_ini bulunamadı.  Bu gerçekten bir Windows "
 "@DOLLAR@windows_version sürümü mü?"
 
-#: win32-loader.sh:89
+#: win32-loader.sh:90
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "ÇOK ÖNEMLİ UYARI:\\n\\n"
 
@@ -193,7 +197,7 @@ msgstr "ÇOK ÖNEMLİ UYARI:\\n\\n"
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: win32-loader.sh:94
+#: win32-loader.sh:95
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -203,7 +207,7 @@ msgstr ""
 "sonra, program Windows'u DOS kipinde başlatacak ve Debian Kurulum Programını "
 "otomatik olarak yükleyecek.\\n\\n"
 
-#: win32-loader.sh:95
+#: win32-loader.sh:96
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -215,7 +219,7 @@ msgstr ""
 "başlatmak istediğiniz size sorulacak.  Kurulum işlemiyle devam etmek için "
 "Debian Kurulum Programını seçin.\\n\\n"
 
-#: win32-loader.sh:96
+#: win32-loader.sh:97
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
@@ -235,6 +239,6 @@ msgstr ""
 "seçmişseniz), Debian-Kur Yükleyiciyi Windows Denetim Masasından Program Ekle/"
 "Kaldır ile kaldırabilirsiniz."
 
-#: win32-loader.sh:97
+#: win32-loader.sh:98
 msgid "Do you want to reboot now?"
 msgstr "Sistemi şimdi yeniden başlatmak ister misiniz?"

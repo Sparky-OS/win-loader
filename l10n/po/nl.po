@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-15 12:26+0200\n"
+"POT-Creation-Date: 2007-07-17 17:28+0200\n"
 "PO-Revision-Date: 2007-03-31 14:30+0200\n"
 "Last-Translator: Frans Pop <elendil@planet.nl>\n"
 "Language-Team: Dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -177,6 +177,10 @@ msgid "Error: unable to run @DOLLAR@0."
 msgstr "Fout: kan @DOLLAR@0 niet uitvoeren."
 
 #: win32-loader.sh:88
+msgid "Error: failed to parse bcdedit.exe output."
+msgstr ""
+
+#: win32-loader.sh:89
 msgid ""
 "Error: @DOLLAR@boot_ini not found.  Is this really Windows "
 "@DOLLAR@windows_version?"
@@ -184,7 +188,7 @@ msgstr ""
 "Fout: @DOLLAR@boot_ini niet gevonden. Is dit echt Windows "
 "@DOLLAR@windows_version?"
 
-#: win32-loader.sh:89
+#: win32-loader.sh:90
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "ZEER BELANGRIJKE MELDING:\\n\\n"
 
@@ -192,7 +196,7 @@ msgstr "ZEER BELANGRIJKE MELDING:\\n\\n"
 #. translate: will display one or the other depending on version of Windows.
 #. translate: Take into account that either option has to make sense in our
 #. translate: current context (i.e. be careful when using pronouns, etc).
-#: win32-loader.sh:94
+#: win32-loader.sh:95
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -202,7 +206,7 @@ msgstr ""
 "dialoog bevestigt, zal Windows opnieuw worden opgestart in DOS-modus en zal "
 "vervolgens automatisch het Debian Installatiesysteem worden geladen.\\n\\n"
 
-#: win32-loader.sh:95
+#: win32-loader.sh:96
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -214,7 +218,7 @@ msgstr ""
 "Debian Installer wilt starten. Kies Debian Installer om het "
 "installatieproces te vervolgen.\\n\\n"
 
-#: win32-loader.sh:96
+#: win32-loader.sh:97
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
@@ -235,6 +239,6 @@ msgstr ""
 "Installatiesysteem verwijderen via de optie 'Software' in het "
 "Configuratiescherm."
 
-#: win32-loader.sh:97
+#: win32-loader.sh:98
 msgid "Do you want to reboot now?"
 msgstr "Wilt u uw systeem nu herstarten?"

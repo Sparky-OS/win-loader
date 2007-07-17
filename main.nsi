@@ -46,6 +46,7 @@ OutFile "win32-loader.exe"
 !insertmacro GetRoot
 !insertmacro un.GetRoot
 
+!addplugindir plugins
 !addplugindir plugins/cpuid
 !addplugindir plugins/systeminfo
 !include checkspacefree.nsh
@@ -602,8 +603,13 @@ initrd	/debian/initrd.gz$\n"
         MessageBox MB_OK "$(error_exec)"
         Quit
       ${Endif}
-      Pop $0 ; "The entry {id} was successfully created"
-      StrCpy $0 $0 38 10
+      ; "The entry {id} was successfully created" is in top of stack now
+      string::bcdedit_extract_id
+      Pop $0
+      ${If} $0 == "error"
+        MessageBox MB_OK "$(error_bcdedit_extract_id)"
+        Quit
+      ${Endif}
       ; $0 holds the boot id.  Write it down, both for installer idempotency
       ; and for uninstaller.
       WriteRegStr HKLM "Software\Debian\Debian-Installer Loader" "bootmgr" "$0"

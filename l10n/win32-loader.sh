@@ -85,6 +85,7 @@ LangString nsisdl8 \${$nsis_lang} "`gettext " (%d %s%s remaining)"`"
 LangString error \${$nsis_lang} "`gettext "Error"`"
 LangString error_copyfiles \${$nsis_lang} "`gettext "Error: failed to copy @DOLLAR@0 to @DOLLAR@1."`"
 LangString error_exec \${$nsis_lang} "`gettext "Error: unable to run @DOLLAR@0."`"
+LangString error_bcdedit_extract_id \${$nsis_lang} "`gettext "Error: failed to parse bcdedit.exe output."`"
 LangString boot_ini_not_found \${$nsis_lang} "`gettext "Error: @DOLLAR@boot_ini not found.  Is this really Windows @DOLLAR@windows_version?"`"
 LangString warning1 \${$nsis_lang} "`gettext "VERY IMPORTANT NOTICE:\n\n"`"
 # translate: The following two strings are mutualy exclussive.  win32-loader
