@@ -1,14 +1,14 @@
-# translation of fr.po to French
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# translation of win32-loader to French
+# Copyright (C) 2007 Christian Perrier <bubulle@debian.org>
+# This file is distributed under the same license as the win32-loader software.
 #
 # Christian Perrier <bubulle@debian.org>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-17 17:28+0200\n"
-"PO-Revision-Date: 2007-03-31 17:25+0200\n"
+"PO-Revision-Date: 2007-07-17 19:51+0200\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -50,11 +50,11 @@ msgstr "Installateur Debian"
 
 #: win32-loader.sh:57
 msgid "Cannot find win32-loader.ini."
-msgstr ""
+msgstr "Impossible de charger le fichier win32-loader.ini"
 
 #: win32-loader.sh:58
 msgid "win32-loader.ini is incomplete.  Contact the provider of this media."
-msgstr ""
+msgstr "Le fichier win32-loader.ini n'est pas complet. Veuillez contacter le fournisseur de ce support d'installation."
 
 #: win32-loader.sh:59
 msgid ""
@@ -179,7 +179,7 @@ msgstr "Erreur : impossible d'exécuter @DOLLAR@0."
 
 #: win32-loader.sh:88
 msgid "Error: failed to parse bcdedit.exe output."
-msgstr ""
+msgstr "Erreur : impossible d'analyser la sortie de bcdedit.exe."
 
 #: win32-loader.sh:89
 msgid ""
@@ -243,3 +243,4 @@ msgstr ""
 #: win32-loader.sh:98
 msgid "Do you want to reboot now?"
 msgstr "Voulez-vous redémarrer maintenant ?"
+
