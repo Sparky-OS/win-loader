@@ -13,7 +13,7 @@ all: win32-loader.exe
 
 win32-loader.exe: main.nsi checkspacefree.nsh maps.ini \
 		templates/expert.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
-		cpuid/test64.dll systeminfo/systeminfo.dll swirl.ico license \
+		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll swirl.ico license \
 		contrib/wget.exe
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
@@ -26,11 +26,11 @@ contrib/grub.exe contrib/grub.pif contrib/grldr contrib/grldr.mbr contrib/wget.e
 license: license.in
 	sed -e "s/@VERSION@/$(VERSION)/g" < $^ > $@
 
-cpuid/test64.dll: cpuid/cpuid.c cpuid/plugin.c
+plugins/cpuid/test64.dll: plugins/cpuid/cpuid.c plugins/cpuid/plugin.c
 	$(CC) -Wl,--file-alignment,512 $^ -shared -o $@
 	$(STRIP) $@
 
-systeminfo/systeminfo.dll: systeminfo/systeminfo.c
+plugins/systeminfo/systeminfo.dll: plugins/systeminfo/systeminfo.c
 	$(CC) -Wl,--file-alignment,512 $^ -shared -o $@
 	$(STRIP) $@
 
@@ -70,7 +70,7 @@ netboot/install.amd/gtk/initrd.gz:
 
 clean:
 	$(MAKE) -C l10n clean
-	rm -f cpuid/*.dll cpuid/*.exe systeminfo/*.dll win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
+	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
 
 distclean: clean
 	rm -f debian/compat

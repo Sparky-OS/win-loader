@@ -46,8 +46,8 @@ OutFile "win32-loader.exe"
 !insertmacro GetRoot
 !insertmacro un.GetRoot
 
-!addplugindir cpuid
-!addplugindir systeminfo
+!addplugindir plugins/cpuid
+!addplugindir plugins/systeminfo
 !include checkspacefree.nsh
 !include getwindowsversion.nsh
 
