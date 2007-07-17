@@ -380,7 +380,10 @@ proxyless:
   ${EndIf}
 
 ; ********************************************** preseed timezone
-  ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
+  ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation TimeZoneKeyName
+  ${If} $0 == ""
+    ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
+  ${Endif}
   ReadINIStr $0 $PLUGINSDIR\maps.ini "timezones" "$0"
   ${If} $0 != ""
     StrCpy $preseed "$preseed time/zone=$0"
