@@ -55,7 +55,7 @@ LicenseLangString license \${$nsis_lang} license
 LangString program_name \${$nsis_lang} "`gettext "Debian-Installer Loader"`"
 LangString d-i \${$nsis_lang} "`gettext "Debian Installer"`"
 LangString error_missing_ini \${$nsis_lang} "`gettext "Cannot find win32-loader.ini."`"
-LangString error_incomplete_ini \${$nsis_lang} "`gettext "win32-loader.ini is incomplete.  Contact the provider of this media."`"
+LangString error_incomplete_ini \${$nsis_lang} "`gettext "win32-loader.ini is incomplete.  Contact the provider of this medium."`"
 LangString not_enough_space_for_debian \${$nsis_lang} "`gettext "There doesn't seem to be enough free disk space in drive @DOLLAR@c.  For a complete desktop install, it is recommended to have at least 3 GB of free disk.  If there is already a separate disk or partition to install Debian, or if you plan to replace Windows completely, you can safely ignore this warning."`"
 LangString not_enough_space_for_loader \${$nsis_lang} "`gettext "Error: not enough free disk space.  Aborting install."`"
 LangString unsupported_version_of_windows \${$nsis_lang} "`gettext "This program doesn't support Windows @DOLLAR@windows_version yet."`"
