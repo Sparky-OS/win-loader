@@ -358,7 +358,7 @@ proxyless:
 ; ********************************************** preseed locale
   ${If} $unsupported_language == false
     ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
-    ReadRegStr $1 HKCU "Control Panel\International" sCountry
+    ReadRegStr $1 HKCU "Control Panel\International" iCountry
     ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
     ${If} $0 != ""
       ${If} $1 != ""

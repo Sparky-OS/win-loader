@@ -39,11 +39,6 @@ plugins/string.dll: plugins/string.c
 	$(CC) -Wl,--file-alignment,512 $^ -shared -o $@
 	$(STRIP) $@
 
-maps.ini: maps.ini.in /usr/share/iso-codes/iso_3166.tab
-	cp maps.ini.in maps.ini
-	echo -en "\n[countries]\n" >> maps.ini
-	while read a b ; do echo "$$b=$$a" ; done < /usr/share/iso-codes/iso_3166.tab >> maps.ini
-
 iso: win32-loader.iso
 win32-loader.iso: win32-loader.exe win32-loader.ini autorun.inf \
   netboot/install.386/vmlinuz netboot/install.386/initrd.gz netboot/install.386/gtk/initrd.gz \
@@ -75,7 +70,7 @@ netboot/install.amd/gtk/initrd.gz:
 
 clean:
 	$(MAKE) -C l10n clean
-	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe win32-loader.iso *~ */*~ maps.ini license
+	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe win32-loader.iso *~ */*~ license
 
 distclean: clean
 	rm -f debian/compat
