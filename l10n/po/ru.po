@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 17:28+0200\n"
+"POT-Creation-Date: 2007-07-18 16:29+0200\n"
 "PO-Revision-Date: 2006-02-21 20:00+MSK\n"
 "Last-Translator: Evgeny Burzak <moongod@yandex.ru>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,7 @@ msgid "Cannot find win32-loader.ini."
 msgstr ""
 
 #: win32-loader.sh:58
-msgid "win32-loader.ini is incomplete.  Contact the provider of this media."
+msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
 msgstr ""
 
 #: win32-loader.sh:59

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 17:28+0200\n"
+"POT-Creation-Date: 2007-07-18 16:29+0200\n"
 "PO-Revision-Date: 2007-07-18 00:10+0200\n"
 "Last-Translator: Frans Pop <elendil@planet.nl>\n"
 "Language-Team: Dutch <debian-l10n-dutch@lists.debian.org>\n"
@@ -53,8 +53,11 @@ msgid "Cannot find win32-loader.ini."
 msgstr "Kan win32-loader.ini niet vinden."
 
 #: win32-loader.sh:58
-msgid "win32-loader.ini is incomplete.  Contact the provider of this media."
-msgstr "win32-loader.ini is incompleet. Neem contact op met de uitgever van het gebruikte medium."
+#, fuzzy
+msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
+msgstr ""
+"win32-loader.ini is incompleet. Neem contact op met de uitgever van het "
+"gebruikte medium."
 
 #: win32-loader.sh:59
 msgid ""
@@ -242,4 +245,3 @@ msgstr ""
 #: win32-loader.sh:98
 msgid "Do you want to reboot now?"
 msgstr "Wilt u uw systeem nu herstarten?"
-
