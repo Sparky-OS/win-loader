@@ -64,6 +64,9 @@ LicenseForceSelection checkbox
 Page license
 Page custom ShowExpert
 Page custom ShowGraphics
+!ifdef NETWORK_BASE_URL
+Page custom ShowBranch
+!endif
 Page custom ShowCustom
 Page instfiles
 Page custom ShowWarning
@@ -161,6 +164,10 @@ Function ShowExpert
 ; ********************************************** Initialise $c
   ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
   ${GetRoot} $WINDIR $c
+; ********************************************** Initialise $arch
+  test64::get_arch
+  Var /GLOBAL arch
+  StrCpy $arch $0
 
   StrCpy $INSTDIR "$c\debian"
   SetOutPath $INSTDIR
@@ -216,7 +223,7 @@ Function ShowExpert
   Quit
 windows_version_ok:
 
-  File /oname=$PLUGINSDIR\expert.ini	templates/expert.ini
+  File /oname=$PLUGINSDIR\expert.ini	templates/binary_choice.ini
   WriteINIStr $PLUGINSDIR\expert.ini "Field 1" "Text" $(expert1)
   WriteINIStr $PLUGINSDIR\expert.ini "Field 2" "Text" $(expert2)
   WriteINIStr $PLUGINSDIR\expert.ini "Field 3" "Text" $(expert3)
@@ -273,8 +280,6 @@ Function Download
     ${Endif}
 FunctionEnd
 
-!endif
-
 Function ShowGraphics
   File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
   ${If} $expert == false
@@ -288,15 +293,8 @@ Function ShowGraphics
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
   InstallOptions::dialog $PLUGINSDIR\graphics.ini
-FunctionEnd
 
-Function ShowCustom
-; Gather all the missing information before ShowCustom is displayed
-
-; ********************************************** Initialise arch + Preseed vga mode
-  test64::get_arch
-  Var /GLOBAL arch
-  StrCpy $arch $0
+; ********************************************** Preseed vga mode
   Var /GLOBAL gtk
   ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
   ${If} $0 == "1"
@@ -305,14 +303,38 @@ Function ShowCustom
   ${Else}
     StrCpy $preseed "$preseed vga=normal"
   ${EndIf}
+FunctionEnd
 
-!ifdef NETWORK_BASE_URL
+Function ShowBranch
+  File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
+  WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
+  WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
+  WriteINIStr $PLUGINSDIR\di_branch.ini "Field 3" "Text" $(di_branch3)
+  InstallOptions::dialog $PLUGINSDIR\di_branch.ini
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url
-  StrCpy $base_url "http://ftp.nl.debian.org/debian/dists/etch/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
+  ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
+  ${If} $0 == "1"
+    MessageBox MB_YESNO|MB_ICONQUESTION $(di_branch4) IDNO +2
+    ExecShell "open" "http://wiki.debian.org/DebianInstaller/Today"
+    Var /GLOBAL hacker
+    ${If} $arch == "amd64"
+      StrCpy $hacker aba
+    ${Else}
+      StrCpy $hacker joeyh
+    ${Endif}
+    StrCpy $base_url "http://people.debian.org/~$hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
+  ${Else}
+    StrCpy $base_url "http://ftp.us.debian.org/debian/dists/stable/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
+  ${Endif}
+FunctionEnd
+!endif
 
-!else
+Function ShowCustom
+; Gather all the missing information before ShowCustom is displayed
+
+!ifndef NETWORK_BASE_URL
 
 ; ********************************************** Media-based install
   Var /GLOBAL d
