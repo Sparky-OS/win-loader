@@ -323,8 +323,8 @@ Function ShowCustom
   ${GetRoot} $EXEDIR $d
   Var /GLOBAL linux
   Var /GLOBAL initrd
-  Var /GLOBAL grldr
-  Var /GLOBAL grldr_mbr
+  Var /GLOBAL grub_com
+  Var /GLOBAL grub_mbr
   Var /GLOBAL grub_exe
   Var /GLOBAL grub_pif
   IfFileExists $d\win32-loader.ini +3 0
@@ -332,14 +332,14 @@ Function ShowCustom
     Quit
   ReadINIStr $linux	$d\win32-loader.ini "installer" "$arch/$gtklinux"
   ReadINIStr $initrd	$d\win32-loader.ini "installer" "$arch/$gtkinitrd"
-  ReadINIStr $grldr	$d\win32-loader.ini "grub" "grldr"
-  ReadINIStr $grldr_mbr	$d\win32-loader.ini "grub" "grldr.mbr"
+  ReadINIStr $grub_com	$d\win32-loader.ini "grub" "grub.com"
+  ReadINIStr $grub_mbr	$d\win32-loader.ini "grub" "grub.mbr"
   ReadINIStr $grub_exe	$d\win32-loader.ini "grub" "grub.exe"
   ReadINIStr $grub_pif	$d\win32-loader.ini "grub" "grub.pif"
   StrCmp $linux		"" incomplete_ini
   StrCmp $initrd	"" incomplete_ini
-  StrCmp $grldr		"" incomplete_ini
-  StrCmp $grldr_mbr	"" incomplete_ini
+  StrCmp $grub_com	"" incomplete_ini
+  StrCmp $grub_mbr	"" incomplete_ini
   StrCmp $grub_exe	"" incomplete_ini
   StrCmp $grub_pif	"" incomplete_ini
   Goto ini_is_ok
@@ -516,7 +516,7 @@ initrd	/debian/initrd.gz$\n"
   FileClose $0
 
 ; ********************************************** Needed for systems with compressed NTFS
-  nsExec::Exec '"compact" /u $c\grldr $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz'
+  nsExec::Exec '"compact" /u $c\grub.com $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz'
   ; in my tests, uncompressing $c\menu.lst wasn't necessary, but better be safe than sorry
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
@@ -527,14 +527,14 @@ initrd	/debian/initrd.gz$\n"
     ${Endif}
 !ifdef NETWORK_BASE_URL
     Push "false"
-    Push "grldr"
+    Push "grub.com"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
 !else
     ClearErrors
-    StrCpy $0 "$EXEDIR\$grldr"
-    StrCpy $1 "$c\grldr"
+    StrCpy $0 "$EXEDIR\grub.com"
+    StrCpy $1 "$c\grub.com"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK "$(error_copyfiles)"
@@ -542,7 +542,7 @@ initrd	/debian/initrd.gz$\n"
 !endif
     SetFileAttributes "$boot_ini" NORMAL
     SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
-    WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
+    WriteIniStr "$boot_ini" "operating systems" "$c\grub.com" '"$(d-i)"'
   ${Endif}
 
   ${If} $windows_boot_method == direct
@@ -577,25 +577,25 @@ initrd	/debian/initrd.gz$\n"
   ${If} $windows_boot_method == bootmgr
 !ifdef NETWORK_BASE_URL
     Push "false"
-    Push "grldr"
+    Push "grub.com"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
     Push "false"
-    Push "grldr.mbr"
+    Push "grub.mbr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
 !else
     ClearErrors
-    StrCpy $0 "$EXEDIR\$grldr"
-    StrCpy $1 "$c\grldr"
+    StrCpy $0 "$EXEDIR\grub.com"
+    StrCpy $1 "$c\grub.com"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK "$(error_copyfiles)"
       Quit
-    StrCpy $0 "$EXEDIR\$grldr_mbr"
-    StrCpy $1 "$c\grldr.mbr"
+    StrCpy $0 "$EXEDIR\$grub_mbr"
+    StrCpy $1 "$c\grub.mbr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK "$(error_copyfiles)"
@@ -622,7 +622,7 @@ initrd	/debian/initrd.gz$\n"
       WriteRegStr HKLM "Software\Debian\Debian-Installer Loader" "bootmgr" "$0"
     ${Endif}
     nsExec::Exec '"bcdedit" /set $0 device boot'
-    nsExec::Exec '"bcdedit" /set $0 path \grldr.mbr'
+    nsExec::Exec '"bcdedit" /set $0 path \grub.mbr'
     nsExec::Exec '"bcdedit" /displayorder $0 /addlast'
   ${Endif}
 SectionEnd
@@ -659,7 +659,7 @@ Section "Uninstall"
 
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
-  DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
+  DeleteINIStr "$c\boot.ini" "operating systems" "$c\grub.com"
 
   ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
   ${If} $0 != ""
@@ -673,8 +673,8 @@ Section "Uninstall"
 
   DeleteRegKey HKLM "Software\Debian\Debian-Installer Loader"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
-  Delete $c\grldr
-  Delete $c\grldr.mbr
+  Delete $c\grub.com
+  Delete $c\grub.mbr
   Delete $c\menu.lst
   Delete $INSTDIR\grub.exe
   Delete $INSTDIR\grub.pif
