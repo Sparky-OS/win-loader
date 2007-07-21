@@ -55,25 +55,6 @@ void __declspec(dllexport) keyboard_layout (HWND hwndParent, int string_size, ch
 	pushstring(buf);
 }
 
-void __declspec(dllexport) freespace (HWND hwndParent, int string_size, char *variables, stack_t **stacktop, extra_parameters *extra)
-{
-	EXDLL_INIT();
-	BOOL check_quota = 0;
-	ULARGE_INTEGER free_bytes_available, free_bytes_total;
-
-	popstring(buf);
-	if( buf[0] == '1' && buf[1] == 0 ){
-		check_quota = 1;
-	}
-
-	popstring(buf);
-	
-	GetDiskFreeSpaceExA(buf,&free_bytes_available,NULL,&free_bytes_total);
-	
-	wsprintf(buf, "%lu", check_quota ? free_bytes_available.QuadPart : free_bytes_total.QuadPart);
-	pushstring(buf);
-}
-
 BOOL WINAPI DllMain(HANDLE hInst, ULONG ul_reason_for_call, LPVOID lpReserved)
 {
  return TRUE;
