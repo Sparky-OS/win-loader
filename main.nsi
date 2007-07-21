@@ -238,6 +238,31 @@ windows_version_ok:
   ${Endif}
 FunctionEnd
 
+Function ShowGraphics
+  File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
+  ${If} $expert == false
+    Return
+  ${Endif}
+  File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
+  File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
+  WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
+  InstallOptions::dialog $PLUGINSDIR\graphics.ini
+
+; ********************************************** Preseed vga mode
+  Var /GLOBAL gtk
+  ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
+  ${If} $0 == "1"
+    StrCpy $gtk "gtk/"
+    StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
+  ${Else}
+    StrCpy $preseed "$preseed vga=normal"
+  ${EndIf}
+FunctionEnd
+
 !ifdef NETWORK_BASE_URL
 
 Function Download
@@ -278,31 +303,6 @@ Function Download
       ${EndIf}
       StrCpy $0 "$R0"
     ${Endif}
-FunctionEnd
-
-Function ShowGraphics
-  File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
-  ${If} $expert == false
-    Return
-  ${Endif}
-  File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
-  File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
-  InstallOptions::dialog $PLUGINSDIR\graphics.ini
-
-; ********************************************** Preseed vga mode
-  Var /GLOBAL gtk
-  ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
-  ${If} $0 == "1"
-    StrCpy $gtk "gtk/"
-    StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
-  ${Else}
-    StrCpy $preseed "$preseed vga=normal"
-  ${EndIf}
 FunctionEnd
 
 Function ShowBranch
