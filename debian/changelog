@@ -1,6 +1,6 @@
-win32-loader (0.5.5) unstable; urgency=low
+win32-loader (0.5.6) unstable; urgency=low
 
   * Initial release (Closes: #425038).
 
- -- Robert Millan <rmh@debian.org>  Tue, 17 Jul 2007 18:07:38 +0200
+ -- Robert Millan <rmh@debian.org>  Sun, 22 Jul 2007 22:18:59 +0200
 
