@@ -20,7 +20,7 @@ win32-loader.exe: main.nsi maps.ini \
 	$(MAKENSIS) main.nsi
 	du -h win32-loader.exe
 
-contrib/grub.exe contrib/grub.pif contrib/grub.com contrib/grub.mbr contrib/wget.exe:
+contrib/grub.exe contrib/grub.pif contrib/grldr contrib/grldr.mbr contrib/wget.exe:
 	@echo "Get the contrib tarball from http://goodbye-microsoft.com/pub/"
 	@exit 1
 
@@ -43,8 +43,8 @@ iso: win32-loader.iso
 win32-loader.iso: win32-loader.exe win32-loader.ini autorun.inf \
   netboot/install.386/vmlinuz netboot/install.386/initrd.gz netboot/install.386/gtk/initrd.gz \
   netboot/install.amd/vmlinuz netboot/install.amd/initrd.gz netboot/install.amd/gtk/initrd.gz \
-  contrib/grub.exe contrib/grub.pif contrib/grub.com contrib/grub.mbr
-	cp contrib/grub.* netboot/
+  contrib/grub.exe contrib/grub.pif contrib/grldr contrib/grldr.mbr
+	cp contrib/grub.exe contrib/grub.pif contrib/grldr contrib/grldr.mbr netboot/
 	todos < autorun.inf > netboot/autorun.inf
 	todos < win32-loader.ini > netboot/win32-loader.ini
 	cp win32-loader.exe netboot/
