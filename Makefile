@@ -47,7 +47,7 @@ win32-loader.iso: win32-loader.exe win32-loader.ini autorun.inf \
 	cp contrib/grub.* netboot/
 	todos < autorun.inf > netboot/autorun.inf
 	todos < win32-loader.ini > netboot/win32-loader.ini
-	mkisofs -r -J -o $@ win32-loader.exe netboot
+	genisoimage -r -J -o $@ win32-loader.exe netboot
 
 netboot/install.386/vmlinuz:
 	mkdir -p netboot/install.386
