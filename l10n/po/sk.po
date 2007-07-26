@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-26 21:33+0200\n"
+"POT-Creation-Date: 2007-07-26 23:03+0200\n"
 "PO-Revision-Date: 2007-03-30 06:43+0200\n"
 "Last-Translator: Peter Mann <Peter.Mann@tuke.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -43,23 +43,23 @@ msgstr "LANG_SLOVAK"
 msgid "English.nlf"
 msgstr "Slovak.nlf"
 
-#: win32-loader.c:65
+#: win32-loader.c:71
 msgid "Debian-Installer Loader"
 msgstr "Zavádzač inštalácie Debianu"
 
-#: win32-loader.c:66
+#: win32-loader.c:72
 msgid "Debian Installer"
 msgstr "Inštalácia Debianu"
 
-#: win32-loader.c:67
+#: win32-loader.c:73
 msgid "Cannot find win32-loader.ini."
 msgstr ""
 
-#: win32-loader.c:68
+#: win32-loader.c:74
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
 msgstr ""
 
-#: win32-loader.c:69
+#: win32-loader.c:75
 #, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
@@ -73,23 +73,49 @@ msgstr ""
 "plánujete úplné nahradenie systému Windows, toto upozornenie môžete "
 "ignorovať."
 
-#: win32-loader.c:70
+#: win32-loader.c:76
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Chyba: nedostatok voľného miesta.  Inštalácia sa prerušuje."
 
-#: win32-loader.c:71
+#: win32-loader.c:77
 msgid "This program doesn't support Windows $windows_version yet."
 msgstr ""
 
-#: win32-loader.c:72 win32-loader.c:79
+#: win32-loader.c:78
+msgid ""
+"The version of Debian you're trying to install is designed to run on modern, "
+"64-bit computers.  However, your computer is uncapable of running 64-bit "
+"programs.\n"
+"\n"
+"Use the 32-bit (\"i386\") version of Debian, or the Multiarch version which "
+"is able to install either of them.\n"
+"\n"
+"This installer will abort now."
+msgstr ""
+
+#: win32-loader.c:79
+msgid ""
+"Your computer is capable of running modern, 64-bit operating systems.  "
+"However, the version of Debian you're trying to install is designed to run "
+"on older, 32-bit hardware.\n"
+"\n"
+"You may still proceed with this install, but in order to take the most "
+"advantage of your computer, we recommend that you use the 64-bit (\"amd64\") "
+"version of Debian instead, or the Multiarch version which is able to install "
+"either of them.\n"
+"\n"
+"Would you like to abort now?"
+msgstr ""
+
+#: win32-loader.c:80 win32-loader.c:87
 msgid "Select install mode:"
 msgstr "Zvoľte spôsob inštalácie:"
 
-#: win32-loader.c:73
+#: win32-loader.c:81
 msgid "Normal mode.  Recommended for most users."
 msgstr "Štandartný spôsob.  Odporúča sa pre väčšinu používateľov."
 
-#: win32-loader.c:74
+#: win32-loader.c:82
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -97,36 +123,36 @@ msgstr ""
 "Pokročilý spôsob.  Odporúča sa pre skúsených používateľov, ktorí chcú mať "
 "úplnú kontrolu nad inštaláciou."
 
-#: win32-loader.c:75
+#: win32-loader.c:83
 msgid "Select which version of Debian-Installer to use:"
 msgstr ""
 
-#: win32-loader.c:76
+#: win32-loader.c:84
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr ""
 
-#: win32-loader.c:77
+#: win32-loader.c:85
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
 "\"stable\" or \"unstable\" as well."
 msgstr ""
 
-#: win32-loader.c:78
+#: win32-loader.c:86
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
 msgstr ""
 
-#: win32-loader.c:80
+#: win32-loader.c:88
 msgid "Graphical install"
 msgstr "Grafická inštalácia"
 
-#: win32-loader.c:81
+#: win32-loader.c:89
 msgid "Text install"
 msgstr "Textová inštalácia"
 
-#: win32-loader.c:82
+#: win32-loader.c:90
 msgid ""
 "Debian-Installer Loader will be setup with the following parameters.  Do NOT "
 "change any of these unless you know what you're doing."
@@ -134,40 +160,40 @@ msgstr ""
 "Zavádzač inštalácie Debianu sa nastaví s nasledovnými parametrami.  Ak "
 "neviete, čo robíte, NEMEŇTE žiaden z parametrov."
 
-#: win32-loader.c:83
+#: win32-loader.c:91
 msgid "Proxy settings (host:port):"
 msgstr "Nastavenie proxy (počítač:port)"
 
-#: win32-loader.c:84
+#: win32-loader.c:92
 msgid "Location of boot.ini:"
 msgstr "Umiestnenie súboru boot.ini:"
 
-#: win32-loader.c:85
+#: win32-loader.c:93
 msgid "Debconf preseed line:"
 msgstr "Riadok pre debconf preseed:"
 
-#: win32-loader.c:86
+#: win32-loader.c:94
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Základná URL adresa pre netboot súbory (linux a initrd.gz):"
 
-#: win32-loader.c:87
+#: win32-loader.c:95
 #, fuzzy, c-format
 msgid "Downloading %%s"
 msgstr "Sťahuje sa %s"
 
-#: win32-loader.c:88
+#: win32-loader.c:96
 msgid "Connecting ..."
 msgstr "Pripája sa ..."
 
-#: win32-loader.c:89
+#: win32-loader.c:97
 msgid "second"
 msgstr "s"
 
-#: win32-loader.c:90
+#: win32-loader.c:98
 msgid "minute"
 msgstr "m"
 
-#: win32-loader.c:91
+#: win32-loader.c:99
 msgid "hour"
 msgstr "h"
 
@@ -177,44 +203,44 @@ msgstr "h"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:99
+#: win32-loader.c:107
 msgid "s"
 msgstr " "
 
-#: win32-loader.c:100
+#: win32-loader.c:108
 #, fuzzy, c-format
 msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
 msgstr "%dkB (%d%%) z %dkB pri %d.%01dkB/s"
 
-#: win32-loader.c:101
+#: win32-loader.c:109
 #, fuzzy, c-format
 msgid " (%%d %%s%%s remaining)"
 msgstr " (ostáva %d %s%s)"
 
-#: win32-loader.c:102
+#: win32-loader.c:110
 msgid "Error"
 msgstr "Chyba"
 
-#: win32-loader.c:103
+#: win32-loader.c:111
 msgid "Error: failed to copy $0 to $1."
 msgstr ""
 
-#: win32-loader.c:104
+#: win32-loader.c:112
 msgid "Error: unable to run $0."
 msgstr ""
 
-#: win32-loader.c:105
+#: win32-loader.c:113
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr ""
 
-#: win32-loader.c:106
+#: win32-loader.c:114
 #, fuzzy
 msgid "Error: $boot_ini not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Chyba: súbor $boot_ini sa nenašiel.  Vaša verzia Windows je možno veľmi "
 "stará alebo poškodená."
 
-#: win32-loader.c:107
+#: win32-loader.c:115
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr ""
 
@@ -224,14 +250,14 @@ msgstr ""
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:115
+#: win32-loader.c:123
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
 msgstr ""
 
-#: win32-loader.c:116
+#: win32-loader.c:124
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -239,7 +265,7 @@ msgid ""
 "process.\\n\\n"
 msgstr ""
 
-#: win32-loader.c:117
+#: win32-loader.c:125
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -263,6 +289,6 @@ msgstr ""
 "Windows aj Debian, môžete po ukončení inštalácie odstrániť tento zavádzač "
 "pomocou dialógu Pridať/Odobrať programy v Ovládacom paneli."
 
-#: win32-loader.c:118
+#: win32-loader.c:126
 msgid "Do you want to reboot now?"
 msgstr "Chcete teraz reštartovať počítač?"

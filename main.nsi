@@ -76,8 +76,10 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
+Var /GLOBAL d
 Var /GLOBAL preseed
 Var /GLOBAL proxy
+Var /GLOBAL arch
 
 Function .onInit
   InitPluginsDir
@@ -161,12 +163,35 @@ Function ShowExpert
 ; ********************************************** Initialise $preseed
   StrCpy $preseed "interface=auto"
 ; ********************************************** Initialise $c
-  ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
+  ; FIXME: this line is duplicated in the uninstaller.  keep in sync!
   ${GetRoot} $WINDIR $c
+
+!ifndef NETWORK_BASE_URL
+; ********************************************** Initialise $d
+  ${GetRoot} $EXEDIR $d
+
+; ********************************************** Check win32-loader.ini presence
+; before initialising $arch or $gtk
+  IfFileExists $d\win32-loader.ini +3 0
+    MessageBox MB_OK|MB_ICONSTOP "$(error_missing_ini)"
+    Quit
+!endif
+
 ; ********************************************** Initialise $arch
   test64::get_arch
-  Var /GLOBAL arch
   StrCpy $arch $0
+!ifndef NETWORK_BASE_URL
+  ReadINIStr $0 $d\win32-loader.ini "installer" "arch"
+  ${If} "$0:$arch" == "amd64:i386"
+    MessageBox MB_OK|MB_ICONSTOP $(amd64_on_i386)
+    Quit
+  ${Endif}
+  ${If} "$0:$arch" == "i386:amd64"
+    MessageBox MB_YESNO|MB_ICONQUESTION $(i386_on_amd64) IDNO +2
+    Quit
+    StrCpy $arch "i386"
+  ${Endif}
+!endif
 
   StrCpy $INSTDIR "$c\debian"
   SetOutPath $INSTDIR
@@ -201,7 +226,7 @@ Function ShowExpert
     StrCpy $windows_boot_method bootmgr
     Goto windows_version_ok
   ${Endif}
-  MessageBox MB_OK $(unsupported_version_of_windows)
+  MessageBox MB_OK|MB_ICONSTOP $(unsupported_version_of_windows)
   Quit
 windows_version_ok:
 
@@ -221,10 +246,22 @@ windows_version_ok:
 FunctionEnd
 
 Function ShowGraphics
-  File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
-  ${If} $expert == false
-    Return
+  Var /GLOBAL gtk
+!ifndef NETWORK_BASE_URL
+  ReadINIStr $0 $d\win32-loader.ini "installer" "user_interface"
+  StrCmp "$0" "" undefined_user_interface
+  ${If} "$0" == "gtk"
+    StrCpy $gtk "gtk/"
   ${Endif}
+  Goto skip_graphics_dialog
+undefined_user_interface:
+  ; ask the user then
+!endif
+
+  ${If} $expert == false
+    Goto skip_graphics_dialog
+  ${Endif}
+  File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
   File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
   File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
@@ -233,12 +270,15 @@ Function ShowGraphics
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
   WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
   InstallOptions::dialog $PLUGINSDIR\graphics.ini
-
-; ********************************************** Preseed vga mode
-  Var /GLOBAL gtk
   ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
   ${If} $0 == "1"
     StrCpy $gtk "gtk/"
+  ${EndIf}
+
+skip_graphics_dialog:
+
+; ********************************************** Preseed vga mode
+  ${If} "$gtk" == "gtk/"
     StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
   ${Else}
     StrCpy $preseed "$preseed vga=normal"
@@ -277,7 +317,7 @@ Function Download
       Pop $R0
       ${If} $R0 != "success"
         ${If} $R0 != "cancel"
-           MessageBox MB_OK "$(error): $R0"
+           MessageBox MB_OK|MB_ICONSTOP "$(error): $R0"
         ${EndIf}
         ${If} $3 == "false"
           Quit
@@ -319,17 +359,12 @@ Function ShowCustom
 !ifndef NETWORK_BASE_URL
 
 ; ********************************************** Media-based install
-  Var /GLOBAL d
-  ${GetRoot} $EXEDIR $d
   Var /GLOBAL linux
   Var /GLOBAL initrd
   Var /GLOBAL grldr
   Var /GLOBAL grldr_mbr
   Var /GLOBAL grub_exe
   Var /GLOBAL grub_pif
-  IfFileExists $d\win32-loader.ini +3 0
-    MessageBox MB_OK "$(error_missing_ini)"
-    Quit
   ReadINIStr $linux	$d\win32-loader.ini "installer" "$arch/$gtklinux"
   ReadINIStr $initrd	$d\win32-loader.ini "installer" "$arch/$gtkinitrd"
   ReadINIStr $grldr	$d\win32-loader.ini "grub" "grldr"
@@ -344,7 +379,7 @@ Function ShowCustom
   StrCmp $grub_pif	"" incomplete_ini
   Goto ini_is_ok
 incomplete_ini:
-  MessageBox MB_OK "$(error_incomplete_ini)"
+  MessageBox MB_OK|MB_ICONSTOP "$(error_incomplete_ini)"
   Quit
 ini_is_ok:
 
@@ -487,13 +522,13 @@ Section "Debian-Installer Loader"
   StrCpy $1 "$INSTDIR\linux"
   CopyFiles /FILESONLY "$0" "$1"
   IfErrors 0 +3
-    MessageBox MB_OK "$(error_copyfiles)"
+    MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
     Quit
   StrCpy $0 "$EXEDIR\$initrd"
   StrCpy $1 "$INSTDIR\initrd.gz"
   CopyFiles /FILESONLY "$0" "$1"
   IfErrors 0 +3
-    MessageBox MB_OK "$(error_copyfiles)"
+    MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
     Quit
 !else
   Push "false"
@@ -522,7 +557,7 @@ initrd	/debian/initrd.gz$\n"
 ; ********************************************** Do bootloader last, because it's the most dangerous
   ${If} $windows_boot_method == ntldr
     ${Unless} ${FileExists} "$boot_ini"
-      MessageBox MB_OK $(boot_ini_not_found)
+      MessageBox MB_OK|MB_ICONSTOP $(boot_ini_not_found)
       Quit
     ${Endif}
 !ifdef NETWORK_BASE_URL
@@ -537,7 +572,7 @@ initrd	/debian/initrd.gz$\n"
     StrCpy $1 "$c\grldr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
 !endif
     SetFileAttributes "$boot_ini" NORMAL
@@ -563,13 +598,13 @@ initrd	/debian/initrd.gz$\n"
     StrCpy $1 "$INSTDIR\grub.exe"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
     StrCpy $0 "$EXEDIR\$grub_pif"
     StrCpy $1 "$INSTDIR\grub.pif"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
 !endif
   ${Endif}
@@ -592,13 +627,13 @@ initrd	/debian/initrd.gz$\n"
     StrCpy $1 "$c\grldr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
     StrCpy $0 "$EXEDIR\$grldr_mbr"
     StrCpy $1 "$c\grldr.mbr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
-      MessageBox MB_OK "$(error_copyfiles)"
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
 !endif
     ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
@@ -607,14 +642,14 @@ initrd	/debian/initrd.gz$\n"
       Pop $0
       ${If} $0 != 0
         StrCpy $0 bcdedit.exe
-        MessageBox MB_OK "$(error_exec)"
+        MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
         Quit
       ${Endif}
       ; "The entry {id} was successfully created" is in top of stack now
       string::bcdedit_extract_id
       Pop $0
       ${If} $0 == "error"
-        MessageBox MB_OK "$(error_bcdedit_extract_id)"
+        MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
         Quit
       ${Endif}
       ; $0 holds the boot id.  Write it down, both for installer idempotency
@@ -654,7 +689,7 @@ FunctionEnd
 
 Section "Uninstall"
   ; Initialise $c
-  ; FIXME: this blurb is duplicated in the installer.  keep in sync!
+  ; FIXME: this line is duplicated in the installer.  keep in sync!
   ${un.GetRoot} $WINDIR $c
 
   SetFileAttributes "$c\boot.ini" NORMAL
@@ -667,7 +702,7 @@ Section "Uninstall"
     Pop $0
     ${If} $0 != 0
       StrCpy $0 bcdedit.exe
-      MessageBox MB_OK "$(error_exec)"
+      MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
     ${Endif}
   ${Endif}
 
