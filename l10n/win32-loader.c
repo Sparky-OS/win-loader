@@ -46,10 +46,20 @@ main ()
   printf ("LoadLanguageFile \"${NSISDIR}\\Contrib\\Language files\\%s\"\n", _("English.nlf"));
   printf ("LicenseLangString license ${%s} license\n", nsis_lang);
 
-  auto void langstring (char *code, char *value);
-  void langstring (char *code, char *value)
+  auto void langstring (char *code, char *p);
+  void langstring (char *code, char *p)
   {
-    printf ("LangString %s ${%s} \"%s\"\n", code, nsis_lang, value);
+    printf ("LangString %s ${%s} \"", code, nsis_lang);
+    for (; *p ; p++)
+      switch (*p)
+      {
+	case '"':
+	  printf ("$\\\"");
+	  break;
+	default:
+	  putchar (*p);
+      }
+    printf ("\"\n");
   }
 
   langstring ("program_name",			_("Debian-Installer Loader"));
@@ -63,8 +73,8 @@ main ()
   langstring ("expert2",			_("Normal mode.  Recommended for most users."));
   langstring ("expert3",			_("Expert mode.  Recommended for expert users who want full control of the install process."));
   langstring ("di_branch1",			_("Select which version of Debian-Installer to use:"));
-  langstring ("di_branch2",			_("Stable release.  This will install Debian stable."));
-  langstring ("di_branch3",			_("Daily build.  This is the development version of Debian-Installer.  It will install Debian testing by default, and may be capable of installing stable or unstable as well."));
+  langstring ("di_branch2",			_("Stable release.  This will install Debian \"stable\"."));
+  langstring ("di_branch3",			_("Daily build.  This is the development version of Debian-Installer.  It will install Debian \"testing\" by default, and may be capable of installing \"stable\" or \"unstable\" as well."));
   langstring ("di_branch4",			_("It is recommended that you check for known issues before using a daily build.  Would you like to do that now?"));
   langstring ("graphics1",			_("Select install mode:"));
   langstring ("graphics2",			_("Graphical install"));
