@@ -329,10 +329,12 @@ FunctionEnd
 
 Function ShowBranch
   File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
-  WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
-  WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
-  WriteINIStr $PLUGINSDIR\di_branch.ini "Field 3" "Text" $(di_branch3)
-  InstallOptions::dialog $PLUGINSDIR\di_branch.ini
+  ${If} $expert == true
+    WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
+    WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
+    WriteINIStr $PLUGINSDIR\di_branch.ini "Field 3" "Text" $(di_branch3)
+    InstallOptions::dialog $PLUGINSDIR\di_branch.ini
+  ${Endif}
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url
