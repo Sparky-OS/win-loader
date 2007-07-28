@@ -439,7 +439,16 @@ proxyless:
   ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
   ; FIXME: do we need to support non-AT keyboards here?
   ${If} $0 != ""
-    StrCpy $preseed "$preseed console-keymaps-at/keymap?=$0"
+    ${If} $expert == true
+      MessageBox MB_YESNO|MB_ICONQUESTION $(detected_keyboard_is) IDNO keyboard_bad_guess
+      StrCpy $preseed "$preseed console-keymaps-at/keymap=$0"
+      Goto keyboard_end
+keyboard_bad_guess:
+      MessageBox MB_OK $(keyboard_bug_report)
+keyboard_end:
+    ${Else}
+      StrCpy $preseed "$preseed console-keymaps-at/keymap?=$0"
+    ${Endif}
   ${Endif}
 
 ; ********************************************** preseed hostname

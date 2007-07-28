@@ -72,6 +72,13 @@ main ()
   langstring ("d-i",				_("Debian Installer"));
   langstring ("error_missing_ini",		_("Cannot find win32-loader.ini."));
   langstring ("error_incomplete_ini",		_("win32-loader.ini is incomplete.  Contact the provider of this medium."));
+  langstring ("detected_keyboard_is",		_("This program has detected that your keyboard type is \"$0\".  Is this correct?"));
+  langstring ("keyboard_bug_report",		_("Please send a bug report with the following information:\n\n - Version of Windows.\n - Country settings.\n - Real keyboard type.\n - Detected keyboard type.\n\nThank you."));
+  langstring ("custom1",			_("Debian-Installer Loader will be setup with the following parameters.  Do NOT change any of these unless you know what you're doing."));
+  langstring ("custom2",			_("Proxy settings (host:port):"));
+  langstring ("custom3",			_("Location of boot.ini:"));
+  langstring ("custom4",			_("Debconf preseed line:"));
+  langstring ("custom5",			_("Base URL for netboot images (linux and initrd.gz):"));
   langstring ("not_enough_space_for_debian",	_("There doesn't seem to be enough free disk space in drive $c.  For a complete desktop install, it is recommended to have at least 3 GB of free disk.  If there is already a separate disk or partition to install Debian, or if you plan to replace Windows completely, you can safely ignore this warning."));
   langstring ("not_enough_space_for_loader",	_("Error: not enough free disk space.  Aborting install."));
   langstring ("unsupported_version_of_windows",	_("This program doesn't support Windows $windows_version yet."));
@@ -87,11 +94,6 @@ main ()
   langstring ("graphics1",			_("Select install mode:"));
   langstring ("graphics2",			_("Graphical install"));
   langstring ("graphics3",			_("Text install"));
-  langstring ("custom1",			_("Debian-Installer Loader will be setup with the following parameters.  Do NOT change any of these unless you know what you're doing."));
-  langstring ("custom2",			_("Proxy settings (host:port):"));
-  langstring ("custom3",			_("Location of boot.ini:"));
-  langstring ("custom4",			_("Debconf preseed line:"));
-  langstring ("custom5",			_("Base URL for netboot images (linux and initrd.gz):"));
   langstring ("nsisdl1",			_("Downloading %%s"));
   langstring ("nsisdl2",			_("Connecting ..."));
   langstring ("nsisdl3",			_("second"));

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-26 23:03+0200\n"
+"POT-Creation-Date: 2007-07-28 11:01+0000\n"
 "PO-Revision-Date: 2007-02-25 08:45+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -60,6 +60,48 @@ msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
 msgstr ""
 
 #: win32-loader.c:75
+msgid ""
+"This program has detected that your keyboard type is \"$0\".  Is this "
+"correct?"
+msgstr ""
+
+#: win32-loader.c:76
+msgid ""
+"Please send a bug report with the following information:\n"
+"\n"
+" - Version of Windows.\n"
+" - Country settings.\n"
+" - Real keyboard type.\n"
+" - Detected keyboard type.\n"
+"\n"
+"Thank you."
+msgstr ""
+
+#: win32-loader.c:77
+msgid ""
+"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
+"change any of these unless you know what you're doing."
+msgstr ""
+"Debian-installer Loader sarà impostato con i seguenti parametri. Non "
+"modificarne alcuno se non si sa quello che si sta facendo."
+
+#: win32-loader.c:78
+msgid "Proxy settings (host:port):"
+msgstr "Impostazione del proxy (host:porta):"
+
+#: win32-loader.c:79
+msgid "Location of boot.ini:"
+msgstr "Posizione di boot.ini:"
+
+#: win32-loader.c:80
+msgid "Debconf preseed line:"
+msgstr "Linea di preconfigurazione di debconf:"
+
+#: win32-loader.c:81
+msgid "Base URL for netboot images (linux and initrd.gz):"
+msgstr "URL base delle immagini di netboot (linux e initrd.gz):"
+
+#: win32-loader.c:82
 #, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
@@ -73,15 +115,15 @@ msgstr ""
 "o se si pianifica di rimpiazzare completamente Windows, si può ignorare "
 "questo messaggio di avvertimento."
 
-#: win32-loader.c:76
+#: win32-loader.c:83
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Errore: spazio disco libero non sufficiente. Installazione abortita."
 
-#: win32-loader.c:77
+#: win32-loader.c:84
 msgid "This program doesn't support Windows $windows_version yet."
 msgstr ""
 
-#: win32-loader.c:78
+#: win32-loader.c:85
 msgid ""
 "The version of Debian you're trying to install is designed to run on modern, "
 "64-bit computers.  However, your computer is uncapable of running 64-bit "
@@ -93,7 +135,7 @@ msgid ""
 "This installer will abort now."
 msgstr ""
 
-#: win32-loader.c:79
+#: win32-loader.c:86
 msgid ""
 "Your computer is capable of running modern, 64-bit operating systems.  "
 "However, the version of Debian you're trying to install is designed to run "
@@ -107,15 +149,15 @@ msgid ""
 "Would you like to abort now?"
 msgstr ""
 
-#: win32-loader.c:80 win32-loader.c:87
+#: win32-loader.c:87 win32-loader.c:94
 msgid "Select install mode:"
 msgstr "Selezionare il metodo di installazione:"
 
-#: win32-loader.c:81
+#: win32-loader.c:88
 msgid "Normal mode.  Recommended for most users."
 msgstr "Normale. Raccomandato per la maggioranza degli utenti."
 
-#: win32-loader.c:82
+#: win32-loader.c:89
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -123,77 +165,53 @@ msgstr ""
 "Esperto. Raccomandato per gli utenti esperti che vogliono il controllo "
 "completo sul processo di installazione."
 
-#: win32-loader.c:83
+#: win32-loader.c:90
 msgid "Select which version of Debian-Installer to use:"
 msgstr ""
 
-#: win32-loader.c:84
+#: win32-loader.c:91
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr ""
 
-#: win32-loader.c:85
+#: win32-loader.c:92
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
 "\"stable\" or \"unstable\" as well."
 msgstr ""
 
-#: win32-loader.c:86
+#: win32-loader.c:93
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
 msgstr ""
 
-#: win32-loader.c:88
+#: win32-loader.c:95
 msgid "Graphical install"
 msgstr "Installazione grafica"
 
-#: win32-loader.c:89
+#: win32-loader.c:96
 msgid "Text install"
 msgstr "Installazione testuale"
 
-#: win32-loader.c:90
-msgid ""
-"Debian-Installer Loader will be setup with the following parameters.  Do NOT "
-"change any of these unless you know what you're doing."
-msgstr ""
-"Debian-installer Loader sarà impostato con i seguenti parametri. Non "
-"modificarne alcuno se non si sa quello che si sta facendo."
-
-#: win32-loader.c:91
-msgid "Proxy settings (host:port):"
-msgstr "Impostazione del proxy (host:porta):"
-
-#: win32-loader.c:92
-msgid "Location of boot.ini:"
-msgstr "Posizione di boot.ini:"
-
-#: win32-loader.c:93
-msgid "Debconf preseed line:"
-msgstr "Linea di preconfigurazione di debconf:"
-
-#: win32-loader.c:94
-msgid "Base URL for netboot images (linux and initrd.gz):"
-msgstr "URL base delle immagini di netboot (linux e initrd.gz):"
-
-#: win32-loader.c:95
+#: win32-loader.c:97
 #, fuzzy, c-format
 msgid "Downloading %%s"
 msgstr "Scaricamento in corso %s"
 
-#: win32-loader.c:96
+#: win32-loader.c:98
 msgid "Connecting ..."
 msgstr "Connessione in corso"
 
-#: win32-loader.c:97
+#: win32-loader.c:99
 msgid "second"
 msgstr "secondo"
 
-#: win32-loader.c:98
+#: win32-loader.c:100
 msgid "minute"
 msgstr "minuto"
 
-#: win32-loader.c:99
+#: win32-loader.c:101
 msgid "hour"
 msgstr "ora"
 
@@ -203,44 +221,44 @@ msgstr "ora"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:107
+#: win32-loader.c:109
 msgid "s"
 msgstr " "
 
-#: win32-loader.c:108
+#: win32-loader.c:110
 #, fuzzy, c-format
 msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
 msgstr "%dkB (%d%%) su %dkB a %d.%01dkB/s"
 
-#: win32-loader.c:109
+#: win32-loader.c:111
 #, fuzzy, c-format
 msgid " (%%d %%s%%s remaining)"
 msgstr " (%d %s%s rimanenti)"
 
-#: win32-loader.c:110
+#: win32-loader.c:112
 msgid "Error"
 msgstr "Errore"
 
-#: win32-loader.c:111
+#: win32-loader.c:113
 msgid "Error: failed to copy $0 to $1."
 msgstr ""
 
-#: win32-loader.c:112
+#: win32-loader.c:114
 msgid "Error: unable to run $0."
 msgstr ""
 
-#: win32-loader.c:113
+#: win32-loader.c:115
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr ""
 
-#: win32-loader.c:114
+#: win32-loader.c:116
 #, fuzzy
 msgid "Error: $boot_ini not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Errore: $boot_ini non trovato. La versione di Windows potrebbe essere troppo "
 "vecchia o danneggiata."
 
-#: win32-loader.c:115
+#: win32-loader.c:117
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr ""
 
@@ -250,14 +268,14 @@ msgstr ""
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:123
+#: win32-loader.c:125
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automaticaly load Debian Installer.\\n\\n"
 msgstr ""
 
-#: win32-loader.c:124
+#: win32-loader.c:126
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -265,7 +283,7 @@ msgid ""
 "process.\\n\\n"
 msgstr ""
 
-#: win32-loader.c:125
+#: win32-loader.c:127
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -290,6 +308,6 @@ msgstr ""
 "Debian-Installer Loader usando Aggiungi/Rimuovi programmi dal Pannello di "
 "Controllo di Windows."
 
-#: win32-loader.c:126
+#: win32-loader.c:128
 msgid "Do you want to reboot now?"
 msgstr "Riavviare ora?"
