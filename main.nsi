@@ -588,6 +588,10 @@ initrd	/debian/initrd.gz$\n"
 !endif
     SetFileAttributes "$boot_ini" NORMAL
     SetFileAttributes "$boot_ini" SYSTEM|HIDDEN
+    ; Sometimes timeout isn't set.  This may result in ntldr booting straight to
+    ; Windows (bad) or straight to Debian-Installer (also bad)!  Force it to 30
+    ; just in case.
+    WriteIniStr "$boot_ini" "boot loader" "timeout" "30"
     WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
   ${Endif}
 
