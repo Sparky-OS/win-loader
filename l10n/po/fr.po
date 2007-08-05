@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-07-28 11:01+0000\n"
-"PO-Revision-Date: 2007-07-17 19:51+0200\n"
+"PO-Revision-Date: 2007-08-05 17:48+0200\n"
 "Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr ""
 msgid ""
 "This program has detected that your keyboard type is \"$0\".  Is this "
 "correct?"
-msgstr ""
+msgstr "Le type de clavier détecté est « $0 ». Cela est-il correct ?"
 
 #: win32-loader.c:76
 msgid ""
@@ -79,6 +79,10 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
+"Veuillez envoyer un rapport de bogue avec les informations suivantes :\n"
+"\n"
+" - version de Windows ;  - réglages de paramètres régionaux ;  - type de "
+"clavier utilisé ;  - type de clavier détecté."
 
 #: win32-loader.c:77
 msgid ""
@@ -106,7 +110,6 @@ msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL de base pour les images netboot (linux et initrd.gz) :"
 
 #: win32-loader.c:82
-#, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
 "desktop install, it is recommended to have at least 3 GB of free disk.  If "
@@ -124,7 +127,6 @@ msgid "Error: not enough free disk space.  Aborting install."
 msgstr "Espace disque insuffisant. Installation interrompue."
 
 #: win32-loader.c:84
-#, fuzzy
 msgid "This program doesn't support Windows $windows_version yet."
 msgstr ""
 "Ce programme ne gère pas encore la version $windows_version de Windows."
@@ -140,6 +142,14 @@ msgid ""
 "\n"
 "This installer will abort now."
 msgstr ""
+"La version de Debian que vous installez est prévue pour fonctionner sur des "
+"ordinateurs modernes 64 bits. Cependant, votre ordinateur ne peut pas "
+"exécuter de programmes 64 bits.\n"
+"\n"
+"Veuillez utiliser la version 32 bits (« i386 ») de Debian ou une version "
+"multi-architectures de la distribution.\n"
+"\n"
+"Le programme d'installation va être interrompu."
 
 #: win32-loader.c:86
 msgid ""
@@ -154,6 +164,15 @@ msgid ""
 "\n"
 "Would you like to abort now?"
 msgstr ""
+"Votre ordinateur peut utiliser un système d'exploitation moderne, 64 bits. "
+"Cependant, la version de Debian que vous installez est prévue pour "
+"fonctionner sur des ordinateurs plus anciens, à architecture 32 bits.\n"
+"\n"
+"Vous pouvez continuer l'installation mais, afin de tirer un meilleur parti "
+"de votre matériel, vous devriez utiliser la version 64 bits (« amd64 ») de "
+"Debian ou une version multi-architectures de la distribution.\n"
+"\n"
+"Voulez-vous interrompre le programme d'installation maintenant ?"
 
 #: win32-loader.c:87 win32-loader.c:94
 msgid "Select install mode:"
@@ -173,11 +192,11 @@ msgstr ""
 
 #: win32-loader.c:90
 msgid "Select which version of Debian-Installer to use:"
-msgstr ""
+msgstr "Version de l'installateur Debian à utiliser :"
 
 #: win32-loader.c:91
 msgid "Stable release.  This will install Debian \"stable\"."
-msgstr ""
+msgstr "Version stable : installera la branche « stable » de Debian"
 
 #: win32-loader.c:92
 msgid ""
@@ -185,12 +204,17 @@ msgid ""
 "install Debian \"testing\" by default, and may be capable of installing "
 "\"stable\" or \"unstable\" as well."
 msgstr ""
+"Version du jour : version de développement de l'installateur Debian. "
+"Installera la branche « testing » de la distribution tout en étant capable "
+"d'installer « stable » ou « unstable »."
 
 #: win32-loader.c:93
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
 msgstr ""
+"Il est recommandé de vérifier les problèmes connus avant d'installer la "
+"version du jour. Voulez-vous effectuer ce contrôle maintenant ?"
 
 #: win32-loader.c:95
 msgid "Graphical install"
@@ -201,9 +225,9 @@ msgid "Text install"
 msgstr "Installation en mode texte"
 
 #: win32-loader.c:97
-#, fuzzy, c-format
+#, c-format
 msgid "Downloading %%s"
-msgstr "Téléchargement de %s"
+msgstr "Téléchargement de %%s"
 
 #: win32-loader.c:98
 msgid "Connecting ..."
@@ -232,26 +256,24 @@ msgid "s"
 msgstr "s"
 
 #: win32-loader.c:110
-#, fuzzy, c-format
+#, c-format
 msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
-msgstr "%dkB (%d%%) sur %dkB à %d.%01dko/s"
+msgstr "%%d ko (%%d%%%%) sur %%d ko à %%d.%%01d ko/s"
 
 #: win32-loader.c:111
-#, fuzzy, c-format
+#, c-format
 msgid " (%%d %%s%%s remaining)"
-msgstr " (%d %s%s restant)"
+msgstr " (%%d %%s%%s restant)"
 
 #: win32-loader.c:112
 msgid "Error"
 msgstr "Erreur"
 
 #: win32-loader.c:113
-#, fuzzy
 msgid "Error: failed to copy $0 to $1."
 msgstr "Erreur : échec de la copie de $0 sur $1."
 
 #: win32-loader.c:114
-#, fuzzy
 msgid "Error: unable to run $0."
 msgstr "Erreur : impossible d'exécuter $0."
 
@@ -260,14 +282,12 @@ msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Erreur : impossible d'analyser la sortie de bcdedit.exe."
 
 #: win32-loader.c:116
-#, fuzzy
 msgid "Error: $boot_ini not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Erreur: $boot_ini n'existe pas. Ce système est-il vraiment Windows "
-"@DOLLARwindows_version ?"
+"$windows_version ?"
 
 #: win32-loader.c:117
-#, fuzzy
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "Note très importante :\\n\\n"
 
@@ -278,7 +298,6 @@ msgstr "Note très importante :\\n\\n"
 #. current context (i.e. be careful when using pronouns, etc).
 #.
 #: win32-loader.c:125
-#, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -289,20 +308,18 @@ msgstr ""
 "charger automatiquement l'installateur de Debian.\\n\\n"
 
 #: win32-loader.c:126
-#, fuzzy
 msgid ""
 "You need to reboot in order to proceed with your Debian install.  During "
 "your next boot, you will be asked whether you want to start Windows or "
 "Debian Installer.  Choose Debian Installer to continue with the install "
 "process.\\n\\n"
 msgstr ""
-"Il est indispensable de redémarrer pou rinstaller Debian. Au prochain "
+"Il est indispensable de redémarrer pour installer Debian. Au prochain "
 "démarrage, vous pourrez choisir de démarrer Windows ou l'installation de "
 "Debian. Vous devez choisir cette dernière option pour continuer le processus "
 "d'installation.\\n\\n"
 
 #: win32-loader.c:127
-#, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition to install Debian or completely replacing "
