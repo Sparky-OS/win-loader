@@ -258,24 +258,23 @@ undefined_user_interface:
   ; ask the user then
 !endif
 
-  ${If} $expert == false
-    Goto skip_graphics_dialog
+  ${If} $expert == true
+    File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
+    File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
+    File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
+    WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
+    WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
+    WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
+    WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
+    WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
+    InstallOptions::dialog $PLUGINSDIR\graphics.ini
+    ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
+    ${If} $0 == "1"
+      StrCpy $gtk "gtk/"
+    ${EndIf}
+  ${Else}
+      StrCpy $gtk "gtk/"
   ${Endif}
-  File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
-  File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
-  File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
-  WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
-  InstallOptions::dialog $PLUGINSDIR\graphics.ini
-  ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
-  ${If} $0 == "1"
-    StrCpy $gtk "gtk/"
-  ${EndIf}
-
-skip_graphics_dialog:
 
 ; ********************************************** Preseed vga mode
   ${If} "$gtk" == "gtk/"
@@ -328,18 +327,24 @@ Function Download
 FunctionEnd
 
 Function ShowBranch
+  Var /GLOBAL di_branch
+  StrCpy $di_branch stable
   File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
   ${If} $expert == true
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 3" "Text" $(di_branch3)
     InstallOptions::dialog $PLUGINSDIR\di_branch.ini
+    ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
+    ${If} $0 == "1"
+      StrCpy $di_branch daily
+    ${Endif}
   ${Endif}
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url
   ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
-  ${If} $0 == "1"
+  ${If} $di_branch == "daily"
     MessageBox MB_YESNO|MB_ICONQUESTION $(di_branch4) IDNO +2
     ExecShell "open" "http://wiki.debian.org/DebianInstaller/Today"
     Var /GLOBAL hacker
