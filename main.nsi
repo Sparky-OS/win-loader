@@ -246,38 +246,44 @@ windows_version_ok:
 FunctionEnd
 
 Function ShowGraphics
+  Var /GLOBAL user_interface
   Var /GLOBAL gtk
+
 !ifndef NETWORK_BASE_URL
-  ReadINIStr $0 $d\win32-loader.ini "installer" "user_interface"
-  StrCmp "$0" "" undefined_user_interface
-  ${If} "$0" == "gtk"
-    StrCpy $gtk "gtk/"
+  Var /GLOBAL predefined_user_interface
+  ReadINIStr $predefined_user_interface $d\win32-loader.ini "installer" "user_interface"
+
+  ${If} $predefined_user_interface == ""
+!endif
+    ${If} $expert == true
+      File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
+      File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
+      File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
+      WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
+      WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
+      WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
+      WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
+      WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
+      InstallOptions::dialog $PLUGINSDIR\graphics.ini
+      ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
+      ${If} $0 == "1"
+        StrCpy $user_interface graphical
+      ${EndIf}
+    ${Else}
+        StrCpy $user_interface graphical
+    ${Endif}
+!ifndef NETWORK_BASE_URL
+  ${Else}
+    StrCpy $user_interface $predefined_user_interface
   ${Endif}
-  Goto skip_graphics_dialog
-undefined_user_interface:
-  ; ask the user then
 !endif
 
-  ${If} $expert == true
-    File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
-    File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
-    File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
-    WriteINIStr $PLUGINSDIR\graphics.ini "Field 1" "Text" $(graphics1)
-    WriteINIStr $PLUGINSDIR\graphics.ini "Field 2" "Text" "$PLUGINSDIR\gtk.bmp"
-    WriteINIStr $PLUGINSDIR\graphics.ini "Field 3" "Text" "$PLUGINSDIR\text.bmp"
-    WriteINIStr $PLUGINSDIR\graphics.ini "Field 4" "Text" $(graphics2)
-    WriteINIStr $PLUGINSDIR\graphics.ini "Field 5" "Text" $(graphics3)
-    InstallOptions::dialog $PLUGINSDIR\graphics.ini
-    ReadINIStr $0 $PLUGINSDIR\graphics.ini "Field 4" "State"
-    ${If} $0 == "1"
-      StrCpy $gtk "gtk/"
-    ${EndIf}
-  ${Else}
-      StrCpy $gtk "gtk/"
-  ${Endif}
+${If} $user_interface == "graphical"
+  StrCpy $gtk "gtk/"
+${Endif}
 
 ; ********************************************** Preseed vga mode
-  ${If} "$gtk" == "gtk/"
+  ${If} "$user_interface" == "graphical"
     StrCpy $preseed "$preseed video=vesa:ywrap,mtrr vga=788"
   ${Else}
     StrCpy $preseed "$preseed vga=normal"
