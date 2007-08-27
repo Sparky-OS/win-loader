@@ -214,8 +214,8 @@ msgstr "Installation im Textmodus"
 
 #: win32-loader.c:97
 #, c-format
-msgid "Downloading %%s"
-msgstr "Lade %%s herunter"
+msgid "Downloading %s"
+msgstr "Lade %s herunter"
 
 #: win32-loader.c:98
 msgid "Connecting ..."
@@ -245,13 +245,13 @@ msgstr "n"
 
 #: win32-loader.c:110
 #, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
-msgstr "%%dkB (%%d%%%%) von %%dkB bei %%d.%%01dkB/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%dkB (%d%%) von %dkB bei %d.%01dkB/s"
 
 #: win32-loader.c:111
 #, c-format
-msgid " (%%d %%s%%s remaining)"
-msgstr " (%%d %%s %%s verbleibend)"
+msgid " (%d %s%s remaining)"
+msgstr " (%d %s %s verbleibend)"
 
 #: win32-loader.c:112
 msgid "Error"

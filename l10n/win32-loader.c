@@ -94,7 +94,7 @@ main ()
   langstring ("graphics1",			_("Select install mode:"));
   langstring ("graphics2",			_("Graphical install"));
   langstring ("graphics3",			_("Text install"));
-  langstring ("nsisdl1",			_("Downloading %%s"));
+  langstring ("nsisdl1",			_("Downloading %s"));
   langstring ("nsisdl2",			_("Connecting ..."));
   langstring ("nsisdl3",			_("second"));
   langstring ("nsisdl4",			_("minute"));
@@ -107,8 +107,8 @@ main ()
   [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
  */
   langstring ("nsisdl6",			_("s"));
-  langstring ("nsisdl7",			_("%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"));
-  langstring ("nsisdl8",			_(" (%%d %%s%%s remaining)"));
+  langstring ("nsisdl7",			_("%dkB (%d%%) of %dkB at %d.%01dkB/s"));
+  langstring ("nsisdl8",			_(" (%d %s%s remaining)"));
   langstring ("error",				_("Error"));
   langstring ("error_copyfiles",		_("Error: failed to copy $0 to $1."));
   langstring ("error_exec",			_("Error: unable to run $0."));

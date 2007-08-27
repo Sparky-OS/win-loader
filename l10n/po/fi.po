@@ -195,7 +195,7 @@ msgstr "Tekstiasennus"
 
 #: win32-loader.c:97
 #, fuzzy, c-format
-msgid "Downloading %%s"
+msgid "Downloading %s"
 msgstr "Ladataan kohdetta %s"
 
 #: win32-loader.c:98
@@ -227,12 +227,12 @@ msgstr "a"
 
 #: win32-loader.c:110
 #, fuzzy, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%d kt (%d %%) / %d kt nopeudella %d,%01d kt/s"
 
 #: win32-loader.c:111
 #, fuzzy, c-format
-msgid " (%%d %%s%%s remaining)"
+msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s jäljellä)"
 
 #: win32-loader.c:112

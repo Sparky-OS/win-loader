@@ -226,8 +226,8 @@ msgstr "Installation en mode texte"
 
 #: win32-loader.c:97
 #, c-format
-msgid "Downloading %%s"
-msgstr "Téléchargement de %%s"
+msgid "Downloading %s"
+msgstr "Téléchargement de %s"
 
 #: win32-loader.c:98
 msgid "Connecting ..."
@@ -257,13 +257,13 @@ msgstr "s"
 
 #: win32-loader.c:110
 #, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
-msgstr "%%d ko (%%d%%%%) sur %%d ko à %%d.%%01d ko/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%d ko (%d%%) sur %d ko à %d.%01d ko/s"
 
 #: win32-loader.c:111
 #, c-format
-msgid " (%%d %%s%%s remaining)"
-msgstr " (%%d %%s%%s restant)"
+msgid " (%d %s%s remaining)"
+msgstr " (%d %s%s restant)"
 
 #: win32-loader.c:112
 msgid "Error"

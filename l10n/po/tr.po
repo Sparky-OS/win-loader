@@ -199,7 +199,7 @@ msgstr "Metin tabanlı ortamda kurulum"
 
 #: win32-loader.c:97
 #, fuzzy, c-format
-msgid "Downloading %%s"
+msgid "Downloading %s"
 msgstr "%s indiriliyor"
 
 #: win32-loader.c:98
@@ -230,12 +230,12 @@ msgstr "ler"
 
 #: win32-loader.c:110
 #, fuzzy, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) / %dkB %d.%01dkB/s hızıyla"
 
 #: win32-loader.c:111
 #, fuzzy, c-format
-msgid " (%%d %%s%%s remaining)"
+msgid " (%d %s%s remaining)"
 msgstr " (kalan %d %s%s)"
 
 #: win32-loader.c:112

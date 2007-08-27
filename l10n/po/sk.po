@@ -196,7 +196,7 @@ msgstr "Textová inštalácia"
 
 #: win32-loader.c:97
 #, fuzzy, c-format
-msgid "Downloading %%s"
+msgid "Downloading %s"
 msgstr "Sťahuje sa %s"
 
 #: win32-loader.c:98
@@ -227,12 +227,12 @@ msgstr " "
 
 #: win32-loader.c:110
 #, fuzzy, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) z %dkB pri %d.%01dkB/s"
 
 #: win32-loader.c:111
 #, fuzzy, c-format
-msgid " (%%d %%s%%s remaining)"
+msgid " (%d %s%s remaining)"
 msgstr " (ostáva %d %s%s)"
 
 #: win32-loader.c:112

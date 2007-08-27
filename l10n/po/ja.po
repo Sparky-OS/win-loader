@@ -226,8 +226,8 @@ msgstr "テキストインストーラ"
 
 #: win32-loader.c:97
 #, c-format
-msgid "Downloading %%s"
-msgstr "%%s をダウンロード中"
+msgid "Downloading %s"
+msgstr "%s をダウンロード中"
 
 #: win32-loader.c:98
 msgid "Connecting ..."
@@ -257,13 +257,13 @@ msgstr "秒"
 
 #: win32-loader.c:110
 #, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
-msgstr "%%1$$dkB 中 %%3$$dkB (%%2$$d%%%%) at %%4$$d.%%01dkB/秒"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+msgstr "%1dkB 中 %3dkB (%2d%%) at %4d.%01dkB/秒"
 
 #: win32-loader.c:111
 #, c-format
-msgid " (%%d %%s%%s remaining)"
-msgstr " (残り時間 %%d %%s%%s)"
+msgid " (%d %s%s remaining)"
+msgstr " (残り時間 %d %s%s)"
 
 #: win32-loader.c:112
 msgid "Error"

@@ -201,7 +201,7 @@ msgstr "Инсталация в текстов режим"
 
 #: win32-loader.c:97
 #, fuzzy, c-format
-msgid "Downloading %%s"
+msgid "Downloading %s"
 msgstr "Сваляне на %s"
 
 #: win32-loader.c:98
@@ -232,12 +232,12 @@ msgstr " "
 
 #: win32-loader.c:110
 #, fuzzy, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dкб·(%d%%)·от·%dкб·на·%d.%01dкБ/сек."
 
 #: win32-loader.c:111
 #, fuzzy, c-format
-msgid " (%%d %%s%%s remaining)"
+msgid " (%d %s%s remaining)"
 msgstr " (остават %d %s%s)"
 
 #: win32-loader.c:112

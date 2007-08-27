@@ -187,7 +187,7 @@ msgstr ""
 
 #: win32-loader.c:97
 #, c-format
-msgid "Downloading %%s"
+msgid "Downloading %s"
 msgstr ""
 
 #: win32-loader.c:98
@@ -218,12 +218,12 @@ msgstr ""
 
 #: win32-loader.c:110
 #, c-format
-msgid "%%dkB (%%d%%%%) of %%dkB at %%d.%%01dkB/s"
+msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr ""
 
 #: win32-loader.c:111
 #, c-format
-msgid " (%%d %%s%%s remaining)"
+msgid " (%d %s%s remaining)"
 msgstr ""
 
 #: win32-loader.c:112
