@@ -68,7 +68,6 @@ Page custom ShowBranch
 !endif
 Page custom ShowCustom
 Page instfiles
-Page custom ShowWarning
 
 UninstPage uninstConfirm
 UninstPage instfiles
@@ -688,19 +687,14 @@ initrd	/debian/initrd.gz$\n"
   ${Endif}
 SectionEnd
 
-Function ShowWarning
+Function .onInstSuccess
   Var /GLOBAL warning2
   ${If} $windows_boot_method == direct
     StrCpy $warning2 $(warning2_direct)
   ${Else}
     StrCpy $warning2 $(warning2_reboot)
   ${Endif}
-  File /oname=$PLUGINSDIR\warning.ini templates/warning.ini
-  WriteINIStr $PLUGINSDIR\warning.ini "Field 1" "Text" '$(warning1)$warning2$(warning3)'
-  InstallOptions::dialog $PLUGINSDIR\warning.ini
-FunctionEnd
-
-Function .onInstSuccess
+  MessageBox MB_OK '$(warning1)$warning2$(warning3)'
   ${If} $windows_boot_method == direct
     Exec '"$INSTDIR\grub.pif"'
   ${Else}

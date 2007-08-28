@@ -12,7 +12,7 @@ endif
 all: win32-loader.exe
 
 win32-loader.exe: main.nsi maps.ini \
-		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/warning.ini \
+		templates/binary_choice.ini templates/graphics.ini templates/custom.ini \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
 		swirl.ico license \
 		contrib/wget.exe
