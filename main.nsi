@@ -360,7 +360,7 @@ Function ShowBranch
     ${Endif}
     StrCpy $base_url "http://people.debian.org/~$hacker/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
   ${Else}
-    StrCpy $base_url "http://ftp.us.debian.org/debian/dists/stable/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
+    StrCpy $base_url "http://ftp.se.debian.org/debian/dists/stable/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
   ${Endif}
 FunctionEnd
 !endif
