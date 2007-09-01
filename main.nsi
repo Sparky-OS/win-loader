@@ -201,22 +201,17 @@ Function ShowExpert
   ; Windows version is another abort condition
   Var /GLOBAL windows_version
   Var /GLOBAL windows_boot_method
-  Var /GLOBAL nsisdl_is_broken
-  StrCpy $nsisdl_is_broken false
   Call GetWindowsVersion
   Pop $windows_version
   StrCpy $1 $windows_version 3
   ${If} $1 == "NT "
-    StrCpy $nsisdl_is_broken true
     StrCpy $windows_boot_method ntldr
     Goto windows_version_ok
   ${Endif}
   ${If} $windows_version == "95"
   ${OrIf} $windows_version == "98"
-    StrCpy $nsisdl_is_broken true
     StrCpy $windows_boot_method direct
-; disabled due to failed assertions caused by systeminfo plugin
-;    Goto windows_version_ok
+    Goto windows_version_ok
   ${Endif}
   ${If} $windows_version == "2000"
   ${OrIf} $windows_version == "XP"
@@ -303,35 +298,24 @@ Function Download
     Pop $2
     ; Let it fail?
     Pop $3
-    ${If} $nsisdl_is_broken == true
-      ; NSISdl segfaults on this platform.  Untill it's fixed use wget.
-; disabled due to failed assertions in systeminfo plugin
-;      File /oname=$PLUGINSDIR\wget.exe "contrib/wget.exe"
-      ; Do NOT, ever, let wget append its download to existing files!!
-      Delete "$1\$2"
-      SetOutPath "$1"
-      ExecWait '"$PLUGINSDIR\wget.exe" -c $0/$2'
-      StrCpy $0 "success" ; no error detection
+    Var /GLOBAL nsisdl_proxy
+    ${If} $proxy == ""
+      StrCpy $nsisdl_proxy /NOIEPROXY
     ${Else}
-      Var /GLOBAL nsisdl_proxy
-      ${If} $proxy == ""
-        StrCpy $nsisdl_proxy /NOIEPROXY
-      ${Else}
-        StrCpy $nsisdl_proxy "/PROXY $proxy"
-      ${Endif}
-
-      NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $1\$2
-      Pop $R0
-      ${If} $R0 != "success"
-        ${If} $R0 != "cancel"
-           MessageBox MB_OK|MB_ICONSTOP "$(error): $R0"
-        ${EndIf}
-        ${If} $3 == "false"
-          Quit
-        ${Endif}
-      ${EndIf}
-      StrCpy $0 "$R0"
+      StrCpy $nsisdl_proxy "/PROXY $proxy"
     ${Endif}
+
+    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $1\$2
+    Pop $R0
+    ${If} $R0 != "success"
+      ${If} $R0 != "cancel"
+         MessageBox MB_OK|MB_ICONSTOP "$(error): $R0"
+      ${EndIf}
+      ${If} $3 == "false"
+        Quit
+      ${Endif}
+    ${EndIf}
+    StrCpy $0 "$R0"
 FunctionEnd
 
 Function ShowBranch
@@ -376,22 +360,16 @@ Function ShowCustom
 ; ********************************************** Media-based install
   Var /GLOBAL linux
   Var /GLOBAL initrd
-  Var /GLOBAL grldr
-  Var /GLOBAL grldr_mbr
-  Var /GLOBAL grub_exe
-  Var /GLOBAL grub_pif
+  Var /GLOBAL g2ldr
+  Var /GLOBAL g2ldr_mbr
   ReadINIStr $linux	$d\win32-loader.ini "installer" "$arch/$gtklinux"
   ReadINIStr $initrd	$d\win32-loader.ini "installer" "$arch/$gtkinitrd"
-  ReadINIStr $grldr	$d\win32-loader.ini "grub" "grldr"
-  ReadINIStr $grldr_mbr	$d\win32-loader.ini "grub" "grldr.mbr"
-  ReadINIStr $grub_exe	$d\win32-loader.ini "grub" "grub.exe"
-  ReadINIStr $grub_pif	$d\win32-loader.ini "grub" "grub.pif"
+  ReadINIStr $g2ldr	$d\win32-loader.ini "grub" "g2ldr"
+  ReadINIStr $g2ldr_mbr	$d\win32-loader.ini "grub" "g2ldr.mbr"
   StrCmp $linux		"" incomplete_ini
   StrCmp $initrd	"" incomplete_ini
-  StrCmp $grldr		"" incomplete_ini
-  StrCmp $grldr_mbr	"" incomplete_ini
-  StrCmp $grub_exe	"" incomplete_ini
-  StrCmp $grub_pif	"" incomplete_ini
+  StrCmp $g2ldr		"" incomplete_ini
+  StrCmp $g2ldr_mbr	"" incomplete_ini
   Goto ini_is_ok
 incomplete_ini:
   MessageBox MB_OK|MB_ICONSTOP "$(error_incomplete_ini)"
@@ -567,16 +545,17 @@ Section "Debian-Installer Loader"
   Call Download
 !endif
 
-  FileOpen $0 $c\menu.lst w
+  FileOpen $0 $c\grub.cfg w
   FileWrite $0 "\
-find	--set-root /debian/initrd.gz$\n\
-kernel	/debian/linux $preseed --$\n\
-initrd	/debian/initrd.gz$\n"
+search	--set /debian/initrd.gz$\n\
+linux	/debian/linux $preseed --$\n\
+initrd	/debian/initrd.gz$\n\
+boot"
   FileClose $0
 
 ; ********************************************** Needed for systems with compressed NTFS
-  nsExec::Exec '"compact" /u $c\grldr $c\menu.lst $INSTDIR\linux $INSTDIR\initrd.gz'
-  ; in my tests, uncompressing $c\menu.lst wasn't necessary, but better be safe than sorry
+  nsExec::Exec '"compact" /u $c\g2ldr $c\grub.cfg $INSTDIR\linux $INSTDIR\initrd.gz'
+  ; in my tests, uncompressing $c\grub.cfg wasn't necessary, but better be safe than sorry
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
   ${If} $windows_boot_method == ntldr
@@ -586,14 +565,25 @@ initrd	/debian/initrd.gz$\n"
     ${Endif}
 !ifdef NETWORK_BASE_URL
     Push "false"
-    Push "grldr"
+    Push "g2ldr"
+    Push "$c"
+    Push "${NETWORK_BASE_URL}"
+    Call Download
+    Push "false"
+    Push "g2ldr.mbr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
 !else
     ClearErrors
-    StrCpy $0 "$EXEDIR\$grldr"
-    StrCpy $1 "$c\grldr"
+    StrCpy $0 "$EXEDIR\$g2ldr"
+    StrCpy $1 "$c\g2ldr"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$g2ldr_mbr"
+    StrCpy $1 "$c\g2ldr.mbr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
@@ -605,7 +595,7 @@ initrd	/debian/initrd.gz$\n"
     ; Windows (bad) or straight to Debian-Installer (also bad)!  Force it to 30
     ; just in case.
     WriteIniStr "$boot_ini" "boot loader" "timeout" "30"
-    WriteIniStr "$boot_ini" "operating systems" "$c\grldr" '"$(d-i)"'
+    WriteIniStr "$boot_ini" "operating systems" "$c\g2ldr.mbr" '"$(d-i)"'
   ${Endif}
 
   ${If} $windows_boot_method == direct
@@ -640,25 +630,25 @@ initrd	/debian/initrd.gz$\n"
   ${If} $windows_boot_method == bootmgr
 !ifdef NETWORK_BASE_URL
     Push "false"
-    Push "grldr"
+    Push "g2ldr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
     Push "false"
-    Push "grldr.mbr"
+    Push "g2ldr.mbr"
     Push "$c"
     Push "${NETWORK_BASE_URL}"
     Call Download
 !else
     ClearErrors
-    StrCpy $0 "$EXEDIR\$grldr"
-    StrCpy $1 "$c\grldr"
+    StrCpy $0 "$EXEDIR\$g2ldr"
+    StrCpy $1 "$c\g2ldr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
-    StrCpy $0 "$EXEDIR\$grldr_mbr"
-    StrCpy $1 "$c\grldr.mbr"
+    StrCpy $0 "$EXEDIR\$g2ldr_mbr"
+    StrCpy $1 "$c\g2ldr.mbr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
@@ -685,7 +675,7 @@ initrd	/debian/initrd.gz$\n"
       WriteRegStr HKLM "Software\Debian\Debian-Installer Loader" "bootmgr" "$0"
     ${Endif}
     nsExec::Exec '"bcdedit" /set $0 device boot'
-    nsExec::Exec '"bcdedit" /set $0 path \grldr.mbr'
+    nsExec::Exec '"bcdedit" /set $0 path \g2ldr.mbr'
     nsExec::Exec '"bcdedit" /displayorder $0 /addlast'
   ${Endif}
 SectionEnd
@@ -717,7 +707,7 @@ Section "Uninstall"
 
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
-  DeleteINIStr "$c\boot.ini" "operating systems" "$c\grldr"
+  DeleteINIStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr"
 
   ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
   ${If} $0 != ""
@@ -731,9 +721,9 @@ Section "Uninstall"
 
   DeleteRegKey HKLM "Software\Debian\Debian-Installer Loader"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
-  Delete $c\grldr
-  Delete $c\grldr.mbr
-  Delete $c\menu.lst
+  Delete $c\g2ldr
+  Delete $c\g2ldr.mbr
+  Delete $c\grub.cfg
   Delete $INSTDIR\grub.exe
   Delete $INSTDIR\grub.pif
   Delete $INSTDIR\linux

@@ -1,5 +1,3 @@
 win32-loader.exe	usr/lib/win32-loader
-contrib/grldr		usr/lib/win32-loader
-contrib/grldr.mbr	usr/lib/win32-loader
-contrib/grub.exe	usr/lib/win32-loader
-contrib/grub.pif	usr/lib/win32-loader
+g2ldr			usr/lib/win32-loader
+g2ldr.mbr		usr/lib/win32-loader
