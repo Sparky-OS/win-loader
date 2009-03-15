@@ -16,7 +16,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define _WIN32_WINNT  0x0500
 #include <windows.h>
 #include "exdll.h"
 
@@ -41,9 +40,4 @@ void __declspec (dllexport) bcdedit_extract_id (HWND hwndParent, int string_size
     }
 
   pushstring ("error");
-}
-
-BOOL WINAPI DllMain (HANDLE hInst, ULONG ul_reason_for_call, LPVOID lpReserved)
-{
-  return TRUE;
 }
