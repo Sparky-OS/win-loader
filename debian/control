@@ -14,8 +14,8 @@ Build-Depends:
  locales-all,
  cpio-win32 (>= 2.11-4), gzip-win32
 Standards-Version: 3.9.1.0
-Vcs-Svn: svn://svn.debian.org/d-i/trunk/win32-loader/
-Vcs-Browser: http://svn.debian.org/wsvn/d-i/trunk/win32-loader/?op=log
+Vcs-Browser: http://git.debian.org/?p=d-i/win32-loader.git
+Vcs-Git: git://git.debian.org/d-i/win32-loader.git
 
 Package: win32-loader
 Architecture: all
