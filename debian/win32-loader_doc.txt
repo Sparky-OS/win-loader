@@ -1,0 +1,31 @@
+===== Win32-Loader =====
+
+== What is Win32-Loader? ==
+
+win32-loader is a component of the Debian-Installer that runs on Windows and
+has the ability to load the actual installer either from the network or from
+CD-ROM media (as in the version included in the official CD images).
+
+This executable is the standalone flavour, which downloads the Debian
+Installer from official Debian mirrors.
+
+== How does it work? ==
+
+After a GPL license acceptance, the executable prompts the user for some
+options and tries to get defaults from the Windows environment. It then
+downloads the Debian installer and kernel from official Debian mirrors. It
+puts them in a Windows directory and safely modifies the Windows bootloader to
+enable a choice between the legacy Windows installation and the Debian
+installer at boot time.
+
+On the next reboot, the user can choose to continue the installation of
+Debian. The installation will be run using the defaults gathered from the
+runtime analysis and user prompting.
+
+== Removal ==
+
+When win32-loader.exe is uninstalled, it removes the Debian-Installer image
+and kernel and restores the Windows bootloader settings.
+
+== Authors and licensing ==
+
