@@ -3,6 +3,9 @@
 # Install the win32-loader-standalone.exe as debian/tools/win32-loader/$(SUITE)/win32-loader.exe on the mirrors
 BYHAND ?= yes
 
+W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
+W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
+
 %:
 	dh $@
 
@@ -20,9 +23,9 @@ override_dh_auto_clean:
 override_dh_builddeb:
 	dh_builddeb
 ifeq ($(BYHAND),yes)
-	cp win32-loader-standalone.exe ../win32-loader.exe
-	dpkg-distaddfile win32-loader.exe byhand -
-	cp debian/win32-loader_doc.txt ../win32-loader.txt
-	cat debian/copyright >> ../win32-loader.txt
-	dpkg-distaddfile win32-loader.txt byhand -
+	cp win32-loader-standalone.exe ../$(W32_BYHAND_NAME).exe
+	dpkg-distaddfile $(W32_BYHAND_NAME).exe byhand -
+	cp debian/win32-loader_doc.txt ../$(W32_BYHAND_NAME).txt
+	cat debian/copyright >> ../$(W32_BYHAND_NAME).txt
+	dpkg-distaddfile $(W32_BYHAND_NAME).txt byhand -
 endif
