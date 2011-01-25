@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # Install the win32-loader-standalone.exe as debian/tools/win32-loader/$(SUITE)/win32-loader.exe on the mirrors
-BYHAND ?= no
+BYHAND ?= yes
 
 %:
 	dh $@
