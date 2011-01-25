@@ -1,3 +1,16 @@
+win32-loader (0.6.22) unstable; urgency=low
+
+  [ Joey Hess ]
+  * update Vcs fields
+
+  [ Didier Raboud ]
+  * Add a dpkg-distaddfile byhand call to install win32-loader-
+    standalone.exe as tools/$(SUITE)/win32-loader.exe on the mirrors.
+  * Set BYHAND to "yes".
+  * Use my @d.o address and remove the DMUA flag.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 25 Jan 2011 23:28:30 +0100
+
 win32-loader (0.6.21) unstable; urgency=low
 
   [ Updated translations ]
