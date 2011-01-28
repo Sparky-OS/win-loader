@@ -89,6 +89,7 @@ main (int argc, char **argv)
   langstring ("expert1",			_("Select install mode:"));
   langstring ("expert2",			_("Normal mode.  Recommended for most users."));
   langstring ("expert3",			_("Expert mode.  Recommended for expert users who want full control of the install process."));
+  langstring ("expert4",			_("PXE mode: install a PXE loader to allow remote kernel loading."));
   langstring ("rescue1",			_("Select action:"));
   langstring ("rescue2",			_("Begin install on this computer."));
   langstring ("rescue3",			_("Repair an installed system (rescue mode)."));

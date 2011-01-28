@@ -212,22 +212,42 @@ c_is_initialized:
   StrCpy $INSTDIR "$c\win32-loader"
   SetOutPath $INSTDIR
 
+!ifdef PXE
+  File /oname=$PLUGINSDIR\expert.ini	templates/ternary_choice.ini
+  WriteINIStr $PLUGINSDIR\expert.ini "Field 4" "Text" $(expert4)
+!else ;PXE
   File /oname=$PLUGINSDIR\expert.ini	templates/binary_choice.ini
+!endif ;PXE
   WriteINIStr $PLUGINSDIR\expert.ini "Field 1" "Text" $(expert1)
   WriteINIStr $PLUGINSDIR\expert.ini "Field 2" "Text" $(expert2)
   WriteINIStr $PLUGINSDIR\expert.ini "Field 3" "Text" $(expert3)
   InstallOptions::dialog $PLUGINSDIR\expert.ini
 
   Var /GLOBAL expert
-  ReadINIStr $0 $PLUGINSDIR\expert.ini "Field 3" "State"
+!ifdef PXE
+  Var /GLOBAL pxe_mode
+  ReadINIStr $0 $PLUGINSDIR\expert.ini "Field 4" "State"
   ${If} $0 == "1"
-    StrCpy $expert true
-  ${Else}
+    StrCpy $pxe_mode true
     StrCpy $expert false
-  ${Endif}
+  ${Else}
+    StrCpy $pxe_mode false
+!endif ; PXE
+    ReadINIStr $0 $PLUGINSDIR\expert.ini "Field 3" "State"
+    ${If} $0 == "1"
+      StrCpy $expert true
+    ${Else}
+      StrCpy $expert false
+    ${Endif}
+!ifdef PXE
+  ${Endif} ; Field 4 (PXE) checked ?
+!endif ;PXE
 FunctionEnd
 
 Function ShowRescue
+!ifdef PXE
+ ${If} $pxe_mode == "false"
+!endif ;PXE
   File /oname=$PLUGINSDIR\rescue.ini	templates/binary_choice.ini
   WriteINIStr $PLUGINSDIR\rescue.ini "Field 1" "Text" $(rescue1)
   WriteINIStr $PLUGINSDIR\rescue.ini "Field 2" "Text" $(rescue2)
@@ -240,6 +260,9 @@ Function ShowRescue
 $preseed_cfg$\n\
 d-i rescue/enable boolean true"
   ${Endif}
+!ifdef PXE
+ ${Endif} ; $pxe_mode == "false"
+!endif ;PXE
 FunctionEnd
 
 Function ShowKernel
@@ -670,6 +693,9 @@ Section "Installer Loader"
     Quit
   ${EndIf}
 !else
+!ifdef PXE
+ ${If} $pxe_mode == "false"
+!endif ;PXE
   ${If} $kernel == "linux"
     Push "false"
     Push "linux"
@@ -693,6 +719,9 @@ Section "Installer Loader"
     Push "$base_url"
     Call Download
   ${EndIf}
+!ifdef PXE
+ ${EndIf} ; $pxe_mode == "false"
+!endif ;PXE
 !endif
 
 ; We're about to write down our preseed line.  This would be a nice place
@@ -708,6 +737,13 @@ Section "Installer Loader"
   StrCpy $0 "$c\win32-loader\grub.cfg"
   DetailPrint "$(generating)"
   FileOpen $0 $c\win32-loader\grub.cfg w
+!ifdef PXE
+ ${If} $pxe_mode == "true"
+    FileWrite $0 "\
+linux16 /win32-loader/pxe.lkrn$\n\
+boot$\n"
+ ${Else}
+!endif ;PXE
   ${If} $kernel == "linux"
     FileWrite $0 "\
 linux	/win32-loader/linux $preseed_cmdline$\n\
@@ -722,8 +758,14 @@ set kFreeBSD.hw.ata.ata_dma=0   # needed for qemu hard disk # TODO: delete$\n\
 set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
 boot$\n"
   ${EndIf}
+!ifdef PXE
+ ${EndIf} ; $pxe_mode == "true"
+!endif ;PXE
   FileClose $0
 
+!ifdef PXE
+ ${If} $pxe_mode == "false"
+!endif ; PXE
 ; ********************************************** cpio hack
   File /oname=$INSTDIR\cpio.exe /usr/share/win32/cpio.exe
   File /oname=$INSTDIR\gzip.exe /usr/share/win32/gzip.exe
@@ -761,6 +803,9 @@ ${If} $kernel == "linux"
     Quit
   ${Endif}
 ${EndIf}
+!ifdef PXE
+ ${EndIf} ; $pxe_mode == "false"
+!endif ; PXE
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
   ${If} $windows_boot_method == ntldr
@@ -779,6 +824,11 @@ ${EndIf}
     !else
        File /oname=$c\g2ldr g2ldr
        File /oname=$c\g2ldr.mbr g2ldr.mbr
+      !ifdef PXE
+       ${If} $pxe_mode == "true"
+          File /oname=$INSTDIR\pxe.lkrn pxe.lkrn
+       ${EndIf} ; $pxe_mode == "true"
+      !endif ; PXE
     !endif
 !else
     ClearErrors
@@ -833,6 +883,11 @@ ${EndIf}
     !else
        File /oname=$c\g2ldr g2ldr
        File /oname=$c\g2ldr.mbr g2ldr.mbr
+      !ifdef PXE
+       ${If} $pxe_mode == "true"
+          File /oname=$INSTDIR\pxe.lkrn pxe.lkrn
+       ${EndIf} ; $pxe_mode == "true"
+      !endif ; PXE
     !endif
 !else
     ClearErrors
@@ -891,6 +946,11 @@ ${EndIf}
   ${ElseIf} $kernel == "kfreebsd"
     nsExec::Exec '"compact" /u $INSTDIR\kfreebsd.gz $INSTDIR\initrd.gz'
   ${EndIf}
+!ifdef PXE
+  ${If} $pxe_mode == "true"
+    nsExec::Exec '"compact" /u $INSTDIR\pxe.lkrn'
+  ${EndIf}
+!endif ;PXE
 
 SectionEnd
 

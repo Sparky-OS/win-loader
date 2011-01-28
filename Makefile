@@ -25,6 +25,11 @@ ifdef NETWORK_BASE_URL
 MAKENSIS	+= -DNETWORK_BASE_URL=$(NETWORK_BASE_URL) -DNOCD=yes
 endif
 
+# PXE version (which is standalone too)
+ifdef PXE
+MAKENSIS	+= -DPXE=yes -DNOCD=yes
+endif
+
 # hard disk
 GRUB_MODULES	+= biosdisk
 # partmap
@@ -35,6 +40,10 @@ GRUB_MODULES	+= fat ntfs ntfscomp
 GRUB_MODULES	+= search linux bsd vbe boot
 # might be useful for debugging
 GRUB_MODULES	+= minicmd cat cpuid chain halt help ls reboot
+ifdef PXE
+# Booting the pxe.lkrn requires linux16
+GRUB_MODULES	+= linux16
+endif
 
 all: win32-loader.exe g2ldr g2ldr.mbr
 
@@ -53,9 +62,16 @@ loadlin.pif: genpif
 loadlin.exe: /usr/lib/loadlin/loadlin.exe.gz
 	gunzip -c $^ > $@
 
+ifdef PXE
+pxe.target: pxe.lkrn templates/ternary_choice.ini
+else
+pxe.target:
+endif
+
 win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
+		pxe.target \
 		swirl.ico license loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
