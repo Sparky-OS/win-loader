@@ -1,6 +1,6 @@
 ; Debian-Installer Loader
 ; Copyright (C) 2007,2008,2009  Robert Millan <rmh@aybabtu.com>
-; Copyright (C) 2010            Didier Raboud <didier@raboud.com>
+; Copyright (C) 2010,2011       Didier Raboud <odyx@debian.org>
 ;
 ; This program is free software: you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
