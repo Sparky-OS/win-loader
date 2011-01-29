@@ -1,6 +1,6 @@
 ; Debian-Installer Loader
 ; Copyright (C) 2007,2008,2009  Robert Millan <rmh@aybabtu.com>
-; Copyright (C) 2010            Didier Raboud <didier@raboud.com>
+; Copyright (C) 2010,2011       Didier Raboud <odyx@debian.org>
 ;
 ; This program is free software: you can redistribute it and/or modify
 ; it under the terms of the GNU General Public License as published by
@@ -734,9 +734,9 @@ Section "Installer Loader"
   ${Endif}
 
 ; ********************************************** grub.cfg
-  StrCpy $0 "$c\win32-loader\grub.cfg"
+  StrCpy $0 "$INSTDIR\grub.cfg"
   DetailPrint "$(generating)"
-  FileOpen $0 $c\win32-loader\grub.cfg w
+  FileOpen $0 $INSTDIR\grub.cfg w
 !ifdef PXE
  ${If} $pxe_mode == "true"
     FileWrite $0 "\
@@ -939,8 +939,8 @@ ${EndIf}
 
 ; ********************************************** Needed for systems with compressed NTFS
   DetailPrint "$(disabling_ntfs_compression)"
-  nsExec::Exec '"compact" /u $c\g2ldr $c\g2ldr.mbr $c\grub.cfg'
-  ; in my tests, uncompressing $c\grub.cfg wasn't necessary, but better be safe than sorry
+  nsExec::Exec '"compact" /u $c\g2ldr $c\g2ldr.mbr $INSTDIR\grub.cfg'
+  ; in my tests, uncompressing $INSTDIR\grub.cfg wasn't necessary, but better be safe than sorry
   ${If} $kernel == "linux"
     nsExec::Exec '"compact" /u $INSTDIR\linux $INSTDIR\initrd.gz'
   ${ElseIf} $kernel == "kfreebsd"
@@ -1010,6 +1010,5 @@ Section "Uninstall"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
   Delete $c\g2ldr
   Delete $c\g2ldr.mbr
-  Delete $c\grub.cfg
   RMDir /r /REBOOTOK $INSTDIR
 SectionEnd
