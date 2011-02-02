@@ -79,9 +79,15 @@ gettext English > /dev/null
 # (e.g. cp437) should be used in this string.  If you don't know which charset
 # applies, limit yourself to ascii.
 d_i=`gettext "Continue with install process"`
+# translate:
+# IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
+# (e.g. cp437) should be used in this string.  If you don't know which charset
+# applies, limit yourself to ascii.
+pxe=`gettext "PXE - Network boot"`
 
 #  - Then we get a sample for bootmgr in the native charset.
 echo "${d_i}" | iconv -f utf-8 -t "${charset}" | langstring d-i
+echo "${pxe}" | iconv -f utf-8 -t "${charset}" | langstring pxe
 
 #  - And another for ntldr in its own charset.  If the charset cannot be
 #    converted to ${ntldr_charset}, fallback to English untill it's fixed.
@@ -90,3 +96,8 @@ echo "${d_i}" | iconv -f utf-8 -t "${charset}" | langstring d-i
 else
   echo "Continue with install process"
 fi) | langstring d-i_ntldr
+(if echo "${pxe}" | iconv -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
+  echo "${pxe}" | iconv -f utf-8 -t "${ntldr_charset}"
+else
+  echo "PXE - Network boot"
+fi) | langstring pxe_ntldr
