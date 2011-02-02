@@ -268,6 +268,7 @@ FunctionEnd
 Function ShowKernel
   Var /GLOBAL kernel 
 !ifdef NOCD
+ !ifdef KFREEBSD
   ${If} $expert == true
   ${AndIf} $windows_boot_method != direct ; loadlin can only load linux
     File /oname=$PLUGINSDIR\kernel.ini	templates/binary_choice.ini
@@ -286,6 +287,9 @@ Function ShowKernel
     ; ** Default to GNU/Linux
     StrCpy $kernel linux
   ${Endif}
+ !else ; KFREEBSD
+    StrCpy $kernel linux
+ !endif ; KFREEBSD
 !else
   ; TODO: detect the CD architecture
   StrCpy $kernel linux

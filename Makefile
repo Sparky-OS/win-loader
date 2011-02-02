@@ -30,6 +30,11 @@ ifdef PXE
 MAKENSIS	+= -DPXE=yes -DNOCD=yes
 endif
 
+# Disabling the kFreeBSD download
+ifndef NO_KFREEBSD
+MAKENSIS	+= -DKFREEBSD=yes
+endif
+
 # hard disk
 GRUB_MODULES	+= biosdisk
 # partmap
