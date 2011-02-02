@@ -442,12 +442,16 @@ FunctionEnd
 Function ShowDesktop
   ; It appears that "desktop" is a reserved keyword, hence the _ prefix
   Var /GLOBAL _desktop
+!ifndef NOCD
   ReadINIStr $0 $d\win32-loader.ini "installer" "default_desktop"
   ${If} $0 == ""
     StrCpy $_desktop "gnome"
   ${Else}
     StrCpy $_desktop $0
   ${Endif}
+!else
+  StrCpy $_desktop "gnome"
+!endif
 
   ; Prepare the dialog
   File /oname=$PLUGINSDIR\desktop.ini	templates/4_choices.ini
