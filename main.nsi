@@ -923,7 +923,7 @@ ${EndIf}
     DetailPrint "$(registering_bootmgr)"
     ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
     ${If} $0 == ""
-      nsExec::ExecToStack '"$bcdedit" /create /d "$(d-i)" /application bootsector'
+      nsExec::ExecToStack '"$bcdedit" /create /d "$(d-i_ntldr)" /application bootsector'
       Pop $0
       ${If} $0 != 0
         StrCpy $0 $bcdedit
