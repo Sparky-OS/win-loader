@@ -77,8 +77,9 @@ gettext English > /dev/null
 # translate:
 # IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 # (e.g. cp437) should be used in this string.  If you don't know which charset
-# applies, limit yourself to ascii.
-d_i=`gettext "Continue with install process"`
+# applies, limit yourself to ascii. $distro_name; will be "Debian" and $kernel_name;
+# will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+d_i=`gettext '$distro_name $kernel_name; - Continue with install process'`
 
 #  - Then we get a sample for bootmgr in the native charset.
 echo "${d_i}" | iconv -f utf-8 -t "${charset}" | langstring d-i
@@ -88,5 +89,5 @@ echo "${d_i}" | iconv -f utf-8 -t "${charset}" | langstring d-i
 (if echo "${d_i}" | iconv -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
   echo "${d_i}" | iconv -f utf-8 -t "${ntldr_charset}"
 else
-  echo "Continue with install process"
+  echo '$distro_name $kernel_name; - Continue with install process'
 fi) | langstring d-i_ntldr

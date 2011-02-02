@@ -15,6 +15,12 @@ NSIS_CFLAGS	+= -L/usr/i586-mingw32msvc/lib/nsis -lpluginapi
 endif
 
 MAKENSIS	:= makensis -V3
+
+# Distribution name (ASCII only, please)
+ifdef DISTRO_NAME
+MAKENSIS	+= -DDISTRO_NAME=$(DISTRO_NAME)
+endif
+
 # Standalone version : Not linked to a website with preseed.cfg
 ifdef STANDALONE
 MAKENSIS	+= -DNOCD=yes

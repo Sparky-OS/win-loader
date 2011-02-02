@@ -72,9 +72,16 @@ Var /GLOBAL preseed_cfg
 Var /GLOBAL proxy
 Var /GLOBAL arch
 Var /GLOBAL bcdedit
+Var /GLOBAL distro_name
 
 Function .onInit
   InitPluginsDir
+
+!ifdef DISTRO_NAME
+  StrCpy $distro_name ${DISTRO_NAME}
+!else
+  StrCpy $distro_name "Debian"
+!endif
 
   ; needed by: timezones, keymaps, languages
   File /oname=$PLUGINSDIR\maps.ini maps.ini
@@ -300,6 +307,12 @@ Function ShowKernel
   ; TODO: detect the CD architecture
   StrCpy $kernel linux
 !endif
+  Var /GLOBAL kernel_name
+  ${If} $kernel == "kfreebsd"
+    StrCpy $kernel_name "GNU/kFreeBSD"
+  ${ElseIf} $kernel == "linux"
+    StrCpy $kernel_name "GNU/Linux"
+  ${EndIf}
 FunctionEnd
 
 Function ShowGraphics
