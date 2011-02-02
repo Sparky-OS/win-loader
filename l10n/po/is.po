@@ -24,7 +24,7 @@ msgstr ""
 #.
 #: win32-loader.sh:36 win32-loader.c:39
 msgid "LANG_ENGLISH"
-msgstr "IS"
+msgstr "LANG_ICELANDIC"
 
 #. translate:
 #. This must be the string used by GNU iconv to represent the charset used
