@@ -122,7 +122,7 @@ msgstr "Greška: nema dovoljno slobodnog prostora. Prekidam instalaciju."
 
 #: win32-loader.c:78
 msgid "This program doesn't support Windows $windows_version yet."
-msgstr "Ovaj program ne podržava Windows $windowd_version još."
+msgstr "Ovaj program ne podržava Windows $windows_version još."
 
 #: win32-loader.c:79
 msgid ""
