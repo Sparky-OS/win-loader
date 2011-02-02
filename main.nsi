@@ -66,7 +66,9 @@ UninstPage instfiles
 ;--------------------------------
 
 Var /GLOBAL c
+!ifndef NOCD
 Var /GLOBAL d
+!endif
 Var /GLOBAL preseed_cmdline
 Var /GLOBAL preseed_cfg
 Var /GLOBAL proxy
