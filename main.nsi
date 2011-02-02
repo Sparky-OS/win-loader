@@ -884,7 +884,15 @@ ${EndIf}
        WriteIniStr "$c\boot.ini" "boot loader" "old_timeout_win32-loader" $0
     no_boot_ini_timeout:
     WriteIniStr "$c\boot.ini" "boot loader" "timeout" "30"
+!ifdef PXE
+   ${If} $pxe_mode == "true"
+    WriteIniStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr" '"$(pxe_ntldr)"'
+   ${Else}
+!endif ; PXE
     WriteIniStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr" '"$(d-i_ntldr)"'
+!ifdef PXE
+   ${EndIf} ; $pxe_mode == "true"
+!endif ; PXE
   ${Endif}
 
   ${If} $windows_boot_method == direct
@@ -938,7 +946,15 @@ ${EndIf}
     DetailPrint "$(registering_bootmgr)"
     ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
     ${If} $0 == ""
+!ifdef PXE
+     ${If} $pxe_mode == "true"
+      nsExec::ExecToStack '"$bcdedit" /create /d "$(pxe_ntldr)" /application bootsector'
+     ${Else}
+!endif ; PXE
       nsExec::ExecToStack '"$bcdedit" /create /d "$(d-i_ntldr)" /application bootsector'
+!ifdef PXE
+     ${EndIf} ; $pxe_mode == "true"
+!endif ; PXE
       Pop $0
       ${If} $0 != 0
         StrCpy $0 $bcdedit
