@@ -1,0 +1,194 @@
+Function ShowCustom
+; Gather all the missing information before ShowCustom is displayed
+
+!ifndef NOCD
+
+; ********************************************** Media-based install
+  ${If} $kernel == "linux"
+    Var /GLOBAL linux
+    Var /GLOBAL initrd
+    Var /GLOBAL g2ldr
+    Var /GLOBAL g2ldr_mbr
+    ReadINIStr $linux	$d\win32-loader.ini "installer" "$arch/$gtklinux"
+    ReadINIStr $initrd	$d\win32-loader.ini "installer" "$arch/$gtkinitrd"
+    ReadINIStr $g2ldr	$d\win32-loader.ini "grub" "g2ldr"
+    ReadINIStr $g2ldr_mbr	$d\win32-loader.ini "grub" "g2ldr.mbr"
+    StrCmp $linux		"" incomplete_ini
+    StrCmp $initrd	"" incomplete_ini
+    StrCmp $g2ldr		"" incomplete_ini
+    StrCmp $g2ldr_mbr	"" incomplete_ini
+    Goto ini_is_ok
+  ${ElseIf} $kernel == "kfreebsd"
+    # TODO: Check if kfreebsd will ever ship a media-based installed.
+    # If so, make sure it works here.
+    Goto incomplete_ini
+  ${EndIf}
+incomplete_ini:
+  MessageBox MB_OK|MB_ICONSTOP "$(error_incomplete_ini)"
+  Quit
+ini_is_ok:
+
+!endif
+
+; ********************************************** Initialise proxy (even when in network-less mode, for the sake of preseeding)
+  StrCpy $proxy ""
+  ReadRegDWORD $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyEnable
+  IntCmp $0 1 0 proxyless
+  ReadRegStr $0 HKCU "Software\Microsoft\Windows\CurrentVersion\Internet Settings" ProxyServer
+  StrCmp $0 "" proxyless
+  StrCpy $proxy "$0"
+proxyless:
+
+; ********************************************** preseed locale
+  ${If} $unsupported_language == false
+    ReadINIStr $0 $PLUGINSDIR\maps.ini "languages" "$LANGUAGE"
+    ReadRegStr $1 HKCU "Control Panel\International" iCountry
+    ReadINIStr $1 $PLUGINSDIR\maps.ini "countries" "$1"
+    ${If} $0 != ""
+      ${If} $1 != ""
+        StrCpy $0 "$0_$1"
+      ${Endif}
+      StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i debian-installer/locale string $0"
+    ${Endif}
+  ${Endif}
+
+; ********************************************** preseed domain
+  systeminfo::domain
+  Pop $2
+  Pop $0
+  ${If} $2 != 0
+    ${If} $0 != ""
+      StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i netcfg/get_domain string $0$\n\
+d-i netcfg/get_domain seen false"
+    ${Endif}
+  ${EndIf}
+
+; ********************************************** preseed timezone
+  ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation TimeZoneKeyName
+  ${If} $0 == ""
+    ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Control\TimeZoneInformation StandardName
+  ${Endif}
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "timezones" "$0"
+  ${If} $0 != ""
+    StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i time/zone string $0$\n\
+d-i time/zone seen false"
+  ${Endif}
+
+; ********************************************** preseed keymap
+  systeminfo::keyboard_layout
+  Pop $0
+  ; lower word is the locale identifier (higher word is a handler to the actual layout)
+  IntOp $0 $0 & 0x0000FFFF
+  IntFmt $0 "0x%04X" $0
+  ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
+  ; FIXME: do we need to support non-AT keyboards here?
+  ${If} $0 != ""
+    ${If} $expert == true
+      MessageBox MB_YESNO|MB_ICONQUESTION $(detected_keyboard_is) IDNO keyboard_bad_guess
+      StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i console-keymaps-at/keymap select $0$\n\
+d-i console-keymaps-at/keymap seen true"
+      Goto keyboard_end
+keyboard_bad_guess:
+      MessageBox MB_OK $(keyboard_bug_report)
+keyboard_end:
+    ${Else}
+      StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i console-keymaps-at/keymap select $0$\n\
+d-i console-keymaps-at/keymap seen false"
+    ${Endif}
+  ${Endif}
+
+; ********************************************** preseed hostname
+  systeminfo::hostname
+  Pop $2
+  Pop $0
+  ${If} $2 != 0
+    ${If} $0 != ""
+      StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i netcfg/get_hostname string $0$\n\
+d-i netcfg/get_hostname seen false"
+    ${Endif}
+  ${EndIf}
+
+; ********************************************** preseed priority
+  ${If} $expert == true
+    StrCpy $preseed_cmdline "$preseed_cmdline priority=low"
+  ${Endif}
+
+; ********************************************** preseed user-fullname
+  systeminfo::username
+  Pop $0
+  ${If} $0 != ""
+    StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i passwd/user-fullname string $0$\n\
+d-i passwd/user-fullname seen false"
+  ${Endif}
+
+!ifdef NETWORK_BASE_URL
+; ********************************************** if ${NETWORK_BASE_URL} provides a preseed.cfg, use it
+  Push true
+  Push "preseed.cfg"
+  Push "$PLUGINSDIR"
+  Push "${NETWORK_BASE_URL}"
+  Call Download
+  ${If} $0 == "success"
+    StrCpy $preseed_cfg "$preseed_cfg$\n$\n"
+    ClearErrors
+    FileOpen $0 $PLUGINSDIR\preseed.cfg r
+network_preseed_loop:
+    FileRead $0 $1
+    IfErrors +3
+    StrCpy $preseed_cfg "\
+$preseed_cfg\
+$1"
+    Goto network_preseed_loop
+    FileClose $0
+    StrCpy $preseed_cfg "$preseed_cfg$\n"
+  ${Endif}
+!endif
+
+; ********************************************** Display customisation dialog now
+  ${If} $expert == true
+    File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" $(custom1)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" $(custom2)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" $(custom3)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" "Linux cmdline:"
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" $(custom5)
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
+!ifdef NOCD
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
+!endif
+    WriteINIStr $PLUGINSDIR\custom.ini "Field 9" "State" "$preseed_cmdline"
+    InstallOptions::dialog $PLUGINSDIR\custom.ini
+    ReadINIStr $proxy		$PLUGINSDIR\custom.ini "Field 6" "State"
+!ifdef NOCD
+    ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
+!endif
+    ReadINIStr $preseed_cmdline	$PLUGINSDIR\custom.ini "Field 9" "State"
+  ${Endif}
+
+; do this inmediately after custom.ini, because proxy settings can be
+; overriden there
+; ********************************************** preseed proxy
+  ${If} $proxy == ""
+    StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i mirror/http/proxy seen true$\n"
+  ${Else}
+    StrCpy $preseed_cfg "\
+$preseed_cfg$\n\
+d-i mirror/http/proxy string http://$proxy/$\n"
+  ${Endif}
+FunctionEnd
