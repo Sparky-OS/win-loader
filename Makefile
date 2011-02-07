@@ -21,8 +21,8 @@ MAKENSIS	:= makensis -V3
 MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=`date +%Y.%m.%d.%H%M`
 
 # Distribution name (ASCII only, please)
-ifdef DISTRO_NAME
-MAKENSIS	+= -DDISTRO_NAME=$(DISTRO_NAME)
+ifdef TARGET_DISTRO
+MAKENSIS	+= -DTARGET_DISTRO=$(TARGET_DISTRO)
 endif
 
 # Standalone version : Not linked to a website with preseed.cfg

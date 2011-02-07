@@ -1,10 +1,10 @@
 Function .onInit
   InitPluginsDir
 
-!ifdef DISTRO_NAME
-  StrCpy $distro_name ${DISTRO_NAME}
+!ifdef TARGET_DISTRO
+  StrCpy $target_distro "${TARGET_DISTRO}"
 !else
-  StrCpy $distro_name "Debian"
+  StrCpy $target_distro "Debian"
 !endif
 
   ; needed by: timezones, keymaps, languages

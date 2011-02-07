@@ -69,7 +69,7 @@ Var /GLOBAL preseed_cfg
 Var /GLOBAL proxy
 Var /GLOBAL arch
 Var /GLOBAL bcdedit
-Var /GLOBAL distro_name
+Var /GLOBAL target_distro
 
 ;--------------------------------
 ; Installer
