@@ -33,9 +33,9 @@ Function ShowBranch
     ${EndIf}
   ${Else}
     ${If} $kernel == "linux"
-      StrCpy $base_url "http://ftp.se.debian.org/debian/dists/stable/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
+      StrCpy $base_url "http://cdn.debian.net/debian/dists/stable/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
-      StrCpy $base_url "http://ftp.se.debian.org/debian/dists/stable/main/installer-kfreebsd-$arch/current/images/netboot/$gtkdebian-installer/kfreebsd-$arch"
+      StrCpy $base_url "http://cdn.debian.net/debian/dists/stable/main/installer-kfreebsd-$arch/current/images/netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${EndIf}
   ${Endif}
 FunctionEnd
