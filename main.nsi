@@ -20,11 +20,7 @@ SetCompressor /SOLID lzma
 
 !include l10n/templates/all.nsh
 
-Name $(program_name)
-Icon "swirl.ico"
-UninstallIcon "swirl.ico"
-XPStyle on
-OutFile "win32-loader.exe"
+!include branding.nsi
 
 ; Needed to disable idiotic compatibility mode where Vista identifies itself
 ; as XP.  Otherwise useless (admin privilege is the default for installers).

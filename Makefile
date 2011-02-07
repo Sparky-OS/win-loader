@@ -14,7 +14,11 @@ else
 NSIS_CFLAGS	+= -L/usr/i586-mingw32msvc/lib/nsis -lpluginapi
 endif
 
+# Standard makensis call
 MAKENSIS	:= makensis -V3
+
+# Add to it some version'ing and date
+MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=`date +%Y.%m.%d.%H%M`
 
 # Distribution name (ASCII only, please)
 ifdef DISTRO_NAME
@@ -24,21 +28,30 @@ endif
 # Standalone version : Not linked to a website with preseed.cfg
 ifdef STANDALONE
 MAKENSIS	+= -DNOCD=yes
+OPTIONS_TXT	+= +net
 endif
 
 # Network version : Linked to a website with preseed.cfg
 ifdef NETWORK_BASE_URL
 MAKENSIS	+= -DNETWORK_BASE_URL=$(NETWORK_BASE_URL) -DNOCD=yes
+OPTIONS_TXT	+= +url
 endif
 
 # PXE version (which is standalone too)
 ifdef PXE
 MAKENSIS	+= -DPXE=yes -DNOCD=yes
+OPTIONS_TXT	+= +pxe
 endif
 
 # Disabling the kFreeBSD download
 ifndef NO_KFREEBSD
 MAKENSIS	+= -DKFREEBSD=yes
+else
+OPTIONS_TXT	+= -kbsd
+endif
+
+ifdef OPTIONS_TXT
+MAKENSIS	+= -DOPTIONS_TXT="$(OPTIONS_TXT)"
 endif
 
 # hard disk
