@@ -130,6 +130,7 @@ main (int argc, char **argv)
   langstring ("custom5",			_("Base URL for netboot images (linux and initrd.gz):"));
   langstring ("error",				_("Error"));
   langstring ("error_copyfiles",		_("Error: failed to copy $0 to $1."));
+  langstring ("checksum_mismatch",		_("Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."));
   langstring ("generating",			_("Generating $0"));
   langstring ("appending_preseeding",		_("Appending preseeding information to $0"));
   langstring ("error_exec",			_("Error: unable to run $0."));

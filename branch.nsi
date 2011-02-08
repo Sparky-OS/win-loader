@@ -14,6 +14,7 @@ Function ShowBranch
   ${Endif}
 
 ; ********************************************** Initialise base_url
+  Var /GLOBAL base_url_images
   Var /GLOBAL base_url
   ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
   ${If} $di_branch == "daily"
@@ -24,18 +25,23 @@ Function ShowBranch
     ; See http://svn.debian.org/viewsvn/d-i/trunk/scripts/daily-build-aggregator for the canonical list
     ${If} $kernel == "linux"
       ${If} $arch == "i386"
-        StrCpy $base_url "http://people.debian.org/~joeyh/d-i/images/daily/netboot/$gtkdebian-installer/$arch"
+        StrCpy $base_url_images "http://people.debian.org/~joeyh/d-i/images/daily/"
+        StrCpy $base_url "netboot/$gtkdebian-installer/$arch"
       ${Else} ; We have only two arches, then Else means $arch == "amd64"
-        StrCpy $base_url "http://d-i.debian.org/daily-images/$arch/daily/netboot/$gtkdebian-installer/$arch"
+        StrCpy $base_url_images "http://d-i.debian.org/daily-images/$arch/daily/"
+        StrCpy $base_url "netboot/$gtkdebian-installer/$arch"
       ${Endif}
     ${ElseIf} $kernel == "kfreebsd"
-      StrCpy $base_url "http://d-i.debian.org/daily-images/kfreebsd-$arch/daily/netboot/debian-installer/kfreebsd-$arch/"
+      StrCpy $base_url_images "http://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
+      StrCpy $base_url "netboot/debian-installer/kfreebsd-$arch"
     ${EndIf}
   ${Else}
     ${If} $kernel == "linux"
-      StrCpy $base_url "http://cdn.debian.net/debian/dists/stable/main/installer-$arch/current/images/netboot/$gtkdebian-installer/$arch"
+      StrCpy $base_url_images "http://cdn.debian.net/debian/dists/stable/main/installer-$arch/current/images/"
+      StrCpy $base_url "netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
-      StrCpy $base_url "http://cdn.debian.net/debian/dists/stable/main/installer-kfreebsd-$arch/current/images/netboot/$gtkdebian-installer/kfreebsd-$arch"
+      StrCpy $base_url_images "http://cdn.debian.net/debian/dists/stable/main/installer-kfreebsd-$arch/current/images/"
+      StrCpy $base_url "netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${EndIf}
   ${Endif}
 FunctionEnd

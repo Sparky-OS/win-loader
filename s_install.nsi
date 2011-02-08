@@ -36,27 +36,53 @@ Section "Installer Loader"
 !ifdef PXE
  ${If} $pxe_mode == "false"
 !endif ;PXE
+  ; Download the MD5SUMS file
+  Push "false"
+  Push "false"
+  Push "MD5SUMS"
+  Push "$INSTDIR"
+  Push "$base_url_images"
+  Call Download
+
   ${If} $kernel == "linux"
+    Push "$INSTDIR\MD5SUMS"
+    Push "$base_url/linux"
+    Call Get_MD5_ref
+    ; MD5 is on stack
     Push "false"
     Push "linux"
     Push "$INSTDIR"
-    Push "$base_url"
+    Push "$base_url_images$base_url"
     Call Download
+    
+    Push "$INSTDIR\MD5SUMS"
+    Push "$base_url/initrd.gz"
+    Call Get_MD5_ref
+    ; MD5 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url"
+    Push "$base_url_images$base_url"
     Call Download
   ${ElseIf} $kernel == "kfreebsd"
+    Push "$INSTDIR\MD5SUMS"
+    Push "$base_url/kfreebsd.gz"
+    Call Get_MD5_ref
+    ; MD5 is on stack
     Push "false"
     Push "kfreebsd.gz"
     Push "$INSTDIR"
-    Push "$base_url"
+    Push "$base_url_images$base_url"
     Call Download
+
+    Push "$INSTDIR\MD5SUMS"
+    Push "$base_url/initrd.gz"
+    Call Get_MD5_ref
+    ; MD5 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url"
+    Push "$base_url_images$base_url"
     Call Download
   ${EndIf}
 !ifdef PXE

@@ -7,6 +7,8 @@ Function Download
     Pop $2
     ; Allow it to fail?
     Pop $3
+    ; Check its md5sum ?
+    Pop $4
     Var /GLOBAL nsisdl_proxy
     ${If} $proxy == ""
       StrCpy $nsisdl_proxy /NOIEPROXY
@@ -24,5 +26,40 @@ Function Download
         Quit
       ${Endif}
     ${EndIf}
-    StrCpy $0 "$R0"
+
+    ${If} $4 != "false"
+      ; Compute md5sum of downloaded file, put it as $1
+      VPatch::GetFileMD5 $1\$2
+      Pop $1
+      ${If} $4 != $1
+       MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
+       Quit
+      ${EndIf}
+    ${EndIf}
+
+    Push "$R0"
+FunctionEnd
+
+Function Get_MD5_ref
+    ; Url we are looking for
+    Pop $0
+    ; MD5SUMS file
+    Pop $1
+    ClearErrors
+    FileOpen $3 "$INSTDIR\MD5SUMS" r
+    IfErrors done ; Make sure it's readable
+  readline:
+    FileRead $3 $4
+    IfErrors endoffile
+    StrCpy $5 $4 -1 36 ; md5sum + spaces and ./, -1 to get rid of newline
+    ; Compare what we want with what we have
+    StrCmpS $0 $5 0 readline
+    StrCpy $0 $4 32 ; Copying the found md5sum to $0
+    Push $0
+    FileClose $3
+    Goto done
+  endoffile:
+    Push "false"
+    FileClose $3
+  done:
 FunctionEnd
