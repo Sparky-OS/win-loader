@@ -77,9 +77,9 @@ gettext English > /dev/null
 # translate:
 # IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 # (e.g. cp437) should be used in this string.  If you don't know which charset
-# applies, limit yourself to ascii. $distro_name; will be "Debian" and $kernel_name;
+# applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 # will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
-d_i=`gettext '$distro_name $kernel_name; - Continue with install process'`
+d_i=`gettext '$target_distro $kernel_name - Continue with install process'`
 
 # translate:
 # IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -96,7 +96,7 @@ echo "${pxe}" | iconv -f utf-8 -t "${charset}" | langstring pxe
 (if echo "${d_i}" | iconv -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
   echo "${d_i}" | iconv -f utf-8 -t "${ntldr_charset}"
 else
-  echo '$distro_name $kernel_name; - Continue with install process'
+  echo '$target_distro $kernel_name - Continue with install process'
 fi) | langstring d-i_ntldr
 
 (if echo "${pxe}" | iconv -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
