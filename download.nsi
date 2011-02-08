@@ -20,7 +20,7 @@ Function Download
     Pop $R0
     ${If} $R0 != "success"
       ${If} $R0 != "cancel"
-         MessageBox MB_OK|MB_ICONSTOP "$(error): $R0"
+         MessageBox MB_OK|MB_ICONSTOP "$(error): $0/$2 $R0"
       ${EndIf}
       ${If} $3 == "false"
         Quit
