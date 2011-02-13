@@ -11,10 +11,12 @@ W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
 override_dh_auto_build:
 	# Build the standalone version
-	STANDALONE=yes dh_auto_build
-	mv win32-loader.exe win32-loader-standalone.exe
+	STANDALONE=yes \
+		OUTFILE_NAME=win32-loader-standalone.exe \
+		dh_auto_build
 	# Build the cdrom version
-	dh_auto_build
+	OUTFILE_NAME=win32-loader.exe \
+		dh_auto_build
 
 override_dh_auto_clean:
 	dh_auto_clean

@@ -20,6 +20,10 @@ MAKENSIS	:= makensis -V3
 # Add to it some version'ing and date
 MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=`date +%Y.%m.%d.%H%M`
 
+ifdef OUTFILE_NAME
+MAKENSIS	+= -D_OUTFILE_NAME=$(OUTFILE_NAME)
+endif
+
 # Distribution name (ASCII only, please)
 ifdef TARGET_DISTRO
 MAKENSIS	+= -DTARGET_DISTRO=$(TARGET_DISTRO)
@@ -99,7 +103,11 @@ win32-loader.exe: main.nsi maps.ini \
 		swirl.ico license loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
+ifndef OUTFILE_NAME
 	du -h win32-loader.exe
+else
+	du -h $(OUTFILE_NAME)
+endif
 
 license: license.in debian/changelog
 	sed -e "s/@VERSION@/$(VERSION)/g" < $< > $@
