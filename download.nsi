@@ -46,7 +46,7 @@ Function Get_MD5_ref
     ; MD5SUMS file
     Pop $1
     ClearErrors
-    FileOpen $3 "$INSTDIR\MD5SUMS" r
+    FileOpen $3 "$PLUGINSDIR\MD5SUMS" r
     IfErrors done ; Make sure it's readable
   readline:
     FileRead $3 $4

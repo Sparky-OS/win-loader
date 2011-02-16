@@ -40,12 +40,12 @@ Section "Installer Loader"
   Push "false"
   Push "false"
   Push "MD5SUMS"
-  Push "$INSTDIR"
+  Push "$PLUGINSDIR"
   Push "$base_url_images"
   Call Download
 
   ${If} $kernel == "linux"
-    Push "$INSTDIR\MD5SUMS"
+    Push "$PLUGINSDIR\MD5SUMS"
     Push "$base_url/linux"
     Call Get_MD5_ref
     ; MD5 is on stack
@@ -55,7 +55,7 @@ Section "Installer Loader"
     Push "$base_url_images$base_url"
     Call Download
     
-    Push "$INSTDIR\MD5SUMS"
+    Push "$PLUGINSDIR\MD5SUMS"
     Push "$base_url/initrd.gz"
     Call Get_MD5_ref
     ; MD5 is on stack
@@ -65,7 +65,7 @@ Section "Installer Loader"
     Push "$base_url_images$base_url"
     Call Download
   ${ElseIf} $kernel == "kfreebsd"
-    Push "$INSTDIR\MD5SUMS"
+    Push "$PLUGINSDIR\MD5SUMS"
     Push "$base_url/kfreebsd.gz"
     Call Get_MD5_ref
     ; MD5 is on stack
@@ -75,7 +75,7 @@ Section "Installer Loader"
     Push "$base_url_images$base_url"
     Call Download
 
-    Push "$INSTDIR\MD5SUMS"
+    Push "$PLUGINSDIR\MD5SUMS"
     Push "$base_url/initrd.gz"
     Call Get_MD5_ref
     ; MD5 is on stack
