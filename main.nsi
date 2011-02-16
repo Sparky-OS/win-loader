@@ -38,13 +38,8 @@ RequestExecutionLevel admin
 
 ;--------------------------------
 
-LicenseData $(license)
-
-;--------------------------------
-
 ; Pages
 
-Page license
 Page custom ShowExpert ; expert.nsi
 Page custom ShowRescue ; rescue.nsi
 Page custom ShowKernel ; kernel.nsi

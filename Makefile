@@ -100,7 +100,7 @@ win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
 		pxe.target \
-		swirl.ico license loadlin.pif loadlin.exe g2ldr g2ldr.mbr
+		swirl.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
 ifndef OUTFILE_NAME
@@ -108,9 +108,6 @@ ifndef OUTFILE_NAME
 else
 	du -h $(OUTFILE_NAME)
 endif
-
-license: license.in debian/changelog
-	sed -e "s/@VERSION@/$(VERSION)/g" < $< > $@
 
 plugins/cpuid/test64.dll: plugins/cpuid/cpuid.c plugins/cpuid/plugin.c
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
@@ -190,7 +187,7 @@ netboot/stable/% netboot/daily/%: %
 clean:
 	$(MAKE) -C l10n clean
 	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe \
-		*.iso *~ */*~ license core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe
+		*.iso *~ */*~ core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe
 
 distclean: clean
 	rm -rf netboot

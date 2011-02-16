@@ -1,6 +1,5 @@
 Function ShowExpert
-; Do initialisations as early as possible, but not before license has been
-; accepted unless absolutely necessary.
+; Do initialisations as early as possible
 
 ; ********************************************** Initialise $preseed_cmdline
   StrCpy $preseed_cmdline " "
