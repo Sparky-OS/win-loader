@@ -10,10 +10,12 @@ W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 	dh $@
 
 override_dh_auto_build:
+ifeq ($(BYHAND),yes)
 	# Build the standalone version
 	STANDALONE=yes \
 		OUTFILE_NAME=win32-loader-standalone.exe \
 		dh_auto_build
+endif
 	# Build the cdrom version
 	OUTFILE_NAME=win32-loader.exe \
 		dh_auto_build
