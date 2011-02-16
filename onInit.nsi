@@ -43,6 +43,8 @@ final system."
 stage of the installer, English will be used for now.  On the second \
 (and last) stage of the install process, you will be offered a much \
 wider choice, where your language is more likely to be present."
+    ; Test in Windows 7 shows a somehow random choice, force it to LANG_ENGLISH.
+    StrCpy $LANGUAGE ${LANG_ENGLISH}
   ${Else}
     StrCpy $unsupported_language false
   ${Endif}
