@@ -134,6 +134,7 @@ main (int argc, char **argv)
   langstring ("custom5",			_("Base URL for netboot images (linux and initrd.gz):"));
   langstring ("error",				_("Error"));
   langstring ("error_copyfiles",		_("Error: failed to copy $0 to $1."));
+  langstring ("unsecure_release",		_("The downloaded Release file cannot be trusted! Aborting."));
 /*
   translate:
   This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the

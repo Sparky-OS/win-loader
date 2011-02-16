@@ -11,6 +11,7 @@ Build-Depends:
  grub-pc (>= 1.99~rc1-3),
  loadlin (>= 1.6c.really1.6c.nobin-1~),
  locales-all,
+ gpgv-win32, debian-archive-keyring,
  cpio-win32 (>= 2.11-4), gzip-win32
 Standards-Version: 3.9.1.0
 Vcs-Browser: http://git.debian.org/?p=d-i/win32-loader.git

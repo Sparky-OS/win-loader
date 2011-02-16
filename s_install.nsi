@@ -62,53 +62,79 @@ Section "Installer Loader"
 !ifdef PXE
  ${If} $pxe_mode == "false"
 !endif ;PXE
+  ${If} $base_path_md5 != ""
+    ; Download the Release and Release.gpg files
+    Push "false"
+    Push "false"
+    Push "Release"
+    Push "$PLUGINSDIR"
+    Push "$base_url"
+    Call Download
+    Push "false"
+    Push "false"
+    Push "Release.gpg"
+    Push "$PLUGINSDIR"
+    Push "$base_url"
+    Call Download
+
+    ; Now check gpg validity of this
+    File /oname=$PLUGINSDIR\gpgv.exe /usr/share/win32/gpgv.exe
+    File /oname=$PLUGINSDIR\debian-archive-keyring.gpg /usr/share/keyrings/debian-archive-keyring.gpg
+    nsExec::Exec '"$PLUGINSDIR\gpgv.exe" --keyring $PLUGINSDIR\debian-archive-keyring.gpg $PLUGINSDIR\Release.gpg $PLUGINSDIR\Release'
+    Pop $0
+    ${If} $0 != 0
+      MessageBox MB_OK|MB_ICONSTOP "$(unsecure_release)"
+      Quit
+    ${EndIf}
+  ${EndIf}
+
   ; Download the MD5SUMS file
   Push "false"
   Push "false"
   Push "MD5SUMS"
   Push "$PLUGINSDIR"
-  Push "$base_url_images"
+  Push "$base_url$base_path_md5"
   Call Download
 
   ${If} $kernel == "linux"
     Push "$PLUGINSDIR\MD5SUMS"
-    Push "$base_url/linux"
+    Push "$base_path_images/linux"
     Call Get_MD5_ref
     ; MD5 is on stack
     Push "false"
     Push "linux"
     Push "$INSTDIR"
-    Push "$base_url_images$base_url"
+    Push "$base_url$base_path_md5$base_path_images"
     Call Download
     
     Push "$PLUGINSDIR\MD5SUMS"
-    Push "$base_url/initrd.gz"
+    Push "$base_path_images/initrd.gz"
     Call Get_MD5_ref
     ; MD5 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url_images$base_url"
+    Push "$base_url$base_path_md5$base_path_images"
     Call Download
   ${ElseIf} $kernel == "kfreebsd"
     Push "$PLUGINSDIR\MD5SUMS"
-    Push "$base_url/kfreebsd.gz"
+    Push "$base_path_images/kfreebsd.gz"
     Call Get_MD5_ref
     ; MD5 is on stack
     Push "false"
     Push "kfreebsd.gz"
     Push "$INSTDIR"
-    Push "$base_url_images$base_url"
+    Push "$base_url$base_path_md5$base_path_images"
     Call Download
 
     Push "$PLUGINSDIR\MD5SUMS"
-    Push "$base_url/initrd.gz"
+    Push "$base_path_images/initrd.gz"
     Call Get_MD5_ref
     ; MD5 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url_images$base_url"
+    Push "$base_url$base_path_md5$base_path_images"
     Call Download
   ${EndIf}
 !ifdef PXE
