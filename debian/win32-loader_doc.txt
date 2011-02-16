@@ -27,5 +27,11 @@ runtime analysis and user prompting.
 When win32-loader.exe is uninstalled, it removes the Debian-Installer image
 and kernel and restores the Windows bootloader settings.
 
+== Embedded software ==
+
+win32-loader in its standalone flavour embeds various files and win32
+executables from the following Debian packages:
+
+@PACKAGES_LIST@
 == Authors and licensing ==
 
