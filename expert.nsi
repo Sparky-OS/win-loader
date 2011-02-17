@@ -104,6 +104,21 @@ windows_version_ok:
     systeminfo::find_system_partition
     Pop $c
     ${If} $c == failed
+      ${If} $windows_boot_method == bootmgr
+	; If we are under Vista or Win7, try reading the partition from {current} entry in bcdedit
+        nsExec::ExecToStack '"$bcdedit" /enum {current}'
+	Pop $0
+        ${If} $0 != 0
+          StrCpy $0 '"$bcdedit" /enum {current}'
+          MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
+        ${EndIf}
+        ; The whole output of bcdedit is on stack now. Search for partition=??
+        string::bcdedit_extract_partition
+        Pop $c
+        ${If} $c != "error"
+          Goto c_is_initialized
+	${EndIf}
+      ${EndIf}
       ${GetRoot} $WINDIR $c
       MessageBox MB_OK|MB_ICONEXCLAMATION $(cant_find_system_partition)
     ${Endif}
