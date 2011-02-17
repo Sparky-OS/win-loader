@@ -135,7 +135,13 @@ main (int argc, char **argv)
   langstring ("custom5",			_("Base URL for netboot images (linux and initrd.gz):"));
   langstring ("error",				_("Error"));
   langstring ("error_copyfiles",		_("Error: failed to copy $0 to $1."));
+/*
+  translate:
+  This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
+  computed checksum and $4 is the expected one.
+ */
   langstring ("checksum_mismatch",		_("Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."));
+  langstring ("computing_checksum",		_("Computing checksum for $2"));
   langstring ("generating",			_("Generating $0"));
   langstring ("appending_preseeding",		_("Appending preseeding information to $0"));
   langstring ("error_exec",			_("Error: unable to run $0."));

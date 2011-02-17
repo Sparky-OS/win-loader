@@ -28,6 +28,8 @@ Function Download
     ${EndIf}
 
     ${If} $4 != "false"
+      ; $2 goes in the text
+      DetailPrint "$(computing_checksum)"
       ; Compute md5sum of downloaded file, put it as $1
       VPatch::GetFileMD5 $1\$2
       Pop $1
@@ -35,6 +37,7 @@ Function Download
        MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
        Quit
       ${EndIf}
+      DetailPrint "$4 = $1"
     ${EndIf}
 
     Push "$R0"
