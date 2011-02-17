@@ -68,7 +68,12 @@ main (int argc, char **argv)
   printf ("LoadLanguageFile \"${NSISDIR}\\Contrib\\Language files\\%s\"\n", _("English.nlf"));
   printf ("LicenseLangString license ${%s} license\n", nsis_lang);
 
-  langstring ("program_name",			_("Installer Loader"));
+/*
+  translate:
+  This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
+  Ampersands (&) are _forbidden_ in that string.
+ */
+  langstring ("program_name",			_("Debian-Installer loader"));
   langstring ("error_missing_ini",		_("Cannot find win32-loader.ini."));
   langstring ("error_incomplete_ini",		_("win32-loader.ini is incomplete.  Contact the provider of this medium."));
   langstring ("detected_keyboard_is",		_("This program has detected that your keyboard type is \"$0\".  Is this correct?"));

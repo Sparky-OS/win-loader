@@ -1,6 +1,6 @@
 !ifndef _EN_PROGRAM_NAME
  # Keep that in sync that with l10/win32-loader.c
- !define _EN_PROGRAM_NAME "Installer loader"
+ !define _EN_PROGRAM_NAME "Debian-Installer loader"
 !endif
 !ifndef _PRODUCT_NAME
  !define _PRODUCT_NAME "win32-loader"
@@ -19,7 +19,8 @@
 
 XPStyle on
 
-Name ${_EN_PROGRAM_NAME}
+Name $(program_name)
+Caption $(program_name)
 Icon ${_PROGRAM_ICON}
 UninstallIcon ${_PROGRAM_ICON}
 OutFile ${_OUTFILE_NAME}
