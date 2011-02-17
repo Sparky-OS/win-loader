@@ -11,6 +11,9 @@
 !ifndef _PROGRAM_ICON
  !define _PROGRAM_ICON "swirl.ico"
 !endif
+!ifndef _COMPANY_NAME
+ !define _COMPANY_NAME "The Debian Project"
+!endif
 !ifdef OPTIONS_TXT
  !define VERSION_OPT "${VERSION} (${OPTIONS_TXT})"
 !else
@@ -27,7 +30,7 @@ OutFile ${_OUTFILE_NAME}
 
 VIProductVersion "${4DIGITS_DATE}"
 
-VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "The Debian Project"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "${_COMPANY_NAME}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "${_EN_PROGRAM_NAME}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "${_PRODUCT_NAME}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION_OPT}"

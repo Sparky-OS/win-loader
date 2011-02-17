@@ -24,6 +24,11 @@ ifdef OUTFILE_NAME
 MAKENSIS	+= -D_OUTFILE_NAME=$(OUTFILE_NAME)
 endif
 
+# Distributor/Company name (defaults to "The Debian Project")
+ifdef COMPANY_NAME
+MAKENSIS	+= -D_COMPANY_NAME=$(COMPANY_NAME)
+endif
+
 # Distribution name (ASCII only, please)
 ifdef TARGET_DISTRO
 MAKENSIS	+= -DTARGET_DISTRO=$(TARGET_DISTRO)
