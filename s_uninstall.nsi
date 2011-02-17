@@ -16,7 +16,7 @@ Section "Uninstall"
 
   ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
   ${If} $0 != ""
-    ; FIXME: this blurb is duplicated in the installer.  keep in sync!
+    ; FIXME: this blurb is duplicated in the installer (expert.nsi).  keep in sync!
     GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
     ${If} $bcdedit == ""
       StrCpy $bcdedit $SYSDIR\bcdedit.exe

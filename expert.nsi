@@ -61,6 +61,11 @@ readme_file_not_found:
   ${Endif}
   ${If} ${AtMostWin7}
     StrCpy $windows_boot_method bootmgr
+    ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
+    GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
+    ${If} $bcdedit == ""
+      StrCpy $bcdedit $SYSDIR\bcdedit.exe
+    ${Endif}
     Goto windows_version_ok
   ${Endif}
   Var /GLOBAL windows_version

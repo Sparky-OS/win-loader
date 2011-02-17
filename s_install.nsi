@@ -286,12 +286,6 @@ ${EndIf}
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
 !endif
-    ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
-    GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
-    ${If} $bcdedit == ""
-      StrCpy $bcdedit $SYSDIR\bcdedit.exe
-    ${Endif}
-
     DetailPrint "$(registering_bootmgr)"
     ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
     ${If} $0 == ""
