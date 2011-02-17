@@ -8,15 +8,15 @@ Section "Installer Loader"
   ; we want to do is preparing the Uninstaller (so that in case something went
   ; wrong, our half-install can be undone).
   WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayName" $(program_name)
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "UninstallString" "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayName" $(program_name)
+  WriteRegStr HKLM "${REGSTR_UNINST}" "UninstallString" "$INSTDIR\Uninstall.exe"
   ; Add more branding (see branding.nsi)
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "Publisher" "${_COMPANY_NAME}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayIcon" "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "NoModify" "1"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "NoRepair" "1"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "DisplayVersion" "${VERSION_OPT}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader" "ProductID" "${4DIGITS_DATE}"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "Publisher" "${_COMPANY_NAME}"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayIcon" "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "NoModify" "1"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "NoRepair" "1"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayVersion" "${VERSION_OPT}"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "ProductID" "${4DIGITS_DATE}"
   
 
 !ifndef NOCD
@@ -293,7 +293,7 @@ ${EndIf}
     ${Endif}
 
     DetailPrint "$(registering_bootmgr)"
-    ReadRegStr $0 HKLM "Software\Debian\Debian-Installer Loader" "bootmgr"
+    ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
     ${If} $0 == ""
 !ifdef PXE
      ${If} $pxe_mode == "true"
@@ -319,7 +319,7 @@ ${EndIf}
       ${Endif}
       ; $0 holds the boot id.  Write it down, both for installer idempotency
       ; and for uninstaller.
-      WriteRegStr HKLM "Software\Debian\Debian-Installer Loader" "bootmgr" "$0"
+      WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$0"
     ${Endif}
     nsExec::Exec '"$bcdedit" /set $0 device boot'
     nsExec::Exec '"$bcdedit" /set $0 path \g2ldr.mbr'

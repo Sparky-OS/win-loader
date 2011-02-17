@@ -37,3 +37,6 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION_OPT}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "GPLv3+"
 
 BrandingText "${_PRODUCT_NAME} ${VERSION_OPT}"
+
+!define REGSTR_UNINST "Software\Microsoft\Windows\CurrentVersion\Uninstall\Debian-Installer Loader"
+!define REGSTR_WIN32 "Software\Debian\Debian-Installer Loader"

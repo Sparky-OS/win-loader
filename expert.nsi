@@ -93,7 +93,7 @@ windows_version_ok:
   ${Endif}
 c_is_initialized:
   ; For the uninstaller
-  WriteRegStr HKLM "Software\Debian\Debian-Installer Loader" "system_drive" "$c"
+  WriteRegStr HKLM "${REGSTR_WIN32}" "system_drive" "$c"
 
   StrCpy $INSTDIR "$c\win32-loader"
   SetOutPath $INSTDIR
