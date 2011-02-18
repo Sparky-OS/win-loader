@@ -15,7 +15,7 @@ override_dh_auto_build:
 ifeq ($(BYHAND),yes)
 	# Build the standalone version
 	STANDALONE=yes \
-		OUTFILE_NAME=win32-loader-standalone.exe \
+		OUTFILE_NAME=$(W32_BYHAND_NAME).exe \
 		dh_auto_build
 	
 	# Prepare the README file
@@ -33,7 +33,7 @@ override_dh_auto_clean:
 override_dh_builddeb:
 	dh_builddeb
 ifeq ($(BYHAND),yes)
-	cp win32-loader-standalone.exe ../$(W32_BYHAND_NAME).exe
+	cp $(W32_BYHAND_NAME).exe ../
 	dpkg-distaddfile $(W32_BYHAND_NAME).exe byhand -
 
 	cp $(W32_BYHAND_NAME).txt ../
