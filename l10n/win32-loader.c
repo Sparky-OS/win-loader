@@ -66,7 +66,6 @@ main (int argc, char **argv)
   /usr/share/nsis/Contrib/Language files/
  */
   printf ("LoadLanguageFile \"${NSISDIR}\\Contrib\\Language files\\%s\"\n", _("English.nlf"));
-  printf ("LicenseLangString license ${%s} license\n", nsis_lang);
 
 /*
   translate:
