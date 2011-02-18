@@ -28,7 +28,8 @@ endif
 
 override_dh_auto_clean:
 	dh_auto_clean
-	rm -f win32-loader-standalone.exe
+	rm -f $(W32_BYHAND_NAME).exe
+	rm -f $(W32_BYHAND_NAME).txt
 
 override_dh_builddeb:
 	dh_builddeb
