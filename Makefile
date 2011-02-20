@@ -104,6 +104,7 @@ endif
 win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
+		plugins/sha1sum.dll \
 		pxe.target \
 		swirl.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	$(MAKE) -C l10n
@@ -123,6 +124,10 @@ plugins/systeminfo/systeminfo.dll: plugins/systeminfo/systeminfo.c
 	$(NSIS_STRIP) $@
 
 plugins/string.dll: plugins/string.c
+	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
+	$(NSIS_STRIP) $@
+
+plugins/sha1sum.dll: plugins/sha1sum.c
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
 	$(NSIS_STRIP) $@
 

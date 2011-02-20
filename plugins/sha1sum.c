@@ -28,6 +28,20 @@
 #include <assert.h>
 #include <errno.h>
 
+/* NSIS plugin
+*/
+#include <windows.h>
+#ifdef HAVE_EXDLL_H
+#include "exdll.h"
+#else
+#include <nsis/pluginapi.h>
+#endif
+
+BOOL WINAPI DllMain (HANDLE hInst, ULONG ul_reason_for_call, LPVOID lpReserved)
+{
+  return TRUE;
+}
+
 #undef BIG_ENDIAN_HOST
 typedef unsigned int u32;
 
@@ -311,51 +325,44 @@ sha1_final(SHA1_CONTEXT *hd)
 #undef X
 }
 
-
-
-
-int 
-main (int argc, char **argv)
+void __declspec (dllexport) sha1sum (HWND hwndParent, int string_size, char *variables, stack_t ** stacktop, extra_parameters * extra)
 {
-  assert (sizeof (u32) == 4);
+  EXDLL_INIT ();
 
-  if (argc < 2)
-    {
-      fprintf (stderr, "usage: sha1sum filenames\n");
-      exit (1);
-    }
-  for (argc--, argv++; argc; argv++, argc--)
-    {
-      FILE *fp;
-      char buffer[4096];
-      size_t n;
-      SHA1_CONTEXT ctx;
-      int i;
-      
-      fp = fopen (*argv, "rb");
-      if (!fp)
-        {
-          fprintf (stderr, "can't open `%s': %s\n", *argv, strerror (errno));
-          exit (1);
-        }
-      sha1_init (&ctx);
-      while ( (n = fread (buffer, 1, sizeof buffer, fp)))
-        sha1_write (&ctx, buffer, n);
-      if (ferror (fp))
-        {
-          fprintf (stderr, "error reading `%s': %s\n", *argv,strerror (errno));
-          exit (1);
-        }
-      sha1_final (&ctx);
-      fclose (fp);
-      
-      for (i=0; i < 20; i++)
-        printf ("%02x", ctx.buf[i]);
-      printf ("  %s\n", *argv);
-    }
-  return 0;
+  char filename[1024];
+  char *f = filename; 
+  popstring (filename);
+  
+  FILE *fp;
+  char buffer[4096];
+  size_t n;
+  SHA1_CONTEXT ctx;
+  int i;
+  
+  fp = fopen (f, "rb");
+  if (!fp)
+  {
+    pushstring ("error");
+    exit (1);
+  }
+  sha1_init (&ctx);
+  while ( (n = fread (buffer, 1, sizeof buffer, fp)))
+    sha1_write (&ctx, buffer, n);
+  if (ferror (fp))
+  {
+    pushstring ("error");
+    exit (1);
+  }
+  sha1_final (&ctx);
+  fclose (fp);
+  
+  for (i=0; i < 20; i++)
+  {
+    sprintf ( f, "%02x", ctx.buf[i]);
+  }
+  filename[40] = '\0';
+  pushstring(filename);
 }
-
 /*
 Local Variables:
 compile-command: "cc -Wall -g -o sha1sum sha1sum.c"
