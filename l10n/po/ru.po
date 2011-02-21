@@ -8,15 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader 0.6.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-05 16:09+0200\n"
+"POT-Creation-Date: 2011-02-21 17:01+0000\n"
 "PO-Revision-Date: 2010-05-13 18:44+0400\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -54,10 +56,20 @@ msgstr "Russian"
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 #. (e.g. cp437) should be used in this string.  If you don't know which charset
-#. applies, limit yourself to ascii.
-#: win32-loader.sh:81
-msgid "Continue with install process"
+#. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
+#. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+#: win32-loader.sh:82
+#, fuzzy, sh-format
+msgid "$target_distro $kernel_name - Continue with install process"
 msgstr "Continue with install process"
+
+#. translate:
+#. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
+#. (e.g. cp437) should be used in this string.  If you don't know which charset
+#. applies, limit yourself to ascii.
+#: win32-loader.sh:88
+msgid "PXE - Network boot"
+msgstr ""
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -67,25 +79,31 @@ msgstr "Continue with install process"
 msgid "English.nlf"
 msgstr "Russian.nlf"
 
-#: win32-loader.c:71
-msgid "Installer Loader"
+#. translate:
+#. This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
+#. Ampersands (&) are _forbidden_ in that string.
+#.
+#: win32-loader.c:75
+#, fuzzy
+msgid "Debian-Installer loader"
 msgstr "Загрузчик программы установки"
 
-#: win32-loader.c:72
+#: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
 msgstr "Не удалось найти win32-loader.ini."
 
-#: win32-loader.c:73
+#: win32-loader.c:77
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
-msgstr "В win32-loader.ini не хватает данных. Обратитесь к поставщику этого носителя."
+msgstr ""
+"В win32-loader.ini не хватает данных. Обратитесь к поставщику этого носителя."
 
-#: win32-loader.c:74
+#: win32-loader.c:78
 msgid ""
 "This program has detected that your keyboard type is \"$0\".  Is this "
 "correct?"
 msgstr "Обнаружено, что тип вашей клавиатуры \"$0\". Это верно?"
 
-#: win32-loader.c:75
+#: win32-loader.c:79
 msgid ""
 "Please send a bug report with the following information:\n"
 "\n"
@@ -105,7 +123,7 @@ msgstr ""
 "\n"
 "Спасибо."
 
-#: win32-loader.c:76
+#: win32-loader.c:80
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
 "desktop install, it is recommended to have at least 3 GB.  If there is "
@@ -118,15 +136,16 @@ msgstr ""
 "если вы планируете полностью отказаться от Windows, то просто проигнорируйте "
 "это предупреждение."
 
-#: win32-loader.c:77
+#: win32-loader.c:81
 msgid "Error: not enough free disk space.  Aborting install."
-msgstr "Ошибка: недостаточно свободного места на жёстком диске. Отмена установки."
+msgstr ""
+"Ошибка: недостаточно свободного места на жёстком диске. Отмена установки."
 
-#: win32-loader.c:78
+#: win32-loader.c:82
 msgid "This program doesn't support Windows $windows_version yet."
 msgstr "Эта программа пока не поддерживает Windows $windows_version."
 
-#: win32-loader.c:79
+#: win32-loader.c:83
 msgid ""
 "The system version you're trying to install is designed to run on modern, 64-"
 "bit computers.  However, your computer is incapable of running 64-bit "
@@ -146,7 +165,7 @@ msgstr ""
 "\n"
 "Программа установки прекращает работу."
 
-#: win32-loader.c:80
+#: win32-loader.c:84
 msgid ""
 "Your computer is capable of running modern, 64-bit operating systems.  "
 "However, the system version you're trying to install is designed to run on "
@@ -176,7 +195,7 @@ msgstr ""
 #. as possible.  Also, I suggest you use the same term used in http://support.microsoft.com/kb/314470
 #. if that is available for your language.
 #.
-#: win32-loader.c:88
+#: win32-loader.c:92
 msgid ""
 "Unable to find \"system partition\", assuming it is the same as the \"boot "
 "partition\" ($c)."
@@ -184,15 +203,15 @@ msgstr ""
 "Не удалось найти \"системный раздел\", считаем, что он совпадает с "
 "\"загрузочным разделом\" ($c)."
 
-#: win32-loader.c:89 win32-loader.c:98
+#: win32-loader.c:93 win32-loader.c:103
 msgid "Select install mode:"
 msgstr "Выберите режим установки:"
 
-#: win32-loader.c:90
+#: win32-loader.c:94
 msgid "Normal mode.  Recommended for most users."
 msgstr "Обычный режим. Рекомендован для большинства пользователей."
 
-#: win32-loader.c:91
+#: win32-loader.c:95
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
@@ -200,56 +219,60 @@ msgstr ""
 "Режим эксперта. Рекомендован для опытных пользователей, которые хотят "
 "полностью контролировать процесс установки."
 
-#: win32-loader.c:92
+#: win32-loader.c:96
+msgid "PXE mode: install a PXE loader to allow remote kernel loading."
+msgstr ""
+
+#: win32-loader.c:97
 msgid "Select action:"
 msgstr "Выберите действие:"
 
-#: win32-loader.c:93
+#: win32-loader.c:98
 msgid "Begin install on this computer."
 msgstr "Начать установку на этот компьютер."
 
-#: win32-loader.c:94
+#: win32-loader.c:99
 msgid "Repair an installed system (rescue mode)."
 msgstr "Починить установленную систему (режим восстановления)."
 
-#: win32-loader.c:95
+#: win32-loader.c:100
 msgid "Select the kernel:"
 msgstr "Выберите ядро:"
 
-#: win32-loader.c:96
+#: win32-loader.c:101
 msgid "GNU/Linux"
 msgstr "GNU/Linux"
 
-#: win32-loader.c:97
+#: win32-loader.c:102
 msgid "GNU/kFreeBSD"
 msgstr "GNU/kFreeBSD"
 
-#: win32-loader.c:99
+#: win32-loader.c:104
 msgid "Graphical install"
 msgstr "Установка в графическом режиме"
 
-#: win32-loader.c:100
+#: win32-loader.c:105
 msgid "Text install"
 msgstr "Установка в текстовом режиме"
 
-#: win32-loader.c:101
+#: win32-loader.c:106
 #, c-format
 msgid "Downloading %s"
 msgstr "Загрузка %s"
 
-#: win32-loader.c:102
+#: win32-loader.c:107
 msgid "Connecting ..."
 msgstr "Подключение ..."
 
-#: win32-loader.c:103
+#: win32-loader.c:108
 msgid "second"
 msgstr "с"
 
-#: win32-loader.c:104
+#: win32-loader.c:109
 msgid "minute"
 msgstr "м"
 
-#: win32-loader.c:105
+#: win32-loader.c:110
 msgid "hour"
 msgstr "ч"
 
@@ -259,29 +282,29 @@ msgstr "ч"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:113
+#: win32-loader.c:118
 msgid "s"
 msgstr " "
 
-#: win32-loader.c:114
+#: win32-loader.c:119
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dКб (%d%%) из %dКб на %d.%01dКб/с"
 
-#: win32-loader.c:115
+#: win32-loader.c:120
 #, c-format
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s осталось)"
 
-#: win32-loader.c:116
+#: win32-loader.c:121
 msgid "Select which version of Debian-Installer to use:"
 msgstr "Выберите версию программы установки Debian:"
 
-#: win32-loader.c:117
+#: win32-loader.c:122
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "Стабильная версия. Она установит стабильную \"stable\" версию Debian."
 
-#: win32-loader.c:118
+#: win32-loader.c:123
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -294,7 +317,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:123
+#: win32-loader.c:128
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -302,15 +325,15 @@ msgstr ""
 "Рекомендуется посмотреть список известных проблем, перед тем как "
 "использовать ежедневную версию. Хотите сделать это прямо сейчас?"
 
-#: win32-loader.c:124
+#: win32-loader.c:129
 msgid "Desktop environment:"
 msgstr "Окружение рабочего стола:"
 
-#: win32-loader.c:125
+#: win32-loader.c:130
 msgid "None"
 msgstr "Отсутствует"
 
-#: win32-loader.c:126
+#: win32-loader.c:131
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -318,59 +341,88 @@ msgstr ""
 "Будут использованы следующие параметры. НЕ изменяйте их, если не знаете, для "
 "чего они предназначены."
 
-#: win32-loader.c:127
+#: win32-loader.c:132
 msgid "Proxy settings (host:port):"
 msgstr "Настройки прокси-сервера (хост:порт):"
 
-#: win32-loader.c:128
+#: win32-loader.c:133
 msgid "Location of boot.ini:"
 msgstr "Путь к boot.ini:"
 
-#: win32-loader.c:129
+#: win32-loader.c:134
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Базовый URL для образов сетевой установки (linux и initrd.gz):"
 
-#: win32-loader.c:130
+#: win32-loader.c:135
 msgid "Error"
 msgstr "Ошибка"
 
-#: win32-loader.c:131
+#: win32-loader.c:136
 msgid "Error: failed to copy $0 to $1."
 msgstr "Ошибка: не удалось скопировать $0 в $1."
 
-#: win32-loader.c:132
+#. translate:
+#. $0 will be "Release" (it is a filename).
+#.
+#: win32-loader.c:141
+msgid "Checking GPG signature on $0."
+msgstr ""
+
+#. translate:
+#. $0 will be "Release" (it is a filename).
+#.
+#: win32-loader.c:146
+msgid "The downloaded $0 file cannot be trusted! Aborting."
+msgstr ""
+
+#. translate:
+#. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
+#. computed checksum and $4 is the expected one.
+#.
+#: win32-loader.c:152
+msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
+msgstr ""
+
+#. translate:
+#. $2 is a filename
+#.
+#: win32-loader.c:157
+msgid "Computing checksum for $2"
+msgstr ""
+
+#: win32-loader.c:158
 msgid "Generating $0"
 msgstr "Генерируется $0"
 
-#: win32-loader.c:133
+#: win32-loader.c:159
 msgid "Appending preseeding information to $0"
 msgstr "Добавляется информация автоустановки в $0"
 
-#: win32-loader.c:134
+#: win32-loader.c:160
 msgid "Error: unable to run $0."
 msgstr "Ошибка: не удалось запустить $0."
 
-#: win32-loader.c:135
+#: win32-loader.c:161
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Выключение сжатия NTFS для файлов начальной загрузки"
 
-#: win32-loader.c:136
+#: win32-loader.c:162
 msgid "Registering in NTLDR"
 msgstr "Регистрация в NTLDR"
 
-#: win32-loader.c:137
+#: win32-loader.c:163
 msgid "Registering in BootMgr"
 msgstr "Регистрация в BootMgr"
 
-#: win32-loader.c:138
+#: win32-loader.c:164
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Ошибка: не удалось понять результат от bcdedit.exe."
 
-#: win32-loader.c:139
+#: win32-loader.c:165
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "Ошибка: $0 не найден. У вас действительно Windows $windows_version?"
 
-#: win32-loader.c:140
+#: win32-loader.c:166
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "ОЧЕНЬ ВАЖНО ЗАМЕЧАНИЕ:\\n\\n"
 
@@ -380,7 +432,7 @@ msgstr "ОЧЕНЬ ВАЖНО ЗАМЕЧАНИЕ:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:148
+#: win32-loader.c:174
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -390,7 +442,7 @@ msgstr ""
 "программа перезапустит Windows в режим DOS и автоматически загрузит "
 "следующую часть процесса установки.\\n\\n"
 
-#: win32-loader.c:149
+#: win32-loader.c:175
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -400,7 +452,7 @@ msgstr ""
 "перезагрузки, вас спросят, хотите ли вы запустить Windows или продолжить "
 "процесс установки.\\n\\n"
 
-#: win32-loader.c:150
+#: win32-loader.c:176
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -418,7 +470,6 @@ msgstr ""
 "Windows на диске), вы можете удалить данный загрузчик через диалог Windows "
 "\"Установка и удаление программ\" в \"Панели управления\"."
 
-#: win32-loader.c:151
+#: win32-loader.c:177
 msgid "Do you want to reboot now?"
 msgstr "Перезагрузить компьютер сейчас?"
-
