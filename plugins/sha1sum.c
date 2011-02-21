@@ -359,7 +359,9 @@ void __declspec (dllexport) sha1sum (HWND hwndParent, int string_size, char *var
   for (i=0; i < 20; i++)
   {
     sprintf ( f, "%02x", ctx.buf[i]);
+    f = f + 2;
   }
+  // Terminate string correctly
   filename[40] = '\0';
   pushstring(filename);
 }
