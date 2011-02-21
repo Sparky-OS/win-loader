@@ -53,27 +53,23 @@ void __declspec (dllexport) bcdedit_extract_partition (HWND hwndParent, int stri
 
   char msg[4096];
   char *p = msg;
+  char *found;
   
   const char *start_pattern = "partition="; // 9
 
   popstring (msg);
 
-  while (*p)
-    {
-      /* This selects: partition=C:
-                                 ^^
-      */
-      if ( strncmp(p,start_pattern,9) == 0 && 
-	  p[11] == ':')
-	{
-	  p = p + 10;
-	  p[2] = '\0';
-	  pushstring (p);
-	  return;
-	}
-      p++;
-    }
-
+  /* This selects: partition=C:
+                             ^^
+  */
+  found = strstr(p, start_pattern);
+  found += 10;
+  if( found[1] == ':' )
+  {
+    found[2] = '\0';
+    pushstring (found);
+    return;
+  }
   pushstring ("error");
 }
 
