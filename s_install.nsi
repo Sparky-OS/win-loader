@@ -90,9 +90,12 @@ Section "Installer Loader"
       Quit
     ${EndIf}
   ${EndIf}
-
+  
+  Push "$PLUGINSDIR\Release"
+  Push "$base_path_md5MD5SUMS"
+  Call Get_SHA1_ref
+  ; SHA-1 is on the stack.
   ; Download the MD5SUMS file
-  Push "false"
   Push "false"
   Push "MD5SUMS"
   Push "$PLUGINSDIR"

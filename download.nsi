@@ -50,12 +50,17 @@ Function Download
       DetailPrint "$(computing_checksum)"
       ; Compute md5sum of downloaded file, put it as $1
       VPatch::GetFileMD5 $1\$2
-      Pop $1
-      ${If} $4 != $1
-       MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
-       Quit
+      Pop $6
+      ${If} $4 != $6
+       ; MD5 don't match, try sha1sum
+       sha1sum::sha1sum $1\$2
+       Pop $6
+       ${If} $4 != $6
+         MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
+         Quit
+       ${EndIf}
       ${EndIf}
-      DetailPrint "$4 = $1"
+      DetailPrint "$4 = $6"
     ${EndIf}
 
     Push "$R0"
@@ -82,7 +87,7 @@ Function Get_MD5_ref
     FileClose $3
     Goto done
   endoffile:
-    Push "false"
+    Push "false-md5"
     FileClose $3
   done:
 FunctionEnd
@@ -108,7 +113,7 @@ Function Get_SHA1_ref
     FileClose $3
     Goto sha1_done
   sha1_endoffile:
-    Push "false"
+    Push "false-sha1"
     FileClose $3
   sha1_done:
 FunctionEnd
