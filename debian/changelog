@@ -1,3 +1,65 @@
+win32-loader (0.6.90) unstable; urgency=low
+
+  The "Let's Squeeze win32-loader!" release
+
+  * General
+    - Remove license click-trough.
+    - Add executable properties and proper branding.
+    - Also add branding to the Uninstaller info in the Windows registry.
+    - Split main.nsi in multiple files, make sure GPLv3+ license headers are
+      in all split files.
+    - Allow build-time outfile name selection.
+    - Allow build-time choice of Company Name.
+    - Enhance >= Vista boot device detection with bcdedit.exe.
+    - Update my copyright notices to 2011.
+
+  * Standalone flavour
+    - Add PXE functionality (Closes: #607417).
+    - Add a PXE-specific boot text.
+    - Add a notice in THANKS for the people behind the PXE patch.
+    - Make the Windows bootloader entry distro- and kernel- specific.
+    - Debian GNU/kFreeBSD was released as "stable", remove the corresponding
+      TODO.
+    - Allow opt-out of the the GNU/kFreeBSD download possibility.
+    - Make sure default desktop is GNOME.
+    - Use cdn.debian.net instead of ftp.se.d.o to download d-i kernels and
+      initrd's.
+    - Trustful download
+      - Download and check Release{,.gpg} against debian-archive-keyring.gpg
+        with gpgv.exe (thanks to the GnuPG maintainers).
+      - Check downloaded kernels and initrd's against MD5SUMS.
+    - Enhance message for download errors.
+    - Don't install the standalone flavour, as it reaches the mirrors trough
+      byhand.
+    - Only build the standalone version if BYHAND is yes.
+    - Document which packages in which versions are embedded.
+    - Build the standalone exe with its definitive name.
+  
+  * Bug-fixing
+    - Make sure grub.cfg is always referred to as being in $INSTDIR
+      (C:\win32-loader\).
+    - Feed the $windows_version variable with something sensible (instead
+      of nothing).
+    - Use the charset-secured $d-i_ntldr for modern Windows 7 hosts too.
+    - Create variable d only on the CD flavours.
+    - Define Windows register indexes as build-time variables.
+    - Move bcdedit.exe finding earlier.
+
+  * Localisation
+    - Fix the Icelandic translation.
+    - Add new strings for PXE boot, GPG checking, checksum computation.
+    - Force LANGUAGE to fallback to LANG_ENGLISH.
+    - Re-brand the program as 'Debian-Installer loader'.
+    - Add target distribution and kernel to boot line.
+ 
+  * Packaging
+   - Append version and arch to the byhand filenames, to make dak happy;
+     thanks to Joerg Jaspert for the dak digging!
+   - Add a gitignore file.
+   - Bump B-D on grub-pc to >= 1.99~rc1-3 (see #613245).
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 21 Feb 2011 21:15:32 +0100
+
 win32-loader (0.6.22) unstable; urgency=low
 
   [ Joey Hess ]
