@@ -138,7 +138,7 @@ main (int argc, char **argv)
   translate:
   $0 will be "Release" (it is a filename).
   */
-  langstring ("gpg_checking_release",		_("Checking $0 file GPG signature."));
+  langstring ("gpg_checking_release",		_("Checking GPG signature on $0."));
 /*
   translate:
   $0 will be "Release" (it is a filename).
@@ -150,6 +150,10 @@ main (int argc, char **argv)
   computed checksum and $4 is the expected one.
  */
   langstring ("checksum_mismatch",		_("Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."));
+/*
+  translate:
+  $2 is a filename
+  */
   langstring ("computing_checksum",		_("Computing checksum for $2"));
   langstring ("generating",			_("Generating $0"));
   langstring ("appending_preseeding",		_("Appending preseeding information to $0"));
