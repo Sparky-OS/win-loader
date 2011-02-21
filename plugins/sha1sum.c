@@ -1,6 +1,8 @@
 /* sha1sum.c - print SHA-1 Message-Digest Algorithm 
  * Copyright (C) 1998, 1999, 2000, 2001 Free Software Foundation, Inc.
  * Copyright (C) 2004 g10 Code GmbH
+ * NSIS plugin'ization:
+ * Copyright (C) 2011, Didier Raboud
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
