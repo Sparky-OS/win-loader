@@ -89,13 +89,18 @@ Section "Installer Loader"
       MessageBox MB_OK|MB_ICONSTOP "$(unsecure_release)"
       Quit
     ${EndIf}
+
+    ; Get MD5SUMS file SHA1SUM
+    Push "$PLUGINSDIR\Release"
+    Push "$base_path_md5MD5SUMS"
+    Call Get_SHA1_ref
+    ; SHA-1 is on the stack.
+  ${Else}
+    Push "false" ; Don't try to compare the SHA1SUM (daily images don't have that).
   ${EndIf}
   
-  Push "$PLUGINSDIR\Release"
-  Push "$base_path_md5MD5SUMS"
-  Call Get_SHA1_ref
-  ; SHA-1 is on the stack.
   ; Download the MD5SUMS file
+  ; SHA-1 or "false" is on the stack
   Push "false"
   Push "MD5SUMS"
   Push "$PLUGINSDIR"
