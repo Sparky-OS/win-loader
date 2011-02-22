@@ -1,14 +1,14 @@
 # Irish translations of win32-loader
 # Copyright (C) 2010
 # This file is distributed under the same license as the win32-loader package.
-# Kevin Scannell <kscanne@gmail.com>, 2010.
+# Kevin Scannell <kscanne@gmail.com>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-04-17 14:30-0600\n"
+"PO-Revision-Date: 2011-02-22 14:30-0600\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
 "Language: ga\n"
@@ -55,9 +55,9 @@ msgstr "Irish"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Lean ar aghaidh leis an tsuiteáil"
+msgstr "$target_distro $kernel_name - Lean ar aghaidh leis an tsuiteáil"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -65,7 +65,7 @@ msgstr "Lean ar aghaidh leis an tsuiteáil"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Tosach ón líonra"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -80,9 +80,8 @@ msgstr "Irish.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Luchtóir an tSuiteálaí"
+msgstr "Luchtóir Debian-Installer"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -218,7 +217,7 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "Mód PXE: suiteáil luchtóir PXE chun eithne a luchtú de chéin."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -233,17 +232,16 @@ msgid "Repair an installed system (rescue mode)."
 msgstr "Deisigh córas suiteáilte (mód tarrthála)."
 
 #: win32-loader.c:100
-#, fuzzy
 msgid "Select the kernel:"
-msgstr "Roghnaigh gníomh:"
+msgstr "Roghnaigh eithne:"
 
 #: win32-loader.c:101
 msgid "GNU/Linux"
-msgstr ""
+msgstr "GNU/Linux"
 
 #: win32-loader.c:102
 msgid "GNU/kFreeBSD"
-msgstr ""
+msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:104
 msgid "Graphical install"
@@ -274,7 +272,7 @@ msgstr "nóiméad"
 msgid "hour"
 msgstr "uair"
 
-#  " " space here is correct for Irish - kps
+# " " space here is correct for Irish - kps
 #. translate:
 #. This string is appended to "second", "minute" or "hour" to make plurals.
 #. I know it's quite unfortunate.  An alternate method for translating NSISdl
@@ -290,7 +288,7 @@ msgstr " "
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) as %dkB ag %d.%01dkB/s"
 
-#  no space before fágtha is correct for Irish, see two strings prev.
+# no space before fágtha is correct for Irish, see two strings prev.
 #: win32-loader.c:120
 #, c-format
 msgid " (%d %s%s remaining)"
@@ -366,14 +364,14 @@ msgstr "Earráid: theip ar chóipeáil $0 go $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Síniú GPG ar $0 á dhearbhú."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Níl muinín againn as an gcomhad íosluchtaithe $0! Á Thobscor."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -382,13 +380,15 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Suim sheiceála mhícheart ar $0/$2. Fuarthas $1 cé go rabhthas ag súil le $4. "
+"Á Thobscor."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Suim sheiceála á áireamh le haghaidh $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
