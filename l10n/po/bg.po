@@ -4,15 +4,15 @@
 # This file is distributed under the same license as the Debian Installer for Win32 package.
 #
 # somnivm <EMAIL@ADDRESS>, 2007.
-# Damyan Ivanov <dmn@debian.org>, 2007, 2008, 2009, 2010.
+# Damyan Ivanov <dam+gnome@ktnx.net>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Debian Installer for Win32 ALL\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-05-08 08:36+0300\n"
-"Last-Translator: Damyan Ivanov <dmn@debian.org>\n"
+"PO-Revision-Date: 2011-02-23 21:33+0200\n"
+"Last-Translator: Damyan Ivanov <dam+gnome@ktnx.net>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -60,9 +60,9 @@ msgstr "Bulgarian"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Prodalzhavane na instalaciyata"
+msgstr "Prodalzhavane na instalaciyata na $target_distro $kernel_name"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -70,7 +70,7 @@ msgstr "Prodalzhavane na instalaciyata"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "Zarezhdane ot mrezhata chrez PXE"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -85,9 +85,8 @@ msgstr "Bulgarian.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Програма за зареждане на инсталатора"
+msgstr "Програма за зареждане на инсталатора на Дебиан"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -223,6 +222,8 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"Режим PXE: инсталиране на програма за зареждане чрез PXE, позволяваща "
+"отдалечено зареждане на ядро."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -367,14 +368,14 @@ msgstr "Грешка: неуспех при копиране на $0 в $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Проверка на сигнатурата на файла $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Изтегленият файл е повреден! Прекъсване."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -383,13 +384,14 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Грешка в контролната сума на $0/$2. Получи се $1, а се очаква $4. Прекъсване."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Пресмятане на контролната сума на файла $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
