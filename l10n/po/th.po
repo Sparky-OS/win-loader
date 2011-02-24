@@ -1,14 +1,14 @@
 # Thai translation of win32-loader
-# Copyright (C) 2007-2010  Software in the Public Interest, Inc.
+# Copyright (C) 2007-2011  Software in the Public Interest, Inc.
 # This file is distributed under the same license as the win32-loader package.
-# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2007-2010.
+# Theppitak Karoonboonyanan <thep@linux.thai.net>, 2007-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-05-08 15:10+0700\n"
+"PO-Revision-Date: 2011-02-24 21:23+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -55,9 +55,9 @@ msgstr "Thai"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Continue with install process"
+msgstr "$target_distro $kernel_name - Continue with install process"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -65,7 +65,7 @@ msgstr "Continue with install process"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Network boot"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -80,9 +80,8 @@ msgstr "Thai.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "เครื่องมือเรียกโปรแกรมติดตั้ง"
+msgstr "เครื่องมือเรียกโปรแกรมติดตั้งเดเบียน"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -207,7 +206,7 @@ msgstr "แบบผู้เชี่ยวชาญ ขอแนะนำส�
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "แบบ PXE: ติดตั้งโปรแกรมโหลด PXE เพื่อให้สามารถโหลดเคอร์เนลจากเครือข่ายได้"
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -349,14 +348,14 @@ msgstr "ข้อผิดพลาด: ไม่สามารถคัดล�
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "กำลังตรวจสอบลายเซ็น GPG ใน $0"
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "แฟ้ม $0 ที่ดาวน์โหลดมาไม่สามารถเชื่อถือได้! ขอยกเลิก"
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -364,14 +363,14 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "ผลรวมตรวจสอบไม่ถูกต้องสำหรับ $0/$2 ได้รับ $1 แต่ต้องการ $4 ขอยกเลิก"
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "กำลังคำนวณผลรวมตรวจสอบสำหรับ $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
