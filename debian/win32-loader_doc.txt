@@ -1,4 +1,4 @@
-===== Win32-Loader =====
+===== Win32-Loader - @W32_VERSION@ =====
 
 == What is Win32-Loader? ==
 
