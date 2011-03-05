@@ -1,14 +1,14 @@
 # Czech translation of win32-loader.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the win32-loader package.
-# Miroslav Kure <kurem@debian.cz>, 2007, 2008, 2009.
+# Miroslav Kure <kurem@debian.cz>, 2007, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-05-11 15:58+0200\n"
+"PO-Revision-Date: 2011-03-05 10:54+0100\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "Language: cs\n"
@@ -55,9 +55,9 @@ msgstr "Czech"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Pokračovat v instalaci"
+msgstr "$target_distro $kernel_name - Pokračovat v instalaci"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -65,7 +65,7 @@ msgstr "Pokračovat v instalaci"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Zavedení ze sítě"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -80,13 +80,12 @@ msgstr "Czech.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Zavaděč instalace"
+msgstr "Zavaděč instalace Debianu"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
-msgstr "Nemohu nalézt win32-loader.ini."
+msgstr "Nelze nalézt win32-loader.ini."
 
 #: win32-loader.c:77
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
@@ -133,7 +132,7 @@ msgstr ""
 
 #: win32-loader.c:81
 msgid "Error: not enough free disk space.  Aborting install."
-msgstr "Chyba: nedostatek volného místa. Ruším instalaci."
+msgstr "Chyba: nedostatek volného místa. Přerušuji instalaci."
 
 #: win32-loader.c:82
 msgid "This program doesn't support Windows $windows_version yet."
@@ -214,7 +213,7 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "PXE režim: nainstaluje PXE zavaděč pro zavedení jádra ze sítě."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -251,11 +250,11 @@ msgstr "Textová instalace"
 #: win32-loader.c:106
 #, c-format
 msgid "Downloading %s"
-msgstr "Stahuji %s"
+msgstr "Stahuje se %s"
 
 #: win32-loader.c:107
 msgid "Connecting ..."
-msgstr "Připojuji ..."
+msgstr "Připojování ..."
 
 #: win32-loader.c:108
 msgid "second"
@@ -282,7 +281,7 @@ msgstr " "
 #: win32-loader.c:119
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
-msgstr "%dkB (%d%%) z %dkB při %d.%01dkB/s"
+msgstr "%dkB (%d%%) z %dkB, %d.%01dkB/s"
 
 #: win32-loader.c:120
 #, c-format
@@ -359,14 +358,14 @@ msgstr "Chyba: nepodařilo se zkopírovat $0 do $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Ověřuje se GPG podpis $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Staženému souboru $0 se nedá věřit! Přerušuji."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -374,14 +373,14 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "Kontrolní součet $0/$2 nesouhlasí. Vypočteno $1 místo očekávaného $4. Přerušuji."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Počítá se kontrolní součet $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
