@@ -1,3 +1,33 @@
+win32-loader (0.6.91) unstable; urgency=low
+
+  [ Updated translations ]
+    - Bulgarian (Damyan Ivanov, Closes: #614843)
+    - Czech (Miroslav Kure)
+    - Esperanto (Felipe Castro)
+    - Finnish (Tommi Vainikainen, Closes: #614428)
+    - German (Holger Wansing, Closes: #617287)
+    - Greek (Thomas Vasileiou)
+    - Hebrew (Lior Kaplan)
+    - Hungarian (SZERVÁC Attila)
+    - Icelandic (Sveinn í Felli)
+    - Irish (Kevin Scannell)
+    - Portuguese (Miguel Figueiredo)
+    - Russian (Yuri Kozlov, Closes: #614613)
+    - Simplified Chinese (Qijiang Fan)
+    - Slovak (Ivan Masár, Closes: #614552)
+    - Thai (Theppitak Karoonboonyanan)
+    - Ukrainian (Яценко Олександр)
+
+  * Standalone flavour companion text
+    - Replace "GPL acceptance" by "language choice"
+    - Add acknowledgement to NSIS
+    - Include win32-loader version number
+  * Translations
+    - Also update non-supported languages.
+    - Enable Danish.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 07 Mar 2011 21:09:59 +0100
+
 win32-loader (0.6.90) unstable; urgency=low
 
   The "Let's Squeeze win32-loader!" release
