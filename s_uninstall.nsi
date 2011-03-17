@@ -21,6 +21,7 @@ Section "Uninstall"
   ; Initialise $c
   ReadRegStr $c HKLM "${REGSTR_WIN32}" "system_drive"
 
+  IfFileExists "$c\boot.ini" 0 no_saved_boot_ini_timeout
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
   DeleteINIStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr"
