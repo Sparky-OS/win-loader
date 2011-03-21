@@ -239,18 +239,6 @@ ${EndIf}
 ; ********************************************** Do bootloader last, because it's the most dangerous
   ${If} $windows_boot_method == ntldr
 !ifdef NOCD
-    !ifdef NETWORK_BASE_URL
-        Push "false"
-        Push "g2ldr"
-        Push "$c"
-        Push "${NETWORK_BASE_URL}"
-        Call Download
-        Push "false"
-        Push "g2ldr.mbr"
-        Push "$c"
-        Push "${NETWORK_BASE_URL}"
-        Call Download
-    !else
        File /oname=$c\g2ldr g2ldr
        File /oname=$c\g2ldr.mbr g2ldr.mbr
       !ifdef PXE
@@ -258,7 +246,6 @@ ${EndIf}
           File /oname=$INSTDIR\pxe.lkrn pxe.lkrn
        ${EndIf} ; $pxe_mode == "true"
       !endif ; PXE
-    !endif
 !else
     ClearErrors
     StrCpy $0 "$EXEDIR\$g2ldr"
@@ -306,18 +293,6 @@ ${EndIf}
 
   ${If} $windows_boot_method == bootmgr
 !ifdef NOCD
-    !ifdef NETWORK_BASE_URL
-        Push "false"
-        Push "g2ldr"
-        Push "$c"
-        Push "${NETWORK_BASE_URL}"
-        Call Download
-        Push "false"
-        Push "g2ldr.mbr"
-        Push "$c"
-        Push "${NETWORK_BASE_URL}"
-        Call Download
-    !else
        File /oname=$c\g2ldr g2ldr
        File /oname=$c\g2ldr.mbr g2ldr.mbr
       !ifdef PXE
@@ -325,7 +300,6 @@ ${EndIf}
           File /oname=$INSTDIR\pxe.lkrn pxe.lkrn
        ${EndIf} ; $pxe_mode == "true"
       !endif ; PXE
-    !endif
 !else
     ClearErrors
     StrCpy $0 "$EXEDIR\$g2ldr"
