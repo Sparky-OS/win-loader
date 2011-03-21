@@ -149,7 +149,7 @@ main (int argc, char **argv)
   This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
   computed checksum and $4 is the expected one.
  */
-  langstring ("checksum_mismatch",		_("Checksum mismatch for $0/$2. Got $6 when expecting $4. Aborting."));
+  langstring ("checksum_mismatch",		_("Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."));
 /*
   translate:
   $2 is a filename

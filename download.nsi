@@ -20,7 +20,7 @@ Function Download
     ; Base URL
     Pop $0
     ; Target dir
-    Pop $1
+    Pop $6
     ; Filename
     Pop $2
     ; Allow it to fail?
@@ -34,7 +34,7 @@ Function Download
       StrCpy $nsisdl_proxy "/PROXY $proxy"
     ${Endif}
 
-    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $1\$2
+    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $6\$2
     Pop $R0
     ${If} $R0 != "success"
       ${If} $R0 != "cancel"
@@ -49,18 +49,18 @@ Function Download
       ; $2 goes in the text
       DetailPrint "$(computing_checksum)"
       ; Compute md5sum of downloaded file, put it as $1
-      VPatch::GetFileMD5 $1\$2
-      Pop $6
-      ${If} $4 != $6
+      VPatch::GetFileMD5 $6\$2
+      Pop $1
+      ${If} $4 != $1
        ; MD5 don't match, try sha1sum
-       sha1sum::sha1sum $1\$2
-       Pop $6
-       ${If} $4 != $6
+       sha1sum::sha1sum $6\$2
+       Pop $1
+       ${If} $4 != $1
          MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
          Quit
        ${EndIf}
       ${EndIf}
-      DetailPrint "$4 = $6"
+      DetailPrint "$4 = $1"
     ${EndIf}
 
     Push "$R0"
