@@ -34,6 +34,7 @@ Function Download
       StrCpy $nsisdl_proxy "/PROXY $proxy"
     ${Endif}
 
+    DetailPrint "GET: $0/$2"
     NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $6\$2
     Pop $R0
     ${If} $R0 != "success"
