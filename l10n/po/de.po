@@ -1,15 +1,15 @@
 # translation of win32-loader to German
 # This file is distributed under the same license as the win32-loader package.
 # Copyright (C) Jan Keller <bananenscheibe@gmx.de>, 2007.
-# Copyright (C) Holger Wansing <linux@wansing-online.de>, 2010.
+# Copyright (C) Holger Wansing <linux@wansing-online.de>, 2010, 2011.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: win32-loader 0.6.16\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: win32-loader 0.6.90\n"
+"Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-05-08 12:14+0200\n"
+"PO-Revision-Date: 2011-03-07 20:49+0100\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: Debian German <debian-l10n-german@lists.debian.org>\n"
 "Language: \n"
@@ -56,9 +56,9 @@ msgstr "German"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Mit Installationsprozess fortfahren"
+msgstr "$target_distro $kernel_name - Mit Installationsprozess fortfahren"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -66,7 +66,7 @@ msgstr "Mit Installationsprozess fortfahren"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Netzwerk-Boot"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -81,9 +81,8 @@ msgstr "German.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Ladeprogramm des Installers"
+msgstr "Ladeprogramm des Debian-Installers"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -223,6 +222,8 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"PXE-Modus: Einen PXE-Loader installieren, um das Laden eines Kernels "
+"von fern zu ermöglichen."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -371,7 +372,7 @@ msgstr "Fehler: Kopieren von $0 nach $1 fehlgeschlagen."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Überprüfen der GPG-Signatur von $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
@@ -379,6 +380,7 @@ msgstr ""
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
+"Der heruntergeladenen Datei $0 kann nicht vertraut werden! Abbruch."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -387,13 +389,15 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Prüfsummen für $0/$2 stimmen nicht überein. $1 erhalten, hingegen wurde "
+"$4 erwartet. Abbruch."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Berechnen der Prüfsumme für $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"

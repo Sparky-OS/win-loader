@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: win32_loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-09-03 21:48-0300\n"
+"PO-Revision-Date: 2011-02-26 17:34-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <debian-l10n-esperanto@lists.debian.org>\n"
 "Language: eo\n"
@@ -55,9 +55,9 @@ msgstr "Esperanto"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Daurigi la instaladan procezon."
+msgstr "$target_distro $kernel_name - Daurigi la instaladan procezon."
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -65,7 +65,7 @@ msgstr "Daurigi la instaladan procezon."
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Reta ekshargo"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -80,9 +80,8 @@ msgstr "Esperanto.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Instalila Ekshargilo"
+msgstr "Debian-Instalila Ekshargilo"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -218,6 +217,7 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"Reghimo PXE: instali shargilon PXE por ebligi deforan shargon de kerno."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -363,14 +363,14 @@ msgstr "Eraro: malsukceso por kopii $0 al $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Kontrolado de subskribo GPG che $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "La elshutita dosiero $0 ne estas fidinda! Ni chesigas."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -379,13 +379,14 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Kontrolsuma malkongruo por $0/$2. Ni havis $1 dum ni atendis $4. Ni chesigas."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Komputado de kontrolsumo por $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
@@ -418,7 +419,7 @@ msgstr "Eraro: malsukceso por analizi la eligon de 'bcdedit.exe'."
 #: win32-loader.c:165
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
-"Eraro: $0 ne estis trovita. Chu fakte tio estas Windows $windows_version?"
+"Eraro: $0 ne trovita. Chu fakte tio chi estas Windows $windows_version?"
 
 #: win32-loader.c:166
 msgid "VERY IMPORTANT NOTICE:\\n\\n"

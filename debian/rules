@@ -7,6 +7,7 @@ W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,
 W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
 PACKAGES_LIST = $(shell dpkg-query -f='$${Package;-25} $${Version}\\n' -W grub-pc cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin )
+NSIS_VERSION  = $(shell dpkg-query -f='$${Version}' -W nsis )
 
 %:
 	dh $@
@@ -19,7 +20,10 @@ ifeq ($(BYHAND),yes)
 		dh_auto_build
 	
 	# Prepare the README file
-	awk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1' debian/win32-loader_doc.txt > $(W32_BYHAND_NAME).txt
+	awk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1 \
+             {sub(/@NSIS_VERSION@/,"$(NSIS_VERSION)")}1 \
+             {sub(/@W32_VERSION@/,"$(W32_VERSION)")}1' \
+		debian/win32-loader_doc.txt > $(W32_BYHAND_NAME).txt
 	cat debian/copyright >> $(W32_BYHAND_NAME).txt
 endif
 	# Build the cdrom version

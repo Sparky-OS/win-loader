@@ -1,5 +1,5 @@
 # Copyright (C) 2007  Daniel Nylander <po@danielnylander.se>
-# Copyright (C) 2008  Martin Bagge <brother@bsnet.se>
+# Copyright (C) 2008, 2011  Martin Bagge <brother@bsnet.se>
 # This file is distributed under the same license as the win32-loader package.
 #
 msgid ""
@@ -7,9 +7,9 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2008-07-19 01:45+0100\n"
-"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"PO-Revision-Date: 2011-03-17 12:42+0100\n"
+"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
+"Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +56,7 @@ msgstr "Swedish"
 #: win32-loader.sh:82
 #, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr ""
+msgstr "$target_distro $kernel_name - Fortsätt med installationsprocessen"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -64,7 +64,7 @@ msgstr ""
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Nätverksbaserad uppstart"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -79,7 +79,6 @@ msgstr "Swedish.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
 msgstr "Inläsare för Debian-installerare"
 
@@ -121,7 +120,6 @@ msgstr ""
 "Tack."
 
 #: win32-loader.c:80
-#, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
 "desktop install, it is recommended to have at least 3 GB.  If there is "
@@ -129,10 +127,9 @@ msgid ""
 "replace Windows completely, you can safely ignore this warning."
 msgstr ""
 "Det verkar inte som om du har tillräckligt ledigt diskutrymme på enheten "
-"$c.  Det rekommenderas att du har åtminstone 3 GB ledigt diskutrymme för en "
-"komplett skrivbordsinstallation.  Om du redan har en separat disk eller "
-"partition för att installera Debian på, eller så kan du ignorera den här "
-"varningen om du planerar att helt ersätta Windows."
+"$c.  Det rekommenderas att du har åtminstone 3 GB.  Om du redan har en "
+"separat disk eller partition för att installera Debian på eller om du "
+"planerar att helt ersätta Windows så kan du ignorera den här varningen."
 
 #: win32-loader.c:81
 msgid "Error: not enough free disk space.  Aborting install."
@@ -144,7 +141,6 @@ msgid "This program doesn't support Windows $windows_version yet."
 msgstr "Det här programmet har inte stöd för Windows $windows_version än."
 
 #: win32-loader.c:83
-#, fuzzy
 msgid ""
 "The system version you're trying to install is designed to run on modern, 64-"
 "bit computers.  However, your computer is incapable of running 64-bit "
@@ -159,13 +155,12 @@ msgstr ""
 "moderna 64-bitars datorer.  Tyvärr kan din dator inte köra 64-bitars "
 "program.\n"
 "\n"
-"Använd 32-bitars (\"i386\") versionen av Debian, eller \"Multi-arch\"-"
-"versionen som kan installera någon av de båda.\n"
+"Använd 32-bitars-versionen (\"i386\") av Debian, eller multiarkitektur-"
+"versionen (\"multi-arch\") som kan installera någon av de båda.\n"
 "\n"
 "Installationen kommer att avbrytas nu."
 
 #: win32-loader.c:84
-#, fuzzy
 msgid ""
 "Your computer is capable of running modern, 64-bit operating systems.  "
 "However, the system version you're trying to install is designed to run on "
@@ -183,9 +178,9 @@ msgstr ""
 "32-bitars maskinvara.\n"
 "\n"
 "Du kan dock fortsätta med installationen men vi rekommenderar att du "
-"använder 64-bitars (\"amd64\") versionen av Debian för att dra nytta av "
-"maskinvaran i din dator, eller \"Multi-arch\"-versionen som kan installera "
-"någon av de båda.\n"
+"använder 64-bitars-versionen (\"amd64\") av Debian för att dra nytta av "
+"maskinvaran i din dator, eller multiarkitekturversionen (\"multi-arch\") som "
+"kan installera någon av de båda.\n"
 "\n"
 "Vill du avbryta nu?"
 
@@ -200,6 +195,8 @@ msgid ""
 "Unable to find \"system partition\", assuming it is the same as the \"boot "
 "partition\" ($c)."
 msgstr ""
+"Kunde inte hitta \"systempartition\", antar att det är samma som "
+"\"uppstartspartition\" ($c)."
 
 #: win32-loader.c:93 win32-loader.c:103
 msgid "Select install mode:"
@@ -220,33 +217,31 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"PXE-läge: installera en PXE-laddare för att tillåta fjärrinläsning av kärnan."
 
 #: win32-loader.c:97
 msgid "Select action:"
 msgstr "Välj åtgärd:"
 
 #: win32-loader.c:98
-#, fuzzy
 msgid "Begin install on this computer."
-msgstr "Installera Debian GNU/Linux på denna dator."
+msgstr "Starta installationen på den här datorn."
 
 #: win32-loader.c:99
-#, fuzzy
 msgid "Repair an installed system (rescue mode)."
-msgstr "Reparera ett befintligt Debian-system (räddningsläge)."
+msgstr "Reparera ett installerat system (räddningsläge)."
 
 #: win32-loader.c:100
-#, fuzzy
 msgid "Select the kernel:"
-msgstr "Välj åtgärd:"
+msgstr "Välj kärna:"
 
 #: win32-loader.c:101
 msgid "GNU/Linux"
-msgstr ""
+msgstr "GNU/Linux"
 
 #: win32-loader.c:102
 msgid "GNU/kFreeBSD"
-msgstr ""
+msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:104
 msgid "Graphical install"
@@ -335,13 +330,12 @@ msgid "None"
 msgstr "Ingen"
 
 #: win32-loader.c:131
-#, fuzzy
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
 msgstr ""
-"Inläsare för Debian-installerare kommer att konfigureras med följande "
-"parametrar.  Ändra INTE någon av dessa såvida du inte vet vad du gör."
+"Följande parametrar kommer att användas.  Ändra INTE någon av dessa såvida "
+"du inte vet vad du gör."
 
 #: win32-loader.c:132
 msgid "Proxy settings (host:port):"
@@ -368,14 +362,14 @@ msgstr "Fel: misslyckades med att kopiera $0 till $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Kontrollerar GPG-signatur på $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Den nedladdade filen $0 har ett tillitsproblem! Avbryter."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -384,13 +378,14 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Kontrollsummorna stämmer inte för $0/$2. Fick $1 men förväntade $4. Avbryter."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Beräknar kontrollsumma för $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
@@ -409,24 +404,20 @@ msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Stänger av NTFS-komprimering i bootstrap-filer."
 
 #: win32-loader.c:162
-#, fuzzy
 msgid "Registering in NTLDR"
-msgstr "Lägger till Debian-installerare i NTLDR"
+msgstr "Registrerar i NTLDR"
 
 #: win32-loader.c:163
-#, fuzzy
 msgid "Registering in BootMgr"
-msgstr "Lägger till Debian-installerare i BootMgr."
+msgstr "Registrerar i BootMgr."
 
 #: win32-loader.c:164
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Fel: misslyckades med att tolka utdata från bcdedit.exe."
 
 #: win32-loader.c:165
-#, fuzzy
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
-msgstr ""
-"Fel: boot.ini hittades inte.  Är det här verkligen Windows $windows_version?"
+msgstr "Fel: $0 hittades inte.  Är det här verkligen Windows $windows_version?"
 
 #: win32-loader.c:166
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
@@ -439,30 +430,27 @@ msgstr "MYCKET VIKTIG NOTERING:\\n\\n"
 #. current context (i.e. be careful when using pronouns, etc).
 #.
 #: win32-loader.c:174
-#, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automatically load the next part of the install process.\\n\\n"
 msgstr ""
 "Det andra steget av den här installationsprocessen kommer nu att startas.  "
-"Efter att du har bekräftat kommer programmet att starta om Windows till DOS-"
-"läget och automatiskt läsa in Debian Installer.\\n\\n"
+"Efter att du har bekräftat kommer programmet att starta om Windows i DOS-"
+"läget och automatiskt läsa in nästa del av installationsprocessen.\\n\\n"
 
 #: win32-loader.c:175
-#, fuzzy
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
 "continue with the install process.\\n\\n"
 msgstr ""
-"Du behöver starta om för att fortsätta med din installation av Debian.  "
-"Under nästa uppstart kommer du att bli frågad huruvida du vill starta "
-"Windows eller Debian Installer.  Välj Debian Installer för att fortsätta med "
-"installationsprocessen.\\n\\n"
+"Du behöver starta om maskinen för att fortsätta med din installation av "
+"Debian.  Under nästa uppstart kommer du att bli frågad huruvida du vill "
+"starta Windows eller Debian Installer.  Välj Debian Installer för att "
+"fortsätta med installationsprocessen.\\n\\n"
 
 #: win32-loader.c:176
-#, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -475,11 +463,11 @@ msgstr ""
 "Under installationsprocessen kommer du att få möjligheten att antingen "
 "minska din Windows-partition för att installera Debian eller ersätta den "
 "totalt.  I båda fallen är det STARKT REKOMMENDERAT att du tidigare har gjort "
-"en säkerhetskopia av ditt data.  Varken upphovsmannen av den här inläsaren "
-"eller Debian-projektet har något ANSVAR om du förlorar data.\\n\\nNär din "
-"Debian-installation är färdig (och om du har valt att behålla Windows på din "
-"disk) kan du avinstallera Inläsare för Debian-installerare genom Windows-"
-"dialogrutan Lägg till/Ta bort program under Kontrollpanelen."
+"en säkerhetskopia av dina data.  Varken upphovsmannen av den här inläsaren "
+"eller Debian-projektet har något ANSVAR om du förlorar data.\\n\\nNär "
+"installationen är färdig (och om du har valt att behålla Windows på din "
+"disk) kan du avinstallera denna inläsare genom Windows Lägg till/Ta bort "
+"program i Kontrollpanelen."
 
 #: win32-loader.c:177
 msgid "Do you want to reboot now?"

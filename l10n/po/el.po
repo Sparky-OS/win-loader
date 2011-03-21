@@ -1,15 +1,15 @@
 # translation of el.po to Greek
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
-# quad-nrg.net <yodesy@quad-nrg.net>, 2008, 2010.
+#
+# quad-nrg.net <yodesy@quad-nrg.net>, 2008, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-11-20 16:02+0200\n"
-"Last-Translator: Emmanuel Galatoulas <galas@tee.gr>\n"
+"PO-Revision-Date: 2011-02-25 13:05+0000\n"
+"Last-Translator: Vasileiou Thomas <thomas-v@wildmail.com>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -57,9 +57,9 @@ msgstr "Greek"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Συνέχεια με τη διαδικασία εγκατάστασης"
+msgstr "$target_distro $kernel_name - Συνέχεια με τη διαδικασία εγκατάστασης"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -67,7 +67,7 @@ msgstr "Συνέχεια με τη διαδικασία εγκατάστασης
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Εκκίνηση από δίκτυο"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -82,9 +82,8 @@ msgstr "Greek.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Φορτωτής του Εγκαταστάτη"
+msgstr "Φορτωτής του Εγκαταστάτη Debian"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -226,6 +225,8 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"Κατάσταση PXE : Εγκαταστήσετε τον φορτωτή του PXE ώστε να φωρτώθει "
+"ο πυρήνας απομακρυμασμένα"
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -278,7 +279,7 @@ msgstr "minute"
 
 #: win32-loader.c:110
 msgid "hour"
-msgstr "hours"
+msgstr "hour"
 
 #. translate:
 #. This string is appended to "second", "minute" or "hour" to make plurals.
@@ -374,7 +375,7 @@ msgstr "Σφάλμα: αποτυχία αντιγραφής του $0 στο $1.
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Έλεγχος της υπογραφής GPG του $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
@@ -382,6 +383,7 @@ msgstr ""
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
+"Το αρχείο $0 που κατέβηκε δεν είναι αξιόπιστο! Τερματισμός της εγκατάστασης."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -390,13 +392,15 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Ασυμφωνία checksum μεταξύ $0/$2. Έλαβα $1 ενώ περίμενα $4. Τερματισμός της "
+"εγκατάστασης."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Υπολογισμός του checksum για το $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
@@ -477,7 +481,7 @@ msgstr ""
 "ελαττώσετε το μέγεθος της κατάτμησης των Windows  ή να τα αντικαταστήσετε "
 "εξ' ολοκλήρου. Και στις δύο περιπτώσεις, ΣΥΝΙΣΤΑΤΑΙ ΙΔΙΑΙΤΕΡΑ να έχετε "
 "δημιουργήσει από πριν ένα αντίγραφο ασφαλείας των δεδομένων σας. Οι "
-"δημιουργοί του παρόντος λογισμικού ΔΕΝ θααναλάβουν ΟΠΟΙΑΔΗΠΟΤΕ ΕΥΘΥΝΗ σε "
+"δημιουργοί του παρόντος λογισμικού ΔΕΝ θα αναλάβουν ΟΠΟΙΑΔΗΠΟΤΕ ΕΥΘΥΝΗ σε "
 "περίπτωση απώλειας δεδομένων.\\n\\nΑπό τη στιγμή που ολοκληρωθεί η "
 "εγκατάσταση (και εφόσον έχετε επιλέξει να διατηρήσετε τα Windows στον δίσκο "
 "σας), μπορείτε να απεγκαταστήσετε τον φορτωτή εγκατάστασης μέσω του "
@@ -486,3 +490,5 @@ msgstr ""
 #: win32-loader.c:177
 msgid "Do you want to reboot now?"
 msgstr "Θέλετε να επανεκκινήσετε το σύστημα τώρα;"
+
+

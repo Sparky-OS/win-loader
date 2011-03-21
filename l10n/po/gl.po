@@ -6,13 +6,14 @@
 # Marce Villarino <mvillarino@users.sourceforge.net>, 2009.
 # mvillarino <mvillarino@users.sourceforge.net>, 2009.
 # Jorge Barreiro <yortx.barry@gmail.com>, 2010.
+# Miguel Anxo Bouzada <mbouzada@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader_l10n_po_gl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-07-01 19:31+0200\n"
-"Last-Translator: Jorge Barreiro <yortx.barry@gmail.com>\n"
+"PO-Revision-Date: 2011-03-08 17:11+0100\n"
+"Last-Translator: Miguel Anxo Bouzada <mbouzada@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Galician\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -60,9 +62,9 @@ msgstr "Galician"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Continuar co proceso de instalación"
+msgstr "$target_distro $kernel_name - Continuar co proceso de instalación"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -70,7 +72,7 @@ msgstr "Continuar co proceso de instalación"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Arranque por rede"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -85,9 +87,8 @@ msgstr "Galician.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Cargador do instalador"
+msgstr "Cargador do Debian-instaler"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -104,7 +105,7 @@ msgid ""
 "This program has detected that your keyboard type is \"$0\".  Is this "
 "correct?"
 msgstr ""
-"Este programa detectou que o seu teclado é do tipo \"$0\". É isto correcto?"
+"Este programa detectou que o seu teclado é do tipo «$0». É isto correcto?"
 
 #: win32-loader.c:79
 msgid ""
@@ -133,18 +134,18 @@ msgid ""
 "already a separate disk or partition for this install, or if you plan to "
 "replace Windows completely, you can safely ignore this warning."
 msgstr ""
-"Semella que non hai suficiente espazo libre na unidade $c. Para realizar "
-"unha instalación de escritorio completa, recoméndase ter polo menos 3 GB. Se "
-"xa hai un disco ou partición separados para instalar Debian, ou se pretende "
+"Semella que non hai espazo libre abondo na unidade $c. Para realizar unha "
+"instalación de escritorio completa, recoméndase ter polo menos 3 GB. Se xa "
+"hai un disco ou partición separados para instalar Debian, ou se pretende "
 "substituír Windows completamente, pode ignorar este aviso sen problemas."
 
 #: win32-loader.c:81
 msgid "Error: not enough free disk space.  Aborting install."
-msgstr "Erro: non hai espazo libre de abondo. A cancelar a instalación."
+msgstr "Erro: non hai espazo libre abondo. Cancelando a instalación."
 
 #: win32-loader.c:82
 msgid "This program doesn't support Windows $windows_version yet."
-msgstr "Este programa aínda non ten soporte para Windows $windows_version."
+msgstr "Este programa aínda non é compatíbel con Windows $windows_version."
 
 #: win32-loader.c:83
 msgid ""
@@ -158,13 +159,13 @@ msgid ""
 "This installer will abort now."
 msgstr ""
 "A versión de Debian que quere instalar está deseñada para funcionar nos "
-"modernos ordenadores de 64 bits. Porén, o seu ordenador non pode executar "
+"modernos computadores de 64 bits. Porén, o seu ordenador non pode executar "
 "programas de 64 bits.\n"
 "\n"
-"Empregue a versión de 32 bits (\"i386\") de Debian, ou a versión Multi-arch, "
-"que pode instalar ambas as dúas versións.\n"
+"Empregue a versión de 32 bits («i386») de Debian, ou a versión Multi-arch, "
+"que pode instalar ambalas dúas versións.\n"
 "\n"
-"Este instalador hase cancelar agora."
+"Este instalador vaise cancelar agora."
 
 #: win32-loader.c:84
 msgid ""
@@ -179,13 +180,13 @@ msgid ""
 "\n"
 "Would you like to abort now?"
 msgstr ""
-"O seu ordenador é capaz de executar os modernos sistemas operativos de 64 "
+"O seu computador é quen de executar os modernos sistemas operativos de 64 "
 "bits. Porén, a versión de Debian que pretende instalar está deseñada para "
-"funcionar en hardware de 32 bits.\n"
+"funcionar en máquinas de 32 bits.\n"
 "\n"
-"Aínda pode continuar a instalación, pero para aproveitar o seu ordenador ao "
-"máximo, recomendamos que empregue a versión de 64 bits (\"amd64\") de "
-"Debian, ou a versión Multi-arch, que pode instalar ambas as dúas versións.\n"
+"Aínda pode continuar a instalación, pero para aproveitar o seu computador ao "
+"máximo, recomendamos que empregue a versión de 64 bits («amd64») de Debian, "
+"ou a versión Multi-arch, que pode instalar ambalas dúas versións.\n"
 "\n"
 "Desexa cancelar a instalación?"
 
@@ -200,8 +201,8 @@ msgid ""
 "Unable to find \"system partition\", assuming it is the same as the \"boot "
 "partition\" ($c)."
 msgstr ""
-"Non foi posíbel achar a \"partición de sistema\", asumirase que é a mesma "
-"que a \"partición de arranque\" ($c)."
+"Non foi posíbel atopar a «partición do sistema», asumirase que é a mesma que "
+"a «partición de arranque» ($c)."
 
 #: win32-loader.c:93 win32-loader.c:103
 msgid "Select install mode:"
@@ -222,6 +223,7 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"Modo PXE: instalar un xestor de PXE para permitir a carga remota do núcleo."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -229,7 +231,7 @@ msgstr "Escolla unha acción:"
 
 #: win32-loader.c:98
 msgid "Begin install on this computer."
-msgstr "Comenzar a instalación neste ordenador."
+msgstr "Comezar a instalación neste computador."
 
 #: win32-loader.c:99
 msgid "Repair an installed system (rescue mode)."
@@ -237,7 +239,7 @@ msgstr "Reparar un sistema existente (modo de rescate)."
 
 #: win32-loader.c:100
 msgid "Select the kernel:"
-msgstr "Escolla o kernel:"
+msgstr "Escolla o núcleo:"
 
 #: win32-loader.c:101
 msgid "GNU/Linux"
@@ -258,11 +260,11 @@ msgstr "Instalación en modo texto"
 #: win32-loader.c:106
 #, c-format
 msgid "Downloading %s"
-msgstr "A obter %s"
+msgstr "Descargando %s"
 
 #: win32-loader.c:107
 msgid "Connecting ..."
-msgstr "A conectar ..."
+msgstr "Conectando..."
 
 #: win32-loader.c:108
 msgid "second"
@@ -294,7 +296,7 @@ msgstr "%d kB (%d%%) de %d kB a %d.%01d kB/s"
 #: win32-loader.c:120
 #, c-format
 msgid " (%d %s%s remaining)"
-msgstr " (quedan %d %s%s)"
+msgstr " (restan %d %s%s)"
 
 #: win32-loader.c:121
 msgid "Select which version of Debian-Installer to use:"
@@ -302,7 +304,7 @@ msgstr "Escolla a versión de Debian-Installer a empregar:"
 
 #: win32-loader.c:122
 msgid "Stable release.  This will install Debian \"stable\"."
-msgstr "Versión estábel. Con isto hase instalar Debian \"stable\"."
+msgstr "Versión estábel. Con isto instalarse Debian «stable»."
 
 #: win32-loader.c:123
 msgid ""
@@ -311,8 +313,8 @@ msgid ""
 "\"stable\" or \"unstable\" as well."
 msgstr ""
 "Compilación diaria. Esta é a versión de desenvolvemento de Debian-Installer. "
-"Ha instalar Debian \"testing\" por omisión, e é posíbel que tamén poida "
-"instalar \"stable\" ou \"unstable\"."
+"Instalar Debian «testing» como predeterminada, e é posíbel que tamén poida "
+"instalar «stable» ou «unstable»."
 
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
@@ -327,7 +329,7 @@ msgstr ""
 
 #: win32-loader.c:129
 msgid "Desktop environment:"
-msgstr "Ambiente de escritorio:"
+msgstr "Contorno de escritorio:"
 
 #: win32-loader.c:130
 msgid "None"
@@ -338,7 +340,7 @@ msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
 msgstr ""
-"Hanse usar os seguintes parámetros. Non troque ningún deles a menos que "
+"Empregaranse os seguintes parámetros. Non cambie ningún deles a non ser que "
 "saiba o que fai."
 
 #: win32-loader.c:132
@@ -347,7 +349,7 @@ msgstr "Configuración do proxy (servidor:porto):"
 
 #: win32-loader.c:133
 msgid "Location of boot.ini:"
-msgstr "Ubicación de boot.ini:"
+msgstr "Localización de boot.ini:"
 
 #: win32-loader.c:134
 msgid "Base URL for netboot images (linux and initrd.gz):"
@@ -366,14 +368,14 @@ msgstr "Erro: non foi posíbel copiar $0 a $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Comprobando a sinatura GPG en $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "O ficheiro $0 descargado non é de confianza! Interrompendo."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -382,21 +384,23 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Suma de verificación errónea para $0/$2. Ten $1 cando se agarda $4. "
+"Interrompendo."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Calculando a suma de verificación para $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
-msgstr "A xerar $0"
+msgstr "Xerando $0"
 
 #: win32-loader.c:159
 msgid "Appending preseeding information to $0"
-msgstr "A engadir a información de preconfiguración a $0"
+msgstr "Engadindo a información de preconfiguración a $0"
 
 #: win32-loader.c:160
 msgid "Error: unable to run $0."
@@ -404,15 +408,15 @@ msgstr "Erro: non foi posíbel executar $0."
 
 #: win32-loader.c:161
 msgid "Disabling NTFS compression in bootstrap files"
-msgstr "A desactivar a compresión NTFS nos ficheiros de inicio"
+msgstr "Desactivando a compresión NTFS nos ficheiros de inicio"
 
 #: win32-loader.c:162
 msgid "Registering in NTLDR"
-msgstr "A rexistrarse en NTLDR"
+msgstr "Registrando en NTLDR"
 
 #: win32-loader.c:163
 msgid "Registering in BootMgr"
-msgstr "A rexistrarse en BootMgr"
+msgstr "Registrando en BootMgr"
 
 #: win32-loader.c:164
 msgid "Error: failed to parse bcdedit.exe output."
@@ -440,8 +444,8 @@ msgid ""
 "automatically load the next part of the install process.\\n\\n"
 msgstr ""
 "Hase iniciar agora a segunda etapa deste proceso de instalación. Despois de "
-"que dea o seu consentemento, este programa ha reiniciar Windows en modo DOS, "
-"e ha cargar automaticamente a seguinte parte do proceso de instalación.\\n\\n"
+"que dea o seu consentimento, este programa reiniciará Windows en modo DOS, e "
+"cargará automaticamente a seguinte parte do proceso de instalación.\\n\\n"
 
 #: win32-loader.c:175
 msgid ""
@@ -450,7 +454,7 @@ msgid ""
 "continue with the install process.\\n\\n"
 msgstr ""
 "É preciso reiniciar para continuar a instalación. Durante o seguinte inicio, "
-"háselle preguntar se quere iniciar Windows ou o continuar co proceso de "
+"preguntaraselle se quere iniciar Windows ou continuar co proceso de "
 "instalación.\\n\\n"
 
 #: win32-loader.c:176
@@ -464,13 +468,13 @@ msgid ""
 "the Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
 "Durante o proceso de instalación, háselle ofrecer a posibilidade de reducir "
-"a partición Windows, e a posibilidade de a eliminar completamente. En ambos "
-"os dous casos RECOMÉNDASE ENCARECIDAMENTE que faga unha copia de seguridade "
-"dos seus datos. Os autores deste cargador non han asumir NINGUNHA "
-"RESPONSABILIDADE de producirse unha perda de datos.\\n\\nDespois de que se "
-"complete a instalación (e se decidiu conservar Windows no disco), pode "
-"desinstalar este cargador mediante o diálogo \"Engadir e Eliminar Programas"
-"\" no Panel de Control de Windows."
+"a partición Windows, e a posibilidade de eliminala completamente. En ambolos "
+"dous casos RECOMÉNDASE ENCARECIDAMENTE que faga unha copia de seguranza dos "
+"seus datos. Os autores deste cargador non asumen NINGUNHA RESPONSABILIDADE "
+"de producirse unha perda de datos.\\n\\nDespois de que se complete a "
+"instalación (e se decidiu conservar Windows no disco), pode desinstalar este "
+"cargador mediante o diálogo «Engadir e retirar programas» no Panel de "
+"control de Windows."
 
 #: win32-loader.c:177
 msgid "Do you want to reboot now?"

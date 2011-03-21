@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2008-05-02 10:37+0100\n"
+"PO-Revision-Date: 2011-02-22 08:37+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.d.o>\n"
 "Language: hu\n"
@@ -54,7 +54,7 @@ msgstr "Hungarian"
 #: win32-loader.sh:82
 #, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr ""
+msgstr "$target_distro $kernel_name - Telepítés folytatása"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -62,7 +62,7 @@ msgstr ""
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Hálózati betöltés"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -77,7 +77,6 @@ msgstr "Hungarian.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
 msgstr "Debian-Telepítő betöltő"
 
@@ -116,7 +115,6 @@ msgstr ""
 "Köszönjük."
 
 #: win32-loader.c:80
-#, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
 "desktop install, it is recommended to have at least 3 GB.  If there is "
@@ -124,7 +122,7 @@ msgid ""
 "replace Windows completely, you can safely ignore this warning."
 msgstr ""
 "Úgy fest, nincs elég hely a $c meghajtón. Egy teljes asztali telepítéshez "
-"ajánlott legalább 3 GB. Ha már van egy külön lemez vagy partíció a Debian "
+"ajánlott legalább 3 GB. Ha már van egy külön lemez vagy partíció e "
 "telepítésére, vagy végleg megszabadulsz a Windowstól, nem számít e "
 "figyelmeztetés."
 
@@ -137,7 +135,6 @@ msgid "This program doesn't support Windows $windows_version yet."
 msgstr "E program nem támogatja még a Windows $windows_version-t."
 
 #: win32-loader.c:83
-#, fuzzy
 msgid ""
 "The system version you're trying to install is designed to run on modern, 64-"
 "bit computers.  However, your computer is incapable of running 64-bit "
@@ -148,15 +145,15 @@ msgid ""
 "\n"
 "This installer will abort now."
 msgstr ""
-"A Debian e verziója korszerű, 64-bites gépekre készült, de géped elavult.\n"
+"A telepítő e verziója modern, 64-bites gépekre készült. E gép viszont nem "
+"képes 64-bites programok futtatására.\n"
 "\n"
-"Használd a Debian 32-bites (\"i386\") változatát, vagy a Multi-arch verziót, "
-"mely képes egy ilyen telepítésére.\n"
+"Használd a 32-bites (\"i386\"), vagy a Multi-arch verziót, mely képes "
+"bármelyik telepítésére.\n"
 "\n"
 "A telepítő most leáll."
 
 #: win32-loader.c:84
-#, fuzzy
 msgid ""
 "Your computer is capable of running modern, 64-bit operating systems.  "
 "However, the system version you're trying to install is designed to run on "
@@ -169,12 +166,13 @@ msgid ""
 "\n"
 "Would you like to abort now?"
 msgstr ""
-"A géped képes korszerű, 64-bites operációs rendszer futtatására, de a Debian "
-"e verziója csak 32-bitet használ ki.\n"
+"A géped képes korszerű, 64-bites operációs rendszer futtatására, de a "
+"telepítendő rendszer e verziója valójában régebbi, 32-bites hardveren való "
+"futásra készült.\n"
 "\n"
-"Gond nélkül telepítheted, de géped előnyeinek kihasználására ajánljuk, a "
-"Debian 64-bites (\"amd64\") verzióját vagy a Multi-arch verziót használd "
-"inkább, mely 64-bites rendszert telepít.\n"
+"Gond nélkül telepítheted, de géped előnyeinek kihasználására ajánljuk, "
+"helyette a 64-bites (\"amd64\"), vagy a Multi-arch verziót használd, mely "
+"képes bármelyik telepítésére.\n"
 "Leállítod most a telepítőt?"
 
 #. translate:
@@ -188,6 +186,8 @@ msgid ""
 "Unable to find \"system partition\", assuming it is the same as the \"boot "
 "partition\" ($c)."
 msgstr ""
+"Nem lelek \"rendszer partíció\"-t, Úgy veszem, hogy ugyanaz, mint az "
+"\"indító partíció\" ($c)."
 
 #: win32-loader.c:93 win32-loader.c:103
 msgid "Select install mode:"
@@ -207,34 +207,31 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "PXE mód: telepíts egy PXE betöltőt távoli kernel-betöltéshez."
 
 #: win32-loader.c:97
 msgid "Select action:"
 msgstr "Válassz műveletet:"
 
 #: win32-loader.c:98
-#, fuzzy
 msgid "Begin install on this computer."
-msgstr "A Debian GNU/Linux telepítése erre a számítógépre"
+msgstr "Telepítés indítása e gépre."
 
 #: win32-loader.c:99
-#, fuzzy
 msgid "Repair an installed system (rescue mode)."
-msgstr "Egy megsérült Debian rendszer javítása (mentési mód)"
+msgstr "Egy telepített rendszer javítása (mentési mód)."
 
 #: win32-loader.c:100
-#, fuzzy
 msgid "Select the kernel:"
-msgstr "Válassz műveletet:"
+msgstr "Válassz kernelt:"
 
 #: win32-loader.c:101
 msgid "GNU/Linux"
-msgstr ""
+msgstr "GNU/Linux"
 
 #: win32-loader.c:102
 msgid "GNU/kFreeBSD"
-msgstr ""
+msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:104
 msgid "Graphical install"
@@ -323,13 +320,11 @@ msgid "None"
 msgstr "Nincs"
 
 #: win32-loader.c:131
-#, fuzzy
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
 msgstr ""
-"A Debian-Telepítő betöltő az alábbi paraméterekkel települ. NE módosítsd, ha "
-"nem tudod, mit teszel."
+"Az alábbi paramétereket használjuk. NE módosítsd, ha nem tudod, mit teszel."
 
 #: win32-loader.c:132
 msgid "Proxy settings (host:port):"
@@ -356,14 +351,14 @@ msgstr "Hiba: nem tudtam $0-t ide másolni: $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "GPG aláírás ellenőrzése ezen: $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "A letöltött $0 fájl nem megbízható! Leállok."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -371,14 +366,14 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "Eltérő ellenőrzőösszeg ehhez: $0/$2. $1 jött $4 helyett. Leállok."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Ellenőrzőösszeg kiszámítása ehhez: $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
@@ -397,23 +392,20 @@ msgid "Disabling NTFS compression in bootstrap files"
 msgstr "NTFS tömörítés kikapcsolása a bootstrap fájlokban"
 
 #: win32-loader.c:162
-#, fuzzy
 msgid "Registering in NTLDR"
-msgstr "Debian-Telepítő bejegyzése az NTLDR-be"
+msgstr "Bejegyzés az NTLDR-be"
 
 #: win32-loader.c:163
-#, fuzzy
 msgid "Registering in BootMgr"
-msgstr "Debian-Telepítő bejegyzése a Betöltőbe"
+msgstr "Bejegyzés s a BootMgr-be"
 
 #: win32-loader.c:164
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Hiba: a bcdedit.exe kimenet értelmezhetetlen"
 
 #: win32-loader.c:165
-#, fuzzy
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
-msgstr "Hiba: nincs boot.ini. Ez tényleg Windows $windows_version?"
+msgstr "Hiba: nincs $0. Ez tényleg Windows $windows_version?"
 
 #: win32-loader.c:166
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
@@ -426,28 +418,25 @@ msgstr "NAGYON FONTOS MEGJEGYZÉS:\\n\\n"
 #. current context (i.e. be careful when using pronouns, etc).
 #.
 #: win32-loader.c:174
-#, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automatically load the next part of the install process.\\n\\n"
 msgstr ""
 "Most indul a telepítő folyamat 2. része. Jóváhagyásod által a Windows DOS "
-"módban indul és el is végzi a Debian Telepítő betöltését.\\n\\n"
+"módban indul és automatikusan betölti a Telepítő következő részét.\\n\\n"
 
 #: win32-loader.c:175
-#, fuzzy
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
 "continue with the install process.\\n\\n"
 msgstr ""
-"Újra kell indítani a gépet a Debian telepítés folytatásához. A gép "
-"újraindulása után a Windows újraindítását is lehetővé teszi, de ekkor már "
-"indítható a Debian Telepítő is. Válaszd a Debian Telepítő indítását.\\n\\n"
+"Újra kell indítani a gépet a telepítés folytatásához. A következő indítás "
+"során mind a Windows újraindítása mind a telepítés folytatása lehetővé válik."
+"\\n\\n"
 
 #: win32-loader.c:176
-#, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -459,11 +448,11 @@ msgid ""
 msgstr ""
 "A telepítő folyamat alatt lehetőség lesz csökkenteni a Windows partíció "
 "méretét a Debian telepítéséhez vagy teljesen kirúgni. Mindkét esetben ERŐSEN "
-"AJÁNLOTT az adatok mentése. Sem a betöltő szerzője sem a Debian projekt NEM "
-"FELELŐS semmilyen véletlenül előforduló adatvesztésért.\\n\\nMiután a Debian "
-"települt (ha megtartottad volna a Windowst), a Windows-vezérlőpult Programok "
-"hozzáadása/eltávolítása pontjával eltávolíthatod ezt a Debian-Telepítő "
-"betöltő programot."
+"AJÁNLOTT az adatok mentése. E szoftver szerzői NEM FELELŐSEK semmilyen "
+"véletlenül előforduló adatvesztésért.\\n\\nMiután a Debian települt (ha "
+"megtartottad volna a Windowst), a Windows-vezérlőpult Programok hozzáadása/"
+"eltávolítása pontjával eltávolíthatod ezt a Debian-Telepítő betöltő "
+"programot."
 
 #: win32-loader.c:177
 msgid "Do you want to reboot now?"

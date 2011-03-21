@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the win32-loader package.
 # Peter Mann <Peter.Mann@tuke.sk>, 2007.
-# Ivan Masár <helix84@centrum.sk>, 2008, 2009, 2010.
+# Ivan Masár <helix84@centrum.sk>, 2008, 2009, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-05-10 13:28+0100\n"
+"PO-Revision-Date: 2011-02-22 09:18+0100\n"
 "Last-Translator: Ivan Masár <helix84@centrum.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
@@ -56,9 +56,9 @@ msgstr "Slovak"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Pokračovať v procese inštalácie"
+msgstr "$target_distro $kernel_name - Pokračovať v procese inštalácie"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -66,7 +66,7 @@ msgstr "Pokračovať v procese inštalácie"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Štart zo siete"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -81,9 +81,8 @@ msgstr "Slovak.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Zavádzač inštalácie"
+msgstr "Zavádzač inštalácie Debianu"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -215,6 +214,7 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"Režim PXE: nainštalovať zavádzač PXE, ktorý umožní zavedenie jadra na diaľku."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -361,14 +361,14 @@ msgstr "Chyba: zlyhalo kopírovanie $0 do $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Kontroluje sa podpis GPG súboru $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Stiahnutý súbor $0 nie je dôveryhodný! Prerušuje sa."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -377,13 +377,15 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Nezodpovedá kontrolný súčet $0/$2. Vyšlo $1, ale očakávali sme $4. Prerušuje "
+"sa."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Počíta sa kontrolný súčet $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"

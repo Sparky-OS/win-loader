@@ -4,14 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Meital Bourvine <meitalbourvine@gmail.com>, 2007.
-# Lior Kaplan <kaplan@debian.org>, 2007, 2008, 2010.
 #
+# Lior Kaplan <kaplan@debian.org>, 2007, 2008, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-06-06 12:25+0300\n"
+"PO-Revision-Date: 2011-02-24 13:58+0200\n"
 "Last-Translator: Lior Kaplan <kaplan@debian.org>\n"
 "Language-Team: Hebrew <debian-hebrew-common@lists.alioth.debian.org>\n"
 "Language: he\n"
@@ -59,9 +59,9 @@ msgstr "Hebrew"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "להמשיך עם תהליך ההתקנה"
+msgstr "$target_distro $kernel_name - להמשיך עם תהליך ההתקנה"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -69,7 +69,7 @@ msgstr "להמשיך עם תהליך ההתקנה"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - אתחול מהרשת"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -84,9 +84,8 @@ msgstr "Hebrew.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "טעינת תוכנית ההתקנה"
+msgstr "טעינת תוכנית ההתקנה של דביאן"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -212,7 +211,7 @@ msgstr "התקנה מומחים. ממולצת למשתמש מומחים שרוצ
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "מצב PXE: התקנת טוען PXE כדי לאפשר טעינת קרנל מרוחק."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -355,14 +354,14 @@ msgstr "שגיאה: העתקה של $0 ל-$1 נכשלה."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "בודק חתימות GPG על $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "הקובץ $0 שהורד אינו אמין! מבטל."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -370,14 +369,14 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "אי התאמה בסכום הבקרה של $0/$2. התקבל $1 כאשר אמור להתקבל $4. מבטל."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "מחשב את סכום הבקרה עבור $2."
 
 #: win32-loader.c:158
 msgid "Generating $0"
