@@ -1,3 +1,31 @@
+win32-loader (0.7.0) unstable; urgency=low
+
+  The « Petite Arvine » release.
+
+  * Standalone flavour:
+    - Fork gcrypt's win32 sha1um implementation into a NSIS plugin.
+    - Implement the last "Trusted download" bits:
+      1) Check Release{,.gpg} against debian-archive-keyring.gpg.
+      2) Check installer MD5SUMS against its sha1sum in Release, thanks to
+         FTP Masters for the archive-side changes.
+      3) Check kernel and initrd against their md5sum in MD5SUMS.
+    - Print downloaded URLs to details buffer.
+
+  * Network flavour:
+    - Don't download g2ldr{,.mbr} from the net: too tiny to be worth.
+    - Make the network mode work securely by allowing preseed.cfg checksum
+      embedding (Closes: #442180).
+
+  * Updated translations:
+    - Galician (Miguel Anxo Bouzada, Closes: #617397)
+    - Belarusian (Viktar Siarheichyk, Closes: #617702)
+    - Swedish (Martin Bagge, Closes: #618663)
+
+  * Bug-fixing:
+    - Don't create a useless boot.ini at uninstall time if it doesn't exist.
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 21 Mar 2011 13:40:11 +0100
+
 win32-loader (0.6.91) unstable; urgency=low
 
   [ Updated translations ]
