@@ -42,7 +42,8 @@ endif
 
 # Network version : Linked to a website with preseed.cfg
 ifdef NETWORK_BASE_URL
-MAKENSIS	+= -DNETWORK_BASE_URL=$(NETWORK_BASE_URL) -DNOCD=yes
+# Embed the md5sum or sha1sum of the $(NETWORK_BASE_URL)/preseed.cfg file for enhanced security.
+MAKENSIS	+= -DNETWORK_BASE_URL=$(NETWORK_BASE_URL) -DNOCD=yes -DNETWORK_BASE_URL_CHECKSUM=$(NETWORK_BASE_URL_CHECKSUM)
 OPTIONS_TXT	+= +url
 endif
 

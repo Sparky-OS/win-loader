@@ -156,12 +156,13 @@ d-i passwd/user-fullname seen false"
 
 !ifdef NETWORK_BASE_URL
 ; ********************************************** if ${NETWORK_BASE_URL} provides a preseed.cfg, use it
-  Push false ; no checksum checking.
+  Push ${NETWORK_BASE_URL_CHECKSUM}
   Push true
   Push "preseed.cfg"
   Push "$PLUGINSDIR"
   Push "${NETWORK_BASE_URL}"
   Call Download
+  Pop $0
   ${If} $0 == "success"
     StrCpy $preseed_cfg "$preseed_cfg$\n$\n"
     ClearErrors
