@@ -1,15 +1,15 @@
 # Catalan translation of win32-loader.
-# Copyright © 2007, 2008, 2009, 2010 Robert Millan <rmh@aybabtu.com>
+# Copyright © 2007, 2008, 2009, 2010, 2011 Robert Millan <rmh@aybabtu.com>
 # This file is distributed under the same license as the win32-loader package.
 # Robert Millan <rmh@aybabtu.com>, 2007, 2008, 2009.
-# Jordi Mallach <jordi@debian.org>, 2010.
+# Jordi Mallach <jordi@debian.org>, 2010, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: win32-loader 0.6.19\n"
+"Project-Id-Version: win32-loader 0.6.90\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-10-18 21:35+0200\n"
+"PO-Revision-Date: 2011-02-28 20:07+0100\n"
 "Last-Translator: Jordi Mallach <jordi@debian.org>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
 "Language: ca\n"
@@ -56,9 +56,9 @@ msgstr "Catalan"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Continua amb el procés d'instal·lació"
+msgstr "$target_distro $kernel_name - Continua amb el procés d'instal·lació"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -66,7 +66,7 @@ msgstr "Continua amb el procés d'instal·lació"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Arrencada per xarxa"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -81,9 +81,8 @@ msgstr "Catalan.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Carregador de l'instal·lador"
+msgstr "Carregador del Debian-Installer"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -219,7 +218,7 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "Mode PXE: instal·la un carregador de PXE per a permetre la càrrega d'un nucli remot."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -364,14 +363,14 @@ msgstr "Error: no s'ha pogut copiar $0 a $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "S'està comprovant la signatura GPG de $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "No es pot confiar en el fitxer $0 abaixat! S'està avortant."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -379,18 +378,18 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "La suma de comprovació no concorda per a $0/$2. S'ha obtingut $1 quan s'esperava $4. S'està avortant."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "S'està calculant la suma de comprovació de $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
-msgstr "Generant $0"
+msgstr "S'està generant $0"
 
 #: win32-loader.c:159
 msgid "Appending preseeding information to $0"
