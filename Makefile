@@ -4,14 +4,14 @@ export SHELL := bash
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 
-NSIS_CC		:= i586-mingw32msvc-gcc -Os
-NSIS_STRIP	:= i586-mingw32msvc-strip
+NSIS_CC		:= i686-w64-mingw32-gcc -Os
+NSIS_STRIP	:= i686-w64-mingw32-strip
 NSIS_CFLAGS	:= -Wl,--file-alignment,512 -Werror -D_WIN32_WINNT=0x0500
 
-ifeq ($(wildcard /usr/i586-mingw32msvc/include/exdll.h), /usr/i586-mingw32msvc/include/exdll.h)
+ifeq ($(wildcard /usr/i686-w64-mingw32/include/exdll.h), /usr/i686-w64-mingw32/include/exdll.h)
 NSIS_CFLAGS	+= -DHAVE_EXDLL_H
 else
-NSIS_CFLAGS	+= -L/usr/i586-mingw32msvc/lib/nsis -lpluginapi
+NSIS_CFLAGS	+= -L/usr/i686-w64-mingw32/lib/nsis/ -lpluginapi
 endif
 
 # Standard makensis call
