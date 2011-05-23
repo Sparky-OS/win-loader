@@ -102,8 +102,8 @@ else
 pxe.target:
 endif
 
-templates/gtk.bmp:
-	convert templates/gtk_orig.png -resize 107x80 BMP3:templates/gtk.bmp
+templates/gtk.bmp: templates/gtk_orig.png
+	convert $^ -resize 107x80 BMP3:$@
 
 win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
