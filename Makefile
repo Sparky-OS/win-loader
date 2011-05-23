@@ -102,8 +102,12 @@ else
 pxe.target:
 endif
 
+templates/gtk.bmp:
+	convert templates/gtk_orig.png -resize 107x80 BMP3:templates/gtk.bmp
+
 win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
+		templates/gtk.bmp templates/text.bmp \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
 		plugins/sha1sum.dll \
 		pxe.target \
