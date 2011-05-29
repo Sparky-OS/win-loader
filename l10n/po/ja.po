@@ -1,12 +1,12 @@
 # This file is distributed under the same license as the win32-loader package.
-# Hideki Yamane <henrich@debian.org>, 2007-2010.
+# Hideki Yamane <henrich@debian.org>, 2007-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader 0.6.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-05-07 22:42+0900\n"
+"PO-Revision-Date: 2011-05-30 08:54+0900\n"
 "Last-Translator: Hideki Yamane <henrich@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
 "Language: ja\n"
@@ -55,9 +55,9 @@ msgstr "Japanese"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "インストールを続行する"
+msgstr "$target_distro $kernel_name - インストールを続行する"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -65,7 +65,7 @@ msgstr "インストールを続行する"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - ネットワークブート"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -80,9 +80,8 @@ msgstr "Japanese.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "インストーラ起動ツール"
+msgstr "Debian-Installer 起動ツール"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -217,7 +216,7 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "PXE モード: リモートのカーネルを読み込むため、PXE ローダーをインストールする。"
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -362,14 +361,14 @@ msgstr "エラー: $0 を $1 にコピーするのに失敗しました。"
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "$0 の GPG 署名をチェックしています。"
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "ダウンロードした $0 ファイルは、信用することができません! 終了します。"
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -377,14 +376,14 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "$0/$2 のチェックサムが一致しません。$4 の筈のところ、$1 になりました。終了します。"
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "$2 のチェックサムを計算中"
 
 #: win32-loader.c:158
 msgid "Generating $0"
