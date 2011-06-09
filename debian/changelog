@@ -1,6 +1,11 @@
 win32-loader (0.7.1) UNRELEASED; urgency=low
 
+  [ Joey Hess ]
   * Update i386 daily build location.
+
+  [ Colin Watson ]
+  * Build-depend on the new grub-pc-bin, which is a less intrusive
+    build-dependency than grub-pc.
 
  -- Joey Hess <joeyh@debian.org>  Tue, 10 May 2011 15:42:24 -0400
 
