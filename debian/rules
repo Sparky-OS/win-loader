@@ -6,7 +6,7 @@ BYHAND ?= yes
 W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
 W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
-PACKAGES_LIST = $(shell dpkg-query -f='$${Package;-25} $${Version}\\n' -W grub-pc cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin )
+PACKAGES_LIST = $(shell dpkg-query -f='$${Package;-25} $${Version}\\n' -W grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin )
 NSIS_VERSION  = $(shell dpkg-query -f='$${Version}' -W nsis )
 
 %:
