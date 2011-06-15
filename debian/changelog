@@ -1,4 +1,11 @@
-win32-loader (0.7.1) UNRELEASED; urgency=low
+win32-loader (0.7.1) unstable; urgency=low
+
+  The « Fendant » release.
+
+  * Updated translations:
+    - Catalan (Jordi Mallach, Closes: #619378)
+    - Japanese (Kenshi Muto)
+    - Bosnian (Armin Besirovic)
 
   [ Joey Hess ]
   * Update i386 daily build location.
@@ -7,7 +14,19 @@ win32-loader (0.7.1) UNRELEASED; urgency=low
   * Build-depend on the new grub-pc-bin, which is a less intrusive
     build-dependency than grub-pc.
 
- -- Joey Hess <joeyh@debian.org>  Tue, 10 May 2011 15:42:24 -0400
+  [ Stephen Kitt ]
+  * Build with mingw-w64. (Closes: #623621)
+
+  [ Didier Raboud ]
+  * Fix long description to remove the mention of the standalone version
+    which is uploaded "byhand" anyway.
+  * Replace the GTK screenshot by a more recent one, featuring SpaceFun.
+    Document the creation of the bmp picture from its bigger-size png
+    source using convert.
+  * Build-Depend on the mingw-w64-based NSIS.
+  * Bump Standards-Version to 3.9.2.0 without changes needed.
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 15 Jun 2011 12:54:25 +0200
 
 win32-loader (0.7.0) unstable; urgency=low
 
