@@ -5,7 +5,7 @@ Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
 Uploaders: Robert Millan <rmh.debian@aybabtu.com>, Didier Raboud <odyx@debian.org>
 Build-Depends:
  debhelper (>= 7.0.50),
- nsis (>= 2.43),
+ nsis (>= 2.43-4), nsis-pluginapi,
  mingw-w64,
  gettext,
  grub-pc-bin (>= 1.99~rc1-3),
