@@ -1,0 +1,2 @@
+# Compress source using bz2
+compression = bzip2
