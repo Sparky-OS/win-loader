@@ -23,25 +23,29 @@ Function ShowCustom
 !ifndef NOCD
 
 ; ********************************************** Media-based install
+  Var /GLOBAL g2ldr
+  Var /GLOBAL g2ldr_mbr
+  ReadINIStr $g2ldr	$d\win32-loader.ini "grub" "g2ldr"
+  ReadINIStr $g2ldr_mbr	$d\win32-loader.ini "grub" "g2ldr.mbr"
+  StrCmp $g2ldr		"" incomplete_ini
+  StrCmp $g2ldr_mbr	"" incomplete_ini
   ${If} $kernel == "linux"
     Var /GLOBAL linux
     Var /GLOBAL initrd
-    Var /GLOBAL g2ldr
-    Var /GLOBAL g2ldr_mbr
     ReadINIStr $linux	$d\win32-loader.ini "installer" "$arch/$gtklinux"
     ReadINIStr $initrd	$d\win32-loader.ini "installer" "$arch/$gtkinitrd"
-    ReadINIStr $g2ldr	$d\win32-loader.ini "grub" "g2ldr"
-    ReadINIStr $g2ldr_mbr	$d\win32-loader.ini "grub" "g2ldr.mbr"
-    StrCmp $linux		"" incomplete_ini
+    StrCmp $linux	"" incomplete_ini
     StrCmp $initrd	"" incomplete_ini
-    StrCmp $g2ldr		"" incomplete_ini
-    StrCmp $g2ldr_mbr	"" incomplete_ini
     Goto ini_is_ok
   ${ElseIf} $kernel == "kfreebsd"
-    # TODO: Check if kfreebsd will ever ship a media-based installed.
-    # If so, make sure it works here.
-    Goto incomplete_ini
+    Var /GLOBAL kfreebsd
+    Var /GLOBAL kfreebsd_module
+    ReadINIStr $kfreebsd	$d\win32-loader.ini "installer" "$arch/$gtkkfreebsd"
+    ReadINIStr $kfreebsd_module	$d\win32-loader.ini "installer" "$arch/$gtkkfreebsd_module"
+    StrCmp $kfreebsd		"" incomplete_ini
+    StrCmp $kfreebsd_module	"" incomplete_ini
   ${EndIf}
+  Goto ini_is_ok
 incomplete_ini:
   MessageBox MB_OK|MB_ICONSTOP "$(error_incomplete_ini)"
   Quit

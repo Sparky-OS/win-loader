@@ -42,10 +42,14 @@ Function ShowKernel
  !else ; KFREEBSD
     StrCpy $kernel linux
  !endif ; KFREEBSD
-!else
-  ; TODO: detect the CD architecture
-  StrCpy $kernel linux
-!endif
+!else ; NOCD
+  ; When on CD, the win32-loader.ini contains a kernel={linux,kfreebsd} in the [installer] section
+  ReadINIStr $kernel $d\win32-loader.ini "installer" "kernel"
+  ; If there is nothing, default to linux
+  ${If} $kernel == ""
+    StrCpy $kernel linux
+  ${EndIf}
+!endif ; NOCD
   Var /GLOBAL kernel_name
   ${If} $kernel == "kfreebsd"
     StrCpy $kernel_name "GNU/kFreeBSD"

@@ -53,12 +53,21 @@ Section "Installer Loader"
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
   ${ElseIf} $kernel == "kfreebsd"
-    # TODO: Check if kfreebsd will ever ship a media-based installed.
-    # If so, make sure it works here.
-    MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-    Quit
+    ClearErrors
+    StrCpy $0 "$EXEDIR\$kfreebsd"
+    StrCpy $1 "$INSTDIR\kfreebsd.gz"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$kfreebsd_module"
+    StrCpy $1 "$INSTDIR\initrd.gz"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
   ${EndIf}
-!else
+!else ;NOCD
 !ifdef PXE
  ${If} $pxe_mode == "false"
 !endif ;PXE
