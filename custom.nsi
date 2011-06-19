@@ -40,8 +40,8 @@ Function ShowCustom
   ${ElseIf} $kernel == "kfreebsd"
     Var /GLOBAL kfreebsd
     Var /GLOBAL kfreebsd_module
-    ReadINIStr $kfreebsd	$d\win32-loader.ini "installer" "$arch/$gtkkfreebsd"
-    ReadINIStr $kfreebsd_module	$d\win32-loader.ini "installer" "$arch/$gtkkfreebsd_module"
+    ReadINIStr $kfreebsd	$d\win32-loader.ini "installer" "kfreebsd-$arch/$gtkkfreebsd"
+    ReadINIStr $kfreebsd_module	$d\win32-loader.ini "installer" "kfreebsd-$arch/$gtkkfreebsd_module"
     StrCmp $kfreebsd		"" incomplete_ini
     StrCmp $kfreebsd_module	"" incomplete_ini
   ${EndIf}
