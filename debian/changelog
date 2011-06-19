@@ -1,3 +1,15 @@
+win32-loader (0.7.3) unstable; urgency=low
+
+  The « Gamaret » release.
+
+  * Updated translations:
+    - Uyghur (Gheyret Tohti)
+      (Still not activated, no NSIS translation)
+
+  * Fix kFreeBSD kernel variables in win32-loader.ini.
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 19 Jun 2011 14:59:22 +0200
+
 win32-loader (0.7.2) unstable; urgency=low
 
   The « Raisinée » release.
