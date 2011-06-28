@@ -66,6 +66,32 @@ Section "Installer Loader"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
+  ${ElseIf} $kernel == "hurd"
+    ClearErrors
+    StrCpy $0 "$EXEDIR\$gnumach"
+    StrCpy $1 "$INSTDIR\gnumach.gz"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$ext2fs"
+    StrCpy $1 "$INSTDIR\ext2fs.static"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$initrd"
+    StrCpy $1 "$INSTDIR\initrd.gz"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
+    StrCpy $0 "$EXEDIR\$ld"
+    StrCpy $1 "$INSTDIR\ld.so.1"
+    CopyFiles /FILESONLY "$0" "$1"
+    IfErrors 0 +3
+      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+      Quit
   ${EndIf}
 !else ;NOCD
 !ifdef PXE
@@ -156,6 +182,46 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_md5$base_path_images"
     Call Download
+  ${ElseIf} $kernel == "hurd"
+    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$base_path_images/gnumach.gz"
+    Call Get_MD5_ref
+    ; MD5 is on stack
+    Push "false"
+    Push "gnumach.gz"
+    Push "$INSTDIR"
+    Push "$base_url$base_path_md5$base_path_images"
+    Call Download
+
+    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$base_path_images/ext2fs.static"
+    Call Get_MD5_ref
+    ; MD5 is on stack
+    Push "false"
+    Push "ext2fs.static"
+    Push "$INSTDIR"
+    Push "$base_url$base_path_md5$base_path_images"
+    Call Download
+
+    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$base_path_images/initrd.gz"
+    Call Get_MD5_ref
+    ; MD5 is on stack
+    Push "false"
+    Push "initrd.gz"
+    Push "$INSTDIR"
+    Push "$base_url$base_path_md5$base_path_images"
+    Call Download
+
+    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$base_path_images/ld.so.1"
+    Call Get_MD5_ref
+    ; MD5 is on stack
+    Push "false"
+    Push "ld.so.1"
+    Push "$INSTDIR"
+    Push "$base_url$base_path_md5$base_path_images"
+    Call Download
   ${EndIf}
 !ifdef PXE
  ${EndIf} ; $pxe_mode == "false"
@@ -194,6 +260,18 @@ kfreebsd_module	/win32-loader/initrd.gz type=mfs_root$\n\
 set kFreeBSD.vfs.root.mountfrom=ufs:/dev/md0$\n\
 set kFreeBSD.hw.ata.ata_dma=0   # needed for qemu hard disk # TODO: delete$\n\
 set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
+boot$\n"
+  ${ElseIf} $kernel == "hurd"
+    FileWrite $0 "\
+multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 GTK_NOVESA=1$\n\
+module --nounzip	/win32-loader/initrd.gz initrd '$$(ramdisk-create)'$\n\
+module 			/win32-loader/ext2fs.static ext2fs \$\n\
+			--multiboot-command-line='$${kernel-command-line}' \$\n\
+			--host-priv-port='$${host-port}' \$\n\
+			--device-master-port='$${device-port}' \$\n\
+			--exec-server-task='$${exec-task}' -T typed '$${root}' \$\n\
+			'$$(task-create)' '$$(task-resume)'$\n\
+module			/win32-loader/ld.so.1 exec /hurd/exec '$$(exec-task=task-create)'$\n\
 boot$\n"
   ${EndIf}
 !ifdef PXE
@@ -367,6 +445,8 @@ ${EndIf}
     nsExec::Exec '"compact" /u $INSTDIR\linux $INSTDIR\initrd.gz'
   ${ElseIf} $kernel == "kfreebsd"
     nsExec::Exec '"compact" /u $INSTDIR\kfreebsd.gz $INSTDIR\initrd.gz'
+  ${ElseIf} $kernel == "hurd"
+    nsExec::Exec '"compact" /u $INSTDIR\gnumach.gz $INSTDIR\ext2fs.static $INSTDIR\initrd.gz $INSTDIR\ld.so.1'
   ${EndIf}
 !ifdef PXE
   ${If} $pxe_mode == "true"

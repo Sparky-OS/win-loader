@@ -100,6 +100,7 @@ main (int argc, char **argv)
   langstring ("kernel1",			_("Select the kernel:"));
   langstring ("kernel2",			_("GNU/Linux"));
   langstring ("kernel3",			_("GNU/kFreeBSD"));
+  langstring ("kernel4",			_("GNU/Hurd"));
   langstring ("graphics1",			_("Select install mode:"));
   langstring ("graphics2",			_("Graphical install"));
   langstring ("graphics3",			_("Text install"));

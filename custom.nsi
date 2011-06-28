@@ -44,6 +44,18 @@ Function ShowCustom
     ReadINIStr $kfreebsd_module	$d\win32-loader.ini "installer" "kfreebsd-$arch/$gtkkfreebsd_module"
     StrCmp $kfreebsd		"" incomplete_ini
     StrCmp $kfreebsd_module	"" incomplete_ini
+  ${ElseIf} $kernel == "hurd"
+    Var /GLOBAL gnumach
+    Var /GLOBAL ext2fs
+    Var /GLOBAL ld
+    ReadINIStr $gnumach		$d\win32-loader.ini "installer" "hurd-$arch/$gtkgnumach"
+    ReadINIStr $ext2fs		$d\win32-loader.ini "installer" "hurd-$arch/$gtkext2fs"
+    ReadINIStr $initrd		$d\win32-loader.ini "installer" "hurd-$arch/$gtkinitrd"
+    ReadINIStr $ld		$d\win32-loader.ini "installer" "hurd-$arch/$gtklt"
+    StrCmp $gnumach		"" incomplete_ini
+    StrCmp $ext2fs		"" incomplete_ini
+    StrCmp $initrd		"" incomplete_ini
+    StrCmp $ld			"" incomplete_ini
   ${EndIf}
   Goto ini_is_ok
 incomplete_ini:

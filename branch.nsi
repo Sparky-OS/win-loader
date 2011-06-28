@@ -56,6 +56,9 @@ Function ShowBranch
     ${ElseIf} $kernel == "kfreebsd"
       StrCpy $base_url          "http://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
       StrCpy $base_path_images  "netboot/debian-installer/kfreebsd-$arch"
+    ${ElseIf} $kernel == "hurd"
+      StrCpy $base_url          "http://d-i.debian.org/daily-images/hurd-$arch/daily/"
+      StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
     ${EndIf}
   ${Else}
     StrCpy $base_url         "http://cdn.debian.net/debian/dists/stable/"
@@ -65,6 +68,9 @@ Function ShowBranch
     ${ElseIf} $kernel == "kfreebsd"
       StrCpy $base_path_md5    "main/installer-kfreebsd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/kfreebsd-$arch"
+    ${ElseIf} $kernel == "hurd"
+      StrCpy $base_path_md5    "main/installer-hurd-$arch/current/images/"
+      StrCpy $base_path_images "netboot/$gtkdebian-installer/hurd-$arch"
     ${EndIf}
   ${Endif}
 FunctionEnd

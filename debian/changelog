@@ -1,3 +1,9 @@
+win32-loader (0.7.4) UNRELEASED; urgency=low
+
+  * Add hurd support, disabled for now.
+
+ -- Samuel Thibault <sthibault@debian.org>  Tue, 28 Jun 2011 23:37:11 +0200
+
 win32-loader (0.7.3) unstable; urgency=low
 
   The « Gamaret » release.
