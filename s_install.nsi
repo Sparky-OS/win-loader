@@ -263,7 +263,7 @@ set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
 boot$\n"
   ${ElseIf} $kernel == "hurd"
     FileWrite $0 "\
-multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 GTK_NOVESA=1$\n\
+multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 $preseed_cmdline$\n\
 module --nounzip	/win32-loader/initrd.gz initrd '$$(ramdisk-create)'$\n\
 module 			/win32-loader/ext2fs.static ext2fs \$\n\
 			--multiboot-command-line='$${kernel-command-line}' \$\n\

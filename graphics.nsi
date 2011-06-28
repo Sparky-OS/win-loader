@@ -27,8 +27,9 @@ Function ShowGraphics
 
   ${If} $predefined_user_interface == ""
 !endif
-    ${If} $expert == true
-     ${AndIf} $kernel == "linux"
+    ${If} $kernel == "linux"
+     ${OrIf} $kernel == "hurd"
+     ${AndIf} $expert == true
       File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
       File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
       File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
@@ -43,7 +44,8 @@ Function ShowGraphics
         StrCpy $user_interface graphical
       ${EndIf}
     ${ElseIf} $kernel == linux
-      ; ** Default to graphical interface for linux
+    ${OrIf} $kernel == hurd
+      ; ** Default to graphical interface for linux & hurd
       StrCpy $user_interface graphical
     ${Endif}
 !ifndef NOCD
@@ -57,9 +59,15 @@ ${If} $user_interface == "graphical"
 ${Endif}
 
 ; ********************************************** Preseed vga mode
+${If} $kernel == "linux"
   ${If} "$user_interface" == "graphical"
     StrCpy $preseed_cmdline "$preseed_cmdline video=vesa:ywrap,mtrr vga=788"
   ${Else}
     StrCpy $preseed_cmdline "$preseed_cmdline vga=normal"
   ${EndIf}
+${ElseIf} $kernel == "hurd"
+  ${If} "$user_interface" != "graphical"
+    StrCpy $preseed_cmdline "$preseed_cmdline GTK_NOVESA=1"
+  ${Endif}
+${Endif}
 FunctionEnd
