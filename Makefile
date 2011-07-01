@@ -54,10 +54,10 @@ OPTIONS_TXT	+= +pxe
 endif
 
 # Disabling the kFreeBSD download
-ifndef NO_KFREEBSD
-MAKENSIS	+= -DKFREEBSD=yes
+ifndef NOT_ALLKERNELS
+MAKENSIS	+= -DALLKERNELS=yes
 else
-OPTIONS_TXT	+= -kbsd
+OPTIONS_TXT	+= =linux
 endif
 
 ifdef OPTIONS_TXT
@@ -76,7 +76,8 @@ GRUB_MODULES	+= search linux bsd multiboot vbe boot
 GRUB_MODULES	+= minicmd cat cpuid chain halt help ls reboot
 # useful for loading files from ISO images
 GRUB_MODULES	+= loopback iso9660
-ifndef NO_KFREEBSD
+ifndef NOT_ALLKERNELS
+# gzio is needed for kFreeBSD
 GRUB_MODULES    += gzio
 endif
 ifdef PXE

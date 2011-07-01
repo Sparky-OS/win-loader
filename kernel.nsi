@@ -20,7 +20,7 @@
 Function ShowKernel
   Var /GLOBAL kernel 
 !ifdef NOCD
- !ifdef KFREEBSD
+ !ifdef ALLKERNELS
   ${If} $expert == true
   ${AndIf} $windows_boot_method != direct ; loadlin can only load linux
     File /oname=$PLUGINSDIR\kernel.ini	templates/binary_choice.ini
@@ -39,9 +39,9 @@ Function ShowKernel
     ; ** Default to GNU/Linux
     StrCpy $kernel linux
   ${Endif}
- !else ; KFREEBSD
+ !else ; ALLKERNELS
     StrCpy $kernel linux
- !endif ; KFREEBSD
+ !endif ; ALLKERNELS
 !else ; NOCD
   ; When on CD, the win32-loader.ini contains a kernel={linux,kfreebsd} in the [installer] section
   ReadINIStr $kernel $d\win32-loader.ini "installer" "kernel"
