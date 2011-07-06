@@ -74,6 +74,8 @@ GRUB_MODULES	+= fat ntfs ntfscomp
 GRUB_MODULES	+= search linux bsd multiboot vbe boot
 # might be useful for debugging
 GRUB_MODULES	+= minicmd cat cpuid chain halt help ls reboot
+# useful for loading files from ISO images
+GRUB_MODULES	+= loopback iso9660
 ifndef NO_KFREEBSD
 GRUB_MODULES    += gzio
 endif

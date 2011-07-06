@@ -1,6 +1,11 @@
 win32-loader (0.7.4) UNRELEASED; urgency=low
 
+  [ Samuel Thibault ]
   * Add hurd support, disabled for now.
+
+  [ Colin Watson ]
+  * Add loopback and iso9660 GRUB modules, useful for loading files from ISO
+    images.
 
  -- Samuel Thibault <sthibault@debian.org>  Tue, 28 Jun 2011 23:37:11 +0200
 
