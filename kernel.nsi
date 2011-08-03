@@ -23,15 +23,21 @@ Function ShowKernel
  !ifdef ALLKERNELS
   ${If} $expert == true
   ${AndIf} $windows_boot_method != direct ; loadlin can only load linux
-    File /oname=$PLUGINSDIR\kernel.ini	templates/binary_choice.ini
+    File /oname=$PLUGINSDIR\kernel.ini	templates/ternary_choice.ini
     WriteINIStr $PLUGINSDIR\kernel.ini "Field 1" "Text" $(kernel1)
     WriteINIStr $PLUGINSDIR\kernel.ini "Field 2" "Text" $(kernel2)
     WriteINIStr $PLUGINSDIR\kernel.ini "Field 3" "Text" $(kernel3)
+    WriteINIStr $PLUGINSDIR\kernel.ini "Field 4" "Text" $(kernel4)
     InstallOptions::dialog $PLUGINSDIR\kernel.ini
  
     ReadINIStr $0 $PLUGINSDIR\kernel.ini "Field 3" "State"
+    ReadINIStr $1 $PLUGINSDIR\kernel.ini "Field 4" "State"
     ${If} $0 == "1"
       StrCpy $kernel kfreebsd
+    ${ElseIf} $1 == "1"
+      StrCpy $kernel hurd
+      # hurd doesn't exist in other architectures other than i386
+      StrCpy $arch i386
     ${Else}
       StrCpy $kernel linux
     ${Endif}
@@ -55,6 +61,10 @@ Function ShowKernel
     StrCpy $kernel_name "GNU/kFreeBSD"
   ${ElseIf} $kernel == "linux"
     StrCpy $kernel_name "GNU/Linux"
+  ${ElseIf} $kernel == "hurd"
+    StrCpy $kernel_name "GNU/Hurd"
+    # hurd doesn't exist in other architectures other than i386
+    StrCpy $arch i386
   ${EndIf}
 FunctionEnd
 

@@ -78,7 +78,7 @@ gettext English > /dev/null
 # IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 # (e.g. cp437) should be used in this string.  If you don't know which charset
 # applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
-# will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+# will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 d_i=`gettext '$target_distro $kernel_name - Continue with install process'`
 
 # translate:
