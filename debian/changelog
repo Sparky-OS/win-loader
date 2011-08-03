@@ -1,13 +1,27 @@
-win32-loader (0.7.4) UNRELEASED; urgency=low
+win32-loader (0.7.4) unstable; urgency=low
+
+  The « Amigne de Vétroz » release.
 
   [ Samuel Thibault ]
-  * Add hurd support, disabled for now.
+  * Add GNU/Hurd support, disabled for now.
+  * Add graphical choice for the GNU/Hurd case.
 
   [ Colin Watson ]
   * Add loopback and iso9660 GRUB modules, useful for loading files from ISO
     images.
 
- -- Samuel Thibault <sthibault@debian.org>  Tue, 28 Jun 2011 23:37:11 +0200
+  [ Didier Raboud ]
+  * Update debian/copyright and the companion text to point to the real
+    source locations.
+  * Use the Built-Using field and enhance the sources documentation.
+  * Rename the NO_KFREEBSD make envvar to NOT_ALLKERNELS to open the doors
+    to GNU/Hurd too.
+  * Update hurd-i386 daily images location.
+  * Allow one to choose GNU/Hurd from the listed kernels.
+  * Rename "Linux cmdline" to "Kernel commandline".
+  * Point to the Installation Guide in the companion text. (Closes: 635675)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 03 Aug 2011 20:45:20 +0200
 
 win32-loader (0.7.3) unstable; urgency=low
 
