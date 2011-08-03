@@ -22,6 +22,13 @@ On the next reboot, the user can choose to continue the installation of
 Debian. The installation will be run using the defaults gathered from the
 runtime analysis and user prompting.
 
+== Installation Guide ==
+
+As the Debian Installer is a minimal system, one might want to take a look at
+the Debian Installation Guide before launching win32-loader.exe:
+
+	http://www.debian.org/releases/stable/installmanual
+
 == Removal ==
 
 When win32-loader.exe is uninstalled, it removes the Debian-Installer image
