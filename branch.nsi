@@ -57,8 +57,8 @@ Function ShowBranch
       StrCpy $base_url          "http://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
       StrCpy $base_path_images  "netboot/debian-installer/kfreebsd-$arch"
     ${ElseIf} $kernel == "hurd"
-      StrCpy $base_url          "http://d-i.debian.org/daily-images/hurd-$arch/daily/"
-      StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
+      StrCpy $base_url          "http://people.debian.org/~sthibault/hurd-$arch/installer/cdimage/current/"
+      StrCpy $base_path_images  "$gtk"
     ${EndIf}
   ${Else}
     StrCpy $base_url         "http://cdn.debian.net/debian/dists/stable/"
