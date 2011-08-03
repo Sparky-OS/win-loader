@@ -19,7 +19,7 @@ win32-loader (0.7.4) unstable; urgency=low
   * Update hurd-i386 daily images location.
   * Allow one to choose GNU/Hurd from the listed kernels.
   * Rename "Linux cmdline" to "Kernel commandline".
-  * Point to the Installation Guide in the companion text. (Closes: 635675)
+  * Point to the Installation Guide in the companion text. (Closes: 635657).
 
  -- Didier Raboud <odyx@debian.org>  Wed, 03 Aug 2011 20:45:20 +0200
 
