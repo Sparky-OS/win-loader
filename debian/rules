@@ -13,9 +13,9 @@ PACKAGES_LIST := $(shell set -e; \
 	do \
 		if test `dpkg-query --showformat='x$${Source}x' --show $$p` = "xx"; \
 		then \
-			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/main/pool/$${Package;1}/$${Package}\\n' --show $$p; \
+			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/pool/main/$${Package;1}/$${Package}\\n' --show $$p; \
 		else \
-			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/main/pool/$${Source;1}/$${Source}\\n' --show $$p; \
+			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/pool/main/$${Source;1}/$${Source}\\n' --show $$p; \
 		fi; \
 	done)
 
