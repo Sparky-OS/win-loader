@@ -6,9 +6,31 @@ BYHAND ?= yes
 W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
 W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
-PACKAGES_LIST = $(shell dpkg-query -f='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/pool/$${Source;1}/$${Source}\\n' \
-	-W grub-pc cpio-win32 gzip-win32 )
-NSIS_VERSION  = $(shell dpkg-query -f='$${Version}' -W nsis )
+B_D_PACKAGES := grub-pc cpio-win32 gzip-win32
+
+PACKAGES_LIST := $(shell set -e; \
+	for p in ${B_D_PACKAGES}; \
+	do \
+		if test `dpkg-query --showformat='x$${Source}x' --show $$p` = "xx"; \
+		then \
+			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/main/pool/$${Package;1}/$${Package}\\n' --show $$p; \
+		else \
+			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/main/pool/$${Source;1}/$${Source}\\n' --show $$p; \
+		fi; \
+	done)
+
+BUILT_USING_LIST := $(shell set -e; \
+	for p in ${B_D_PACKAGES}; \
+	do \
+		if test `dpkg-query --showformat='x$${Source}x' --show $$p` = "xx"; \
+		then \
+			dpkg-query --showformat='$${Package} (= $${Version}), ' --show $$p; \
+		else \
+			dpkg-query --showformat='$${Source} (= $${Version}), ' --show $$p; \
+		fi; \
+	done)
+
+NSIS_VERSION  := $(shell dpkg-query -f='$${Version}' -W nsis )
 
 %:
 	dh $@
@@ -40,3 +62,6 @@ ifeq ($(BYHAND),yes)
 	cp $(W32_BYHAND_NAME).txt ../
 	dpkg-distaddfile $(W32_BYHAND_NAME).txt byhand -
 endif
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vw32-loader:built-using="$(BUILT_USING_LIST)"

@@ -20,6 +20,7 @@ Vcs-Browser: http://svn.debian.org/wsvn/d-i/trunk/win32-loader/?op=log
 Package: win32-loader
 Architecture: all
 Depends: ${misc:Depends}, base-files (>= 4.0.1~)
+Built-Using: ${w32-loader:built-using}
 Suggests: wine
 Description: Debian-Installer loader for win32
  This package provides a win32 program that can be used as a loader for
