@@ -1,22 +1,22 @@
-# translation of nl.po to Dutch
+# Translation of the win32-loader package to Dutch.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-#
+# This file is distributed under the same license as the win32-loader package.
 # Frans Pop <elendil@planet.nl>, 2007, 2008.
 # Eric Spreen <erispre@gmail.com>, 2010.
+# Jeroen Schot <schot@a-eskwadraat.nl>, 2011.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: nl\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: win32-loader 0.7.4.1\n"
+"Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-11-18 21:44+0100\n"
-"Last-Translator: Eric Spreen <erispre@gmail.com>\n"
-"Language-Team: Dutch <debian-l10n-dutch@lists.debian.org>\n"
+"PO-Revision-Date: 2011-09-21 10:13+0200\n"
+"Last-Translator: Jeroen Schot <schot@a-eskwadraat.nl>\n"
+"Language-Team: Debian l10n Dutch <debian-l10n-dutch@lists.debian.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -57,9 +57,9 @@ msgstr "Dutch"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Hervat de installatieprocedure"
+msgstr "$target_distro $kernel_name - Hervat de installatieprocedure"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -67,7 +67,7 @@ msgstr "Hervat de installatieprocedure"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Vanaf netwerk opstarten"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -82,7 +82,6 @@ msgstr "Dutch.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
 msgstr "Lader voor Debian Installatiesysteem"
 
@@ -116,7 +115,7 @@ msgstr ""
 "Stuur a.u.b. een probleemrapport met daarin de volgende informatie:\n"
 "\n"
 " - Versie van Windows.\n"
-" - Localisatie-instellingen.\n"
+" - Lokalisatie-instellingen.\n"
 " - Juiste type toetsenbord.\n"
 " - Gedetecteerde type toetsenbord.\n"
 "\n"
@@ -198,7 +197,7 @@ msgid ""
 "partition\" ($c)."
 msgstr ""
 "Kan de \"systeempartitie\" niet vinden. Neem aan dat het hetzelfde  is als "
-"de \"bootpartitie\" ($c)."
+"de \"opstartpartitie\" ($c)."
 
 #: win32-loader.c:93 win32-loader.c:103
 msgid "Select install mode:"
@@ -218,7 +217,7 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "PXE - installeer een PXE-lader om een externe kernel te laden."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -363,7 +362,7 @@ msgstr "Fout: kopiëren van $0 naar $1 is mislukt."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "GPG-ondertekening van $0 wordt gecontroleerd."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
@@ -371,6 +370,8 @@ msgstr ""
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
+"Het opgehaalde bestand $0 kan niet worden vertrouwd! Installatie wordt "
+"afgebroken."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -379,13 +380,15 @@ msgstr ""
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Foutief controlegetal voor $0/$2. $1 gevonden in plaats van $4. Installatie "
+"wordt afgebroken."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Controlegetal voor $2 wordt berekend"
 
 #: win32-loader.c:158
 msgid "Generating $0"
