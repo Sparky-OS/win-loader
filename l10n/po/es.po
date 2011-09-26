@@ -4,8 +4,10 @@
 #
 # Changes:
 # - Initial translation
-#       Javier Fernández-Sanguino , 2007
+#       Javier Fernández-Sanguino, 2007
 # - Reviewers: Fernando Cerezal
+# - Updated by:
+#       Javier Fernández-Sanguino, 2008-2011
 #
 #
 #  Traductores, si no conoce el formato PO, merece la pena leer la 
@@ -35,7 +37,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
-"PO-Revision-Date: 2010-08-08 03:00+0200\n"
+"PO-Revision-Date: 2011-09-21 23:51+0200\n"
 "Last-Translator: Javier Fernández-Sanguino <jfs@debian.org>\n"
 "Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "Language: \n"
@@ -87,9 +89,9 @@ msgstr "Spanish"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Continuar con el proceso de instalación"
+msgstr "$target_distro $kernel_name - Continuar con el proceso de instalación"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -97,7 +99,7 @@ msgstr "Continuar con el proceso de instalación"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Arranque de red"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -112,9 +114,8 @@ msgstr "Spanish.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Cargador del instalador"
+msgstr "Cargador del instalador de Debian"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -251,7 +252,7 @@ msgstr ""
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "Modo PXE: instalar un cargador PXE para permitir la carga remota del núcleo."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -396,14 +397,14 @@ msgstr "Error: no se ha podido copiar $0 a $1."
 #.
 #: win32-loader.c:141
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Comprobando la firma GPG de $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:146
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "¡No se puede confiar en el archivo descargado $0! Interrumpiendo."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -411,14 +412,14 @@ msgstr ""
 #.
 #: win32-loader.c:152
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "Fallo en la suma de control de $0/$2. Se obtuvo $1 cuando se esperaba $4. Interrumpiendo."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:157
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Calculando la suma de control para $2"
 
 #: win32-loader.c:158
 msgid "Generating $0"
