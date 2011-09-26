@@ -1,3 +1,19 @@
+win32-loader (0.6.21+squeeze0) stable; urgency=low
+
+  The "GPL compliance" release.
+
+  * Add a dpkg-distaddfile byhand call to install win32-loader-
+    standalone.exe as tools/$(SUITE)/win32-loader.exe on the mirrors.
+  * Document which packages in which versions are embedded in the
+    standalone flavour.
+  * Add acknowledgement to NSIS in the companion text file.
+  * Include version number in the companion text.
+  * Update debian/copyright and the companion text to point to the real
+    source locations.
+  * Use the Built-Using field and enhance the sources documentation.
+
+ -- Didier Raboud <didier@raboud.com>  Wed, 28 Sep 2011 13:49:11 +0200
+
 win32-loader (0.6.21) unstable; urgency=low
 
   [ Updated translations ]
