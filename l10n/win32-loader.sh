@@ -67,7 +67,7 @@ fi
 gettext English > /dev/null
 
 # The bulk of the strings
-./win32-loader | iconv -f utf-8 -t "${charset}"
+./win32-loader | iconv -c -f utf-8 -t "${charset}"
 
 # Now comes a string that may be used by NTLDR (or not).  So we need both
 # samples.
@@ -88,19 +88,19 @@ d_i=`gettext '$target_distro $kernel_name - Continue with install process'`
 pxe=`gettext "PXE - Network boot"`
 
 #  - Then we get a sample for bootmgr in the native charset.
-echo "${d_i}" | iconv -f utf-8 -t "${charset}" | langstring d-i
-echo "${pxe}" | iconv -f utf-8 -t "${charset}" | langstring pxe
+echo "${d_i}" | iconv -c -f utf-8 -t "${charset}" | langstring d-i
+echo "${pxe}" | iconv -c -f utf-8 -t "${charset}" | langstring pxe
 
 #  - And another for ntldr in its own charset.  If the charset cannot be
 #    converted to ${ntldr_charset}, fallback to English untill it's fixed.
-(if echo "${d_i}" | iconv -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
-  echo "${d_i}" | iconv -f utf-8 -t "${ntldr_charset}"
+(if echo "${d_i}" | iconv -c -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
+  echo "${d_i}" | iconv -c -f utf-8 -t "${ntldr_charset}"
 else
   echo '$target_distro $kernel_name - Continue with install process'
 fi) | langstring d-i_ntldr
 
-(if echo "${pxe}" | iconv -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
-  echo "${pxe}" | iconv -f utf-8 -t "${ntldr_charset}"
+(if echo "${pxe}" | iconv -c -f utf-8 -t "${ntldr_charset}" > /dev/null 2>&1 ; then
+  echo "${pxe}" | iconv -c -f utf-8 -t "${ntldr_charset}"
 else
   echo "PXE - Network boot"
 fi) | langstring pxe_ntldr
