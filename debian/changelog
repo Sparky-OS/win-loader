@@ -1,3 +1,18 @@
+win32-loader (0.7.4.2) unstable; urgency=low
+
+  The « شراب » release.
+
+  * Updated translations:
+    - Turkish (hadi canım)
+    - Dutch (Jeroen Schot)
+    - Spanish (Javier Fernández-Sanguino Peña, Closes: #642362)
+    - Persian (New, behrad eslami, Closes: #643297, #643295)
+  * Use the -c iconv option to be more fault-tolerant with weird
+    translation files.
+  * Refresh translations.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 27 Sep 2011 15:08:48 +0200
+
 win32-loader (0.7.4.1) unstable; urgency=low
 
   The « Yesterday was C&W party » release.
