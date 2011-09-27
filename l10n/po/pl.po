@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader 0.6.6\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 17:01+0000\n"
+"Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
+"POT-Creation-Date: 2011-09-27 13:40+0200\n"
 "PO-Revision-Date: 2008-05-08 16:27+0100\n"
 "Last-Translator: Wiktor Wandachowicz <siryes@gmail.com>\n"
 "Language-Team: Polish <debian-l10n-polish@lists.debian.org>\n"
@@ -54,7 +54,7 @@ msgstr "Polish"
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 #. (e.g. cp437) should be used in this string.  If you don't know which charset
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
-#. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+#. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
 #, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
@@ -204,7 +204,7 @@ msgid ""
 "partition\" ($c)."
 msgstr ""
 
-#: win32-loader.c:93 win32-loader.c:103
+#: win32-loader.c:93 win32-loader.c:104
 msgid "Select install mode:"
 msgstr "Wybór trybu instalacji:"
 
@@ -251,32 +251,36 @@ msgstr ""
 msgid "GNU/kFreeBSD"
 msgstr ""
 
-#: win32-loader.c:104
+#: win32-loader.c:103
+msgid "GNU/Hurd"
+msgstr ""
+
+#: win32-loader.c:105
 msgid "Graphical install"
 msgstr "Instalacja w trybie graficznym."
 
-#: win32-loader.c:105
+#: win32-loader.c:106
 msgid "Text install"
 msgstr "Instalacja w trybie tekstowym."
 
-#: win32-loader.c:106
+#: win32-loader.c:107
 #, c-format
 msgid "Downloading %s"
 msgstr "Pobieranie %s"
 
-#: win32-loader.c:107
+#: win32-loader.c:108
 msgid "Connecting ..."
 msgstr "Łączenie ..."
 
-#: win32-loader.c:108
+#: win32-loader.c:109
 msgid "second"
 msgstr "sekund"
 
-#: win32-loader.c:109
+#: win32-loader.c:110
 msgid "minute"
 msgstr "minut"
 
-#: win32-loader.c:110
+#: win32-loader.c:111
 msgid "hour"
 msgstr "godzin"
 
@@ -286,29 +290,29 @@ msgstr "godzin"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:118
+#: win32-loader.c:119
 msgid "s"
 msgstr "(y)"
 
-#: win32-loader.c:119
+#: win32-loader.c:120
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) z %dkB przy %d.%01dkB/s"
 
-#: win32-loader.c:120
+#: win32-loader.c:121
 #, c-format
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s pozostało)"
 
-#: win32-loader.c:121
+#: win32-loader.c:122
 msgid "Select which version of Debian-Installer to use:"
 msgstr "Wybór używanej wersji Instalatora Debiana:"
 
-#: win32-loader.c:122
+#: win32-loader.c:123
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "Edycja stabilna. Ta opcja zainstaluje wydanie Debiana \"stable\"."
 
-#: win32-loader.c:123
+#: win32-loader.c:124
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -322,7 +326,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:128
+#: win32-loader.c:129
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -330,15 +334,15 @@ msgstr ""
 "Zalecane jest sprawdzenie znanych problemów przed użyciem codziennego "
 "obrazu. Czy zrobić to teraz?"
 
-#: win32-loader.c:129
+#: win32-loader.c:130
 msgid "Desktop environment:"
 msgstr "Środowisko graficzne:"
 
-#: win32-loader.c:130
+#: win32-loader.c:131
 msgid "None"
 msgstr "Brak"
 
-#: win32-loader.c:131
+#: win32-loader.c:132
 #, fuzzy
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
@@ -347,37 +351,37 @@ msgstr ""
 "Loader dla Instalatora Debiana zostanie zainstalowany z następującymi "
 "parametrami. NIE należy ich zmieniać, chyba że dokładnie wiadomo co się robi!"
 
-#: win32-loader.c:132
+#: win32-loader.c:133
 msgid "Proxy settings (host:port):"
 msgstr "Ustawienia serwera proxy (adres:port):"
 
-#: win32-loader.c:133
+#: win32-loader.c:134
 msgid "Location of boot.ini:"
 msgstr "Położenie boot.ini:"
 
-#: win32-loader.c:134
+#: win32-loader.c:135
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Bazowy URL obrazów netboot (pliki \"linux\" i \"initrd.gz\"):"
 
-#: win32-loader.c:135
+#: win32-loader.c:136
 msgid "Error"
 msgstr "Błąd"
 
-#: win32-loader.c:136
+#: win32-loader.c:137
 msgid "Error: failed to copy $0 to $1."
 msgstr "Błąd: nie udało się skopiować $0 do $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:141
+#: win32-loader.c:142
 msgid "Checking GPG signature on $0."
 msgstr ""
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:146
+#: win32-loader.c:147
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
 
@@ -385,55 +389,55 @@ msgstr ""
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:152
+#: win32-loader.c:153
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:157
+#: win32-loader.c:158
 msgid "Computing checksum for $2"
 msgstr ""
 
-#: win32-loader.c:158
+#: win32-loader.c:159
 msgid "Generating $0"
 msgstr "Generowanie $0"
 
-#: win32-loader.c:159
+#: win32-loader.c:160
 msgid "Appending preseeding information to $0"
 msgstr "Dodawanie informacji o ustawieniach (preseed) do $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:161
 msgid "Error: unable to run $0."
 msgstr "Błąd: nie udało się uruchomić $0."
 
-#: win32-loader.c:161
+#: win32-loader.c:162
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Wyłączenie kompresji NTFS w plikach uruchomieniowych"
 
-#: win32-loader.c:162
+#: win32-loader.c:163
 #, fuzzy
 msgid "Registering in NTLDR"
 msgstr "Rejestrowanie Instalatora Debiana w NTLDR"
 
-#: win32-loader.c:163
+#: win32-loader.c:164
 #, fuzzy
 msgid "Registering in BootMgr"
 msgstr "Rejestrowanie Instalatora Debiana w BootMgr"
 
-#: win32-loader.c:164
+#: win32-loader.c:165
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Błąd: nie udało się przetworzyć wyjścia programu bcedit.exe."
 
-#: win32-loader.c:165
+#: win32-loader.c:166
 #, fuzzy
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Błąd: nie znaleziono pliku boot.ini. Czy to naprawdę jest Windows "
 "$windows_version?"
 
-#: win32-loader.c:166
+#: win32-loader.c:167
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "BARDZO WAŻNA UWAGA:\\n\\n"
 
@@ -443,7 +447,7 @@ msgstr "BARDZO WAŻNA UWAGA:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:174
+#: win32-loader.c:175
 #, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
@@ -454,7 +458,7 @@ msgstr ""
 "program instalacyjny zrestartuje Windows w trybie MS-DOS, po czym "
 "automatycznie załaduje Instalatora Debiana.\\n\\n"
 
-#: win32-loader.c:175
+#: win32-loader.c:176
 #, fuzzy
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
@@ -466,7 +470,7 @@ msgstr ""
 "uruchomieniem Windows lub Instalatora Debiana. Proszę wybrać Instalator "
 "Debiana aby kontynuować proces instalacji.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:177
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -485,7 +489,7 @@ msgstr ""
 "Windows pozostał na dysku), można odinstalować Loader dla Instalatora "
 "Debiana z użyciem okna \"Dodaj/usuń programy\" w Panelu sterowania."
 
-#: win32-loader.c:177
+#: win32-loader.c:178
 msgid "Do you want to reboot now?"
 msgstr "Czy uruchomić teraz ponownie komputer?"
 
