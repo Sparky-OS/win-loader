@@ -3,6 +3,7 @@ win32-loader (0.7.4.3) UNRELEASED; urgency=low
   * Updated translations:
     - Persian (Hamid, Closes: #643728)
     - French (Christian Perrier)
+    - Dutch (Jeroen Schot)
 
  -- Christian Perrier <bubulle@debian.org>  Thu, 29 Sep 2011 05:47:52 +0200
 
