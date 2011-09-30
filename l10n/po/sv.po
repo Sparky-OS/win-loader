@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2011-03-17 12:42+0100\n"
+"PO-Revision-Date: 2011-10-01 00:15+0100\n"
 "Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
 "Language: sv\n"
@@ -245,7 +245,7 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
