@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2011-03-05 10:54+0100\n"
+"PO-Revision-Date: 2011-10-09 18:52+0200\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "Language: cs\n"
@@ -241,7 +241,7 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
@@ -262,15 +262,15 @@ msgstr "Připojování ..."
 
 #: win32-loader.c:109
 msgid "second"
-msgstr "sek."
+msgstr "s"
 
 #: win32-loader.c:110
 msgid "minute"
-msgstr "min."
+msgstr "m"
 
 #: win32-loader.c:111
 msgid "hour"
-msgstr "hod."
+msgstr "h"
 
 #. translate:
 #. This string is appended to "second", "minute" or "hour" to make plurals.
