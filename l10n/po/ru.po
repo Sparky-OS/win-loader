@@ -6,10 +6,10 @@
 # Yuri Kozlov <yuray@komyakino.ru>, 2009, 2010, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: win32-loader 0.6.90\n"
+"Project-Id-Version: win32-loader 0.7.0\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2011-02-22 19:48+0300\n"
+"PO-Revision-Date: 2011-10-21 10:17+0400\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "Language: ru\n"
@@ -248,7 +248,7 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
@@ -346,7 +346,7 @@ msgstr ""
 
 #: win32-loader.c:133
 msgid "Proxy settings (host:port):"
-msgstr "Настройки прокси-сервера (хост:порт):"
+msgstr "Настройки прокси-сервера (узел:порт):"
 
 #: win32-loader.c:134
 msgid "Location of boot.ini:"
