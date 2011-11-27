@@ -2,21 +2,20 @@
 # Copyright (C) 2007  Free Software Foundation, Inc.
 # This file is distributed under the same license as the win32-loader package.
 #
-# Hans Fredrik Nordhaug <hans@nordhaug.priv.no>, 2007-2009.
-#
+# Hans Fredrik Nordhaug <hans@nordhaug.priv.no>, 2007-2009, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2010-05-10 23:11+0200\n"
+"PO-Revision-Date: 2011-11-27 20:59+0200\n"
 "Last-Translator: Hans Fredrik Nordhaug <hans@nordhaug.priv.no>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
-"Language: \n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Emacs po-mode\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -57,9 +56,9 @@ msgstr "Norwegian Bokmal"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Fortsatt med installasjonsprosessen"
+msgstr "$target_distro $kernel_name - Fortsett med installasjonsprosessen"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -67,7 +66,7 @@ msgstr "Fortsatt med installasjonsprosessen"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - oppstart med nettverk"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -82,9 +81,8 @@ msgstr "Norwegian.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Installasjonsprogram innlaster"
+msgstr "Debian installasjonsprogram"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -218,6 +216,8 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"PXE-modus: Installer en PXE-innlaster for å tillate ekstern lasting av "
+"kjernen."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -245,7 +245,7 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
@@ -366,14 +366,14 @@ msgstr "Feil: Klarte ikke kopiere $0 til $1."
 #.
 #: win32-loader.c:142
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Kontrollerer GPG-signatur for $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:147
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Kan ikke stole på den nedlastede filen $0! Avbryter."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -381,14 +381,14 @@ msgstr ""
 #.
 #: win32-loader.c:153
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "Feil kontrollsum for $0/$2. Fikk $1 men forventet $4. Avbryter."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:158
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Beregner kontrollsum for $2"
 
 #: win32-loader.c:159
 msgid "Generating $0"
