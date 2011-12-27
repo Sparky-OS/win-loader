@@ -8,6 +8,7 @@ win32-loader (0.7.4.3) UNRELEASED; urgency=low
     - Russian (Yuri Kozlov). Closes: #646082
     - Slovak (Ivan Masár). Closes: #648198
     - Kazakh (Baurzhan Muftakhidinov). Closes: #653344
+    - Icelandic (Sveinn í Felli).
 
  -- Christian Perrier <bubulle@debian.org>  Thu, 29 Sep 2011 05:47:52 +0200
 
