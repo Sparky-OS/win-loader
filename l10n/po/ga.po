@@ -245,7 +245,7 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
