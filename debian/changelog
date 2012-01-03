@@ -1,21 +1,28 @@
-win32-loader (0.7.4.3) UNRELEASED; urgency=low
+win32-loader (0.7.4.3) unstable; urgency=low
+
+  The « Гнулар » release.
 
   * Updated translations:
-    - Persian (Hamid, Closes: #643728)
-    - French (Christian Perrier)
-    - Dutch (Jeroen Schot)
     - Czech (Miroslav Kure)
-    - Russian (Yuri Kozlov). Closes: #646082
-    - Slovak (Ivan Masár). Closes: #648198
-    - Kazakh (Baurzhan Muftakhidinov). Closes: #653344
-    - Icelandic (Sveinn í Felli).
+    - Dutch (Jeroen Schot)
+    - French (Christian Perrier)
+    - German (Philipp Kern)
+    - Icelandic (Sveinn í Felli)
+    - Italian (Milo Casagrande)
+    - Kazakh (Baurzhan Muftakhidinov, Closes: #653344)
+    - Norwegian Bokmål (Hans Fredrik Nordhaug)
+    - Persian (Hamid, Christian Perrier, Closes: #643728)
+    - Portuguese (Miguel Figueiredo)
+    - Russian (Yuri Kozlov, Closes: #646082)
+    - Slovak (Ivan Masár, Christian Perrier, Closes: #648198)
+    - Spanish (Javier Fernández-Sanguino Peña, Closes: #654535)
+    - Swedish (Martin Bagge)
     - Belarusian, Bulgarian, Bosnian, Catalan, Greek
-      Esperanto, Spanish, Finnish, Irish, Galician
-      Japanese, Thai, Turkish, Ukrainian updated
+      Esperanto, Spanish, Finnish, Irish, Galician,
+      Hungarian, Japanese, Thai, Turkish, Ukrainian updated
       (Christian Perrier in multilingual mode)
-    - Hungarian too
 
- -- Christian Perrier <bubulle@debian.org>  Thu, 29 Sep 2011 05:47:52 +0200
+ -- Didier Raboud <odyx@debian.org>  Mon, 09 Jan 2012 10:27:10 +0100
 
 win32-loader (0.7.4.2) unstable; urgency=low
 
