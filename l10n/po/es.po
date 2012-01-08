@@ -7,7 +7,7 @@
 #       Javier Fernández-Sanguino, 2007
 # - Reviewers: Fernando Cerezal
 # - Updated by:
-#       Javier Fernández-Sanguino, 2008-2011
+#       Javier Fernández-Sanguino, 2008-2012
 #
 #
 #  Traductores, si no conoce el formato PO, merece la pena leer la 
@@ -37,7 +37,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2011-09-21 23:51+0200\n"
+"PO-Revision-Date: 2012-01-04 01:36+0100\n"
 "Last-Translator: Javier Fernández-Sanguino <jfs@debian.org>\n"
 "Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
 "Language: \n"
@@ -48,7 +48,8 @@ msgstr ""
 "X-POFile-SpellExtra: bcdedit boot preconfiguracin Multi URL amd\n"
 "X-POFile-SpellExtra: LANGSPANISH dkB proxy arch linux exe windows netboot\n"
 "X-POFile-SpellExtra: Spanish bootini GB NTFS windowsversion NTLDR\n"
-"X-POFile-SpellExtra: preconfiguracin BootMgr\n"
+"X-POFile-SpellExtra: preconfiguracin BootMgr kFreeBSD GPG targetdistro\n"
+"X-POFile-SpellExtra: kernelname PXE Hurd\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
