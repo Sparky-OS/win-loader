@@ -28,7 +28,11 @@ Function ShowDesktop
     StrCpy $_desktop $0
   ${Endif}
 !else
-  StrCpy $_desktop "gnome"
+  ${If} $kernel == "linux"
+    StrCpy $_desktop "gnome"
+  ${Else}
+    StrCpy $_desktop "xfce"
+  ${EndIf}
 !endif
 
   ; Prepare the dialog
@@ -40,11 +44,11 @@ Function ShowDesktop
   ${Endif}
   WriteINIStr $PLUGINSDIR\desktop.ini	"Field 3" "Text" "KDE"
   ${If} $_desktop == "kde"
-    WriteINIStr $PLUGINSDIR\desktop.ini	"Field 2" "State" "1"
+    WriteINIStr $PLUGINSDIR\desktop.ini	"Field 3" "State" "1"
   ${Endif}
   WriteINIStr $PLUGINSDIR\desktop.ini	"Field 4" "Text" "Xfce"
   ${If} $_desktop == "xfce"
-    WriteINIStr $PLUGINSDIR\desktop.ini	"Field 2" "State" "1"
+    WriteINIStr $PLUGINSDIR\desktop.ini	"Field 4" "State" "1"
   ${Endif}
   WriteINIStr $PLUGINSDIR\desktop.ini	"Field 5" "Text" $(desktop2)
 
