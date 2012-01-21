@@ -1,3 +1,10 @@
+win32-loader (0.7.4.4) UNRELEASED; urgency=low
+
+  * Updated translations:
+    - Hebrew (Lior Kaplan)
+
+ -- Christian Perrier <bubulle@debian.org>  Sat, 21 Jan 2012 07:05:52 +0100
+
 win32-loader (0.7.4.3) unstable; urgency=low
 
   The « Гнулар » release.

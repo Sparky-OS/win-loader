@@ -4,21 +4,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Meital Bourvine <meitalbourvine@gmail.com>, 2007.
+# Lior Kaplan <kaplan@debian.org>, 2007, 2008, 2010, 2011, 2012.
 #
-# Lior Kaplan <kaplan@debian.org>, 2007, 2008, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: he\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2011-02-24 13:58+0200\n"
+"PO-Revision-Date: 2012-01-20 23:55+0200\n"
 "Last-Translator: Lior Kaplan <kaplan@debian.org>\n"
-"Language-Team: Hebrew <debian-hebrew-common@lists.alioth.debian.org>\n"
+"Language-Team: Hebrew <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: \n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -239,7 +240,7 @@ msgstr "גנו/FreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "גנו/הארד"
 
 #: win32-loader.c:105
 msgid "Graphical install"
