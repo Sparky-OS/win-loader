@@ -2,7 +2,7 @@ win32-loader (0.7.4.4) UNRELEASED; urgency=low
 
   * Updated translations:
     - Hebrew (Lior Kaplan)
-    - Simplified Chinese (YunQiang Su).
+    - Simplified Chinese (YunQiang Su). Closes: #656772
 
  -- Christian Perrier <bubulle@debian.org>  Sat, 21 Jan 2012 07:05:52 +0100
 
