@@ -24,7 +24,7 @@ msgstr ""
 #.
 #: win32-loader.sh:36 win32-loader.c:39
 msgid "LANG_ENGLISH"
-msgstr "LANG_SERBIAN"
+msgstr "LANG_SERBIAN_LATIN"
 
 #. translate:
 #. This must be the string used by GNU iconv to represent the charset used
@@ -35,20 +35,20 @@ msgstr "LANG_SERBIAN"
 #. converted to this charset should be used.
 #: win32-loader.sh:52
 msgid "windows-1252"
-msgstr "windows-1251"
+msgstr "windows-1250"
 
 #. translate:
 #. Charset used by NTLDR in your localised version of Windows XP.  If you
 #. don't know, maybe http://en.wikipedia.org/wiki/Code_page helps.
 #: win32-loader.sh:57
 msgid "cp437"
-msgstr "cp855"
+msgstr "cp852"
 
 #. translate:
 #. The name of your language _in English_ (must be restricted to ascii)
 #: win32-loader.sh:67
 msgid "English"
-msgstr "Serbian"
+msgstr "Serbian(Latin)"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -74,7 +74,7 @@ msgstr "PXE - Network boot"
 #.
 #: win32-loader.c:68
 msgid "English.nlf"
-msgstr "Serbian.nlf"
+msgstr "SerbianLatin.nlf"
 
 #. translate:
 #. This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
