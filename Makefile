@@ -1,6 +1,9 @@
 
 export SHELL := bash
 
+# Targets that will always be run (as they depend on stuff from installed packages)
+.PHONY: core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe
+
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 
