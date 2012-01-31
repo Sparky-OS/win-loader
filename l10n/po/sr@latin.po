@@ -24,7 +24,7 @@ msgstr ""
 #.
 #: win32-loader.sh:36 win32-loader.c:39
 msgid "LANG_ENGLISH"
-msgstr "LANG_SERBIAN_LATIN"
+msgstr "LANG_SERBIANLATIN"
 
 #. translate:
 #. This must be the string used by GNU iconv to represent the charset used
@@ -48,7 +48,7 @@ msgstr "cp852"
 #. The name of your language _in English_ (must be restricted to ascii)
 #: win32-loader.sh:67
 msgid "English"
-msgstr "Serbian(Latin)"
+msgstr "Serbian (Latin)"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
