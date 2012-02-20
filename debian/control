@@ -9,6 +9,7 @@ Build-Depends:
  mingw-w64,
  gettext,
  grub-pc-bin (>= 1.99~rc1-3),
+ ipxe,
  loadlin (>= 1.6c.really1.6c.nobin-1~),
  locales-all,
  gpgv-win32, debian-archive-keyring,

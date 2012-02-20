@@ -6,7 +6,7 @@ BYHAND ?= yes
 W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
 W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
-B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin
+B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin ipxe
 
 PACKAGES_LIST := $(shell set -e; \
 	for p in ${B_D_PACKAGES}; \
@@ -37,8 +37,9 @@ NSIS_VERSION  := $(shell dpkg-query -f='$${Version}' -W nsis )
 
 override_dh_auto_build:
 ifeq ($(BYHAND),yes)
-	# Build the standalone version
+	# Build the standalone+pxe version
 	STANDALONE=yes \
+		PXE=yes \
 		OUTFILE_NAME=$(W32_BYHAND_NAME).exe \
 		dh_auto_build
 	

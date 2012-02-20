@@ -2,7 +2,7 @@
 export SHELL := bash
 
 # Targets that will always be run (as they depend on stuff from installed packages)
-.PHONY: core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe
+.PHONY: core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe pxe.lkrn
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
@@ -104,6 +104,9 @@ loadlin.pif: genpif
 
 loadlin.exe: /usr/lib/loadlin/loadlin.exe.gz
 	gunzip -c $^ > $@
+
+pxe.lkrn: /usr/lib/ipxe/ipxe.lkrn
+	cp $^ $@
 
 ifdef PXE
 pxe.target: pxe.lkrn templates/ternary_choice.ini
@@ -211,7 +214,7 @@ netboot/stable/% netboot/daily/%: %
 clean:
 	$(MAKE) -C l10n clean
 	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe \
-		*.iso *~ */*~ core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe
+		*.iso *~ */*~ core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe pxe.lkrn
 
 distclean: clean
 	rm -rf netboot
