@@ -286,7 +286,7 @@ msgstr "timer"
 #.
 #: win32-loader.c:119
 msgid "s"
-msgstr ""
+msgstr " "
 
 #: win32-loader.c:120
 #, c-format
