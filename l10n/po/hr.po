@@ -1,19 +1,22 @@
 # Copyright (C) 2008 Josip Rodin
 # This file is distributed under the same license as the win32-loader package.
 # Josip Rodin <joy+ditrans@linux.hr>, 2008.
+# Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2010-07-07 15:50+0200\n"
-"Last-Translator: Josip Rodin <joy+ditrans@linux.hr>\n"
-"Language-Team: Croatian <lokalizacija@linux.hr>\n"
+"PO-Revision-Date: 2012-03-22 02:45+0100\n"
+"Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
+"Language-Team: Hrvatski <lokalizacija@linux.hr>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -54,9 +57,9 @@ msgstr "Croatian"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Nastavi s instalacijskim procesom"
+msgstr "$target_distro $kernel_name - Nastavi s instalacijskim procesom"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -64,7 +67,7 @@ msgstr "Nastavi s instalacijskim procesom"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - UÄitavanje s mreÅ¾e"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -79,24 +82,23 @@ msgstr "Croatian.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Installer Loader"
+msgstr "Debian-Installer loader"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
-msgstr "Ne mogu naæi win32-loader.ini."
+msgstr "Ne mogu naÄ‡i win32-loader.ini."
 
 #: win32-loader.c:77
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
-msgstr "win32-loader.ini je nepotpun. Kontaktirajte dobavljaèa ovog medija."
+msgstr "win32-loader.ini je nepotpun. Kontaktirajte dobavljaÄa ovog medija."
 
 #: win32-loader.c:78
 msgid ""
 "This program has detected that your keyboard type is \"$0\".  Is this "
 "correct?"
 msgstr ""
-"Ovaj program je otkrio da je vrsta va¹e tipkovnice \"$0\". Je li to toèno?"
+"Ovaj program je otkrio da je vrsta vaÅ¡e tipkovnice \"$0\". Je li to toÄno?"
 
 #: win32-loader.c:79
 msgid ""
@@ -109,9 +111,9 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
-"Molim po¹aljite bug izvje¹taj sa sljedeæim informacijama:\n"
+"Molim poÅ¡aljite bug izvjeÅ¡taj sa sljedeÄ‡im informacijama:\n"
 "\n"
-" - Inaèica Windowsa.\n"
+" - InaÄica Windowsa.\n"
 " - Postavke zemlje.\n"
 " - Prava vrsta tipkovnice.\n"
 " - Otkrivena vrsta tipkovnice.\n"
@@ -125,19 +127,19 @@ msgid ""
 "already a separate disk or partition for this install, or if you plan to "
 "replace Windows completely, you can safely ignore this warning."
 msgstr ""
-"Izgleda da nema dovoljno slobodnog diskovnog prostora na ureğaju $c. Za "
-"potpunu desktop instalaciju, preporuèuje se imati barem 3 GB. Ako veæ "
+"Izgleda da nema dovoljno slobodnog diskovnog prostora na ureÄ‘aju $c. Za "
+"potpunu desktop instalaciju, preporuÄuje se imati barem 3 GB. Ako veÄ‡ "
 "postoji odvojeni disk ili particija za ovu instalaciju, ili ako planirate "
 "sasvim zamijeniti Windows, slobodno ignorirajte ovo upozorenje."
 
 #: win32-loader.c:81
 msgid "Error: not enough free disk space.  Aborting install."
 msgstr ""
-"Gre¹ka: nedovoljno slobodnog mjesta na disku. Odustajem od instalacije."
+"GreÅ¡ka: nedovoljno slobodnog mjesta na disku. Odustajem od instalacije."
 
 #: win32-loader.c:82
 msgid "This program doesn't support Windows $windows_version yet."
-msgstr "Ovaj program jo¹ ne podr¾ava Windows $windows_version."
+msgstr "Ovaj program joÅ¡ ne podrÅ¾ava Windows $windows_version."
 
 #: win32-loader.c:83
 msgid ""
@@ -150,14 +152,14 @@ msgid ""
 "\n"
 "This installer will abort now."
 msgstr ""
-"Inaèica sustava koju poku¹avate instalirati je namijenjena radu na modernim, "
-"64-bitnim raèunalima. Va¹e raèunalo nije u moguænosti izvr¹avati 64-bitne "
+"InaÄica sustava koju pokuÅ¡avate instalirati je namijenjena radu na modernim, "
+"64-bitnim raÄunalima. VaÅ¡e raÄunalo nije u moguÄ‡nosti izvrÅ¡avati 64-bitne "
 "programe.\n"
 "\n"
-"Koristite 32-bitnu (\"i386\") inaèicu, ili tzv. multi-arch inaèicu koja mo¾e "
+"Koristite 32-bitnu (\"i386\") inaÄicu, ili tzv. multi-arch inaÄicu koja moÅ¾e "
 "instalirati bilo koju od ove dvije.\n"
 "\n"
-"Ova instalacija æe se sada prekinuti."
+"Ova instalacija Ä‡e se sada prekinuti."
 
 #: win32-loader.c:84
 msgid ""
@@ -172,16 +174,16 @@ msgid ""
 "\n"
 "Would you like to abort now?"
 msgstr ""
-"Va¹e raèunalo je u moguænosti izvr¹avati moderne, 64-bitne operacijske "
-"sustave. Inaèica sustava koju poku¹avate instalirati je namijenjena radu na "
+"VaÅ¡e raÄunalo je u moguÄ‡nosti izvrÅ¡avati moderne, 64-bitne operacijske "
+"sustave. InaÄica sustava koju pokuÅ¡avate instalirati je namijenjena radu na "
 "starijem, 32-bitnom sklopovlju.\n"
 "\n"
-"Mo¾ete nastaviti s instalacijom, ali za najbolje iskori¹tavanje moguænosti "
-"va¹eg raèunala preporuèujemo kori¹tenje 64-bitne (\"amd64\") inaèice "
-"sustava, ili tzv. multi-arch inaèice koja mo¾e instalirati bilo koju od ove "
+"MoÅ¾ete nastaviti s instalacijom, ali za najbolje iskoriÅ¡tavanje moguÄ‡nosti "
+"vaÅ¡eg raÄunala preporuÄujemo koriÅ¡tenje 64-bitne (\"amd64\") inaÄice "
+"sustava, ili tzv. multi-arch inaÄice koja moÅ¾e instalirati bilo koju od ove "
 "dvije.\n"
 "\n"
-"®elite li sada prekinuti instalaciju?"
+"Å½elite li sada prekinuti instalaciju?"
 
 #. translate:
 #. "system partition" and "boot partition" are defined by Microsoft to mean the opposite of what a
@@ -194,28 +196,28 @@ msgid ""
 "Unable to find \"system partition\", assuming it is the same as the \"boot "
 "partition\" ($c)."
 msgstr ""
-"Nemoguæe pronaæi \"system partition\", pretpostavljamo da je ista kao \"boot "
+"NemoguÄ‡e pronaÄ‡i \"system partition\", pretpostavljamo da je ista kao \"boot "
 "partition\" ($c)."
 
 #: win32-loader.c:93 win32-loader.c:104
 msgid "Select install mode:"
-msgstr "Odaberite naèin instalacije:"
+msgstr "Odaberite naÄin instalacije:"
 
 #: win32-loader.c:94
 msgid "Normal mode.  Recommended for most users."
-msgstr "Normalan naèin. Preporuèuje se veæini korisnika."
+msgstr "Normalan naÄin. PreporuÄuje se veÄ‡ini korisnika."
 
 #: win32-loader.c:95
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
 msgstr ""
-"Struèni naèin. Preporuèuje se naprednim korisnicima koji ¾ele punu kontrolu "
+"StruÄni naÄin. PreporuÄuje se naprednim korisnicima koji Å¾ele punu kontrolu "
 "nad postupkom instalacije."
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "PXE naÄin: instalira PXE program za udaljeno uÄitavanje jezgre."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -223,11 +225,11 @@ msgstr "Odaberite akciju:"
 
 #: win32-loader.c:98
 msgid "Begin install on this computer."
-msgstr "Poèetak instaliranja na ovo raèunalo."
+msgstr "PoÄetak instaliranja na ovo raÄunalo."
 
 #: win32-loader.c:99
 msgid "Repair an installed system (rescue mode)."
-msgstr "Popravak postojeæeg sustava (spasonosni naèin)."
+msgstr "Popravak postojeÄ‡eg sustava (spasonosni naÄin)."
 
 #: win32-loader.c:100
 msgid "Select the kernel:"
@@ -243,11 +245,11 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
-msgstr "Grafièka instalacija"
+msgstr "GrafiÄka instalacija"
 
 #: win32-loader.c:106
 msgid "Text install"
@@ -296,11 +298,11 @@ msgstr " (preostaje %d %s%s)"
 
 #: win32-loader.c:122
 msgid "Select which version of Debian-Installer to use:"
-msgstr "Odaberite inaèicu Debian-Instalera:"
+msgstr "Odaberite inaÄicu Debian-Instalera:"
 
 #: win32-loader.c:123
 msgid "Stable release.  This will install Debian \"stable\"."
-msgstr "Stabilno izdanje. Ovo æe instalirati Debian \"stable\"."
+msgstr "Stabilno izdanje. Ovo Ä‡e instalirati Debian \"stable\"."
 
 #: win32-loader.c:124
 msgid ""
@@ -308,8 +310,8 @@ msgid ""
 "install Debian \"testing\" by default, and may be capable of installing "
 "\"stable\" or \"unstable\" as well."
 msgstr ""
-"Dnevna izrada. Ovo je razvojna inaèica Debian-Instalera. Instalirat æe "
-"Debian \"testing\", a postoji moguænost instalacije i \"stable\" ili "
+"Dnevna izrada. Ovo je razvojna inaÄica Debian-Instalera. Instalirat Ä‡e "
+"Debian \"testing\", a postoji moguÄ‡nost instalacije i \"stable\" ili "
 "\"unstable\"."
 
 #. translate:
@@ -320,13 +322,13 @@ msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
 msgstr ""
-"Preporuèuje se provjeriti poznate probleme prije kori¹tenja dnevno izrağene "
-"verzije. ®elite li to sada napraviti? Informacije o poznatim problemima su "
+"PreporuÄuje se provjeriti poznate probleme prije koriÅ¡tenja dnevno izraÄ‘ene "
+"verzije. Å½elite li to sada napraviti? Informacije o poznatim problemima su "
 "na engleskom jeziku."
 
 #: win32-loader.c:130
 msgid "Desktop environment:"
-msgstr "Desktop okru¾enje:"
+msgstr "Desktop okruÅ¾enje:"
 
 #: win32-loader.c:131
 msgid "None"
@@ -337,7 +339,7 @@ msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
 msgstr ""
-"Primijenit æe se sljedeæi parametri. Ako ne znate ¹to radite, NEMOJTE "
+"Primijenit Ä‡e se sljedeÄ‡i parametri. Ako ne znate Å¡to radite, NEMOJTE "
 "mijenjati nijedan od njih."
 
 #: win32-loader.c:133
@@ -354,18 +356,18 @@ msgstr "Osnovni URL za netboot snimke (linux i initrd.gz):"
 
 #: win32-loader.c:136
 msgid "Error"
-msgstr "Gre¹ka"
+msgstr "GreÅ¡ka"
 
 #: win32-loader.c:137
 msgid "Error: failed to copy $0 to $1."
-msgstr "Gre¹ka: neuspjelo kopiranje $0 u $1."
+msgstr "GreÅ¡ka: neuspjelo kopiranje $0 u $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:142
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Provjerava se GPG potpis datoteke $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
@@ -373,6 +375,7 @@ msgstr ""
 #: win32-loader.c:147
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
+"Preuzetoj datoteci $0 ne moÅ¾e se vjerovati! Instalacija Ä‡e se prekinuti."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -381,13 +384,15 @@ msgstr ""
 #: win32-loader.c:153
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Provjera kontrolne sume neuspjeÅ¡na za $0/$2. OÄekivani rezultat je $4, a "
+"dobiven je $1. Instalacija Ä‡e se prekinuti."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:158
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "RaÄuna se kontrolna suma datoteke $2"
 
 #: win32-loader.c:159
 msgid "Generating $0"
@@ -399,11 +404,11 @@ msgstr "Dodaje se \"preseeding\" informacija u $0"
 
 #: win32-loader.c:161
 msgid "Error: unable to run $0."
-msgstr "Gre¹ka: nemoguæe pokrenuti $0."
+msgstr "GreÅ¡ka: nemoguÄ‡e pokrenuti $0."
 
 #: win32-loader.c:162
 msgid "Disabling NTFS compression in bootstrap files"
-msgstr "Onemoguæuje se NTFS kompresija u bootstrap datotekama"
+msgstr "OnemoguÄ‡uje se NTFS kompresija u bootstrap datotekama"
 
 #: win32-loader.c:163
 msgid "Registering in NTLDR"
@@ -415,11 +420,11 @@ msgstr "Registracija u BootMgr"
 
 #: win32-loader.c:165
 msgid "Error: failed to parse bcdedit.exe output."
-msgstr "Gre¹ka: neuspjelo oèitavanje izlaza bcdedit.exe."
+msgstr "GreÅ¡ka: neuspjelo oÄitavanje izlaza bcdedit.exe."
 
 #: win32-loader.c:166
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
-msgstr "Gre¹ka: $0 nije pronağen. Je li ovo doista Windows $windows_version?"
+msgstr "GreÅ¡ka: $0 nije pronaÄ‘en. Je li ovo doista Windows $windows_version?"
 
 #: win32-loader.c:167
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
@@ -437,9 +442,9 @@ msgid ""
 "confirmation, this program will restart Windows in DOS mode, and "
 "automatically load the next part of the install process.\\n\\n"
 msgstr ""
-"Sada zapoèinje druga etapa ovog postupka instalacije. Nakon va¹e potvrde, "
-"ovaj program æe ponovo pokrenuti Windows u DOS modu, i automatski uèitati "
-"sljedeæi dio instalacijskog procesa.\\n\\n"
+"Sada zapoÄinje druga etapa ovog postupka instalacije. Nakon vaÅ¡e potvrde, "
+"ovaj program Ä‡e ponovo pokrenuti Windows u DOS modu, i automatski uÄitati "
+"sljedeÄ‡i dio instalacijskog procesa.\\n\\n"
 
 #: win32-loader.c:176
 msgid ""
@@ -447,8 +452,8 @@ msgid ""
 "your next boot, you will be asked whether you want to start Windows or "
 "continue with the install process.\\n\\n"
 msgstr ""
-"Morate ponovo pokrenuti raèunalo kako bi nastavili s instalacijskim "
-"procesom. Tijekom sljedeæeg pokretanja sustava, bit æete upitani ¾elite li "
+"Morate ponovo pokrenuti raÄunalo kako bi nastavili s instalacijskim "
+"procesom. Tijekom sljedeÄ‡eg pokretanja sustava, bit Ä‡ete upitani Å¾elite li "
 "pokrenuti Windows ili nastaviti s postupkom instalacije.\\n\\n"
 
 #: win32-loader.c:177
@@ -461,18 +466,18 @@ msgid ""
 "chosen to keep Windows in your disk), you can uninstall this loader through "
 "the Windows Add/Remove Programs dialog in Control Panel."
 msgstr ""
-"Tijekom postupka instalacije, bit æe vam ponuğena moguænost da ili smanjite "
-"va¹u Windows particiju, ili da je sasvim zamijenite. U oba sluèaja, TOPLO SE "
-"PREPORUÈUJE da se prethodno napravi rezervna kopija (backup) svih va¹ih "
+"Tijekom postupka instalacije, bit Ä‡e vam ponuÄ‘ena moguÄ‡nost da ili smanjite "
+"vaÅ¡u Windows particiju, ili da je sasvim zamijenite. U oba sluÄaja, TOPLO SE "
+"PREPORUÄŒUJE da se prethodno napravi rezervna kopija (backup) svih vaÅ¡ih "
 "podataka. Autori ovog programa ne mogu preuzeti NIKAKVU ODGOVORNOST za "
-"sluèaj gubitka podataka.\\n\\nJednom kad se dovr¹i instalacija, a odabrali "
-"ste zadr¾ati Windows na svom disku, mo¾ete deinstalirati ovaj program za "
-"uèitavanje instalera koristeæi Windows Add/Remove Programs okvir u Control "
-"Panelu / Kontrolnoj ploèi."
+"sluÄaj gubitka podataka.\\n\\nJednom kad se dovrÅ¡i instalacija, a odabrali "
+"ste zadrÅ¾ati Windows na svom disku, moÅ¾ete deinstalirati ovaj program za "
+"uÄitavanje instalera koristeÄ‡i Windows Add/Remove Programs okvir u Control "
+"Panelu / Kontrolnoj ploÄi."
 
 #: win32-loader.c:178
 msgid "Do you want to reboot now?"
-msgstr "®elite li sada ponovo pokrenuti sustav?"
+msgstr "Å½elite li sada ponovo pokrenuti sustav?"
 
 #~ msgid "Debian Installer"
 #~ msgstr "Debian Instaler"
