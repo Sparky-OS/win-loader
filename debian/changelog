@@ -1,4 +1,6 @@
-win32-loader (0.7.4.4) UNRELEASED; urgency=low
+win32-loader (0.7.4.4) unstable; urgency=low
+
+  The « Миш » release.
 
   * Updated translations:
     - Hebrew (Lior Kaplan)
@@ -9,8 +11,19 @@ win32-loader (0.7.4.4) UNRELEASED; urgency=low
     - Indonesian (Mahyuddin Susanto).
     - Danish (Joe Hansen). Closes: #661986
     - Croatian (Tomislav Krznar). Closes: #664982
+  * Thanks to Christian Perrier for most updates above.
 
- -- Mahyuddin Susanto <udienz@ubuntu.com>  Sun, 05 Feb 2012 22:50:33 +0700
+  [ Didier Raboud ]
+  * Make XFCE the default desktop on !linux.
+  * Mark some targets as .PHONY to make sure they get rebuilt for each
+    flavour.
+  * Enable the two Serbian translations.
+  * Add PXE functionality to the standalone flavour. (Closes: #657830)
+  * Bump Standards-Version to 3.9.3.1 without changes needed.
+  * Drop the versionned dependency on base-files, now satisfied in
+    oldstable.
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 28 Mar 2012 09:40:03 +0200
 
 win32-loader (0.7.4.3) unstable; urgency=low
 
