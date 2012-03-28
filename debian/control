@@ -14,7 +14,7 @@ Build-Depends:
  locales-all,
  gpgv-win32, debian-archive-keyring,
  cpio-win32 (>= 2.11-4), gzip-win32
-Standards-Version: 3.9.2.0
+Standards-Version: 3.9.3
 Vcs-Browser: http://git.debian.org/?p=d-i/win32-loader.git
 Vcs-Git: git://git.debian.org/d-i/win32-loader.git
 
