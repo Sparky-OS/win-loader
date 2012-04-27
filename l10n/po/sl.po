@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-09-27 13:40+0200\n"
-"PO-Revision-Date: 2010-11-16 10:14+0100\n"
+"PO-Revision-Date: 2012-04-27 13:25+0100\n"
 "Last-Translator: Vanja Cvelbar <cvelbar@gmail.com>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "Language: sl\n"
@@ -60,9 +60,9 @@ msgstr "Slovenian"
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
 #. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Nadaljuj z namestitvenim procesom"
+msgstr "$target_distro $kernel_name - Nadaljuj z namestitvenim procesom"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -70,7 +70,7 @@ msgstr "Nadaljuj z namestitvenim procesom"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "Omrežni zagon - PXE"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -85,9 +85,8 @@ msgstr "Slovenian.nlf"
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Nalagalnik namestilnika"
+msgstr "Nalagalnik namestilnika Debian"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
@@ -221,6 +220,7 @@ msgstr ""
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
 msgstr ""
+"Način - PXE: namesti nalagalnik PXE, da omogoči oddaljeno nalaganje jedra."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -248,7 +248,7 @@ msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
@@ -369,14 +369,14 @@ msgstr "Napaka: ni bilo mogoče kopirati $0 v $1."
 #.
 #: win32-loader.c:142
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Preverjanje podpisa GPG za $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:147
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Naložena datoteka $0 ni vredna zaupanja! Prekinitev."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -385,13 +385,15 @@ msgstr ""
 #: win32-loader.c:153
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
+"Napak pri nadzorni vsoti za $0/$2. Vrednost $1 ko bi morala biti $4. "
+"Prekinitev."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:158
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Izračunavanje nadzorne vsote za $2"
 
 #: win32-loader.c:159
 msgid "Generating $0"
