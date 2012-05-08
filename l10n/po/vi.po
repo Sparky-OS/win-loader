@@ -1,14 +1,15 @@
 # Vietnamese translation for Win32-Loader.
 # Copyright © 2010 Free Software Foundation, Inc.
 # Clytie Siddall <clytie@riverland.net.au>, 2007-2010.
+# Hai Lang <hailangvn@gmail.com>, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-21 17:01+0000\n"
+"Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
+"POT-Creation-Date: 2011-09-27 13:40+0200\n"
 "PO-Revision-Date: 2010-05-13 23:24+0930\n"
-"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"Last-Translator: Hai Lang <hailangvn@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -54,11 +55,11 @@ msgstr "Vietnamese"
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 #. (e.g. cp437) should be used in this string.  If you don't know which charset
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
-#. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+#. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
-#, fuzzy, sh-format
+#, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr "Tiê'p tu.c cài đa(.t"
+msgstr "$target_distro $kernel_name - Tiê'p tu.c cài đa(.t"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -66,7 +67,7 @@ msgstr "Tiê'p tu.c cài đa(.t"
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Khởi động từ mạng"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -74,26 +75,25 @@ msgstr ""
 #.
 #: win32-loader.c:68
 msgid "English.nlf"
-msgstr "English.nlf"
+msgstr "Vietnamese.nlf"
 
 #. translate:
 #. This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Trình nạp Bộ Cài đặt"
+msgstr "Trình nạp Bộ Cài đặt Debian"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
-msgstr "Không tìm thấy tập tin « win32-loader.ini »."
+msgstr "Không tìm thấy tập tin win32-loader.ini."
 
 #: win32-loader.c:77
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
 msgstr ""
-"Tập tin « win32-loader.ini » chưa hoàn thành. Hãy liên lạc với nhà cung cấp "
-"vật chứa này."
+"Tập tin win32-loader.ini chưa hoàn thành. Hãy liên lạc với nhà cung cấp vật "
+"chứa này."
 
 #: win32-loader.c:78
 msgid ""
@@ -196,27 +196,27 @@ msgid ""
 "partition\" ($c)."
 msgstr ""
 "Không tìm thấy « phân vùng hệ thống » (system partition), giả sử nó cũng là "
-"« phiên bản khởi động » (boot partition) ($c)."
+"« phân vùng khởi động » (boot partition) ($c)."
 
-#: win32-loader.c:93 win32-loader.c:103
+#: win32-loader.c:93 win32-loader.c:104
 msgid "Select install mode:"
 msgstr "Chọn chế độ cài đặt:"
 
 #: win32-loader.c:94
 msgid "Normal mode.  Recommended for most users."
-msgstr "Chế độ bình thường: khuyên khích cho phần lớn người dùng."
+msgstr "Chế độ bình thường. Nên dùng cho phần lớn người dùng."
 
 #: win32-loader.c:95
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
 msgstr ""
-"Chế độ cấp cao : khuyên khích cho những người dùng có kinh nghiệm mà muốn "
-"điều khiển hoàn toàn tiến trình cài đặt."
+"Chế độ cấp cao. Nên dùng cho những người dùng có kinh nghiệm muốn điều khiển "
+"hoàn toàn tiến trình cài đặt."
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "Chế độ PXE: cài đặt trình nạp PXE cho việc nạp hạt nhân từ xa."
 
 #: win32-loader.c:97
 msgid "Select action:"
@@ -242,32 +242,36 @@ msgstr "GNU/Linux"
 msgid "GNU/kFreeBSD"
 msgstr "GNU/kFreeBSD"
 
-#: win32-loader.c:104
+#: win32-loader.c:103
+msgid "GNU/Hurd"
+msgstr "GNU/Hurd"
+
+#: win32-loader.c:105
 msgid "Graphical install"
 msgstr "Cài đặt đồ họa"
 
-#: win32-loader.c:105
+#: win32-loader.c:106
 msgid "Text install"
 msgstr "Cài đặt văn bản"
 
-#: win32-loader.c:106
+#: win32-loader.c:107
 #, c-format
 msgid "Downloading %s"
-msgstr "Đang tải về %s"
+msgstr "Đang tải %s về"
 
-#: win32-loader.c:107
+#: win32-loader.c:108
 msgid "Connecting ..."
 msgstr "Đang kết nối ..."
 
-#: win32-loader.c:108
+#: win32-loader.c:109
 msgid "second"
 msgstr "giây"
 
-#: win32-loader.c:109
+#: win32-loader.c:110
 msgid "minute"
 msgstr "phút"
 
-#: win32-loader.c:110
+#: win32-loader.c:111
 msgid "hour"
 msgstr "giờ"
 
@@ -277,29 +281,29 @@ msgstr "giờ"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:118
-msgid "s"
-msgstr "g"
-
 #: win32-loader.c:119
+msgid "s"
+msgstr " "
+
+#: win32-loader.c:120
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) trên %dkB theo %d.%01dkB/g"
 
-#: win32-loader.c:120
+#: win32-loader.c:121
 #, c-format
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s còn lại)"
 
-#: win32-loader.c:121
+#: win32-loader.c:122
 msgid "Select which version of Debian-Installer to use:"
 msgstr "Chọn phiên bản Bộ Cài đặt Debian nào cần dùng:"
 
-#: win32-loader.c:122
+#: win32-loader.c:123
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "Phiên bản ổn định. Tùy chọn này sẽ cài đặt bản \"stable\" của Debian."
 
-#: win32-loader.c:123
+#: win32-loader.c:124
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -312,7 +316,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:128
+#: win32-loader.c:129
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -320,15 +324,15 @@ msgstr ""
 "Khuyên bạn kiểm tra có vấn đề đã biết, trước khi sử dụng một bản xây dựng "
 "hàng ngày. Bạn có muốn làm như thế ngay bây giờ không?"
 
-#: win32-loader.c:129
-msgid "Desktop environment:"
-msgstr "Môi trường làm việc:"
-
 #: win32-loader.c:130
+msgid "Desktop environment:"
+msgstr "Môi trường máy làm việc:"
+
+#: win32-loader.c:131
 msgid "None"
 msgstr "Không có"
 
-#: win32-loader.c:131
+#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -336,92 +340,92 @@ msgstr ""
 "Những tham số theo đây sẽ được sử dụng. KHÔNG nên thay đổi bất cứ tham số "
 "nào nếu bạn không hiểu hoàn toàn kết quả."
 
-#: win32-loader.c:132
+#: win32-loader.c:133
 msgid "Proxy settings (host:port):"
 msgstr "Thiết lập ủy nhiệm (máy:cổng):"
 
-#: win32-loader.c:133
+#: win32-loader.c:134
 msgid "Location of boot.ini:"
 msgstr "Vị trí của tập tin « boot.ini »:"
 
-#: win32-loader.c:134
+#: win32-loader.c:135
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr ""
 "Địa chỉ URL cơ bản cho các ảnh đĩa khởi động qua mạng (linux và initrd.gz):"
 
-#: win32-loader.c:135
+#: win32-loader.c:136
 msgid "Error"
 msgstr "Lỗi"
 
-#: win32-loader.c:136
+#: win32-loader.c:137
 msgid "Error: failed to copy $0 to $1."
 msgstr "Lỗi: không sao chép được $0 vào $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:141
+#: win32-loader.c:142
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Đang kiểm chữ ký GPG trên $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:146
+#: win32-loader.c:147
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Không thể tin tưởng tập tin $0 được tải về! Đang bỏ ngang."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:152
+#: win32-loader.c:153
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "Không giống tổng kiểm của $0/$2. Được $1 khi cần $4. Đang bỏ ngang."
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:157
-msgid "Computing checksum for $2"
-msgstr ""
-
 #: win32-loader.c:158
+msgid "Computing checksum for $2"
+msgstr "Đang tính tổng kiểm cho $2"
+
+#: win32-loader.c:159
 msgid "Generating $0"
 msgstr "Đang tạo $0"
 
-#: win32-loader.c:159
-msgid "Appending preseeding information to $0"
-msgstr "Đang phụ thêm vào $0 thông tin chèn sẵn"
-
 #: win32-loader.c:160
+msgid "Appending preseeding information to $0"
+msgstr "Đang nối thêm thông tin chèn sẵn vào $0"
+
+#: win32-loader.c:161
 msgid "Error: unable to run $0."
 msgstr "Lỗi: không thể chạy $0."
 
-#: win32-loader.c:161
+#: win32-loader.c:162
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr ""
 "Đang tắt chức năng nén NTFS trong các tập tin nạp và khởi động hệ thống"
 
-#: win32-loader.c:162
+#: win32-loader.c:163
 msgid "Registering in NTLDR"
 msgstr "Đang đăng ký trong NTLDR"
 
-#: win32-loader.c:163
+#: win32-loader.c:164
 msgid "Registering in BootMgr"
 msgstr "Đang đăng ký trong BootMgr"
 
-#: win32-loader.c:164
+#: win32-loader.c:165
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Lỗi: không phân tích được kết xuất « bcdedit.exe »."
 
-#: win32-loader.c:165
+#: win32-loader.c:166
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Lỗi: không tìm thấy $0. Đây thực sự là Windows phiên bản $windows_version "
 "phải không?"
 
-#: win32-loader.c:166
+#: win32-loader.c:167
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "THÔNG BÁO RẤT QUAN TRỌNG:\\n\\n"
 
@@ -431,7 +435,7 @@ msgstr "THÔNG BÁO RẤT QUAN TRỌNG:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:174
+#: win32-loader.c:175
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -441,7 +445,7 @@ msgstr ""
 "thì chương trình này sẽ khởi chạy lại Windows ở chế độ DOS, và tự động nạp "
 "phần kế tiếp của tiến trình cài đặt.\\n\\n"
 
-#: win32-loader.c:175
+#: win32-loader.c:176
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -451,7 +455,7 @@ msgstr ""
 "khởi động, bạn sẽ được nhắc chọn khởi chạy Windows hoặc tiếp tục lại chạy "
 "tiến trình cài đặt.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:177
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -469,6 +473,6 @@ msgstr ""
 "thông qua hộp thoại Add/Remove Programs (Thêm/Bỏ Chương Trình) của Windows "
 "trên Control Panel (Bảng Điều Khiển)."
 
-#: win32-loader.c:177
+#: win32-loader.c:178
 msgid "Do you want to reboot now?"
 msgstr "Bạn có muốn khởi động lại máy ngay bây giờ không?"
