@@ -1,4 +1,4 @@
-win32-loader (0.7.4.5) UNRELEASED; urgency=low
+win32-loader (0.7.4.5) unstable; urgency=low
 
   * Updated translations:
     - Asturian (ivarela)
@@ -9,8 +9,9 @@ win32-loader (0.7.4.5) UNRELEASED; urgency=low
     - Khmer (Khoem Sokhem)
     - Latvian (Rūdolfs Mazurs). Closes: #674702
     - Welsh (Daffyd Tomos).
+  * Thanks to Christian Perrier for most updates above.
 
- -- Christian Perrier <bubulle@debian.org>  Fri, 06 Apr 2012 20:17:12 +0200
+ -- Didier Raboud <odyx@debian.org>  Thu, 07 Jun 2012 16:31:54 +0200
 
 win32-loader (0.7.4.4) unstable; urgency=low
 
