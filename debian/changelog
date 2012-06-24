@@ -1,3 +1,10 @@
+win32-loader (0.7.4.6) UNRELEASED; urgency=low
+
+  * Updated translations:
+    - Brazilian Portuguese (Felipe Augusto van de Wiel (faw)).
+
+ -- Christian Perrier <bubulle@debian.org>  Sun, 24 Jun 2012 14:10:26 +0200
+
 win32-loader (0.7.4.5) unstable; urgency=low
 
   * Updated translations:
