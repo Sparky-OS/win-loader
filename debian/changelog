@@ -2,7 +2,7 @@ win32-loader (0.7.4.7) UNRELEASED; urgency=low
 
   [ Christian Perrier ]
   * Updated translations:
-    - Arabic (Ossama Khayat)
+    - Arabic (Ossama Khayat) Closes: #679660
 
  -- Christian Perrier <bubulle@debian.org>  Sat, 14 Jul 2012 19:23:44 -0600
 
