@@ -27,9 +27,7 @@ Function ShowGraphics
 
   ${If} $predefined_user_interface == ""
 !endif
-    ${If} $kernel == "linux"
-     ${OrIf} $kernel == "hurd"
-     ${AndIf} $expert == true
+    ${If} $expert == true
       File /oname=$PLUGINSDIR\graphics.ini	templates/graphics.ini
       File /oname=$PLUGINSDIR\gtk.bmp	templates/gtk.bmp
       File /oname=$PLUGINSDIR\text.bmp	templates/text.bmp
@@ -43,9 +41,8 @@ Function ShowGraphics
       ${If} $0 == "1"
         StrCpy $user_interface graphical
       ${EndIf}
-    ${ElseIf} $kernel == linux
-    ${OrIf} $kernel == hurd
-      ; ** Default to graphical interface for linux & hurd
+    ${Else}
+      ; ** Default to graphical interface for all kernels
       StrCpy $user_interface graphical
     ${Endif}
 !ifndef NOCD
