@@ -63,7 +63,7 @@ ${If} $kernel == "linux"
   ${If} "$user_interface" == "graphical"
     StrCpy $preseed_cmdline "$preseed_cmdline video=vesa:ywrap,mtrr vga=788"
   ${Else}
-    StrCpy $preseed_cmdline "$preseed_cmdline vga=normal"
+    StrCpy $preseed_cmdline "$preseed_cmdline vga=788"
   ${EndIf}
 ${ElseIf} $kernel == "hurd"
   ${If} "$user_interface" != "graphical"
