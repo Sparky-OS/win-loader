@@ -15,7 +15,7 @@
  !define _COMPANY_NAME "The Debian Project"
 !endif
 !ifdef OPTIONS_TXT
- !define VERSION_OPT "${VERSION} (${OPTIONS_TXT})"
+ !define VERSION_OPT "${VERSION} ${OPTIONS_TXT}"
 !else
  !define VERSION_OPT "${VERSION}"
 !endif
