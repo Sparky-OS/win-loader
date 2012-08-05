@@ -1,10 +1,10 @@
-win32-loader (0.7.4.7) unstable; urgency=low
+win32-loader (0.7.4.7) UNRELEASED; urgency=low
 
   [ Christian Perrier ]
   * Updated translations:
     - Arabic (Ossama Khayat) Closes: #679660
 
- -- Didier Raboud <odyx@debian.org>  Sun, 05 Aug 2012 11:35:56 +0200
+ -- Christian Perrier <bubulle@debian.org>  Sat, 14 Jul 2012 19:23:44 -0600
 
 win32-loader (0.7.4.6) unstable; urgency=low
 
