@@ -20,7 +20,8 @@ Function ShowBranch
   Var /GLOBAL di_branch
   StrCpy $di_branch stable
   File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
-  ${If} $expert == true
+  ${If} $kernel != 'hurd'
+   ${If} $expert == true
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 3" "Text" $(di_branch3)
@@ -29,7 +30,11 @@ Function ShowBranch
     ${If} $0 == "1"
       StrCpy $di_branch daily
     ${Endif}
-  ${Endif}
+   ${Endif}
+  ${Else}
+      ; Debian GNU/Hurd has no "stable" branch (yet)
+      StrCpy $di_branch daily
+  ${EndIf}
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url ; URL to the Release{,.gpg} files
@@ -69,6 +74,7 @@ Function ShowBranch
       StrCpy $base_path_md5    "main/installer-kfreebsd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${ElseIf} $kernel == "hurd"
+      ; Debian GNU/Hurd has no "stable" branch (yet), this branch can't happen.
       StrCpy $base_path_md5    "main/installer-hurd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/hurd-$arch"
     ${EndIf}
