@@ -51,13 +51,8 @@ Function ShowBranch
     ; Daily images URL
     ; See http://svn.debian.org/viewsvn/d-i/trunk/scripts/daily-build-aggregator for the canonical list
     ${If} $kernel == "linux"
-      ${If} $arch == "i386"
-        StrCpy $base_url         "http://d-i.debian.org/daily-images/$arch/daily/"
-        StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
-      ${Else} ; We have only two arches, then Else means $arch == "amd64"
-        StrCpy $base_url         "http://d-i.debian.org/daily-images/$arch/daily/"
-        StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
-      ${Endif}
+      StrCpy $base_url         "http://d-i.debian.org/daily-images/$arch/daily/"
+      StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
       StrCpy $base_url          "http://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
       StrCpy $base_path_images  "netboot/$gtkdebian-installer/kfreebsd-$arch"
