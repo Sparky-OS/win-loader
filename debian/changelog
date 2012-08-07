@@ -1,10 +1,25 @@
-win32-loader (0.7.4.7) UNRELEASED; urgency=low
+win32-loader (0.7.4.7) unstable; urgency=low
+
+  The « أسد » release.
 
   [ Christian Perrier ]
   * Updated translations:
     - Arabic (Ossama Khayat) Closes: #679660
+    - Fix PO-Revision-Date's.
 
- -- Christian Perrier <bubulle@debian.org>  Sat, 14 Jul 2012 19:23:44 -0600
+  [ Didier Raboud ]
+  * Disable 'Download Debian GNU/Hurd as stable' as this won't be
+    possible in wheezy.
+  * Replace the 'spacefun' screenshot with a 'Joy' screenshot.
+  * Sync default video modes for Linux with the rest of d-i.
+  * Default to the graphical install for all kernels.
+
+  * Bug-fixing:
+    - Drop the lonely opening parenthesis around the options specifiers
+      in BrandingText.
+    - Drop useless branch in dailies URL handler.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 07 Aug 2012 22:05:25 +0200
 
 win32-loader (0.7.4.6) unstable; urgency=low
 
