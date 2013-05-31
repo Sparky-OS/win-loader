@@ -1,3 +1,9 @@
+win32-loader (0.7.4.8) unstable; urgency=low
+
+  * Post-Wheezy release: rebuild to embed up-to-date dependencies.
+
+ -- Didier Raboud <odyx@debian.org>  Fri, 31 May 2013 08:54:10 +0200
+
 win32-loader (0.7.4.7) unstable; urgency=low
 
   The « أسد » release.
