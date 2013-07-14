@@ -14,7 +14,7 @@ Build-Depends:
  locales-all,
  gpgv-win32, debian-archive-keyring,
  cpio-win32 (>= 2.11-4), gzip-win32
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=d-i/win32-loader.git
 Vcs-Git: git://anonscm.debian.org/d-i/win32-loader.git
 
