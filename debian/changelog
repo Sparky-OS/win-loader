@@ -1,7 +1,11 @@
 win32-loader (0.7.4.9) UNRELEASED; urgency=low
 
+  [ Dmitrijs Ledkovs ]
   * Bump debhelper compat level to 9.
   * Set Vcs-* to canonical format.
+
+  [ Christian Perrier ]
+  * Add myself to Uploaders
 
  -- Dmitrijs Ledkovs <xnox@debian.org>  Fri, 07 Jun 2013 00:26:38 +0100
 
