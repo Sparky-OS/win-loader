@@ -57,11 +57,8 @@ ${Endif}
 
 ; ********************************************** Preseed vga mode
 ${If} $kernel == "linux"
-  ${If} "$user_interface" == "graphical"
-    StrCpy $preseed_cmdline "$preseed_cmdline video=vesa:ywrap,mtrr vga=788"
-  ${Else}
-    StrCpy $preseed_cmdline "$preseed_cmdline vga=788"
-  ${EndIf}
+  ; See debian-installer/build/config/{i386,amd64}.cfg
+  StrCpy $preseed_cmdline "$preseed_cmdline vga=788"
 ${ElseIf} $kernel == "hurd"
   ${If} "$user_interface" != "graphical"
     StrCpy $preseed_cmdline "$preseed_cmdline GTK_NOVESA=1"
