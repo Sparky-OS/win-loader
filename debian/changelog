@@ -1,3 +1,17 @@
+win32-loader (0.7.5) unstable; urgency=medium
+
+  The « Schistocerca gregaria » release
+
+  * Replicate d-i's change for the video mode fr the graphical installer:
+      Remove old video=vesa:ywrap,mtrr option from VIDEO_MODE_GTK
+      DirectFB apparently needed those at some point. Let's see whether
+      letting the kernel do its job just works. (See: #395040)
+  * Fetch hurd dailies from d-i.debian.org
+  * Replace deprcated wiki.d.o errata url with the one from www.d.o
+  * Use http.d.n instead of cdn.d.n
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 12 Aug 2014 22:51:27 +0200
+
 win32-loader (0.7.4.10) unstable; urgency=medium
 
   [ Changwoo Ryu ]
