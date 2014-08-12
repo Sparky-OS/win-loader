@@ -43,7 +43,7 @@ Function ShowBranch
   ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
   ${If} $di_branch == "daily"
     MessageBox MB_YESNO|MB_ICONQUESTION $(di_branch4) IDNO +2
-    ExecShell "open" "http://wiki.debian.org/DebianInstaller/Today"
+    ExecShell "open" "https://www.debian.org/devel/debian-installer/errata"
 
     ; We have no Release.gpg files for dailies…
     StrCpy $base_path_md5 ""
