@@ -47,7 +47,6 @@ Page custom ShowGraphics ; graphics.nsi
 !ifdef NOCD
 Page custom ShowBranch ; download.nsi and branch.nsi
 !endif
-Page custom ShowDesktop ; desktop.nsi
 Page custom ShowCustom ; custom.nsi
 Page instfiles
 
@@ -77,7 +76,6 @@ Var /GLOBAL target_distro
 	!include download.nsi
 	!include branch.nsi
 !endif
-!include desktop.nsi
 !include custom.nsi
 !include s_install.nsi
 !include instSuccess.nsi
