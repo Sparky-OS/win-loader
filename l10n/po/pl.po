@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader 0.6.6\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2012-01-25 00:03+0100\n"
 "Last-Translator: Michał Kułach <michal.kulach@gmail.com>\n"
 "Language-Team: Polish <debian-l10n-polish@lists.debian.org>\n"
@@ -337,14 +337,6 @@ msgstr ""
 "(strona jest dostępna tylko w języku angielskim). Czy zrobić to teraz?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Środowisko graficzne:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Brak"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -352,37 +344,37 @@ msgstr ""
 "Zostaną użyte następujące parametry. NIE należy ich zmieniać, chyba że "
 "dokładnie wiadomo co się robi!"
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Ustawienia serwera pośredniczącego (adres:port):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "Położenie boot.ini:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Bazowy URL obrazów netboot (pliki \"linux\" i \"initrd.gz\"):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Błąd"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Błąd: nie udało się skopiować $0 do $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "Sprawdzanie podpisu GPG wydania $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "Pobrany plik $0 nie jest zaufany! Przerywanie."
 
@@ -390,7 +382,7 @@ msgstr "Pobrany plik $0 nie jest zaufany! Przerywanie."
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 "Suma kontrolna $0/$2 nie zgadza się. Wyliczono $1, podczas gdy prawidłowa to "
@@ -399,44 +391,44 @@ msgstr ""
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "Obliczanie sumy kontrolnej pliku $2"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Generowanie $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Dodawanie informacji o ustawieniach (preseed) do $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Błąd: nie udało się uruchomić $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Wyłączenie kompresji NTFS w plikach uruchomieniowych"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "Rejestrowanie w NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "Rejestrowanie w BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Błąd: nie udało się przetworzyć wyjścia programu bcdedit.exe."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Błąd: nie znaleziono $0. Czy to na pewno jest Windows $windows_version?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "BARDZO WAŻNA UWAGA:\\n\\n"
 
@@ -446,7 +438,7 @@ msgstr "BARDZO WAŻNA UWAGA:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -456,7 +448,7 @@ msgstr ""
 "program instalacyjny zrestartuje Windows w tryb MS-DOS, po czym "
 "automatycznie rozpocznie się następna część procesu instalacji.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -466,7 +458,7 @@ msgstr ""
 "Podczas następnego startu komputera będzie można wybrać pomiędzy "
 "uruchomieniem Windows, a kontynuowaniem procesu instalacji.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -484,9 +476,15 @@ msgstr ""
 "ten program ładujący, z użyciem okna \"Dodaj/usuń programy\" w Panelu "
 "sterowania."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Czy uruchomić teraz komputer ponownie?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Środowisko graficzne:"
+
+#~ msgid "None"
+#~ msgstr "Brak"
 
 #~ msgid "Debian Installer"
 #~ msgstr "Instalator Debiana"

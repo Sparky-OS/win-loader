@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader_l10n\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2011-02-21 17:01+0000\n"
 "PO-Revision-Date: 2011-02-15 20:14+0600\n"
 "Last-Translator: Sahran <Sahran.ug@gmail.com>\n"

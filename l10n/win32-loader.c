@@ -127,8 +127,6 @@ main (int argc, char **argv)
   You might want to mention that so-called "known issues" page is only available in English.
  */
   langstring ("di_branch4",			_("It is recommended that you check for known issues before using a daily build.  Would you like to do that now?"));
-  langstring ("desktop1",			_("Desktop environment:"));
-  langstring ("desktop2",			_("None"));
   langstring ("custom1",			_("The following parameters will be used.  Do NOT change any of these unless you know what you're doing."));
   langstring ("custom2",			_("Proxy settings (host:port):"));
   langstring ("custom3",			_("Location of boot.ini:"));

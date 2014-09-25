@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2012-03-22 02:45+0100\n"
 "Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
 "Language-Team: Hrvatski <lokalizacija@linux.hr>\n"
@@ -327,14 +327,6 @@ msgstr ""
 "na engleskom jeziku."
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Desktop okruženje:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Nijedno"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -342,37 +334,37 @@ msgstr ""
 "Primijenit će se sljedeći parametri. Ako ne znate što radite, NEMOJTE "
 "mijenjati nijedan od njih."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Proxy postavke (host:port):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "Lokacija boot.ini:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Osnovni URL za netboot snimke (linux i initrd.gz):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Greška"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Greška: neuspjelo kopiranje $0 u $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "Provjerava se GPG potpis datoteke $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
 "Preuzetoj datoteci $0 ne može se vjerovati! Instalacija će se prekinuti."
@@ -381,7 +373,7 @@ msgstr ""
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 "Provjera kontrolne sume neuspješna za $0/$2. Očekivani rezultat je $4, a "
@@ -390,43 +382,43 @@ msgstr ""
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "Računa se kontrolna suma datoteke $2"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Stvara se $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Dodaje se \"preseeding\" informacija u $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Greška: nemoguće pokrenuti $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Onemogućuje se NTFS kompresija u bootstrap datotekama"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "Registracija u NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "Registracija u BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Greška: neuspjelo očitavanje izlaza bcdedit.exe."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "Greška: $0 nije pronađen. Je li ovo doista Windows $windows_version?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "VRLO BITNO UPOZORENJE:\\n\\n"
 
@@ -436,7 +428,7 @@ msgstr "VRLO BITNO UPOZORENJE:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -446,7 +438,7 @@ msgstr ""
 "ovaj program će ponovo pokrenuti Windows u DOS modu, i automatski učitati "
 "sljedeći dio instalacijskog procesa.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -456,7 +448,7 @@ msgstr ""
 "procesom. Tijekom sljedećeg pokretanja sustava, bit ćete upitani želite li "
 "pokrenuti Windows ili nastaviti s postupkom instalacije.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -475,9 +467,15 @@ msgstr ""
 "učitavanje instalera koristeći Windows Add/Remove Programs okvir u Control "
 "Panelu / Kontrolnoj ploči."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Želite li sada ponovo pokrenuti sustav?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Desktop okruženje:"
+
+#~ msgid "None"
+#~ msgstr "Nijedno"
 
 #~ msgid "Debian Installer"
 #~ msgstr "Debian Instaler"

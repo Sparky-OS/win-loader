@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2011-12-30 09:43+0100\n"
 "Last-Translator: Milo Casagrande <milo@ubuntu.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -328,14 +328,6 @@ msgstr ""
 "Verificare i problemi noti prima di usare un «daily build». Consultarli ora?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Ambiente desktop:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Nessuno"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -343,37 +335,37 @@ msgstr ""
 "Verranno usati i seguenti parametri. Non modificarne alcuno se non si sa "
 "quello che si sta facendo."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Impostazioni del proxy (host:porta):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "Posizione di boot.ini:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL base delle immagini di netboot (linux e initrd.gz):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Errore"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Errore: copia da $0 a $1 non riuscita."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "Controllo firma GPG su $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "Il file scaricato $0 non può essere verificato. Arresto."
 
@@ -381,51 +373,51 @@ msgstr "Il file scaricato $0 non può essere verificato. Arresto."
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr "Checksum non corrispondente per $0/$2. Trovato $1, atteso $4. Arresto."
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "Calcolo checksum per $2"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Generazione di $0 in corso"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Aggiunta delle informazione di preseeding a $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Errore: impossibile eseguire $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Rimozione della compressione NTFS dei file di avvio"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "Registrazione in NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "Registrazione in BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Errore: analisi dell'output di bcdedit.exe non riuscita."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Errore: $0 non trovato. La versione di Windows è veramente $windows_version?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "NOTA MOLTO IMPORTANTE:\\n\\n"
 
@@ -435,7 +427,7 @@ msgstr "NOTA MOLTO IMPORTANTE:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -445,7 +437,7 @@ msgstr ""
 "la conferma, questo programma avvierà Windows in modalità DOS e caricherà "
 "automaticamente la parte successiva del processo d'installazione.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -455,7 +447,7 @@ msgstr ""
 "Durante il prossimo avvio verrà chiesto se lanciare Windows o continuare con "
 "l'installazione.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -473,6 +465,12 @@ msgstr ""
 "tenere Windows sul disco), sarà possibile rimuovere questo loader usando "
 "\"Aggiungi/Rimuovi programmi\" dal pannello di controllo di Windows."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Riavviare ora?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Ambiente desktop:"
+
+#~ msgid "None"
+#~ msgstr "Nessuno"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2009-01-05 09:55+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
@@ -337,14 +337,6 @@ msgstr ""
 "aurretik.  Hori orain egin nahi duzu?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Mahaigain ingurunea:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Batez"
-
-#: win32-loader.c:132
 #, fuzzy
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
@@ -353,37 +345,37 @@ msgstr ""
 "Debian-instalatzaile kargatzaileak hurrengo parametroez konfiguratuko da. EZ "
 "egin aldaketarik ezarpen hauetan zer egiten ari zaren ziur ez bazaude."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Proxy ezarpenak (ostalaria:ataka):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "boot.ini fitxategiaren kokalekua:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "netboot irudiarentzat URL oinarria (linux eta initrd.gz)"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Errorea"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Errorea: huts $0 $1 -ra kopiatzean."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr ""
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
 
@@ -391,52 +383,52 @@ msgstr ""
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr ""
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "$0 sortzen"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Aurre-erabakitako informazioa $0-ra gehitzen"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Errorea: ezin da $0 abiarazi."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "NTFS konpresioa ezgaitzen bootstrap fitxategietan"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 #, fuzzy
 msgid "Registering in NTLDR"
 msgstr "Debian-instalatzaile kargatzailea NTLDR-en erregistratzen"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 #, fuzzy
 msgid "Registering in BootMgr"
 msgstr "Debian-instalatzaile kargatzailea BootMgr-en erregistratzen"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Errorea: huts bcdedit.exe irteera analizatzerakoan."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "Errorea: $0 ez da aurkitu. Benetan hau Windows $windows_version da?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "OHAR OSO GARRANTZITSUA:\\n\\n"
 
@@ -446,7 +438,7 @@ msgstr "OHAR OSO GARRANTZITSUA:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 #, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
@@ -457,7 +449,7 @@ msgstr ""
 "ondoren Windows DOS moduan abiarazi eta automatikoki Debian instalatzailea "
 "kargatuko du programa honek.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 #, fuzzy
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
@@ -469,7 +461,7 @@ msgstr ""
 "galdetuko zaizu. Debian Instalatzailea hautatu instalazio prozesuarekin "
 "aurrera jarraitzeko.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -488,9 +480,15 @@ msgstr ""
 "Windows mantentzea erabaki baduzu), Debian Instalatzaile kargatzailea "
 "Windows-eko Kontrol Paneleko Programak gehitu edo kentzeko morroiaren bidez."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Orain berrabiarazi nahi al duzu?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Mahaigain ingurunea:"
+
+#~ msgid "None"
+#~ msgstr "Batez"
 
 #~ msgid "Debian Installer"
 #~ msgstr "Debian instalatzailea"

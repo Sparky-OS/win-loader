@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2008-05-09 12:01+0100\n"
 "Last-Translator: Elian Myftiu <elian.myftiu@gmail.com>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -328,14 +328,6 @@ msgstr ""
 "përdorësh botimin e përditshëm.  Dëshiron ta bësh tani këtë?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Mjedis hapësire pune:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Asnjë"
-
-#: win32-loader.c:132
 #, fuzzy
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
@@ -344,37 +336,37 @@ msgstr ""
 "Ngarkuesi i Debian-Instaluesit do të rregullohet me parametrat e mëposhtëm.  "
 "MOS ndrysho asnjë prej tyre në mos po dite atë që bën."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Rregullimet Proxy (hosti:porta):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "Vendndodhja e boot.ini:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL bazë për imazhet e netboot (linux dhe initrd.gz):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Gabim"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Gabim: dështova në kopjimin e $0 tek $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr ""
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
 
@@ -382,54 +374,54 @@ msgstr ""
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr ""
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Po gjeneroj $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Po bashkangjis të dhënat e parashtruara tek $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Gabim: e pamundur të xhirojë $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Duke çaktivizuar ngjeshjen NTFS në skedat bootstrap"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 #, fuzzy
 msgid "Registering in NTLDR"
 msgstr "Po regjistroj Debian-Instaluesin në NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 #, fuzzy
 msgid "Registering in BootMgr"
 msgstr "Po regjistroj Debian-Instaluesin në BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Gabim: dështova në analizimin e prodhimit të bcdedit.exe."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 #, fuzzy
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Gabim: boot.ini nuk u gjet.  A është vërtet ky Windows $windows_version?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "VËREJTJE SHUMË E RËNDËSISHME:\\n\\n"
 
@@ -439,7 +431,7 @@ msgstr "VËREJTJE SHUMË E RËNDËSISHME:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 #, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
@@ -450,7 +442,7 @@ msgstr ""
 "tënd, ky program do të rinisë Windows në DOS, dhe do të ngarkojë "
 "automatikisht Instaluesin Debian.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 #, fuzzy
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
@@ -462,7 +454,7 @@ msgstr ""
 "Debian.  Zgjidh Instaluesin Debian që të vazhdosh me procesin e instalimit."
 "\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 #, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
@@ -482,9 +474,15 @@ msgstr ""
 "të çinstalosh Ngarkuesin e Debian-Instaluesit me anë të dialogut Windows "
 "Shto/Hiq Programe në Panelin e Kontrollit."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Dëshiron ta rindezësh tani?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Mjedis hapësire pune:"
+
+#~ msgid "None"
+#~ msgstr "Asnjë"
 
 #~ msgid "Debian Installer"
 #~ msgstr "Debian Instaluesi"

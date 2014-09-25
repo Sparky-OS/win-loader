@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Debian Installer for Win32 ALL\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2011-02-23 21:33+0200\n"
 "Last-Translator: Damyan Ivanov <dam+gnome@ktnx.net>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -332,14 +332,6 @@ msgstr ""
 "евентуални проблеми с него. Желаете ли това да стане сега?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Графична работна среда:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Без"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -347,37 +339,37 @@ msgstr ""
 "Ще бъдат използвани следните параметри. Не променяйте нищо, ако не знаете "
 "точно какво правите."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Настройки на прокси (хост:порт):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "Местонахождение на boot.ini:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Базов адрес за netboot-образи (linux и initrd.gz):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Грешка"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Грешка: неуспех при копиране на $0 в $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "Проверка на сигнатурата на файла $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "Изтегленият файл е повреден! Прекъсване."
 
@@ -385,7 +377,7 @@ msgstr "Изтегленият файл е повреден! Прекъсван�
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 "Грешка в контролната сума на $0/$2. Получи се $1, а се очаква $4. Прекъсване."
@@ -393,45 +385,45 @@ msgstr ""
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "Пресмятане на контролната сума на файла $2"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Генериране на $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Добавяне на предварителни настройки към $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Грешка: неуспех при изпълнение на $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr ""
 "Забраняване на компресията на NTFS за файловете за първоначално зареждане"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "Регистриране в NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "Регистриране в BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Грешка: неуспех при разчитане на изхода от bcdedit.exe."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Грешка: не е намерен $0. Дали това наистина е Windows $windows_version?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "МНОГО ВАЖНО:\\n\\n"
 
@@ -441,7 +433,7 @@ msgstr "МНОГО ВАЖНО:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -451,7 +443,7 @@ msgstr ""
 "потвърждение, Windows ще бъде рестартиран в ДОС-режим и автоматично ще "
 "зареди следващата стъпка от инсталацията.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -461,7 +453,7 @@ msgstr ""
 "зареждане ще бъдете запитани дали желаете да се зареди Widows или да "
 "продължи инсталирането.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -479,9 +471,15 @@ msgstr ""
 "Уиндоус), можете да деинсталирате програмата за зареждане на инсталатора от "
 "Add/Remove Programs в Control Panel."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Желаете ли да рестартирате сега?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Графична работна среда:"
+
+#~ msgid "None"
+#~ msgstr "Без"
 
 #~ msgid "Debian Installer"
 #~ msgstr "Инсталатор на Дебиан"
