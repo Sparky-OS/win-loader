@@ -1,3 +1,12 @@
+win32-loader (0.7.6) unstable; urgency=medium
+
+  The « Munchkin Katz » release
+
+  * Drop now-redundant desktop selection, arch-specifics will be handled by
+    tasksel, also drop the related translations. (Closes: #762478)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 01 Oct 2014 08:31:32 +0200
+
 win32-loader (0.7.5) unstable; urgency=medium
 
   The « Schistocerca gregaria » release
