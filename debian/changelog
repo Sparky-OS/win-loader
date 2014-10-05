@@ -11,7 +11,7 @@ win32-loader (0.7.5) unstable; urgency=medium
 
   The « Schistocerca gregaria » release
 
-  * Replicate d-i's change for the video mode fr the graphical installer:
+  * Replicate d-i's change for the video mode for the graphical installer:
       Remove old video=vesa:ywrap,mtrr option from VIDEO_MODE_GTK
       DirectFB apparently needed those at some point. Let's see whether
       letting the kernel do its job just works. (See: #395040)
