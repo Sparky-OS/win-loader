@@ -230,7 +230,7 @@ Section "Installer Loader"
 
 ; We're about to write down our preseed line.  This would be a nice place
 ; to add post-install parameters.
-  StrCpy $preseed_cmdline "$preseed_cmdline --"
+  StrCpy $preseed_cmdline "$preseed_cmdline ---"
 
 ; ********************************************** preseed quietness
   ${If} $expert == false
