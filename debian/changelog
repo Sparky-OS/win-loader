@@ -1,3 +1,15 @@
+win32-loader (0.7.7) unstable; urgency=medium
+
+  The « Lineus longissimus » release
+
+  [ Cyril Brulebois ]
+  * Fix typo in previous changelog entry.
+
+  [ Didier Raboud ]
+  * Use '---' instead of '--' for the kernel command-line (Closes: #768340)
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 13 Nov 2014 14:50:11 +0100
+
 win32-loader (0.7.6) unstable; urgency=medium
 
   The « Munchkin Katz » release
