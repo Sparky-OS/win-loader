@@ -20,7 +20,7 @@ Function ShowBranch
   Var /GLOBAL di_branch
   StrCpy $di_branch stable
   File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
-  ${If} $kernel != 'hurd'
+  ${If} $kernel == 'linux'
    ${If} $expert == true
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
     WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
@@ -32,7 +32,7 @@ Function ShowBranch
     ${Endif}
    ${Endif}
   ${Else}
-      ; Debian GNU/Hurd has no "stable" branch (yet)
+      ; Only Debian GNU/Linux will have a stable branch for the jessie cycle
       StrCpy $di_branch daily
   ${EndIf}
 
@@ -63,13 +63,15 @@ Function ShowBranch
   ${Else}
     StrCpy $base_url         "http://http.debian.net/debian/dists/stable/"
     ${If} $kernel == "linux"
+      ; Only Debian GNU/Linux will have a stable branch for the jessie cycle
       StrCpy $base_path_md5    "main/installer-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
+      ; Debian GNU/kFreeBSD will have no stable branch for the jessie cycle, this branch can't happen
       StrCpy $base_path_md5    "main/installer-kfreebsd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${ElseIf} $kernel == "hurd"
-      ; Debian GNU/Hurd has no "stable" branch (yet), this branch can't happen.
+      ; Debian GNU/Hurd will have no stable branch for the jessie cycle, this branch can't happen
       StrCpy $base_path_md5    "main/installer-hurd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/hurd-$arch"
     ${EndIf}
