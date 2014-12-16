@@ -1,3 +1,13 @@
+win32-loader (0.7.8) unstable; urgency=medium
+
+  * Disable 'Download Debian GNU/kFreeBSD as stable' as this won't be possible
+    in jessie
+  * Bump Build-Depends against nsis to 2.46-10 as -9 has a NSISdl.dll that
+    depends on runtime on libwinpthread-1.dll, which fails to load on Windows
+    (Closes: #772898) Thanks to Bernhard Übelacker.
+
+ -- Didier Raboud <odyx@debian.org>  Tue, 16 Dec 2014 17:00:15 +0100
+
 win32-loader (0.7.7) unstable; urgency=medium
 
   The « Lineus longissimus » release
