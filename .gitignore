@@ -9,3 +9,4 @@ license
 loadlin.*
 plugins/*.dll
 plugins/*/*.dll
+*.ico

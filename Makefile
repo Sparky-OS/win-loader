@@ -11,6 +11,8 @@ NSIS_CC		:= i686-w64-mingw32-gcc -Os
 NSIS_STRIP	:= i686-w64-mingw32-strip
 NSIS_CFLAGS	:= -Wl,--file-alignment,512 -Werror -D_WIN32_WINNT=0x0500
 
+ICONSIZES       := 16 24 32 48 256
+
 ifeq ($(wildcard /usr/i686-w64-mingw32/include/exdll.h), /usr/i686-w64-mingw32/include/exdll.h)
 NSIS_CFLAGS	+= -DHAVE_EXDLL_H
 else
@@ -117,13 +119,21 @@ endif
 templates/gtk.bmp: templates/gtk_orig.png
 	convert $^ -resize 107x80 BMP3:$@
 
+# Build icons out of the SVG source, force them being square
+icon/swirl-%.png: icon/swirl.svg
+	rsvg-convert -f png -h $* -w $* $^ > $@
+
+# Build the icon out of the PNG icons
+win32-loader.ico: $(ICONSIZES:%=icon/swirl-%.png)
+	icotool -c -o $@ $^
+
 win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		templates/gtk.bmp templates/text.bmp \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
 		plugins/sha1sum.dll \
 		pxe.target \
-		swirl.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
+		win32-loader.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
 ifndef OUTFILE_NAME
@@ -214,7 +224,7 @@ netboot/stable/% netboot/daily/%: %
 clean:
 	$(MAKE) -C l10n clean
 	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe \
-		*.iso *~ */*~ core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe pxe.lkrn
+		*.iso *~ */*~ core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe pxe.lkrn icon/*.png win32-loader.ico
 
 distclean: clean
 	rm -rf netboot
