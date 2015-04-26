@@ -1,3 +1,14 @@
+win32-loader (0.7.9) unstable; urgency=medium
+
+  * Add NSIS in the Built-Using list, given that win32-loader embeds (at least)
+    NSISdl.dll
+  * Build the icon out of a square SVG file; add librsvg2-bin and icoutils to
+    Build-Depends
+  * Replace the Joy screenshot by a recent Lines screenshot
+  * Replace http.debian.net with httpredir.debian.org
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 26 Apr 2015 14:06:59 +0200
+
 win32-loader (0.7.8) unstable; urgency=medium
 
   * Disable 'Download Debian GNU/kFreeBSD as stable' as this won't be possible
