@@ -6,6 +6,8 @@ export SHELL := bash
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
+BUILD_DATE	?= $(shell LC_ALL=C date +'%a, %d %b %Y %T %z')
+FOUR_DIGITS_DATE	:= $(shell date -u +'%Y.%m.%d.%H%M' --date="$(BUILD_DATE)")
 
 NSIS_CC		:= i686-w64-mingw32-gcc -Os -Xlinker --no-insert-timestamp
 NSIS_STRIP	:= i686-w64-mingw32-strip
@@ -23,7 +25,7 @@ endif
 MAKENSIS	:= makensis -V3
 
 # Add to it some version'ing and date
-MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=`date +%Y.%m.%d.%H%M`
+MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=$(FOUR_DIGITS_DATE)
 
 ifdef OUTFILE_NAME
 MAKENSIS	+= -D_OUTFILE_NAME=$(OUTFILE_NAME)
