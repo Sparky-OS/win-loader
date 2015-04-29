@@ -3,6 +3,8 @@
 # Install the win32-loader-standalone.exe as debian/tools/win32-loader/$(SUITE)/win32-loader.exe on the mirrors
 BYHAND ?= yes
 
+BUILD_DATE := $(shell dpkg-parsechangelog -S Date)
+
 W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
 W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
@@ -41,6 +43,7 @@ ifeq ($(BYHAND),yes)
 	STANDALONE=yes \
 		PXE=yes \
 		OUTFILE_NAME=$(W32_BYHAND_NAME).exe \
+		BUILD_DATE="$(BUILD_DATE)" \
 		dh_auto_build
 	
 	# Prepare the README file
@@ -52,6 +55,7 @@ ifeq ($(BYHAND),yes)
 endif
 	# Build the cdrom version
 	OUTFILE_NAME=win32-loader.exe \
+		BUILD_DATE="$(BUILD_DATE)" \
 		dh_auto_build
 
 override_dh_auto_clean:
