@@ -1,3 +1,15 @@
+win32-loader (0.7.10) unstable; urgency=medium
+
+  [ Jérémy Bobbio ]
+  * Make package build reproducibly:
+    - Don't insert timestamps when building NSIS DLLs
+    - Allow to set build date externally
+    - Reset embedded file modification times to the build date
+    - Set build date in debian/rules to the latest debian/changelog entry
+  * Makefile syntax fix in PXE targets definition
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 29 Apr 2015 09:25:43 +0200
+
 win32-loader (0.7.9) unstable; urgency=medium
 
   * Add NSIS in the Built-Using list, given that win32-loader embeds (at least)
