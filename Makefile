@@ -113,9 +113,9 @@ pxe.lkrn: /usr/lib/ipxe/ipxe.lkrn
 	cp $^ $@
 
 ifdef PXE
-pxe.target: pxe.lkrn templates/ternary_choice.ini
+PXE_TARGETS = pxe.lkrn templates/ternary_choice.ini
 else
-pxe.target:
+PXE_TARGETS =
 endif
 
 templates/gtk.bmp: templates/gtk_orig.png
@@ -134,7 +134,7 @@ win32-loader.exe: main.nsi maps.ini \
 		templates/gtk.bmp templates/text.bmp \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
 		plugins/sha1sum.dll \
-		pxe.target \
+		$(PXE_TARGETS) \
 		win32-loader.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	find $^ -newermt "$(BUILD_DATE)" -print0 | xargs -0r touch --date="$(BUILD_DATE)"
 	$(MAKE) -C l10n
