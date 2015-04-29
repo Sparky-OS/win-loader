@@ -7,7 +7,7 @@ export SHELL := bash
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
 
-NSIS_CC		:= i686-w64-mingw32-gcc -Os
+NSIS_CC		:= i686-w64-mingw32-gcc -Os -Xlinker --no-insert-timestamp
 NSIS_STRIP	:= i686-w64-mingw32-strip
 NSIS_CFLAGS	:= -Wl,--file-alignment,512 -Werror -D_WIN32_WINNT=0x0500
 
