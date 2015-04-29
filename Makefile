@@ -136,6 +136,7 @@ win32-loader.exe: main.nsi maps.ini \
 		plugins/sha1sum.dll \
 		pxe.target \
 		win32-loader.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
+	find $^ -newermt "$(BUILD_DATE)" -print0 | xargs -0r touch --date="$(BUILD_DATE)"
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
 ifndef OUTFILE_NAME
