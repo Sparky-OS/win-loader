@@ -22,6 +22,8 @@
 #include <nsis/pluginapi.h>
 #endif
 
+extern int check_64bit();
+
 void __declspec(dllexport) get_arch (HWND hwndParent, int string_size, char *variables, stack_t **stacktop, extra_parameters *extra)
 {
   EXDLL_INIT();
