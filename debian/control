@@ -10,6 +10,7 @@ Build-Depends:
  librsvg2-bin, icoutils,
  gettext,
  grub-pc-bin (>= 1.99~rc1-3),
+ imagemagick,
  ipxe,
  loadlin (>= 1.6c.really1.6c.nobin-1~),
  locales-all,
