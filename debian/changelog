@@ -1,3 +1,10 @@
+win32-loader (0.7.12) unstable; urgency=medium
+
+  * Revert premature and wrong Vcs-Browser URL update
+  * Remove 'Introduce a trust chain …' from TODO list, that's implemented
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 03 Dec 2015 08:58:33 +0100
+
 win32-loader (0.7.11) unstable; urgency=medium
 
   * Bump Standards-Version without changes needed
