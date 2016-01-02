@@ -195,17 +195,17 @@ netboot/download-stable-stamp:
 
 netboot/download-daily-stamp:
 	mkdir -p netboot/daily/install.{386,amd}/gtk
-	wget http://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/linux \
+	wget https://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/linux \
 		-O netboot/daily/install.386/vmlinuz
-	wget http://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/initrd.gz \
+	wget https://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/initrd.gz \
 		-O netboot/daily/install.386/initrd.gz
-	wget http://d-i.debian.org/daily-images/i386/daily/netboot/gtk/debian-installer/i386/initrd.gz \
+	wget https://d-i.debian.org/daily-images/i386/daily/netboot/gtk/debian-installer/i386/initrd.gz \
 		-O netboot/daily/install.386/gtk/initrd.gz
-	wget http://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/linux \
+	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/linux \
 		-O netboot/daily/install.amd/vmlinuz
-	wget http://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/initrd.gz \
+	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/initrd.gz \
 		-O netboot/daily/install.amd/initrd.gz
-	wget http://d-i.debian.org/daily-images/amd64/daily/netboot/gtk/debian-installer/amd64/initrd.gz \
+	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/gtk/debian-installer/amd64/initrd.gz \
 		-O netboot/daily/install.amd/gtk/initrd.gz
 	touch $@
 

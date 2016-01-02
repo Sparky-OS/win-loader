@@ -51,13 +51,13 @@ Function ShowBranch
     ; Daily images URL
     ; See http://svn.debian.org/viewsvn/d-i/trunk/scripts/daily-build-aggregator for the canonical list
     ${If} $kernel == "linux"
-      StrCpy $base_url         "http://d-i.debian.org/daily-images/$arch/daily/"
+      StrCpy $base_url         "https://d-i.debian.org/daily-images/$arch/daily/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
-      StrCpy $base_url          "http://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
+      StrCpy $base_url          "https://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
       StrCpy $base_path_images  "netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${ElseIf} $kernel == "hurd"
-      StrCpy $base_url          "http://d-i.debian.org/daily-images/hurd-$arch/daily/"
+      StrCpy $base_url          "https://d-i.debian.org/daily-images/hurd-$arch/daily/"
       StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
     ${EndIf}
   ${Else}
