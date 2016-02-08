@@ -1,8 +1,9 @@
-win32-loader (0.7.14) UNRELEASED; urgency=medium
+win32-loader (0.7.14) unstable; urgency=medium
 
+  [ Colin Watson ]
   * Use HTTPS for Vcs-* URLs, and link to cgit rather than gitweb.
 
- -- Colin Watson <cjwatson@debian.org>  Fri, 29 Jan 2016 13:35:24 +0000
+ -- Christian Perrier <bubulle@debian.org>  Sun, 07 Feb 2016 19:13:03 +0100
 
 win32-loader (0.7.13) unstable; urgency=medium
 
