@@ -32,7 +32,7 @@ Function ShowBranch
     ${Endif}
    ${Endif}
   ${Else}
-      ; Only Debian GNU/Linux will have a stable branch for the jessie cycle
+      ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $di_branch daily
   ${EndIf}
 
@@ -63,15 +63,15 @@ Function ShowBranch
   ${Else}
     StrCpy $base_url         "http://httpredir.debian.org/debian/dists/stable/"
     ${If} $kernel == "linux"
-      ; Only Debian GNU/Linux will have a stable branch for the jessie cycle
+      ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $base_path_md5    "main/installer-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
-      ; Debian GNU/kFreeBSD will have no stable branch for the jessie cycle, this branch can't happen
+      ; Debian GNU/kFreeBSD will have no stable branch for the stretch cycle, this branch can't happen
       StrCpy $base_path_md5    "main/installer-kfreebsd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${ElseIf} $kernel == "hurd"
-      ; Debian GNU/Hurd will have no stable branch for the jessie cycle, this branch can't happen
+      ; Debian GNU/Hurd will have no stable branch for the stretch cycle, this branch can't happen
       StrCpy $base_path_md5    "main/installer-hurd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/hurd-$arch"
     ${EndIf}
