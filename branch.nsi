@@ -38,7 +38,7 @@ Function ShowBranch
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url ; URL to the Release{,.gpg} files
-  Var /GLOBAL base_path_md5 ; further path to the MD5SUMS file
+  Var /GLOBAL base_path_hashes ; further path to the various ${HASH}SUMS files
   Var /GLOBAL base_path_images ; (even) further path to the images
   ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
   ${If} $di_branch == "daily"
@@ -46,7 +46,7 @@ Function ShowBranch
     ExecShell "open" "https://www.debian.org/devel/debian-installer/errata"
 
     ; We have no Release.gpg files for dailies…
-    StrCpy $base_path_md5 ""
+    StrCpy $base_path_hashes ""
 
     ; Daily images URL
     ; See http://svn.debian.org/viewsvn/d-i/trunk/scripts/daily-build-aggregator for the canonical list
@@ -64,15 +64,15 @@ Function ShowBranch
     StrCpy $base_url         "http://httpredir.debian.org/debian/dists/stable/"
     ${If} $kernel == "linux"
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
-      StrCpy $base_path_md5    "main/installer-$arch/current/images/"
+      StrCpy $base_path_hashes    "main/installer-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
     ${ElseIf} $kernel == "kfreebsd"
       ; Debian GNU/kFreeBSD will have no stable branch for the stretch cycle, this branch can't happen
-      StrCpy $base_path_md5    "main/installer-kfreebsd-$arch/current/images/"
+      StrCpy $base_path_hashes    "main/installer-kfreebsd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/kfreebsd-$arch"
     ${ElseIf} $kernel == "hurd"
       ; Debian GNU/Hurd will have no stable branch for the stretch cycle, this branch can't happen
-      StrCpy $base_path_md5    "main/installer-hurd-$arch/current/images/"
+      StrCpy $base_path_hashes    "main/installer-hurd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/hurd-$arch"
     ${EndIf}
   ${Endif}

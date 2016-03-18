@@ -97,7 +97,7 @@ Section "Installer Loader"
 !ifdef PXE
  ${If} $pxe_mode == "false"
 !endif ;PXE
-  ${If} $base_path_md5 != ""
+  ${If} $base_path_hashes != ""
     ; Download the Release and Release.gpg files
     Push "false"
     Push "false"
@@ -127,7 +127,7 @@ Section "Installer Loader"
 
     ; Get MD5SUMS file SHA1SUM
     Push "$PLUGINSDIR\Release"
-    Push "$base_path_md5MD5SUMS"
+    Push "$base_path_hashesMD5SUMS"
     Call Get_SHA1_ref
     ; SHA-1 is on the stack.
   ${Else}
@@ -139,7 +139,7 @@ Section "Installer Loader"
   Push "false"
   Push "MD5SUMS"
   Push "$PLUGINSDIR"
-  Push "$base_url$base_path_md5"
+  Push "$base_url$base_path_hashes"
   Call Download
 
   ${If} $kernel == "linux"
@@ -150,7 +150,7 @@ Section "Installer Loader"
     Push "false"
     Push "linux"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
     
     Push "$PLUGINSDIR\MD5SUMS"
@@ -160,7 +160,7 @@ Section "Installer Loader"
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
   ${ElseIf} $kernel == "kfreebsd"
     Push "$PLUGINSDIR\MD5SUMS"
@@ -170,7 +170,7 @@ Section "Installer Loader"
     Push "false"
     Push "kfreebsd.gz"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
     Push "$PLUGINSDIR\MD5SUMS"
@@ -180,7 +180,7 @@ Section "Installer Loader"
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
   ${ElseIf} $kernel == "hurd"
     Push "$PLUGINSDIR\MD5SUMS"
@@ -190,7 +190,7 @@ Section "Installer Loader"
     Push "false"
     Push "gnumach.gz"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
     Push "$PLUGINSDIR\MD5SUMS"
@@ -200,7 +200,7 @@ Section "Installer Loader"
     Push "false"
     Push "ext2fs.static"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
     Push "$PLUGINSDIR\MD5SUMS"
@@ -210,7 +210,7 @@ Section "Installer Loader"
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
     Push "$PLUGINSDIR\MD5SUMS"
@@ -220,7 +220,7 @@ Section "Installer Loader"
     Push "false"
     Push "ld.so.1"
     Push "$INSTDIR"
-    Push "$base_url$base_path_md5$base_path_images"
+    Push "$base_url$base_path_hashes$base_path_images"
     Call Download
   ${EndIf}
 !ifdef PXE
