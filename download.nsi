@@ -118,3 +118,29 @@ Function Get_SHA1_ref
     FileClose $3
   sha1_done:
 FunctionEnd
+
+Function Get_SHA256_ref
+;Line is like:
+; d62f7850ef1a0a381c1e856936761ddd678e16dfdab90685de2deaf248f8d655      108 contrib/debian-installer/binary-amd64/Release
+    ; Url we are looking for
+    Pop $0
+    ; Release file
+    Pop $1
+    ClearErrors
+    FileOpen $3 $1 r
+    IfErrors sha256_done ; Make sure it's readable
+  sha256_readline:
+    FileRead $3 $4
+    IfErrors sha256_endoffile
+    StrCpy $5 $4 -1 75 ; space + sha256sum + space-leftpadded size, -1 to get rid of newline
+    ; Compare what we want with what we have
+    StrCmpS $0 $5 0 sha256_readline
+    StrCpy $0 $4 64 1 ; Copying the found sha256sum to $0
+    Push $0
+    FileClose $3
+    Goto sha256_done
+  sha256_endoffile:
+    Push "false-sha256"
+    FileClose $3
+  sha256_done:
+FunctionEnd
