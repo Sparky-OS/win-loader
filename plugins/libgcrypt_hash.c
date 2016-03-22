@@ -104,3 +104,18 @@ void __declspec (dllexport) sha1sum (HWND hwndParent, int string_size, char *var
   pushstring(hashhex);
   free(hashhex);
 }
+
+void __declspec (dllexport) md5sum (HWND hwndParent, int string_size, char *variables, stack_t ** stacktop, extra_parameters * extra)
+{
+  EXDLL_INIT ();
+
+  char filename[1024];
+  char *f = filename;
+  popstring (filename);
+
+  char *hashhex;
+  hash_fp(&hashhex, GCRY_MD_MD5, &f);
+
+  pushstring(hashhex);
+  free(hashhex);
+}
