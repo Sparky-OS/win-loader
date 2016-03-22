@@ -20,8 +20,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-int print_hash_fp(int hash_algo, char *argv[]) {
-
+void hash_fp(char **outhash, int hash_algo, char *argv[]) {
     /* Length of resulting hash - gcry_md_get_algo_dlen
      * returns digest lenght for an algo */
     int hash_len = gcry_md_get_algo_dlen( hash_algo );
@@ -31,8 +30,9 @@ int print_hash_fp(int hash_algo, char *argv[]) {
 
     /* output hash - converted to hex representation
      * 2 hex digits for every byte + 1 for trailing \0 */
-    char *out = (char *) malloc( sizeof(char) * ((hash_len*2)+1) );
-    char *p = out;
+    *outhash = NULL;
+    *outhash = (char *) malloc( sizeof(char) * ((hash_len*2)+1) );
+    char *p = *outhash;
 
     /* File-reading */
     FILE *fp;
@@ -64,21 +64,16 @@ int print_hash_fp(int hash_algo, char *argv[]) {
     {
 	fprintf (stderr, "gcry_md_read failed.");
 	gcry_md_close (hd);
-	return (-1);
+	exit (1);
     }
     memcpy (hash, hash_ptr, sizeof (hash));
 
     /* Convert each byte to its 2 digit ascii
-     * hex representation and place in out */
+     * hex representation and place in outhash */
     int i;
     for ( i = 0; i < hash_len; i++, p += 2 ) {
 	snprintf ( p, 3, "%02x", hash[i] );
     }
-
-    printf( "%s\n", out );
-    free( out );
-
-    return 0;
 }
 
 int main(int argc, char *argv[])
@@ -88,12 +83,12 @@ int main(int argc, char *argv[])
 	fprintf( stderr, "Usage: %s filenames\n", argv[0] );
 	exit( 1 );
     }
+    char *hashhex;
     for (argc--, argv++; argc; argv++, argc--)
     {
-	print_hash_fp(GCRY_MD_MD5, argv);
-	print_hash_fp(GCRY_MD_SHA1, argv);
-	print_hash_fp(GCRY_MD_SHA256, argv);
-	print_hash_fp(GCRY_MD_SHA512, argv);
+	hash_fp(&hashhex, GCRY_MD_SHA1, argv);
+        printf("%s\n", hashhex);
     }
-
+    free(hashhex);
+    exit(0);
 }
