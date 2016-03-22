@@ -20,7 +20,21 @@
 #include <stdio.h>
 #include <errno.h>
 
-void hash_fp(char **outhash, int hash_algo, char *argv[]) {
+/* NSIS plugin
+*/
+#include <windows.h>
+#ifdef HAVE_EXDLL_H
+#include "exdll.h"
+#else
+#include <nsis/pluginapi.h>
+#endif
+
+BOOL WINAPI DllMain (HANDLE hInst, ULONG ul_reason_for_call, LPVOID lpReserved)
+{
+  return TRUE;
+}
+
+void hash_fp(char **outhash, int hash_algo, char *filename[]) {
     /* Length of resulting hash - gcry_md_get_algo_dlen
      * returns digest lenght for an algo */
     int hash_len = gcry_md_get_algo_dlen( hash_algo );
@@ -44,17 +58,17 @@ void hash_fp(char **outhash, int hash_algo, char *argv[]) {
     /* Initialize hash */
     gcry_md_open (&hd, hash_algo, 0);
 
-    fp = fopen (*argv, "rb");
+    fp = fopen (*filename, "rb");
     if (!fp)
     {
-	fprintf (stderr, "can't open `%s': %s\n", *argv, strerror (errno));
+	fprintf (stderr, "can't open `%s': %s\n", *filename, strerror (errno));
 	exit (1);
     }
     while ( (n = fread (buffer, 1, sizeof buffer, fp)))
 	gcry_md_write(hd, buffer, n);
     if (ferror (fp))
     {
-	fprintf (stderr, "error reading `%s': %s\n", *argv,strerror (errno));
+	fprintf (stderr, "error reading `%s': %s\n", *filename,strerror (errno));
 	exit (1);
     }
     gcry_md_final(hd);
@@ -76,19 +90,17 @@ void hash_fp(char **outhash, int hash_algo, char *argv[]) {
     }
 }
 
-int main(int argc, char *argv[])
+void __declspec (dllexport) sha1sum (HWND hwndParent, int string_size, char *variables, stack_t ** stacktop, extra_parameters * extra)
 {
-    /* Test for arg string */
-    if ( argc < 2 ){
-	fprintf( stderr, "Usage: %s filenames\n", argv[0] );
-	exit( 1 );
-    }
-    char *hashhex;
-    for (argc--, argv++; argc; argv++, argc--)
-    {
-	hash_fp(&hashhex, GCRY_MD_SHA1, argv);
-        printf("%s\n", hashhex);
-    }
-    free(hashhex);
-    exit(0);
+  EXDLL_INIT ();
+
+  char filename[1024];
+  char *f = filename;
+  popstring (filename);
+
+  char *hashhex;
+  hash_fp(&hashhex, GCRY_MD_SHA1, &f);
+
+  pushstring(hashhex);
+  free(hashhex);
 }

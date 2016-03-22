@@ -54,7 +54,7 @@ Function Download
       Pop $1
       ${If} $4 != $1
        ; MD5 don't match, try sha1sum
-       sha1sum::sha1sum $6\$2
+       libgcrypt_hash::sha1sum $6\$2
        Pop $1
        ${If} $4 != $1
          MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"

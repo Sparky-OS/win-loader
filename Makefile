@@ -133,7 +133,7 @@ win32-loader.exe: main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		templates/gtk.bmp templates/text.bmp \
 		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
-		plugins/sha1sum.dll \
+		plugins/libgcrypt_hash.dll \
 		$(PXE_TARGETS) \
 		win32-loader.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
 	find $^ -newermt "$(BUILD_DATE)" -print0 | xargs -0r touch --date="$(BUILD_DATE)"
@@ -157,8 +157,8 @@ plugins/string.dll: plugins/string.c
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
 	$(NSIS_STRIP) $@
 
-plugins/sha1sum.dll: plugins/sha1sum.c
-	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
+plugins/libgcrypt_hash.dll: plugins/libgcrypt_hash.c
+	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -static-libgcc /usr/i686-w64-mingw32/lib/libgcrypt.a /usr/i686-w64-mingw32/lib/libgpg-error.a -o $@
 	$(NSIS_STRIP) $@
 
 iso: stable.iso daily.iso
