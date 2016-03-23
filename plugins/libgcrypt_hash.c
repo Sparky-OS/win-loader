@@ -90,31 +90,27 @@ void hash_fp(char **outhash, int hash_algo, char *filename[]) {
     }
 }
 
-void __declspec (dllexport) sha1sum (HWND hwndParent, int string_size, char *variables, stack_t ** stacktop, extra_parameters * extra)
+void __declspec (dllexport) hashsum (HWND hwndParent, int string_size, char *variables, stack_t ** stacktop, extra_parameters * extra)
 {
   EXDLL_INIT ();
+
+  // First argument is the hash name (md5, sha1, sha256, etc)
+  char hashname[8];
+  char *h = hashname;
+  popstring (hashname);
 
   char filename[1024];
   char *f = filename;
   popstring (filename);
 
   char *hashhex;
-  hash_fp(&hashhex, GCRY_MD_SHA1, &f);
-
-  pushstring(hashhex);
-  free(hashhex);
-}
-
-void __declspec (dllexport) md5sum (HWND hwndParent, int string_size, char *variables, stack_t ** stacktop, extra_parameters * extra)
-{
-  EXDLL_INIT ();
-
-  char filename[1024];
-  char *f = filename;
-  popstring (filename);
-
-  char *hashhex;
-  hash_fp(&hashhex, GCRY_MD_MD5, &f);
+  if (strcmp(hashname, "md5") == 0) {
+        hash_fp(&hashhex, GCRY_MD_MD5, &f);
+  } else if (strcmp(hashname, "sha1") == 0) {
+        hash_fp(&hashhex, GCRY_MD_SHA1, &f);
+  } else {
+      pushstring("false");
+  }
 
   pushstring(hashhex);
   free(hashhex);

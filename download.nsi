@@ -50,11 +50,11 @@ Function Download
       ; $2 goes in the text
       DetailPrint "$(computing_checksum)"
       ; Compute sha1sum of downloaded file, put it as $1
-      libgcrypt_hash::sha1sum $6\$2
+      libgcrypt_hash::hashsum "sha1" $6\$2
       Pop $1
       ${If} $4 != $1
        ; MD5 don't match, try md5sum
-       libgcrypt_hash::md5sum $6\$2
+       libgcrypt_hash::hashsum "md5" $6\$2
        Pop $1
        ${If} $4 != $1
          MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
