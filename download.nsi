@@ -72,32 +72,6 @@ Function Download
     Push "$R0"
 FunctionEnd
 
-Function Get_MD5_ref
-;Line is like
-;8cb1b6f4bad64a40b636d5f6e3761d0d  ./netboot/debian-installer/amd64/pxelinux.0
-    ; Url we are looking for
-    Pop $0
-    ; MD5SUMS file
-    Pop $1
-    ClearErrors
-    FileOpen $3 $1 r
-    IfErrors done ; Make sure it's readable
-  readline:
-    FileRead $3 $4
-    IfErrors endoffile
-    StrCpy $5 $4 -1 36 ; md5sum + spaces and ./, -1 to get rid of newline
-    ; Compare what we want with what we have
-    StrCmpS $0 $5 0 readline
-    StrCpy $0 $4 32 ; Copying the found md5sum to $0
-    Push $0
-    FileClose $3
-    Goto done
-  endoffile:
-    Push "false-md5"
-    FileClose $3
-  done:
-FunctionEnd
-
 Function Get_SHA1_ref
 ;Line is like:
 ; dc61910e515a26d252330d311136fa200e4d06fa       94 main/debian-installer/binary-amd64/Release

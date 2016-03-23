@@ -104,9 +104,7 @@ void __declspec (dllexport) hashsum (HWND hwndParent, int string_size, char *var
   popstring (filename);
 
   char *hashhex;
-  if (strcmp(hashname, "md5") == 0) {
-        hash_fp(&hashhex, GCRY_MD_MD5, &f);
-  } else if (strcmp(hashname, "sha1") == 0) {
+  if (strcmp(hashname, "sha1") == 0) {
         hash_fp(&hashhex, GCRY_MD_SHA1, &f);
   } else if (strcmp(hashname, "sha256") == 0) {
         hash_fp(&hashhex, GCRY_MD_SHA256, &f);
