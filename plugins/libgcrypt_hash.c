@@ -108,6 +108,10 @@ void __declspec (dllexport) hashsum (HWND hwndParent, int string_size, char *var
         hash_fp(&hashhex, GCRY_MD_MD5, &f);
   } else if (strcmp(hashname, "sha1") == 0) {
         hash_fp(&hashhex, GCRY_MD_SHA1, &f);
+  } else if (strcmp(hashname, "sha256") == 0) {
+        hash_fp(&hashhex, GCRY_MD_SHA256, &f);
+  } else if (strcmp(hashname, "sha512") == 0) {
+        hash_fp(&hashhex, GCRY_MD_SHA512, &f);
   } else {
       pushstring("false");
   }

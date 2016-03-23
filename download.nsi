@@ -49,16 +49,21 @@ Function Download
     ${If} $4 != "false"
       ; $2 goes in the text
       DetailPrint "$(computing_checksum)"
-      ; Compute sha1sum of downloaded file, put it as $1
-      libgcrypt_hash::hashsum "sha1" $6\$2
+      ; Compute sha256sum of downloaded file, put it as $1
+      libgcrypt_hash::hashsum "sha256" $6\$2
       Pop $1
       ${If} $4 != $1
-       ; MD5 don't match, try md5sum
-       libgcrypt_hash::hashsum "md5" $6\$2
+       ; SHA256 don't match, try sha1sum
+       libgcrypt_hash::hashsum "sha1" $6\$2
        Pop $1
        ${If} $4 != $1
-         MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
-         Quit
+        ; SHA1 don't match, try md5sum
+        libgcrypt_hash::hashsum "md5" $6\$2
+        Pop $1
+        ${If} $4 != $1
+          MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
+          Quit
+        ${EndIf}
        ${EndIf}
       ${EndIf}
       DetailPrint "$4 = $1"
@@ -122,6 +127,8 @@ FunctionEnd
 Function Get_SHA256_ref
 ;Line is like:
 ; d62f7850ef1a0a381c1e856936761ddd678e16dfdab90685de2deaf248f8d655      108 contrib/debian-installer/binary-amd64/Release
+;or like;
+;8716fec256b2df0b3e7c2f45a90813285b28fe7a72e4925c14d456d40af4caa1  ./netboot/debian-installer/amd64/linux
     ; Url we are looking for
     Pop $0
     ; Release file
@@ -134,13 +141,19 @@ Function Get_SHA256_ref
     IfErrors sha256_endoffile
     StrCpy $5 $4 -1 75 ; space + sha256sum + space-leftpadded size, -1 to get rid of newline
     ; Compare what we want with what we have
-    StrCmpS $0 $5 0 sha256_readline
+    StrCmpS $0 $5 0 sha256_alternativesyntax
     StrCpy $0 $4 64 1 ; Copying the found sha256sum to $0
     Push $0
-    FileClose $3
+    Goto sha256_done
+  sha256_alternativesyntax:
+    StrCpy $5 $4 -1 68 ; sha256sum + spaces and ./, -1 to get rid of newline
+    ; Compare what we want with what we have
+    StrCmpS $0 $5 0 sha256_readline
+    StrCpy $0 $4 64 ; Copying the found sha256sum to $0
+    Push $0
     Goto sha256_done
   sha256_endoffile:
     Push "false-sha256"
-    FileClose $3
   sha256_done:
+    FileClose $3
 FunctionEnd

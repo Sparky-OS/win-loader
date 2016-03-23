@@ -125,98 +125,98 @@ Section "Installer Loader"
       Quit
     ${EndIf}
 
-    ; Get MD5SUMS file SHA1SUM
+    ; Get SHA256SUMS file SHA1SUM
     Push "$PLUGINSDIR\Release"
-    Push "$base_path_hashesMD5SUMS"
-    Call Get_SHA1_ref
-    ; SHA-1 is on the stack.
+    Push "$base_path_hashesSHA256SUMS"
+    Call Get_SHA256_ref
+    ; SHA-256 is on the stack.
   ${Else}
     Push "false" ; Don't try to compare the SHA1SUM (daily images don't have that).
   ${EndIf}
   
-  ; Download the MD5SUMS file
+  ; Download the SHA256SUMS file
   ; SHA-1 or "false" is on the stack
   Push "false"
-  Push "MD5SUMS"
+  Push "SHA256SUMS"
   Push "$PLUGINSDIR"
   Push "$base_url$base_path_hashes"
   Call Download
 
   ${If} $kernel == "linux"
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/linux"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "linux"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
     
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/initrd.gz"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
   ${ElseIf} $kernel == "kfreebsd"
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/kfreebsd.gz"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "kfreebsd.gz"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/initrd.gz"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
   ${ElseIf} $kernel == "hurd"
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/gnumach.gz"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "gnumach.gz"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/ext2fs.static"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "ext2fs.static"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/initrd.gz"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "initrd.gz"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
 
-    Push "$PLUGINSDIR\MD5SUMS"
+    Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/ld.so.1"
-    Call Get_MD5_ref
-    ; MD5 is on stack
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
     Push "false"
     Push "ld.so.1"
     Push "$INSTDIR"
