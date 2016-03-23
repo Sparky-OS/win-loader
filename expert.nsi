@@ -77,23 +77,13 @@ readme_file_not_found:
     StrCpy $windows_boot_method ntldr
     Goto windows_version_ok
   ${Endif}
-  ${If} ${AtMostWin7}
-    StrCpy $windows_boot_method bootmgr
-    ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
-    GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
-    ${If} $bcdedit == ""
-      StrCpy $bcdedit $SYSDIR\bcdedit.exe
-    ${Endif}
-    Goto windows_version_ok
+  ; So far, all versions post Windows 7 support bcdedit.exe
+  StrCpy $windows_boot_method bootmgr
+  ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
+  GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
+  ${If} $bcdedit == ""
+    StrCpy $bcdedit $SYSDIR\bcdedit.exe
   ${Endif}
-  Var /GLOBAL windows_version
-  ${WinVerGetMajor} $0
-  ${WinVerGetMinor} $1
-  ${WinVerGetBuild} $2
-  ${WinVerGetServicePackLevel} $3
-  StrCpy $windows_version "$0.$1.$2 SP$3"
-  MessageBox MB_OK|MB_ICONSTOP $(unsupported_version_of_windows)
-  Quit
 windows_version_ok:
 
 ; ********************************************** Initialise $c
