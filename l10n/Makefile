@@ -28,7 +28,7 @@ templates/%.nsh: po/%.po win32-loader.sh win32-loader po/messages.pot
 	LANGUAGE=$* ./win32-loader.sh > $@
 
 po/messages.pot: win32-loader.sh win32-loader.c
-	xgettext --from-code=utf-8 -ctranslate --keyword=_ $^ -o $@
+	xgettext --msgid-bugs-address=win32-loader@packages.debian.org --from-code=utf-8 -ctranslate --keyword=_ $^ -o $@
 
 clean:
 	rm -rf *~ templates locale win32-loader
