@@ -1,3 +1,25 @@
+win32-loader (0.8.0) unstable; urgency=low
+
+  * The « Κρυπτεία σκυτάλη » release
+
+  * Refresh the crypto management code:
+   - Replace the sha1sum.c NSIS with a more generic libgcrypt_hash.c plugin,
+     therefore Build-Depend on libgcrypt-mingw-w64-dev for static linking, and
+     add these to the Built-Using list
+   - Rewrite the NSIS code to be more hash-independent
+   - Use SHA256SUMS instead of MD5SUMS everywhere possible (Closes: #818604)
+   - Remove all MD5-checking code
+
+  * Bump Build-Depends against nsis to 2.48 as it fixes a privilege escalation
+    in generated installers
+  * Update the non-Linux comments for the stretch release
+  * Lift constraint on Windows versions; all >= Win7 versions use bcdedit.exe
+    apparently (Closes: #775055)
+  * Specify msgid-bugs-address in xgettext call to avoid noisy diffs
+  * Bump Standards-Version to 3.9.8 without changes needed
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 21 Apr 2016 23:22:22 +0200
+
 win32-loader (0.7.14) unstable; urgency=medium
 
   [ Colin Watson ]
