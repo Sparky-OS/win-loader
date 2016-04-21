@@ -8,7 +8,7 @@ BUILD_DATE := $(shell dpkg-parsechangelog -S Date)
 W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
 W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
 
-B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin ipxe nsis
+B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin ipxe nsis libgcrypt-mingw-w64-dev libgpg-error-mingw-w64-dev
 
 PACKAGES_LIST := $(shell set -e; \
 	for p in ${B_D_PACKAGES}; \
