@@ -18,7 +18,7 @@ ICONSIZES       := 16 24 32 48 256
 ifeq ($(wildcard /usr/i686-w64-mingw32/include/exdll.h), /usr/i686-w64-mingw32/include/exdll.h)
 NSIS_CFLAGS	+= -DHAVE_EXDLL_H
 else
-NSIS_CFLAGS	+= -L/usr/i686-w64-mingw32/lib/nsis/ -lpluginapi
+NSIS_CFLAGS	+= -L/usr/i686-w64-mingw32/lib/nsis/ -lpluginapi-x86-ansi
 endif
 
 # Standard makensis call
