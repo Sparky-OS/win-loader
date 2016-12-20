@@ -80,10 +80,10 @@ readme_file_not_found:
   ; So far, all versions post Windows 7 support bcdedit.exe
   StrCpy $windows_boot_method bootmgr
   ; FIXME: this blurb is duplicated in the uninstaller.  keep in sync!
-  GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
-  ${If} $bcdedit == ""
-    StrCpy $bcdedit $SYSDIR\bcdedit.exe
-  ${Endif}
+  ;GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
+  ;${If} $bcdedit == ""
+  ;  StrCpy $bcdedit $SYSDIR\bcdedit.exe
+  ;${Endif}
 windows_version_ok:
 
 ; ********************************************** Initialise $c
@@ -96,18 +96,18 @@ windows_version_ok:
     ${If} $c == failed
       ${If} $windows_boot_method == bootmgr
 	; If we are under Vista or Win7, try reading the partition from {current} entry in bcdedit
-        nsExec::ExecToStack '"$bcdedit" /enum {current}'
-	Pop $0
-        ${If} $0 != 0
-          StrCpy $0 '"$bcdedit" /enum {current}'
-          MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
-        ${EndIf}
+        ;nsExec::ExecToStack '"$bcdedit" /enum {current}'
+	;Pop $0
+        ;${If} $0 != 0
+        ;  StrCpy $0 '"$bcdedit" /enum {current}'
+        ;  MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
+        ;${EndIf}
         ; The whole output of bcdedit is on stack now. Search for partition=??
-        string::bcdedit_extract_partition
-        Pop $c
-        ${If} $c != "error"
-          Goto c_is_initialized
-	${EndIf}
+        ;string::bcdedit_extract_partition
+        ;Pop $c
+        ;${If} $c != "error"
+        ;  Goto c_is_initialized
+	;${EndIf}
       ${EndIf}
       ${GetRoot} $WINDIR $c
       MessageBox MB_OK|MB_ICONEXCLAMATION $(cant_find_system_partition)

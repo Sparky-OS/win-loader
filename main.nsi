@@ -62,7 +62,11 @@ Var /GLOBAL preseed_cmdline
 Var /GLOBAL preseed_cfg
 Var /GLOBAL proxy
 Var /GLOBAL arch
-Var /GLOBAL bcdedit
+Var /GLOBAL services
+Var /GLOBAL locator
+Var /GLOBAL basebcdstore
+Var /GLOBAL basebcdobject
+Var /GLOBAL bcdstore
 Var /GLOBAL target_distro
 
 ;--------------------------------

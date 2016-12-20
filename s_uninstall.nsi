@@ -37,17 +37,17 @@ Section "Uninstall"
   ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
   ${If} $0 != ""
     ; FIXME: this blurb is duplicated in the installer (expert.nsi).  keep in sync!
-    GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
-    ${If} $bcdedit == ""
-      StrCpy $bcdedit $SYSDIR\bcdedit.exe
-    ${Endif}
+    ;GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
+    ;${If} $bcdedit == ""
+    ;  StrCpy $bcdedit $SYSDIR\bcdedit.exe
+    ;${Endif}
 
-    nsExec::Exec '"$bcdedit" /delete $0'
-    Pop $0
-    ${If} $0 != 0
-      StrCpy $0 $bcdedit
-      MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
-    ${Endif}
+    ;nsExec::Exec '"$bcdedit" /delete $0'
+    ;Pop $0
+    ;${If} $0 != 0
+    ;  StrCpy $0 $bcdedit
+    ;  MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
+    ;${Endif}
   ${Endif}
 
   DeleteRegKey HKLM "${REGSTR_WIN32}"
@@ -55,4 +55,6 @@ Section "Uninstall"
   Delete $c\g2ldr
   Delete $c\g2ldr.mbr
   RMDir /r /REBOOTOK $INSTDIR
+  
+  Call ${BOOTCFG_UNFUNC}CleanUp
 SectionEnd

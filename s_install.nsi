@@ -406,35 +406,35 @@ ${EndIf}
     ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
     ${If} $0 == ""
 !ifdef PXE
-     ${If} $pxe_mode == "true"
-      nsExec::ExecToStack '"$bcdedit" /create /d "$(pxe_ntldr)" /application bootsector'
-     ${Else}
+     ;${If} $pxe_mode == "true"
+     ; nsExec::ExecToStack '"$bcdedit" /create /d "$(pxe_ntldr)" /application bootsector'
+     ;${Else}
 !endif ; PXE
-      nsExec::ExecToStack '"$bcdedit" /create /d "$(d-i_ntldr)" /application bootsector'
+     ; nsExec::ExecToStack '"$bcdedit" /create /d "$(d-i_ntldr)" /application bootsector'
 !ifdef PXE
-     ${EndIf} ; $pxe_mode == "true"
+     ;${EndIf} ; $pxe_mode == "true"
 !endif ; PXE
-      Pop $0
-      ${If} $0 != 0
-        StrCpy $0 $bcdedit
-        MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
-        Quit
-      ${Endif}
+      ;Pop $0
+      ;${If} $0 != 0
+      ;  StrCpy $0 $bcdedit
+      ;  MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
+      ;  Quit
+      ;${Endif}
       ; "The entry {id} was successfully created" is in top of stack now
-      string::bcdedit_extract_id
-      Pop $0
-      ${If} $0 == "error"
-        MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
-        Quit
-      ${Endif}
+      ;string::bcdedit_extract_id
+      ;Pop $0
+      ;${If} $0 == "error"
+      ;  MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
+      ;  Quit
+      ;${Endif}
       ; $0 holds the boot id.  Write it down, both for installer idempotency
       ; and for uninstaller.
       WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$0"
     ${Endif}
-    nsExec::Exec '"$bcdedit" /set $0 device boot'
-    nsExec::Exec '"$bcdedit" /set $0 path \g2ldr.mbr'
-    nsExec::Exec '"$bcdedit" /set $0 device partition=$c'
-    nsExec::Exec '"$bcdedit" /displayorder $0 /addlast'
+    ;nsExec::Exec '"$bcdedit" /set $0 device boot'
+    ;nsExec::Exec '"$bcdedit" /set $0 path \g2ldr.mbr'
+    ;nsExec::Exec '"$bcdedit" /set $0 device partition=$c'
+    ;nsExec::Exec '"$bcdedit" /displayorder $0 /addlast'
   ${Endif}
 
 ; ********************************************** Needed for systems with compressed NTFS
@@ -454,4 +454,5 @@ ${EndIf}
   ${EndIf}
 !endif ;PXE
 
+  Call CleanUp
 SectionEnd
