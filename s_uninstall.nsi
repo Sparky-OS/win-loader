@@ -16,6 +16,9 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+; Include required functions
+${un.BOOTCFG_DeleteObject}
+${un.BOOTCFG_RemoveBootEntry}
 
 Section "Uninstall"
   ; Initialise $c
@@ -36,18 +39,17 @@ Section "Uninstall"
 
   ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
   ${If} $0 != ""
-    ; FIXME: this blurb is duplicated in the installer (expert.nsi).  keep in sync!
-    ;GetFullPathName $bcdedit $WINDIR\Sysnative\bcdedit.exe
-    ;${If} $bcdedit == ""
-    ;  StrCpy $bcdedit $SYSDIR\bcdedit.exe
-    ;${Endif}
-
-    ;nsExec::Exec '"$bcdedit" /delete $0'
-    ;Pop $0
-    ;${If} $0 != 0
-    ;  StrCpy $0 $bcdedit
-    ;  MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
-    ;${Endif}
+    ${un.BOOTCFG_RemoveBootEntry} $services $basebcdstore $bcdstore \
+      $basebcdobject $0 $2 $1
+    ${If} $1 != 0
+      IntFmt $1 "0x%08X" $1
+      DetailPrint "$2: $1"
+    ${EndIf}
+    ${un.BOOTCFG_DeleteObject} $services $basebcdstore $bcdstore $0 $2 $1
+    ${If} $1 != 0
+      IntFmt $1 "0x%08X" $1
+      DetailPrint "$2: $1"
+    ${EndIf}
   ${Endif}
 
   DeleteRegKey HKLM "${REGSTR_WIN32}"
