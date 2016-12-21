@@ -16,6 +16,81 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+; Include required functions
+${BOOTCFG_CreateGUID}
+${BOOTCFG_CreateObject}
+${BOOTCFG_SetDescription}
+${BOOTCFG_SetPartition}
+${BOOTCFG_SetPath}
+${BOOTCFG_AppendBootEntry}
+
+; Create boot entry and add it to display list of boot manager
+; Parameter:
+;   guid - global unique identifier of boot entry
+;   label - brief description of boot entry
+Function AddBootEntry
+  Exch $0
+  Exch
+  Exch $1
+  Push $2
+  Push $3
+  Push $4
+
+  StrCpy $3 $0
+  StrCpy $2 $1
+  StrCpy $1 $c
+  System::Call "kernel32::QueryDosDevice(t r1, t .r4, \
+    i${NSIS_MAX_STRLEN}) i .r0"
+
+  ; guid=$2, label=$3, systempartition=$4
+  ${If} $2 != ""
+    ${BOOTCFG_CreateObject} $services $basebcdstore $bcdstore \
+      ${BOOTCFG_BOOT_SECTOR} $2 $1 $0
+    ${If} $0 == 0
+      ${BOOTCFG_SetDescription} $services $basebcdobject $1 "$3" $3 $0
+      ${If} $0 == 0
+        ; Release result
+        ${BOOTCFG_ReleaseObject} $3
+        ${BOOTCFG_SetPartition} $services $basebcdobject $1 $4 $3 $0
+        ${If} $0 == 0
+          ; Release result
+          ${BOOTCFG_ReleaseObject} $3
+          ${BOOTCFG_SetPath} $services $basebcdobject $1 \
+            "\g2ldr.mbr" $3 $0
+          ${If} $0 == 0
+            ; Release result
+            ${BOOTCFG_ReleaseObject} $3
+          ${EndIf}
+        ${EndIf}
+      ${EndIf}
+      ; Release bcdobject
+      ${BOOTCFG_ReleaseObject} $1
+      ${If} $0 != 0
+        StrCpy $1 $3
+      ${Else}
+        ; Append boot entry to list
+        ${BOOTCFG_AppendBootEntry} $services $basebcdstore \
+          $bcdstore $basebcdobject $2 $1 $0
+        ${If} $0 == 0
+          ; Release result
+          ${BOOTCFG_ReleaseObject} $1
+        ${EndIf}
+      ${EndIf}
+    ${EndIf}
+  ${EndIf}
+
+  ${If} $0 != 0
+    IntFmt $2 "0x%08X" $0
+    MessageBox MB_OK "$1: $2"
+  ${EndIf}
+
+  Pop $4
+  Pop $3
+  Pop $2
+  Pop $1
+  Pop $0
+FunctionEnd
+
 Section "Installer Loader"
 
 ; ******************************************************************************
@@ -405,36 +480,25 @@ ${EndIf}
     DetailPrint "$(registering_bootmgr)"
     ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
     ${If} $0 == ""
+      ${BOOTCFG_CreateGUID} $2
+      ${If} $2 != ""
+        Push "$2"
 !ifdef PXE
-     ;${If} $pxe_mode == "true"
-     ; nsExec::ExecToStack '"$bcdedit" /create /d "$(pxe_ntldr)" /application bootsector'
-     ;${Else}
+        ${If} $pxe_mode == "true"
+          Push "$(pxe)"
+        ${Else}
 !endif ; PXE
-     ; nsExec::ExecToStack '"$bcdedit" /create /d "$(d-i_ntldr)" /application bootsector'
+          Push "$(d-i)"
 !ifdef PXE
-     ;${EndIf} ; $pxe_mode == "true"
+        ${EndIf} ; $pxe_mode == "true"
 !endif ; PXE
-      ;Pop $0
-      ;${If} $0 != 0
-      ;  StrCpy $0 $bcdedit
-      ;  MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
-      ;  Quit
-      ;${Endif}
-      ; "The entry {id} was successfully created" is in top of stack now
-      ;string::bcdedit_extract_id
-      ;Pop $0
-      ;${If} $0 == "error"
-      ;  MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
-      ;  Quit
-      ;${Endif}
-      ; $0 holds the boot id.  Write it down, both for installer idempotency
-      ; and for uninstaller.
-      WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$0"
+        Call AddBootEntry
+        WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
+      ${Else}
+        MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
+        Quit
+      ${EndIf}
     ${Endif}
-    ;nsExec::Exec '"$bcdedit" /set $0 device boot'
-    ;nsExec::Exec '"$bcdedit" /set $0 path \g2ldr.mbr'
-    ;nsExec::Exec '"$bcdedit" /set $0 device partition=$c'
-    ;nsExec::Exec '"$bcdedit" /displayorder $0 /addlast'
   ${Endif}
 
 ; ********************************************** Needed for systems with compressed NTFS
