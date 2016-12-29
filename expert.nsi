@@ -40,7 +40,7 @@ Function GetDriveLetterOfDevice
   System::Call "kernel32::GetLogicalDrives() i .r5"
   StrCpy $1 0
   StrCpy $2 ""
-  ${DoWhile} $1 < 32
+  ${DoWhile} $1 < 26
     IntOp $4 $5 & 1
     ${If} $4 != 0
       IntOp $4 $1 + 65
