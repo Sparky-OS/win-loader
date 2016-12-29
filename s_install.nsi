@@ -465,13 +465,16 @@ ${EndIf}
     WriteIniStr "$c\boot.ini" "boot loader" "timeout" "30"
 !ifdef PXE
    ${If} $pxe_mode == "true"
-    WriteIniStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr" '"$(pxe_ntldr)"'
+    StrCpy $1 "$(pxe)"
    ${Else}
 !endif ; PXE
-    WriteIniStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr" '"$(d-i_ntldr)"'
+    StrCpy $1 "$(d-i)"
 !ifdef PXE
    ${EndIf} ; $pxe_mode == "true"
 !endif ; PXE
+   System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
+     m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
+   WriteIniStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr" '"$2"'
   ${Endif}
 
   ${If} $windows_boot_method == direct
