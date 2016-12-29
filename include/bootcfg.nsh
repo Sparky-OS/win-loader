@@ -2003,7 +2003,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" Put
 !insertmacro BOOTCFG_FUNCINC "${UN}" FreeStringVariant
 !insertmacro BOOTCFG_FUNCINC "${UN}" ExecMethod
-; Delte BCD object
+; Delete BCD object
 ; Parameter
 ;   services - IWbemServices object
 ;   basebcdstore - BcdStore base class object
