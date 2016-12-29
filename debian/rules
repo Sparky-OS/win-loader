@@ -40,8 +40,10 @@ NSIS_VERSION  := $(shell dpkg-query -f='$${Version}' -W nsis )
 override_dh_auto_build:
 ifeq ($(BYHAND),yes)
 	# Build the standalone+pxe version
+	# Don't allow non-Linux kernels, as their download is currently broken (see #819092)
 	STANDALONE=yes \
 		PXE=yes \
+		NOT_ALLKERNELS=yes \
 		OUTFILE_NAME=$(W32_BYHAND_NAME).exe \
 		BUILD_DATE="$(BUILD_DATE)" \
 		dh_auto_build

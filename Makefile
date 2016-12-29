@@ -63,8 +63,7 @@ endif
 # Disabling the kFreeBSD download
 ifndef NOT_ALLKERNELS
 MAKENSIS	+= -DALLKERNELS=yes
-else
-OPTIONS_TXT	+= =linux
+OPTIONS_TXT	+= +kernels
 endif
 
 ifdef OPTIONS_TXT
