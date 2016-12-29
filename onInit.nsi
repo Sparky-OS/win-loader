@@ -71,6 +71,11 @@ Function `${UN}CleanUp`
   !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $basebcdstore
   !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $services
   !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $locator
+  StrCpy $bcdstore ""
+  StrCpy $basebcdobject ""
+  StrCpy $basebcdstore ""
+  StrCpy $services ""
+  StrCpy $locator ""
 FunctionEnd
 !macroend
 
