@@ -91,8 +91,34 @@ Function AddBootEntry
   Pop $0
 FunctionEnd
 
-Section "Installer Loader"
+Function CreateBootEntry
+  ${If} $windows_boot_method == bootmgr
+    ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
+    ${If} $0 == ""
+      ${BOOTCFG_CreateGUID} $2
+      ${If} $2 != ""
+        Push "$2"
+!ifdef PXE
+        ${If} $pxe_mode == "true"
+          Push "$(pxe)"
+        ${Else}
+!endif ; PXE
+          Push "$(d-i)"
+!ifdef PXE
+        ${EndIf} ; $pxe_mode == "true"
+!endif ; PXE
+        Call AddBootEntry
+        WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
+        Call CleanUp
+      ${Else}
+        MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
+        Quit
+      ${EndIf}
+    ${Endif}
+  ${Endif}
+FunctionEnd
 
+Section "Installer Loader"
 ; ******************************************************************************
 ; ***************************************** THIS IS WHERE THE REAL ACTION STARTS
 ; ******************************************************************************
@@ -477,28 +503,11 @@ ${EndIf}
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
 !endif
-    DetailPrint "$(registering_bootmgr)"
-    ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
-    ${If} $0 == ""
-      ${BOOTCFG_CreateGUID} $2
-      ${If} $2 != ""
-        Push "$2"
-!ifdef PXE
-        ${If} $pxe_mode == "true"
-          Push "$(pxe)"
-        ${Else}
-!endif ; PXE
-          Push "$(d-i)"
-!ifdef PXE
-        ${EndIf} ; $pxe_mode == "true"
-!endif ; PXE
-        Call AddBootEntry
-        WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
-      ${Else}
-        MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
-        Quit
-      ${EndIf}
-    ${Endif}
+    ${If} $bcdstore != ""
+      Call CleanUp
+    ${Else}
+      DetailPrint "$(registering_bootmgr)"
+    ${EndIf}
   ${Endif}
 
 ; ********************************************** Needed for systems with compressed NTFS
@@ -517,6 +526,4 @@ ${EndIf}
     nsExec::Exec '"compact" /u $INSTDIR\pxe.lkrn'
   ${EndIf}
 !endif ;PXE
-
-  Call CleanUp
 SectionEnd

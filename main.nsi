@@ -48,7 +48,7 @@ Page custom ShowGraphics ; graphics.nsi
 Page custom ShowBranch ; download.nsi and branch.nsi
 !endif
 Page custom ShowCustom ; custom.nsi
-Page instfiles
+Page instfiles CreateBootEntry
 
 UninstPage uninstConfirm
 UninstPage instfiles
