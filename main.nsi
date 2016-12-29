@@ -51,7 +51,7 @@ Page custom ShowCustom ; custom.nsi
 Page instfiles CreateBootEntry
 
 UninstPage uninstConfirm
-UninstPage instfiles
+UninstPage instfiles un.RemoveBootEntry
 
 ;--------------------------------
 Var /GLOBAL c

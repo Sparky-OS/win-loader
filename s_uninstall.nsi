@@ -20,6 +20,25 @@
 ${un.BOOTCFG_DeleteObject}
 ${un.BOOTCFG_RemoveBootEntry}
 
+Function un.RemoveBootEntry
+  ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
+  ${If} $0 != ""
+    ${un.BOOTCFG_DeleteObject} $services $basebcdstore $bcdstore $0 $2 $1
+    ${If} $1 != 0
+      IntFmt $1 "0x%08X" $1
+      MessageBox MB_OK "$2: $1"
+    ${EndIf}
+    ${un.BOOTCFG_RemoveBootEntry} $services $basebcdstore $bcdstore \
+      $basebcdobject $0 $2 $1
+    ${If} $1 != 0
+      IntFmt $1 "0x%08X" $1
+      MessageBox MB_OK "$2: $1"
+    ${EndIf}
+  ${Endif}
+
+  Call un.CleanUp
+FunctionEnd
+
 Section "Uninstall"
   ; Initialise $c
   ReadRegStr $c HKLM "${REGSTR_WIN32}" "system_drive"
@@ -37,26 +56,9 @@ Section "Uninstall"
      DeleteINIStr "$c\boot.ini" "boot loader" "old_timeout_win32-loader"
   no_saved_boot_ini_timeout:
 
-  ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
-  ${If} $0 != ""
-    ${un.BOOTCFG_RemoveBootEntry} $services $basebcdstore $bcdstore \
-      $basebcdobject $0 $2 $1
-    ${If} $1 != 0
-      IntFmt $1 "0x%08X" $1
-      DetailPrint "$2: $1"
-    ${EndIf}
-    ${un.BOOTCFG_DeleteObject} $services $basebcdstore $bcdstore $0 $2 $1
-    ${If} $1 != 0
-      IntFmt $1 "0x%08X" $1
-      DetailPrint "$2: $1"
-    ${EndIf}
-  ${Endif}
-
   DeleteRegKey HKLM "${REGSTR_WIN32}"
   DeleteRegKey HKLM "${REGSTR_UNINST}"
   Delete $c\g2ldr
   Delete $c\g2ldr.mbr
   RMDir /r /REBOOTOK $INSTDIR
-  
-  Call ${BOOTCFG_UNFUNC}CleanUp
 SectionEnd
