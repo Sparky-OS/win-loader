@@ -75,9 +75,9 @@ FunctionEnd
 !macroend
 
 !insertmacro SetUp ""
-!insertmacro Setup ${BOOTCFG_UNFUNC}
+!insertmacro Setup "un."
 !insertmacro CleanUp ""
-!insertmacro CleanUp ${BOOTCFG_UNFUNC}
+!insertmacro CleanUp "un."
 
 Function .onInit
   InitPluginsDir
@@ -137,10 +137,10 @@ Function .onUserAbort
   Call CleanUp
 FunctionEnd
 
-Function ${BOOTCFG_UNFUNC}onInit
-  Call ${BOOTCFG_UNFUNC}SetUp
+Function un.onInit
+  Call un.SetUp
 FunctionEnd
 
-Function ${BOOTCFG_UNFUNC}onUserAbort
-  Call ${BOOTCFG_UNFUNC}CleanUp
+Function un.onUserAbort
+  Call un.CleanUp
 FunctionEnd
