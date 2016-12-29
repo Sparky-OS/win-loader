@@ -66,6 +66,12 @@ MAKENSIS	+= -DALLKERNELS=yes
 OPTIONS_TXT	+= +kernels
 endif
 
+# Allowing the branch selection
+ifdef DAILIES
+MAKENSIS	+= -DDAILIES=yes
+OPTIONS_TXT	+= +dailies
+endif
+
 ifdef OPTIONS_TXT
 MAKENSIS	+= -DOPTIONS_TXT="$(OPTIONS_TXT)"
 endif

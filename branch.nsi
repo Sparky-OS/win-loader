@@ -19,6 +19,7 @@
 Function ShowBranch
   Var /GLOBAL di_branch
   StrCpy $di_branch stable
+!ifdef DAILIES
   File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
   ${If} $kernel == 'linux'
    ${If} $expert == true
@@ -35,6 +36,7 @@ Function ShowBranch
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $di_branch daily
   ${EndIf}
+!endif  ; DAILIES
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url ; URL to the Release{,.gpg} files
