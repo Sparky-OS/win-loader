@@ -10,6 +10,7 @@ Build-Depends:
  mingw-w64,
  libgcrypt-mingw-w64-dev, libgpg-error-mingw-w64-dev,
  librsvg2-bin, icoutils,
+ gawk,
  gettext,
  grub-pc-bin (>= 1.99~rc1-3),
  imagemagick,

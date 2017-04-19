@@ -39,9 +39,9 @@ ifeq ($(BYHAND),yes)
 		dh_auto_build
 	
 	# Prepare the README file
-	awk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1 \
-             {sub(/@NSIS_VERSION@/,"$(NSIS_VERSION)")}1 \
-             {sub(/@W32_VERSION@/,"$(W32_VERSION)")}1' \
+	gawk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1 \
+	      {sub(/@NSIS_VERSION@/,"$(NSIS_VERSION)")}1 \
+	      {sub(/@W32_VERSION@/,"$(W32_VERSION)")}1' \
 		debian/win32-loader_doc.txt > $(W32_BYHAND_NAME).txt
 	cat debian/copyright >> $(W32_BYHAND_NAME).txt
 endif
