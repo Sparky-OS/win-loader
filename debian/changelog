@@ -1,3 +1,11 @@
+win32-loader (0.8.3) unstable; urgency=low
+
+  * The « Pippita » release
+
+  * Fix FTBFS on i386: use gawk to prepare README file (Closes: #860695)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 19 Apr 2017 18:03:11 +0200
+
 win32-loader (0.8.2) unstable; urgency=medium
 
   * The « Iao » release
