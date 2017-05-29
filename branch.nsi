@@ -63,7 +63,7 @@ Function ShowBranch
       StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
     ${EndIf}
   ${Else}
-    StrCpy $base_url         "http://httpredir.debian.org/debian/dists/stable/"
+    StrCpy $base_url         "http://deb.debian.org/debian/dists/stable/"
     ${If} $kernel == "linux"
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $base_path_hashes    "main/installer-$arch/current/images/"

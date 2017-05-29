@@ -13,7 +13,7 @@ B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyr
 PACKAGES_LIST := $(shell set -e; \
 	for p in ${B_D_PACKAGES}; \
 	do \
-		dpkg-query --showformat='$${source:Package;-25} $${source:Version;-25} http://ftp.debian.org/debian/pool/main/$${source:Package;1}/$${source:Package}\\n' --show $$p; \
+		dpkg-query --showformat='$${source:Package;-25} $${source:Version;-25} http://deb.debian.org/debian/pool/main/$${source:Package;1}/$${source:Package}\\n' --show $$p; \
 	done)
 
 BUILT_USING_LIST := $(shell set -e; \
