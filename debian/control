@@ -1,0 +1,37 @@
+Source: win32-loader
+Section: utils
+Priority: extra
+Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
+Uploaders: Robert Millan <rmh.debian@aybabtu.com>, Didier Raboud <odyx@debian.org>, Christian Perrier <bubulle@debian.org>
+Build-Depends:
+ dpkg (>= 1.16.2),
+ debhelper (>= 9),
+ nsis (>= 2.48), nsis-pluginapi,
+ mingw-w64,
+ libgcrypt-mingw-w64-dev, libgpg-error-mingw-w64-dev,
+ librsvg2-bin, icoutils,
+ gawk,
+ gettext,
+ grub-pc-bin (>= 1.99~rc1-3),
+ imagemagick,
+ ipxe,
+ loadlin (>= 1.6c.really1.6c.nobin-1~),
+ locales-all,
+ gpgv-win32, debian-archive-keyring,
+ cpio-win32 (>= 2.11-4), gzip-win32
+Standards-Version: 3.9.8
+Vcs-Browser: https://anonscm.debian.org/cgit/d-i/win32-loader.git
+Vcs-Git: https://anonscm.debian.org/git/d-i/win32-loader.git
+
+Package: win32-loader
+Architecture: all
+Depends: ${misc:Depends}
+Built-Using: ${w32-loader:built-using}
+Suggests: wine
+Description: Debian-Installer loader for win32
+ This package provides a win32 program that can be used as a loader for
+ Debian Installer, acting as a more user-friendly boot mechanism than
+ traditional BIOS-based boot.
+ .
+ This package contains the cdrom/usb-disk add-on that starts a media-based
+ install.
