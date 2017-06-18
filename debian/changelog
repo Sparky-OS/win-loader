@@ -1,3 +1,12 @@
+win32-loader (0.8.4) unstable; urgency=medium
+
+  * The « Folivora » release
+
+  * Drop bz2 compression for source
+  * Replace all mirror urls with deb.debian.org
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 18 Jun 2017 10:01:32 +0200
+
 win32-loader (0.8.3) unstable; urgency=low
 
   * The « Pippita » release
