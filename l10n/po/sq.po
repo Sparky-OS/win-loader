@@ -73,7 +73,7 @@ msgstr "PXE - Network boot"
 #.
 #: win32-loader.c:68
 msgid "English.nlf"
-msgstr "English.nlf"
+msgstr "Albanian.nlf"
 
 #. translate:
 #. This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
