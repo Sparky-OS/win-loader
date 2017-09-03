@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2008-05-09 12:01+0100\n"
-"Last-Translator: Elian Myftiu <elian.myftiu@gmail.com>\n"
+"Last-Translator: Eva Vranici <evavranici@gmail.com>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #.
 #: win32-loader.sh:36 win32-loader.c:39
 msgid "LANG_ENGLISH"
-msgstr "LANG_ALBANIAN"
+msgstr "GJUHA_ANGLISHT"
 
 #. translate:
 #. This must be the string used by GNU iconv to represent the charset used
@@ -47,7 +47,7 @@ msgstr "cp437"
 #. The name of your language _in English_ (must be restricted to ascii)
 #: win32-loader.sh:67
 msgid "English"
-msgstr "Albanian"
+msgstr "Anglisht"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -57,7 +57,7 @@ msgstr "Albanian"
 #: win32-loader.sh:82
 #, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
-msgstr ""
+msgstr "$target_distro $kernel_name - vazhdo me proçesin e instalimit"
 
 #. translate:
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
@@ -65,7 +65,7 @@ msgstr ""
 #. applies, limit yourself to ascii.
 #: win32-loader.sh:88
 msgid "PXE - Network boot"
-msgstr ""
+msgstr "PXE - Network boot"
 
 #. translate:
 #. The nlf file for your language should be found in
@@ -73,32 +73,30 @@ msgstr ""
 #.
 #: win32-loader.c:68
 msgid "English.nlf"
-msgstr "Albanian.nlf"
+msgstr "English.nlf"
 
 #. translate:
 #. This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
 #. Ampersands (&) are _forbidden_ in that string.
 #.
 #: win32-loader.c:75
-#, fuzzy
 msgid "Debian-Installer loader"
-msgstr "Ngarkues Debian-Instaluesi"
+msgstr "Ngarkuesi Instalues-Debian"
 
 #: win32-loader.c:76
 msgid "Cannot find win32-loader.ini."
-msgstr "Nuk mund të gjej win32-loader.ini."
+msgstr "Nuk mund te gjendej win32-loader.ini."
 
 #: win32-loader.c:77
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
-msgstr "win32-loader.ini është i paplotë.  Kontakto furnizuesin e këtij mjeti."
+msgstr "win32-loader.ini është i paplotë. Kontakto ofruesin e këtij mediumi."
 
 #: win32-loader.c:78
 msgid ""
 "This program has detected that your keyboard type is \"$0\".  Is this "
 "correct?"
-msgstr ""
-"Ky program zbuloi që lloji i tastierës tënde është \"$0\".  A është kjo e "
-"saktë?"
+msgstr "Ky program ka gjetur që lloji i tastierës tuaj është \"$0\". "
+"Është e saktë kjo?"
 
 #: win32-loader.c:79
 msgid ""
@@ -111,38 +109,34 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
-"Të lutem dërgo një raport gabimi me të dhënat e mëposhtme:\n"
+"Ju lutem dërgo një report gabimesh me informacionin e mëposhtëm:\n"
+" - Versioni i Windows.\n"
+" - Konfigurimet e vendit.\n"
+" - Lloji i tastierës reale.\n"
+" - Lloji i tastierës së gjetur.\n"
 "\n"
-" - Versionin e Windows-it.\n"
-" - Rregullimet e vendndodhjes.\n"
-" - Llojin e tastierës së vërtetë.\n"
-" - Llojin e tastierës së zbuluar.\n"
-"\n"
-"Faleminderit."
 
 #: win32-loader.c:80
-#, fuzzy
 msgid ""
 "There doesn't seem to be enough free disk space in drive $c.  For a complete "
 "desktop install, it is recommended to have at least 3 GB.  If there is "
 "already a separate disk or partition for this install, or if you plan to "
 "replace Windows completely, you can safely ignore this warning."
-msgstr ""
-"Nuk ngjan të ketë hapësirë të mjaftueshme në diskun $c.  Për një instalim të "
-"plotë, këshillohet të ketë të paktën 3 GB.  Nëse ekziston një disk apo "
-"ndarje e veçantë për të instaluar Debian, ose nëse planifikon të zëvendësosh "
-"Windows, mund ta injorosh pa problem këtë paralajmërim."
+msgstr "Duket sikur nuk ka mjaftushëm vend të lirë në pajisjen $c. "
+"Për një instalim të plotë desktopi është rekomanduar për të patur "
+"të paktën 3 GB. Në qoftë se është tashmë një disk apo ndarje e veçuar "
+"për këtë instalim, ose në qoftë se keni menduar ta zëvendosoni "
+"Windows plotësisht, mund ta injoroni këtë paralajmërim."
 
 #: win32-loader.c:81
 msgid "Error: not enough free disk space.  Aborting install."
-msgstr "Gabim: hapësirë e pamjaftueshme disku.  Duke lënë instalimin."
+msgstr "Gabim: nuk ka hapesirë të mjaftueshme të diskut. Aborto instalimin."
 
 #: win32-loader.c:82
 msgid "This program doesn't support Windows $windows_version yet."
-msgstr "Ky program ende nuk suporton Windows $windows_version."
+msgstr "Ky program nuk e suporton Windows $windows_version akoma."
 
 #: win32-loader.c:83
-#, fuzzy
 msgid ""
 "The system version you're trying to install is designed to run on modern, 64-"
 "bit computers.  However, your computer is incapable of running 64-bit "
@@ -153,17 +147,16 @@ msgid ""
 "\n"
 "This installer will abort now."
 msgstr ""
-"Versioni i Debian që po përpiqesh të instalosh është planifikuar të xhirojë "
-"në kompjuterat modernë 64-bit.  Pra, kompjuteri yt është i paaftë të punojë "
-"me programe 64-bit.\n"
+"Versoni i sistemit që ju po përpiqeni të instaloni është dizenjuar për tu ekzekutuar "
+"ne kompjutera modernë, 64-bit. Megjithatë, kompjuteri juaj nuk është në gjendje të "
+"ekzekutojë programe 64-bit.\n"
 "\n"
-"Përdor versionin 32-bit (\"i386\") të Debian-it, ose versionin Multi-arch i "
-"cili është i aftë të instalojë njërin prej tyre.\n"
+"Përdor versionin 32-bit (\"i386\"), ose versionin Multi-arch i cili është në gjendje "
+"të instalojë secilin nga ata.\n"
 "\n"
-"Ky instalues do të përfundojë tani."
+"Ky instalues do të abortohet tani."
 
 #: win32-loader.c:84
-#, fuzzy
 msgid ""
 "Your computer is capable of running modern, 64-bit operating systems.  "
 "However, the system version you're trying to install is designed to run on "
@@ -175,16 +168,15 @@ msgid ""
 "of them.\n"
 "\n"
 "Would you like to abort now?"
-msgstr ""
-"Kompjuteri yt është i aftë të xhirojë sisteme operues modernë 64-bit.  "
-"Megjithatë, versioni i Debian-it që po përpiqesh të instalosh është "
-"planifikuar të punojë në hardware të vjetër 32-bit.\n"
+msgstr "Kompjuteri juaj është në gjendje të ekzekutojë sisteme operative moderne, "
+"64-bit. Megjithatë, versioni i sistemit që ju po përpiqeni të instaloni "
+"është dizenjuar për tu ekzekutuar në hardware të vjetër, 32-bit.\n"
 "\n"
-"Mund të vazhdosh me këtë instalim, por që të marrësh më të mirën nga "
-"kompjuteri yt, të këshillojmë të përdorësh versionin 64-bit (\"amd64\") të "
-"Debian-it, ose versionin Multi-arch që arrin të instalojë njërin prej tyre.\n"
+"Ju akoma mund të vazhdoni me këtë instalim por për të përfituar më së shumti "
+"nga kompjuteri juaj ne ju rekomandojmë të përdorni versionin 64-bit (\"amd64\") "
+"ose versionin Multi-arch i cili është në gjendje të instalojë secilin prej tyre.\n"
 "\n"
-"Dëshiron ta lësh tani?"
+"Doni të abortoni tani?"
 
 #. translate:
 #. "system partition" and "boot partition" are defined by Microsoft to mean the opposite of what a
@@ -197,57 +189,55 @@ msgid ""
 "Unable to find \"system partition\", assuming it is the same as the \"boot "
 "partition\" ($c)."
 msgstr ""
+"E pamundur për të gjetur \"system partition\", duke supozuar që është e njëjtë me "
+"\"boot partition\" ($c)."
 
 #: win32-loader.c:93 win32-loader.c:104
 msgid "Select install mode:"
-msgstr "Zgjidh mënyrën e instalimit:"
+msgstr "Zgjidh modulin e instalimit:"
 
 #: win32-loader.c:94
 msgid "Normal mode.  Recommended for most users."
-msgstr "Mënyra normale.  E këshillueshme për shumë përdorues."
+msgstr "Mënyrë normale. E rekomanduar për shumicën e përdoruesve."
 
 #: win32-loader.c:95
 msgid ""
 "Expert mode.  Recommended for expert users who want full control of the "
 "install process."
-msgstr ""
-"Mënyra eksperte.  E këshillueshme për përdorues ekspertë që duan kontroll të "
-"plotë të procesit të instalimit."
+msgstr "Modaliteti ekspert. I rekomanduar për përdorues ekspert që duan kontroll "
+"të plotë të proçesit të instalimit."
 
 #: win32-loader.c:96
 msgid "PXE mode: install a PXE loader to allow remote kernel loading."
-msgstr ""
+msgstr "Modaliteti PXE: instalo nje ngarkues PXE për të lejuar ngarkim në distanë të kernel."
 
 #: win32-loader.c:97
 msgid "Select action:"
 msgstr "Zgjidh veprimin:"
 
 #: win32-loader.c:98
-#, fuzzy
 msgid "Begin install on this computer."
-msgstr "Instalo Debian GNU/Linux në këtë kompjuter."
+msgstr "Fillo instalimin në këtë kompjuter."
 
 #: win32-loader.c:99
-#, fuzzy
 msgid "Repair an installed system (rescue mode)."
-msgstr "Riparo një sistem Debian ekzistues (mënyrë shpëtimi)."
+msgstr "Riparo një sistem të instaluar (moduli i shpëtimit)."
 
 #: win32-loader.c:100
-#, fuzzy
 msgid "Select the kernel:"
-msgstr "Zgjidh veprimin:"
+msgstr "Zgjidh kernel:"
 
 #: win32-loader.c:101
 msgid "GNU/Linux"
-msgstr ""
+msgstr "GNU/Linux"
 
 #: win32-loader.c:102
 msgid "GNU/kFreeBSD"
-msgstr ""
+msgstr "GNU/kFreeBSD"
 
 #: win32-loader.c:103
 msgid "GNU/Hurd"
-msgstr ""
+msgstr "GNU/Hurd"
 
 #: win32-loader.c:105
 msgid "Graphical install"
@@ -255,24 +245,24 @@ msgstr "Instalim grafik"
 
 #: win32-loader.c:106
 msgid "Text install"
-msgstr "Instalim tekstual"
+msgstr "Instalim teksti"
 
 #: win32-loader.c:107
 #, c-format
 msgid "Downloading %s"
-msgstr "Po shkarkoj %s"
+msgstr "Duke shkarkuar %s"
 
 #: win32-loader.c:108
 msgid "Connecting ..."
-msgstr "Duke u lidhur..."
+msgstr "Duke u lidhur ..."
 
 #: win32-loader.c:109
 msgid "second"
-msgstr "sekonda"
+msgstr "sekondë"
 
 #: win32-loader.c:110
 msgid "minute"
-msgstr "minuta"
+msgstr "minutë"
 
 #: win32-loader.c:111
 msgid "hour"
@@ -291,20 +281,20 @@ msgstr "s"
 #: win32-loader.c:120
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
-msgstr "%dkB (%d%%) e %dkB me %d.%01dkB/s"
+msgstr "%dkB (%d%%) nga %dkB në %d.%01dkB/s"
 
 #: win32-loader.c:121
 #, c-format
 msgid " (%d %s%s remaining)"
-msgstr " (mungojnë %d %s%s)"
+msgstr " (%d %s%s të mbetura)"
 
 #: win32-loader.c:122
 msgid "Select which version of Debian-Installer to use:"
-msgstr "Zgjidh cilin version të Instaluesit Debian të përdorësh:"
+msgstr "Zgjidh versionin të Instaluesit-Debian për të përdorur:"
 
 #: win32-loader.c:123
 msgid "Stable release.  This will install Debian \"stable\"."
-msgstr "Botimi i qëndrueshëm.  Ky do të instalojë Debian \"stable\"."
+msgstr "Lëshim i qëndrueshëm. Kjo do të instalojë Debian \"stable\"."
 
 #: win32-loader.c:124
 msgid ""
@@ -312,9 +302,9 @@ msgid ""
 "install Debian \"testing\" by default, and may be capable of installing "
 "\"stable\" or \"unstable\" as well."
 msgstr ""
-"Botimi i përditshëm.  Ky është versioni i zhvillimit së Debian-Instaluesit.  "
-"Do të instalojë Debian \"testing\" si të parazgjedhur, dhe versionin \"stable"
-"\" ose \"unstable\" gjithashtu."
+"Ndërtim ditor. Ky është versioni zhvillues i Instaluesit-Debian. Ai do të instalojë "
+"Debian \"testing\" sipas parazgjedhjes, dhe mund të jetë në gjendje të instalojë "
+"\"stable\" ose \"unstable\" gjithashtu."
 
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
@@ -324,29 +314,27 @@ msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
 msgstr ""
-"Këshillohet që të kontrollosh për probleme të njohura përpara se të "
-"përdorësh botimin e përditshëm.  Dëshiron ta bësh tani këtë?"
+"Eshtë e rekomanduar të kontrolloni për probleme të njohura përpara një "
+"ndërtimi ditor. Doni ta bëni këtë tani?"
 
 #: win32-loader.c:130
-#, fuzzy
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
-msgstr ""
-"Ngarkuesi i Debian-Instaluesit do të rregullohet me parametrat e mëposhtëm.  "
-"MOS ndrysho asnjë prej tyre në mos po dite atë që bën."
+msgstr "Parametrat e mëposhtëm do të përdoren. MOS ndrysho asnjë nga to në qoftë se "
+"nuk e dini se çfarë po bëni."
 
 #: win32-loader.c:131
 msgid "Proxy settings (host:port):"
-msgstr "Rregullimet Proxy (hosti:porta):"
+msgstr "Konfigurimet e Proxy (host:port):"
 
 #: win32-loader.c:132
 msgid "Location of boot.ini:"
-msgstr "Vendndodhja e boot.ini:"
+msgstr "Vendodhja e boot.ini:"
 
 #: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
-msgstr "URL bazë për imazhet e netboot (linux dhe initrd.gz):"
+msgstr "URL bazë për imazhe netboot (linux and initrd.gz):"
 
 #: win32-loader.c:134
 msgid "Error"
@@ -354,21 +342,21 @@ msgstr "Gabim"
 
 #: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
-msgstr "Gabim: dështova në kopjimin e $0 tek $1."
+msgstr "Gabim: dështoi për të kopjuar $0 tek $1"
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:140
 msgid "Checking GPG signature on $0."
-msgstr ""
+msgstr "Duke kontrolluar nënshkrimin GPS në $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
 #: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
-msgstr ""
+msgstr "Skedari $0 i shkarkuar nuk mund të besohet! Duke abortuar."
 
 #. translate:
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
@@ -376,54 +364,50 @@ msgstr ""
 #.
 #: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
-msgstr ""
+msgstr "Mospërputhje checksum-i për $0/$2. U mor $1 kur pritej $4. Duke u abortuar."
 
 #. translate:
 #. $2 is a filename
 #.
 #: win32-loader.c:156
 msgid "Computing checksum for $2"
-msgstr ""
+msgstr "Duke llogaritur checksum për $2"
 
 #: win32-loader.c:157
 msgid "Generating $0"
-msgstr "Po gjeneroj $0"
+msgstr "Duke gjeneruar $0"
 
 #: win32-loader.c:158
 msgid "Appending preseeding information to $0"
-msgstr "Po bashkangjis të dhënat e parashtruara tek $0"
+msgstr "Duke shtuar informacionin paraprak në $0"
 
 #: win32-loader.c:159
 msgid "Error: unable to run $0."
-msgstr "Gabim: e pamundur të xhirojë $0."
+msgstr "Gabim: e pamundur për të ekzekutuar $0."
 
 #: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
-msgstr "Duke çaktivizuar ngjeshjen NTFS në skedat bootstrap"
+msgstr "Duke çaktivizuar kompresionin NTFS në skedarët bootstrap"
 
 #: win32-loader.c:161
-#, fuzzy
 msgid "Registering in NTLDR"
-msgstr "Po regjistroj Debian-Instaluesin në NTLDR"
+msgstr "Duke regjistruar në NTLDR"
 
 #: win32-loader.c:162
-#, fuzzy
 msgid "Registering in BootMgr"
-msgstr "Po regjistroj Debian-Instaluesin në BootMgr"
+msgstr "Duke regjistruar në BootMgr"
 
 #: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
-msgstr "Gabim: dështova në analizimin e prodhimit të bcdedit.exe."
+msgstr "Gabim: nuk arriti të analizojë produktin bcdedit.exe"
 
 #: win32-loader.c:164
-#, fuzzy
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
-msgstr ""
-"Gabim: boot.ini nuk u gjet.  A është vërtet ky Windows $windows_version?"
+msgstr "Gabim: $0 nuk u gjet. A është kjo vërtet Windows $windows_version?"
 
 #: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
-msgstr "VËREJTJE SHUMË E RËNDËSISHME:\\n\\n"
+msgstr "ÇDO SHËNIM TË RËNDËSISHËM:\\n\\n"
 
 #. translate:
 #. The following two strings are mutualy exclusive.  win32-loader
@@ -432,30 +416,24 @@ msgstr "VËREJTJE SHUMË E RËNDËSISHME:\\n\\n"
 #. current context (i.e. be careful when using pronouns, etc).
 #.
 #: win32-loader.c:173
-#, fuzzy
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
 "automatically load the next part of the install process.\\n\\n"
-msgstr ""
-"Hapi i dytë i këtij procesi instalimi do të fillojë tani.  Pas konfirmimit "
-"tënd, ky program do të rinisë Windows në DOS, dhe do të ngarkojë "
-"automatikisht Instaluesin Debian.\\n\\n"
+msgstr "Faza e dytë e këtij proçesi instalimi do të fillojë tani. "
+"Pas konfirmimit tuaj, ky program do të rifillojë Windows në DOS mode, "
+"dhe do të ngarkojë automatikisht pjesën tjetër të proçesit të instalimit.\\n\\n"
 
 #: win32-loader.c:174
-#, fuzzy
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
 "continue with the install process.\\n\\n"
-msgstr ""
-"Duhet të rindezësh kompjuterin që të ecësh me instalimin Debian.  Gjatë "
-"nisjes së re, do të pyetesh nëse dëshiron të fillosh Windows apo Instaluesin "
-"Debian.  Zgjidh Instaluesin Debian që të vazhdosh me procesin e instalimit."
-"\\n\\n"
+msgstr "Ju duhet të rindezni në mënyrë që të vazhdoni me proçesin e instalimit. "
+"Gjatë ndezjes tjeter, ju do të pyeteni nëse doni të filloni Windows apo "
+"të vazhdoni me proçesin e instalimit.\\n\\n"
 
 #: win32-loader.c:175
-#, fuzzy
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -464,28 +442,14 @@ msgid ""
 "event of data loss.\\n\\nOnce your install is complete (and if you have "
 "chosen to keep Windows in your disk), you can uninstall this loader through "
 "the Windows Add/Remove Programs dialog in Control Panel."
-msgstr ""
-"Gjatë procesit të instalimit, do të të jepet mundësia e zvogëlimit të "
-"ndarjes tënde Windows për të instaluar Debian ose për ta zëvendësuar "
-"tërësisht atë.  Në të dyja rastet, KËSHILLOHET FUQIMISHT ruajtja paraprake e "
-"të dhënave të tua.  As autorët e këtij ngarkuesi, as projekti Debian do të "
-"marrin NDONJË PËRGJEGJËSI në rast se humbin të dhëna.\\n\\nSapo instalimi "
-"Debian përfundon (dhe ti ke zgjedhur të mbash Windows në diskun tënd), mund "
-"të çinstalosh Ngarkuesin e Debian-Instaluesit me anë të dialogut Windows "
-"Shto/Hiq Programe në Panelin e Kontrollit."
+msgstr "Gjatë procesit të instalimit, juve do ju ofrohet mundesia ose për të "
+"zvogëluar ndarjen e Windows-it tuaj ose ta zëvendësuar plotësisht atë. Në të "
+"dyja rastet, është E REKOMANDUAR FUQIMISHT që të keni berë paraprakisht "
+"ruajtjen e të dhënave tuaja. Autorët e këtij programi NUK do të marrin "
+"ASNJE PERGJEGJESI në rastin e humbjen së të dhënave.\\n\\nKur instalimi të ketë "
+"mbaruar (dhe në qoftë se keni zgjedhur të mbani Windows në diskun tuaj), "
+"ju mund ta çinstaloni këtë ngarkim me anë të dialogut Windows Shto/Hiq Programe, në Control Panel."
 
 #: win32-loader.c:176
 msgid "Do you want to reboot now?"
-msgstr "Dëshiron ta rindezësh tani?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Mjedis hapësire pune:"
-
-#~ msgid "None"
-#~ msgstr "Asnjë"
-
-#~ msgid "Debian Installer"
-#~ msgstr "Debian Instaluesi"
-
-#~ msgid "Debconf preseed line:"
-#~ msgstr "Rreshti paraardhës i Debconf:"
+msgstr "Doni të rindizni tani?"
