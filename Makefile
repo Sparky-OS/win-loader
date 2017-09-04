@@ -63,8 +63,13 @@ endif
 # Disabling the kFreeBSD download
 ifndef NOT_ALLKERNELS
 MAKENSIS	+= -DALLKERNELS=yes
-else
-OPTIONS_TXT	+= =linux
+OPTIONS_TXT	+= +kernels
+endif
+
+# Allowing the branch selection
+ifdef DAILIES
+MAKENSIS	+= -DDAILIES=yes
+OPTIONS_TXT	+= +dailies
 endif
 
 ifdef OPTIONS_TXT
@@ -176,7 +181,7 @@ daily.iso: \
   $(NULL)
 	genisoimage -r -J -o $@ netboot/daily
 
-BASE_URL=http://ftp.nl.debian.org/debian/dists/stable/main
+BASE_URL=http://deb.debian.org/debian/dists/stable/main
 netboot/download-stable-stamp:
 	mkdir -p netboot/stable/install.{386,amd}/gtk
 	wget $(BASE_URL)/installer-i386/current/images/netboot/debian-installer/i386/linux \

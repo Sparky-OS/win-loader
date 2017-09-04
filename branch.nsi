@@ -19,6 +19,7 @@
 Function ShowBranch
   Var /GLOBAL di_branch
   StrCpy $di_branch stable
+!ifdef DAILIES
   File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
   ${If} $kernel == 'linux'
    ${If} $expert == true
@@ -35,6 +36,7 @@ Function ShowBranch
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $di_branch daily
   ${EndIf}
+!endif  ; DAILIES
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url ; URL to the Release{,.gpg} files
@@ -61,7 +63,7 @@ Function ShowBranch
       StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
     ${EndIf}
   ${Else}
-    StrCpy $base_url         "http://httpredir.debian.org/debian/dists/stable/"
+    StrCpy $base_url         "http://deb.debian.org/debian/dists/stable/"
     ${If} $kernel == "linux"
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $base_path_hashes    "main/installer-$arch/current/images/"

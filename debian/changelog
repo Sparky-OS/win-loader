@@ -1,3 +1,43 @@
+win32-loader (0.8.4) unstable; urgency=medium
+
+  * The « Folivora » release
+
+  * Drop bz2 compression for source
+  * Replace all mirror urls with deb.debian.org
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 18 Jun 2017 10:01:32 +0200
+
+win32-loader (0.8.3) unstable; urgency=low
+
+  * The « Pippita » release
+
+  * Fix FTBFS on i386: use gawk to prepare README file (Closes: #860695)
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 19 Apr 2017 18:03:11 +0200
+
+win32-loader (0.8.2) unstable; urgency=medium
+
+  * The « Iao » release
+
+  * Fix dpkg-query calls to use source:* for Version and Package directly
+    - Add Build-Dependency on dpkg (>= 1.16.2) for that support
+    - Fixes the FTBFS revealed by loadlin's binNMU
+    (Closes: #858104)
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 20 Mar 2017 21:23:59 +0100
+
+win32-loader (0.8.1) unstable; urgency=medium
+
+  * The « poipoi » release
+
+  * As NSIS doesn't support downloading from https (#819092), and as
+    d-i dailies are now on an https-enforced hosts: don't allow branch
+    or kernel selection
+  * Replace the Lines screenshot by a recent softWaves screenshot
+  * Refresh debian/copyright in CF1.0
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 29 Dec 2016 20:57:22 +0100
+
 win32-loader (0.8.0) unstable; urgency=low
 
   * The « Κρυπτεία σκυτάλη » release

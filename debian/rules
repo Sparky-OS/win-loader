@@ -13,23 +13,13 @@ B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyr
 PACKAGES_LIST := $(shell set -e; \
 	for p in ${B_D_PACKAGES}; \
 	do \
-		if test `dpkg-query --showformat='x$${Source}x' --show $$p` = "xx"; \
-		then \
-			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/pool/main/$${Package;1}/$${Package}\\n' --show $$p; \
-		else \
-			dpkg-query --showformat='$${Package;-25} $${Version;-25} http://ftp.debian.org/debian/pool/main/$${Source;1}/$${Source}\\n' --show $$p; \
-		fi; \
+		dpkg-query --showformat='$${source:Package;-25} $${source:Version;-25} http://deb.debian.org/debian/pool/main/$${source:Package;1}/$${source:Package}\\n' --show $$p; \
 	done)
 
 BUILT_USING_LIST := $(shell set -e; \
 	for p in ${B_D_PACKAGES}; \
 	do \
-		if test `dpkg-query --showformat='x$${Source}x' --show $$p` = "xx"; \
-		then \
-			dpkg-query --showformat='$${Package} (= $${Version}), ' --show $$p; \
-		else \
-			dpkg-query --showformat='$${Source} (= $${Version}), ' --show $$p; \
-		fi; \
+		dpkg-query --showformat='$${source:Package} (= $${source:Version}), ' --show $$p; \
 	done)
 
 NSIS_VERSION  := $(shell dpkg-query -f='$${Version}' -W nsis )
@@ -40,16 +30,18 @@ NSIS_VERSION  := $(shell dpkg-query -f='$${Version}' -W nsis )
 override_dh_auto_build:
 ifeq ($(BYHAND),yes)
 	# Build the standalone+pxe version
+	# Don't allow non-Linux kernels, as their download is currently broken (see #819092)
 	STANDALONE=yes \
 		PXE=yes \
+		NOT_ALLKERNELS=yes \
 		OUTFILE_NAME=$(W32_BYHAND_NAME).exe \
 		BUILD_DATE="$(BUILD_DATE)" \
 		dh_auto_build
 	
 	# Prepare the README file
-	awk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1 \
-             {sub(/@NSIS_VERSION@/,"$(NSIS_VERSION)")}1 \
-             {sub(/@W32_VERSION@/,"$(W32_VERSION)")}1' \
+	gawk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1 \
+	      {sub(/@NSIS_VERSION@/,"$(NSIS_VERSION)")}1 \
+	      {sub(/@W32_VERSION@/,"$(W32_VERSION)")}1' \
 		debian/win32-loader_doc.txt > $(W32_BYHAND_NAME).txt
 	cat debian/copyright >> $(W32_BYHAND_NAME).txt
 endif
