@@ -99,7 +99,6 @@ msgstr "Ky program ka gjetur që lloji i tastierës tuaj është \"$0\". "
 "Është e saktë kjo?"
 
 #: win32-loader.c:79
-#,fuzzy
 msgid ""
 "Please send a bug report with the following information:\n"
 "\n"
@@ -111,11 +110,13 @@ msgid ""
 "Thank you."
 msgstr ""
 "Ju lutem dërgo një report gabimesh me informacionin e mëposhtëm:\n"
+"\n"
 " - Versioni i Windows.\n"
 " - Konfigurimet e vendit.\n"
 " - Lloji i tastierës reale.\n"
 " - Lloji i tastierës së gjetur.\n"
 "\n"
+"Faleminderit."
 
 #: win32-loader.c:80
 msgid ""
