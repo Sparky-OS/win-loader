@@ -163,7 +163,7 @@ plugins/string.dll: plugins/string.c
 	$(NSIS_STRIP) $@
 
 plugins/libgcrypt_hash.dll: plugins/libgcrypt_hash.c
-	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -static-libgcc /usr/i686-w64-mingw32/lib/libgcrypt.a /usr/i686-w64-mingw32/lib/libgpg-error.a -o $@
+	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -static-libgcc /usr/i686-w64-mingw32/lib/libgcrypt.a /usr/i686-w64-mingw32/lib/libgpg-error.a /usr/i686-w64-mingw32/lib/libwsock32.a -o $@
 	$(NSIS_STRIP) $@
 
 iso: stable.iso daily.iso
