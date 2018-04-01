@@ -1,6 +1,6 @@
 Source: win32-loader
 Section: utils
-Priority: extra
+Priority: optional
 Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
 Uploaders: Didier Raboud <odyx@debian.org>
 Build-Depends:
