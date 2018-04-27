@@ -1,3 +1,9 @@
+win32-loader (0.9.1) UNRELEASED; urgency=medium
+
+  * Update Vcs-{Browser,Git} to point to salsa (alioth's replacement).
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 27 Apr 2018 03:43:08 +0200
+
 win32-loader (0.9.0) unstable; urgency=medium
 
   * The « ፨ ለስላሳ » release
