@@ -5,7 +5,7 @@ Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
 Uploaders: Didier Raboud <odyx@debian.org>
 Build-Depends:
  dpkg (>= 1.16.2),
- debhelper (>= 9),
+ debhelper (>= 11~),
  nsis (>= 3), nsis-pluginapi,
  mingw-w64,
  libgcrypt-mingw-w64-dev, libgpg-error-mingw-w64-dev,
