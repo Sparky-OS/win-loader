@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: messages\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-02-21 17:01+0000\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2010-09-04 17:22+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: Tamil <<Ubuntu-l10n-tam@lists.ubuntu.com>>\n"
@@ -54,7 +54,7 @@ msgstr "Tamil"
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 #. (e.g. cp437) should be used in this string.  If you don't know which charset
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
-#. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+#. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
 #, fuzzy, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
@@ -192,7 +192,7 @@ msgid ""
 msgstr ""
 " \"கணினி பகிர்வு\" ஐ காணவில்லை, அது \"துவக்கப்பகிர்வு\" ($c) எனஊகிக்கப்படுகிறது."
 
-#: win32-loader.c:93 win32-loader.c:103
+#: win32-loader.c:93 win32-loader.c:104
 msgid "Select install mode:"
 msgstr "நிறுவல் பாங்கை  தேர்வுசெய்க:"
 
@@ -235,32 +235,36 @@ msgstr "க்னூ/லீனக்ஸ்"
 msgid "GNU/kFreeBSD"
 msgstr "க்னூ/கேஃப்ரீபிஎஸ்டி"
 
-#: win32-loader.c:104
+#: win32-loader.c:103
+msgid "GNU/Hurd"
+msgstr ""
+
+#: win32-loader.c:105
 msgid "Graphical install"
 msgstr "வரைகலை நிறுவல்"
 
-#: win32-loader.c:105
+#: win32-loader.c:106
 msgid "Text install"
 msgstr "உரை நிறுவல்"
 
-#: win32-loader.c:106
+#: win32-loader.c:107
 #, c-format
 msgid "Downloading %s"
 msgstr "%s ஐ பதிவிறக்குகிறது"
 
-#: win32-loader.c:107
+#: win32-loader.c:108
 msgid "Connecting ..."
 msgstr "இணைக்கிறது..."
 
-#: win32-loader.c:108
+#: win32-loader.c:109
 msgid "second"
 msgstr "விநாடி"
 
-#: win32-loader.c:109
+#: win32-loader.c:110
 msgid "minute"
 msgstr "நிமிடம்"
 
-#: win32-loader.c:110
+#: win32-loader.c:111
 msgid "hour"
 msgstr "மணி"
 
@@ -270,29 +274,29 @@ msgstr "மணி"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:118
+#: win32-loader.c:119
 msgid "s"
 msgstr "கள்"
 
-#: win32-loader.c:119
+#: win32-loader.c:120
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 
-#: win32-loader.c:120
+#: win32-loader.c:121
 #, c-format
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s மீதமுள்ளது)"
 
-#: win32-loader.c:121
+#: win32-loader.c:122
 msgid "Select which version of Debian-Installer to use:"
 msgstr "எந்த வகையான டிபியன்  நிறுவியை பயன்படுத்த வேண்டும் என தேர்ந்தெடுக்கவும்"
 
-#: win32-loader.c:122
+#: win32-loader.c:123
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "நிலையான பதிப்பு. இது டெபியனின்\"நிலையான\" பதிப்பை நிறுவும்."
 
-#: win32-loader.c:123
+#: win32-loader.c:124
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -305,7 +309,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:128
+#: win32-loader.c:129
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -313,15 +317,7 @@ msgstr ""
 "ஒரு தினசரி கட்டுமான பதிப்பை நிறுவு முன் ஆங்கிலத்தில் எழுதி உள்ளஅறிந்த பிரச்சினைகள் "
 "பக்கங்களை ஒரு முறை காணுதல் நல்லது.இபோது அதை செய்ய விருப்பமா?"
 
-#: win32-loader.c:129
-msgid "Desktop environment:"
-msgstr "மேஜை சுழல்"
-
 #: win32-loader.c:130
-msgid "None"
-msgstr "ஒன்றுமில்லை"
-
-#: win32-loader.c:131
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -329,37 +325,37 @@ msgstr ""
 "பின் வரும் அளபுருக்கள் பயன்படுத்தப்படும். உங்களுக்கு நிச்சயம் தவறு என தெரிந்தால் ஒழிய "
 "இவற்றை மாற்றாதீர்."
 
-#: win32-loader.c:132
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "பதிலாள் அமைவுகள் புரவலன்:துறை (host:port):"
 
-#: win32-loader.c:133
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "boot.ini இன் இடம்:"
 
-#: win32-loader.c:134
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "நெட்பூட் பிம்பங்களுக்கு (லீனக்ஸ் மற்றும் இனிட்ரெட் (initrd.gz) அடிப்படை யூஆர்எல்"
 
-#: win32-loader.c:135
+#: win32-loader.c:134
 msgid "Error"
 msgstr "பிழை"
 
-#: win32-loader.c:136
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "பிழை:$1 க்கு $0 ஐ பிரதி எடுக்கமுடியவில்லை."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:141
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr ""
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:146
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
 
@@ -367,50 +363,50 @@ msgstr ""
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:152
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:157
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr ""
 
-#: win32-loader.c:158
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "$0 ஐ உருவாக்குகிறது"
 
-#: win32-loader.c:159
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "$0 க்கு விதை தூவும் முன்னான தகவலை பிற்சேர்க்கை செய்கிறது."
 
-#: win32-loader.c:160
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "பிழை: $0 ஐ இயக்க முடியவில்லை"
 
-#: win32-loader.c:161
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "துவக்கியின் பூட்ஸ்ட்ராப் கோப்புகளில் என்டிஎஃபெஸ் சுருக்கத்தை செயல் நீக்குகிறது."
 
-#: win32-loader.c:162
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "என்டிஎல்டிஆர் (NTLDR) இல் பதிவுசெய்கிறது"
 
-#: win32-loader.c:163
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "பூட்மேனேஜர் (BootMgr) இல் பதிவுசெய்கிறது"
 
-#: win32-loader.c:164
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "பிழை: bcdedit.exe இன் வெளியீட்டை அலகிட முடியவில்லை."
 
-#: win32-loader.c:165
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "பிழை: $0 ஐ காணவில்லை. இது உண்மையில் விண்டோஸின் $windows_version ஆ?"
 
-#: win32-loader.c:166
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "மிக முக்கியமான அறிக்கை:\\n\\n"
 
@@ -420,7 +416,7 @@ msgstr "மிக முக்கியமான அறிக்கை:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:174
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -429,7 +425,7 @@ msgstr ""
 "நிறுவலின் இரண்டாம் பகுதி துவக்கப்படும். உங்கள் அனுமதிக்குப்பின் இந்த நிரல் விண்டோஸின் டாஸ் "
 "(DOS) பாங்கில் துவங்கும்.மேலும் தானியங்கியாக நிறுவலின் அடுத்த பகுதியை ஏற்றும்.\\n\\n"
 
-#: win32-loader.c:175
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -438,7 +434,7 @@ msgstr ""
 "நிறுவலை தொடர நீங்கள் மறு துவக்கம் செய்ய  வேண்டும். அடுத்த மறு துவக்கத்தில் விண்டோஸை துவக்க "
 "வேண்டுமாஅல்லது நிறுவலை தொடர வேண்டுமா என கேட்கப்படும்.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -455,6 +451,12 @@ msgstr ""
 "விண்டோஸை வைத்துக்கொள்ள முடிவு செய்து இருந்தால்) இந்த ஏற்றியை  கட்டுப்பாடு பலகத்தில் உள்ள "
 "நிரல்களை சேர்/நீக்கு உரையாடல் மூலம் நீக்கிவிடலாம்.  "
 
-#: win32-loader.c:177
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "இப்போது மறுதுவக்கம் செய்ய வேண்டுமா?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "மேஜை சுழல்"
+
+#~ msgid "None"
+#~ msgstr "ஒன்றுமில்லை"

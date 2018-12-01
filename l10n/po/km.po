@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader_l10n_po\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2012-04-05 15:38+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -313,51 +313,43 @@ msgstr ""
 "ឬទេ ?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "បរិស្ថាន​ផ្ទៃតុ ៖"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "គ្មាន"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
 msgstr ""
 "ប៉ារ៉ាម៉ែត្រ​ដូច​ខាងក្រោម​នឹង​ត្រូវ​បាន​ប្រើ ។ កុំ​ផ្លាស់ប្ដូរ​ពួកវា លុះត្រា​តែ​អ្នក​ដឹង​អ្វី​ដែល​អ្នក​កំពុង​ធ្វើ ។"
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "ការ​ប្រូក៊សី (host:port) ៖"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "ទីតាំង​របស់ boot.ini ៖"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "URL មូលដ្ឋាន​សម្រាប់​រូបភាព netboot (លីនុច និង initrd.gz) ៖"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "កំហុស"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "កំហុស ៖ បាន​បរាជ័យ​ក្នុង​ការ​ចម្លង $0 ទៅ $1 ។"
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "ពិនិត្យ​មើល​ហត្ថលេខា GPG នៅ​លើ $0 ។"
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "ឯកសារ $0 ដែល​បាន​ទាញយក​មិន​អាច​ទុកចិត្ត​បាន​ទេ ! បោះបង់ ។"
 
@@ -365,50 +357,50 @@ msgstr "ឯកសារ $0 ដែល​បាន​ទាញយក​មិន�
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr "ឆេកសាំ​មិន​ត្រូវ​គ្នា​សម្រាប់ $0/$2 ។ ទៅ​កាន់ $1 នៅ​ពេល​ដែល​​រំពឹង​លើ $4 ។ បោះបង់ ។"
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "គណនា​ឆេកសាំ​សម្រាប់ $2"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "បង្កើត $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "បន្ថែម​ព័ត៌មាន preseeding នៅ​ខាង​ចុង​ទៅ​ក្នុង $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "កំហុស ៖ មិន​អាច​ដំណើរការ $0 បាន​ទេ ។"
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "បិទ​ការ​បង្ហាប់ NTFS នៅ​ក្នុង​ឯកាសរ​ចាប់ផ្ដើម"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "ចុះ​ឈ្មោះ​នៅ​ក្នុង NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "ចុះ​ឈ្មោះ​នៅ​ក្នុង BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "កំហុស ៖ បាន​បរាជ័យ​ក្នុង​ការ​ញែក​​លទ្ធផល bcdedit.exe ។"
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "កំហុស ៖ រក​មិន​ឃើញ $0 ។ តើ​វា​ពិត​ជា​វីនដូ $windows_version ឬ ?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "កំណត់​សម្គាល់​ដែល​ចាំបាច់​បំផុត ៖\\n\\n"
 
@@ -418,7 +410,7 @@ msgstr "កំណត់​សម្គាល់​ដែល​ចាំបាច
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -427,7 +419,7 @@ msgstr ""
 "ដំណាក់កាល​ទីពីរ​នៃ​ដំណើរការ​ដំឡើង នឹង​ត្រូវ​ចាប់ផ្ដើម​ឥឡូវ ។ បន្ទាប់​ពី​​អ្នក​បាន​អះអាង កម្មវិធី​នេះ​នឹង​ចាប់ផ្ដើម​"
 "វីនដូ​ឡើង​វិញ​នៅ​ក្នុង​ DOS ហើយ​ផ្ទុក​ផ្នែក​នៃ​ដំណើរការ​ដំឡើង​ដោយ​ស្វ័យ​ប្រវត្តិ ។\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -436,7 +428,7 @@ msgstr ""
 "អ្នក​ត្រូវ​តែ​ចាប់ផ្ដើម​ឡើងវិញ ដើម្បី​បន្ត​ការ​ដំឡើង​នេះ ។ អំឡុង​ពេល​ចាប់ផ្ដើម​លើក​ក្រោយ​របស់​អ្នក អ្នក​នឹង​ត្រូវ​"
 "បាន​សួរ​ថាតើ អ្នក​ចង់​ចាប់ផ្ដើម​វីនដូ ឬ​បន្ត​កា​រដំឡើង​នេះ ។\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -452,6 +444,12 @@ msgstr ""
 "របស់​អ្នក​) អ្នក​អាច​លុប​កម្មវិធី​ផ្ទុក​នេះ​តាមរយៈ​​ប្រអប់​បន្ថែម/យក​កម្មវិធី​ចេញ​របស់​វីនដូ​នៅ​ក្នុង​ Control "
 "Panel ។"
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "តើ​អ្នក​ចង់​ចាប់ផ្ដើម​ឡើងវិញ​ឥឡូវ​ដែរឬទេ ?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "បរិស្ថាន​ផ្ទៃតុ ៖"
+
+#~ msgid "None"
+#~ msgstr "គ្មាន"

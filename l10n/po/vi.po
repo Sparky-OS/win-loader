@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2010-05-13 23:24+0930\n"
 "Last-Translator: Hai Lang <hailangvn@gmail.com>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -325,14 +325,6 @@ msgstr ""
 "hàng ngày. Bạn có muốn làm như thế ngay bây giờ không?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Môi trường máy làm việc:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Không có"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -340,38 +332,38 @@ msgstr ""
 "Những tham số theo đây sẽ được sử dụng. KHÔNG nên thay đổi bất cứ tham số "
 "nào nếu bạn không hiểu hoàn toàn kết quả."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Thiết lập ủy nhiệm (máy:cổng):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "Vị trí của tập tin « boot.ini »:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr ""
 "Địa chỉ URL cơ bản cho các ảnh đĩa khởi động qua mạng (linux và initrd.gz):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Lỗi"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Lỗi: không sao chép được $0 vào $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "Đang kiểm chữ ký GPG trên $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "Không thể tin tưởng tập tin $0 được tải về! Đang bỏ ngang."
 
@@ -379,53 +371,53 @@ msgstr "Không thể tin tưởng tập tin $0 được tải về! Đang bỏ n
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr "Không giống tổng kiểm của $0/$2. Được $1 khi cần $4. Đang bỏ ngang."
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "Đang tính tổng kiểm cho $2"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Đang tạo $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Đang nối thêm thông tin chèn sẵn vào $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Lỗi: không thể chạy $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr ""
 "Đang tắt chức năng nén NTFS trong các tập tin nạp và khởi động hệ thống"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "Đang đăng ký trong NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "Đang đăng ký trong BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Lỗi: không phân tích được kết xuất « bcdedit.exe »."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr ""
 "Lỗi: không tìm thấy $0. Đây thực sự là Windows phiên bản $windows_version "
 "phải không?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "THÔNG BÁO RẤT QUAN TRỌNG:\\n\\n"
 
@@ -435,7 +427,7 @@ msgstr "THÔNG BÁO RẤT QUAN TRỌNG:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -445,7 +437,7 @@ msgstr ""
 "thì chương trình này sẽ khởi chạy lại Windows ở chế độ DOS, và tự động nạp "
 "phần kế tiếp của tiến trình cài đặt.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -455,7 +447,7 @@ msgstr ""
 "khởi động, bạn sẽ được nhắc chọn khởi chạy Windows hoặc tiếp tục lại chạy "
 "tiến trình cài đặt.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -473,6 +465,12 @@ msgstr ""
 "thông qua hộp thoại Add/Remove Programs (Thêm/Bỏ Chương Trình) của Windows "
 "trên Control Panel (Bảng Điều Khiển)."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Bạn có muốn khởi động lại máy ngay bây giờ không?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Môi trường máy làm việc:"
+
+#~ msgid "None"
+#~ msgstr "Không có"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-02-21 17:01+0000\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2010-02-02 18:21+0600\n"
 "Last-Translator: Sadia Afroz <sadia@ankur.org.bd>\n"
 "Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
@@ -55,7 +55,7 @@ msgstr "ইংরেজি "
 #. IMPORTANT: only the subset of UTF-8 that can be converted to NTLDR charset
 #. (e.g. cp437) should be used in this string.  If you don't know which charset
 #. applies, limit yourself to ascii. $target_distro; will be "Debian" and $kernel_name;
-#. will be either "GNU/Linux" or "GNU/kFreeBSD" (in ASCII)
+#. will be either "GNU/Linux", "GNU/kFreeBSD" or "GNU/Hurd" (in ASCII)
 #: win32-loader.sh:82
 #, fuzzy, sh-format
 msgid "$target_distro $kernel_name - Continue with install process"
@@ -197,7 +197,7 @@ msgstr ""
 "\"সিস্টেম পার্টিশন\" খুঁজে পেতে ব্যর্থ, ধরে নেয়া হচ্ছে যে এটি \"বুট পার্টিশন\" ($c) "
 "এর অনুরূপ।"
 
-#: win32-loader.c:93 win32-loader.c:103
+#: win32-loader.c:93 win32-loader.c:104
 msgid "Select install mode:"
 msgstr "ইন্সটল মোড নির্বাচন করুন:"
 
@@ -242,32 +242,36 @@ msgstr ""
 msgid "GNU/kFreeBSD"
 msgstr ""
 
-#: win32-loader.c:104
+#: win32-loader.c:103
+msgid "GNU/Hurd"
+msgstr ""
+
+#: win32-loader.c:105
 msgid "Graphical install"
 msgstr "গ্রাফিকাল ইন্সটল"
 
-#: win32-loader.c:105
+#: win32-loader.c:106
 msgid "Text install"
 msgstr "টেক্সট ইন্সটল"
 
-#: win32-loader.c:106
+#: win32-loader.c:107
 #, c-format
 msgid "Downloading %s"
 msgstr "%s ডাউনলোড করা হচ্ছে"
 
-#: win32-loader.c:107
+#: win32-loader.c:108
 msgid "Connecting ..."
 msgstr "সংযুক্ত করা হচ্ছে ..."
 
-#: win32-loader.c:108
+#: win32-loader.c:109
 msgid "second"
 msgstr "সেকেন্ড"
 
-#: win32-loader.c:109
+#: win32-loader.c:110
 msgid "minute"
 msgstr "মিনিট"
 
-#: win32-loader.c:110
+#: win32-loader.c:111
 msgid "hour"
 msgstr "ঘন্টা"
 
@@ -277,29 +281,29 @@ msgstr "ঘন্টা"
 #. has been proposed [1] but in the meantime we'll have to cope with this.
 #. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
 #.
-#: win32-loader.c:118
+#: win32-loader.c:119
 msgid "s"
 msgstr "s"
 
-#: win32-loader.c:119
+#: win32-loader.c:120
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
 msgstr "%d.%01dkB/s-তে %dkB-র %dkB (%d%%)"
 
-#: win32-loader.c:120
+#: win32-loader.c:121
 #, c-format
 msgid " (%d %s%s remaining)"
 msgstr " (%d %s%s অবশিষ্ট আছে)"
 
-#: win32-loader.c:121
+#: win32-loader.c:122
 msgid "Select which version of Debian-Installer to use:"
 msgstr "ডেবিয়ান-ইন্সটলারের কোন সংস্করণ ব্যবহার করা হবে তা নির্বাচন করুন:"
 
-#: win32-loader.c:122
+#: win32-loader.c:123
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "স্ট্যাবল মুক্তি। এটি ডেবিয়ান \"স্ট্যাবল\" ইন্সটল করবে।"
 
-#: win32-loader.c:123
+#: win32-loader.c:124
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -312,7 +316,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:128
+#: win32-loader.c:129
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -320,15 +324,7 @@ msgstr ""
 "একটি দৈনিক বিল্ড ব্যবহার করার পূর্বে পরিচিত বিষয়গুলো আপনাকে পরীক্ষা করার জন্য "
 "সুপারিশ করা হচ্ছে। আপনি কি সেটা এখন করতে চান?"
 
-#: win32-loader.c:129
-msgid "Desktop environment:"
-msgstr "ডেস্কটপ এনভায়রনমেন্ট:"
-
 #: win32-loader.c:130
-msgid "None"
-msgstr "কোনটি না"
-
-#: win32-loader.c:131
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -336,37 +332,37 @@ msgstr ""
 "নিম্নোক্ত প্যারামিটারগুলো ব্যবহৃত হবে। আপনি কি করছেন তা নিশ্চিত না হয়ে এগুলোর একটিও "
 "পরিবর্তন করবেন না।"
 
-#: win32-loader.c:132
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "প্রক্সি সেটিংস (হোস্ট:পোর্ট):"
 
-#: win32-loader.c:133
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "boot.ini-র অবস্থান:"
 
-#: win32-loader.c:134
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "নেটবুট ছবির জন্য বেস URL (লিনাক্স এবং initrd.gz):"
 
-#: win32-loader.c:135
+#: win32-loader.c:134
 msgid "Error"
 msgstr "ত্রুটি"
 
-#: win32-loader.c:136
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "ত্রুটি: $0-কে $1-তে কপি করতে ব্যর্থ।"
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:141
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr ""
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:146
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr ""
 
@@ -374,50 +370,50 @@ msgstr ""
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:152
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:157
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr ""
 
-#: win32-loader.c:158
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "$0 তৈরি করা হচ্ছে"
 
-#: win32-loader.c:159
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "$0-তে পূর্ববর্তী তথ্য যোগ করা হচ্ছে"
 
-#: win32-loader.c:160
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "ত্রুটি: $0 চালাতে অক্ষম।"
 
-#: win32-loader.c:161
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "বুটস্ট্র্যাপ ফাইলে NTFS সঙ্কোচন নিষ্ক্রিয় করা হচ্ছে"
 
-#: win32-loader.c:162
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "NTLDR-এ নিবন্ধন করা হচ্ছে"
 
-#: win32-loader.c:163
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "BootMgr-এ নিবন্ধন করা হচ্ছে"
 
-#: win32-loader.c:164
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "ত্রুটি: bcdedit.exe আউটপুট পার্স করতে ব্যর্থ।"
 
-#: win32-loader.c:165
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "ত্রুটি: $0 খুঁজে পাওয়া যায়নি। এটি কি আসলেই উইন্ডোজ $windows_version?"
 
-#: win32-loader.c:166
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "অত্যন্ত জরুরি বিজ্ঞপ্তি:\\n\\n"
 
@@ -427,7 +423,7 @@ msgstr "অত্যন্ত জরুরি বিজ্ঞপ্তি:\\n\\n
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:174
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -437,7 +433,7 @@ msgstr ""
 "উইন্ডোজকে DOS মোডে পুনরায় শুরু করবে, এবং স্বয়ংক্রিয়ভাবে ইনস্টল প্রক্রিয়ার পরবর্তী ধাপ "
 "লোড করবে।\\n\\n"
 
-#: win32-loader.c:175
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -447,7 +443,7 @@ msgstr ""
 "বুটের সময়, আপনাকে জিজ্ঞেস করা হবে যে আপনি উইন্ডোজ শুরু করতে চান না ইনস্টল প্রক্রিয়া "
 "চালিয়ে যেতে চান।\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -464,9 +460,15 @@ msgstr ""
 "হয়ে গেলে (এবং যদি আপনি আপনার ডিস্কে উইন্ডোজ রেখে দিতে চান), আপনি উইন্ডোজের "
 "কন্ট্রোল প্যানেলের Add/Remove Program ডায়ালগ থেকে এই লোডার আনইন্সটল করতে পারেন।"
 
-#: win32-loader.c:177
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "আপনি কি এখন পুনরায় বুট করতে চান?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "ডেস্কটপ এনভায়রনমেন্ট:"
+
+#~ msgid "None"
+#~ msgstr "কোনটি না"
 
 #~ msgid "Debian Installer"
 #~ msgstr "ডেবিয়ান ইন্সটলার"

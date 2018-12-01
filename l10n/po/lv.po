@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2011-09-27 13:40+0200\n"
+"POT-Creation-Date: 2014-09-25 17:30+0200\n"
 "PO-Revision-Date: 2012-05-26 15:18+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
@@ -324,14 +324,6 @@ msgstr ""
 "tikai angliski). Vai vēlaties to tagad izdarīt?"
 
 #: win32-loader.c:130
-msgid "Desktop environment:"
-msgstr "Darbvirsmas vide:"
-
-#: win32-loader.c:131
-msgid "None"
-msgstr "Neviena"
-
-#: win32-loader.c:132
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -339,37 +331,37 @@ msgstr ""
 "Tiks izmantoti sekojošie parametri. NEMAINIET nevienu no tiem, izņemot, ja "
 "zināt, ko darāt."
 
-#: win32-loader.c:133
+#: win32-loader.c:131
 msgid "Proxy settings (host:port):"
 msgstr "Starpnieka iestatījumi (dators:ports):"
 
-#: win32-loader.c:134
+#: win32-loader.c:132
 msgid "Location of boot.ini:"
 msgstr "boot.ini atrašanās vieta:"
 
-#: win32-loader.c:135
+#: win32-loader.c:133
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Bāzes URL netboot attēliem (linux un initrd.gz):"
 
-#: win32-loader.c:136
+#: win32-loader.c:134
 msgid "Error"
 msgstr "Kļūda"
 
-#: win32-loader.c:137
+#: win32-loader.c:135
 msgid "Error: failed to copy $0 to $1."
 msgstr "Kļūda – neizdevās kopēt $0 uz $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:142
+#: win32-loader.c:140
 msgid "Checking GPG signature on $0."
 msgstr "Pārbauda GPG parakstu uz $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:147
+#: win32-loader.c:145
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "Nevar uzticēties lejupielādētajai datnei $0! Aptur."
 
@@ -377,50 +369,50 @@ msgstr "Nevar uzticēties lejupielādētajai datnei $0! Aptur."
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:153
+#: win32-loader.c:151
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr "Nesakrīt $0/$2 kontrolsumma. Saņēma $1, bet vajadzēja $4. Aptur."
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:158
+#: win32-loader.c:156
 msgid "Computing checksum for $2"
 msgstr "Rēķina $2 kontrolsummu"
 
-#: win32-loader.c:159
+#: win32-loader.c:157
 msgid "Generating $0"
 msgstr "Ģenerē $0"
 
-#: win32-loader.c:160
+#: win32-loader.c:158
 msgid "Appending preseeding information to $0"
 msgstr "Pievieno iepriekš doto informāciju pie $0"
 
-#: win32-loader.c:161
+#: win32-loader.c:159
 msgid "Error: unable to run $0."
 msgstr "Kļūda – nevar palaist $0."
 
-#: win32-loader.c:162
+#: win32-loader.c:160
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Deaktivē NTFS saspiešanu uz sākumpalaišanas datnēm"
 
-#: win32-loader.c:163
+#: win32-loader.c:161
 msgid "Registering in NTLDR"
 msgstr "Reģistrē iekš NTLDR"
 
-#: win32-loader.c:164
+#: win32-loader.c:162
 msgid "Registering in BootMgr"
 msgstr "Reģistrē iekš BootMgr"
 
-#: win32-loader.c:165
+#: win32-loader.c:163
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Kļūda – neizdevās parsēt bcdedit.exe izvadi."
 
-#: win32-loader.c:166
+#: win32-loader.c:164
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "Kļūda – $0 nav atrasts. vai šis tiešam ir Windows $windows_version?"
 
-#: win32-loader.c:167
+#: win32-loader.c:165
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "ĻOTI SVARĪGS PAZIŅOJUMS:\\n\\n"
 
@@ -430,7 +422,7 @@ msgstr "ĻOTI SVARĪGS PAZIŅOJUMS:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:175
+#: win32-loader.c:173
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -440,7 +432,7 @@ msgstr ""
 "apstiprināšanas, šī programma pārstartēs Windows uz DOS režīmu un "
 "automātiski ielādēs nākamo instalēšanas procesa daļu.\\n\\n"
 
-#: win32-loader.c:176
+#: win32-loader.c:174
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -450,7 +442,7 @@ msgstr ""
 "palaišanās laikā jums vaicās, vai vēlaties palaist Windows, vai turpināt "
 "instalēšanas procesu.\\n\\n"
 
-#: win32-loader.c:177
+#: win32-loader.c:175
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -467,6 +459,12 @@ msgstr ""
 "izvēlējušies paturēt Windows, jūs varat izņemt šo palaidēju, izmantojot "
 "Windows Add/Remove Programs dialoglodziņu vadības panelī."
 
-#: win32-loader.c:178
+#: win32-loader.c:176
 msgid "Do you want to reboot now?"
 msgstr "Vai vēlaties pārstartēt tagad?"
+
+#~ msgid "Desktop environment:"
+#~ msgstr "Darbvirsmas vide:"
+
+#~ msgid "None"
+#~ msgstr "Neviena"
