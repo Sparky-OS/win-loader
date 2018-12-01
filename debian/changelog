@@ -1,3 +1,14 @@
+win32-loader (0.9.2) unstable; urgency=medium
+
+  * The « Panosse » release
+
+  [ Holger Wansing ]
+  * Refresh po files, to remove old, no longer used translation strings
+    for desktop selection (feature was deleted with commit 56afa6af, in
+    package version 0.7.6, Closes: #915211)
+
+ -- Didier Raboud <odyx@debian.org>  Sat, 01 Dec 2018 19:40:56 +0100
+
 win32-loader (0.9.1) unstable; urgency=medium
 
   * The « Knöpfle » release
