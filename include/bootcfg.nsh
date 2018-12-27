@@ -1876,11 +1876,21 @@ FunctionEnd
   ${If} $2 != 0
     System::Call "rpcrt4::UuidCreate(p r2) i.r1"
     ${If} $1 == 0
-      System::Call "rpcrt4::UuidToString(p r2, *t.r3) i.r1"
-      ${If} $1 == 0
-        StrCpy $0 "{$3}"
+      ; Create reference pointer
+      System::Call "*(&t0) p.r3"
+      ${If} $3 != 0
+        System::Call "rpcrt4::UuidToString(p r2, pr3r3) i.r1"
+        ${If} $1 == 0
+          ; Extract string from reference pointer
+          System::Call "*$3(p .r0)"
+          System::Call "*$0(&t${NSIS_MAX_STRLEN} .r0)"
+          StrCpy $0 "{$0}"
+          System::Call "rpcrt4::RpcStringFree(pr3)"
+        ${EndIf}
+        System::Free $3
       ${EndIf}
     ${EndIf}
+    System::Free $2
   ${EndIf}
 
   Pop $3
