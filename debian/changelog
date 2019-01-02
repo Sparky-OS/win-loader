@@ -1,3 +1,10 @@
+win32-loader (0.9.3) unstable; urgency=medium
+
+  [ Thomas Gaugler ]
+  * Fix memory leaks in BOOTCFG_CreateGUID
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 02 Jan 2019 18:38:43 +0100
+
 win32-loader (0.9.2) unstable; urgency=medium
 
   * The « Panosse » release
