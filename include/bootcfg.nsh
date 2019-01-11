@@ -1868,7 +1868,6 @@ FunctionEnd
   Push $0
   Push $1
   Push $2
-  Push $3
 
   ; Initialize return value
   StrCpy $0 ""
@@ -1876,24 +1875,11 @@ FunctionEnd
   ${If} $2 != 0
     System::Call "rpcrt4::UuidCreate(p r2) i.r1"
     ${If} $1 == 0
-      ; Create reference pointer
-      System::Call "*(&t0) p.r3"
-      ${If} $3 != 0
-        System::Call "rpcrt4::UuidToString(p r2, pr3r3) i.r1"
-        ${If} $1 == 0
-          ; Extract string from reference pointer
-          System::Call "*$3(p .r0)"
-          System::Call "*$0(&t${NSIS_MAX_STRLEN} .r0)"
-          StrCpy $0 "{$0}"
-          System::Call "rpcrt4::RpcStringFree(pr3)"
-        ${EndIf}
-        System::Free $3
-      ${EndIf}
+      System::Call "*$2(g .r0)"
     ${EndIf}
     System::Free $2
   ${EndIf}
 
-  Pop $3
   Pop $2
   Pop $1
   Exch $0
