@@ -1,6 +1,7 @@
 Source: win32-loader
 Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
-Uploaders: Didier Raboud <odyx@debian.org>
+Uploaders: Thomas Gaugler <thomas@dadie.net>,
+           Didier Raboud <odyx@debian.org>
 Section: utils
 Priority: optional
 Build-Depends: debhelper (>= 11~),
