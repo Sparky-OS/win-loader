@@ -16,8 +16,6 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-!include include/bootcfg.nsh
-
 !macro SetUp UN
 !insertmacro BOOTCFG_FUNCINC "${UN}" ConnectWMI
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetObject

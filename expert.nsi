@@ -16,12 +16,6 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-; Include required function
-${BOOTCFG_GetElementFromBcd}
-${BOOTCFG_GetObjectPropertyValue}
-${BOOTCFG_GetObjectOfVariant}
-${BOOTCFG_GetStringOfVariant}
-
 ; Get drive letter of device
 ; Parameter:
 ;   device - path of device, e. g. \Device\HarddiskVolume2

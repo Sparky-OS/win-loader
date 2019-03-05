@@ -32,6 +32,20 @@ RequestExecutionLevel admin
 !include WinVer.nsh
 !insertmacro GetRoot
 
+!include include/bootcfg.nsh
+; Include required functions
+${BOOTCFG_AppendBootEntry}
+${BOOTCFG_CreateGUID}
+${BOOTCFG_CreateObject}
+${BOOTCFG_GetElementFromBcd}
+${BOOTCFG_GetObjectPropertyValue}
+${BOOTCFG_GetObjectOfVariant}
+${BOOTCFG_GetStringOfVariant}
+${BOOTCFG_SetDescription}
+${BOOTCFG_SetPartition}
+${BOOTCFG_SetPath}
+${BOOTCFG_ReleaseObject}
+
 !addplugindir plugins
 !addplugindir plugins/cpuid
 !addplugindir plugins/systeminfo

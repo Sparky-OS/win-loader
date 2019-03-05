@@ -16,14 +16,6 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-; Include required functions
-${BOOTCFG_CreateGUID}
-${BOOTCFG_CreateObject}
-${BOOTCFG_SetDescription}
-${BOOTCFG_SetPartition}
-${BOOTCFG_SetPath}
-${BOOTCFG_AppendBootEntry}
-
 ; Create boot entry and add it to display list of boot manager
 ; Parameter:
 ;   guid - global unique identifier of boot entry
