@@ -4,6 +4,69 @@
 !define BOOTCFG_INCLUDED
 
 !include "LogicLib.nsh"
+!include "Win\COM.nsh"
+
+!define IID_IWbemLocator       "{dc12a687-737f-11cf-884d-00aa004b2e24}"
+${NSISCOMIFACEDECL}IWbemLocator ConnectServer 3 (w,p,p,p,i,p,p,*p)p
+
+${NSISCOMIFACEDECL}IWbemServices GetObject 6 (w,i,p,*p,p)p
+${NSISCOMIFACEDECL}IWbemServices ExecMethod 24 (w,w,i,p,p,*p,p)i
+
+${NSISCOMIFACEDECL}IWbemClassObject Get 4 (w,i,p,p,p)i
+${NSISCOMIFACEDECL}IWbemClassObject Put 5 (w,i,p,i)i
+${NSISCOMIFACEDECL}IWbemClassObject SpawnInstance 15 (i,*p)i
+${NSISCOMIFACEDECL}IWbemClassObject GetMethod 19 (w,i,*p,p)i
+
+!define BOOTCFG_BCDE_AUTORECOVERYENABLED      0x16000009
+!define BOOTCFG_BCDE_RECOVERYSEQUENCE         0x14000008
+!define BOOTCFG_BCDE_DESCRIPTION              0x12000004
+!define BOOTCFG_BCDE_DEVICE                   0x11000001
+!define BOOTCFG_BCDE_PATH                     0x12000002
+!define BOOTCFG_BOOT_SECTOR                   0x10400008
+!define BOOTCFG_DISPLAY_ORDER                 0x24000001
+!define BOOTCFG_BOOTSEQUENCE                  0x24000002
+!define BOOTCFG_BOOTMGR_GUID   "{9dea862c-5cdd-4e70-acc1-f32b344d4795}"
+!define BOOTCFG_CURRENT_GUID   "{fa926493-6f1c-4193-a414-58f0b2456d1e}"
+!define BOOTCFG_FWBOOTMGR_GUID "{a5a30fa2-3d06-4e9f-b5f4-a01df9d1fcba}"
+!define BOOTCFG_PARTIONDEVICE_TYPE     2
+
+!define CLSID_WbemLocator      "{4590f811-1d3a-11d0-891f-00aa004b2e24}"
+
+!define EOAC_NONE                      0
+
+!define ERROR_INVALID_DATA            13
+!define ERROR_INVALID_PARAMETER       87
+!define ERROR_NO_ACCESS              998
+!define ERROR_NO_MORE_ITEMS          259
+!define ERROR_NOT_ENOUGH_MEMORY        8
+
+!define FIRMWARE_TYPE_UEFI             2
+
+!define RPC_C_AUTHN_LEVEL_DEFAULT      0
+!define RPC_C_AUTHN_LEVEL_NONE         1
+!define RPC_C_IMP_LEVEL_IMPERSONATE    3
+
+!define RPC_E_TOO_LATE               -2147417831 ; 0x80010119
+
+!define SE_PRIVILEGE_ENABLED         0x00000002
+
+!define TOKEN_ADJUST_PRIVILEGES      0x0020
+!define TOKEN_QUERY                  0x0008
+
+!define WBEM_FLAG_FORWARD_ONLY       0x20
+!define WBEM_FLAG_RETURN_IMMEDIATELY 0x10
+!define WBEM_INFINITE                0xffffffff
+
+!define wbemPrivilegeBackup           16
+!define wbemPrivilegeRestore          17
+
+!define VT_ARRAY                    8192 ; 0x2000
+!define VT_ARRAY_BSTR               8200 ; 0x2008
+!define VT_BOOL                       11 ; 0x000B
+!define VT_BSTR                        8 ; 0x0008
+!define VT_EMPTY                       0 ; 0x0000
+!define VT_I4                          3 ; 0x0003
+!define VT_UNKNOWN                    13 ; 0x000D
 
 ; Function parameters are ordered from first pushed parameter
 ; to the last pushed parameter (top most on the stack)
@@ -527,62 +590,8 @@
 !define ${BOOTCFG_UNFUNC}BOOTCFG_ReleaseObject \
    `!insertmacro BOOTCFG_ReleaseObject_Call ${BOOTCFG_UNFUNC}`
 !macro BOOTCFG_ReleaseObject_Call UN OBJ
-  System::Call "${OBJ}->2()"
+  ${IUnknown::Release} ${OBJ} ""
 !macroend
-
-!define BOOTCFG_BCDE_AUTORECOVERYENABLED      0x16000009
-!define BOOTCFG_BCDE_RECOVERYSEQUENCE         0x14000008
-!define BOOTCFG_BCDE_DESCRIPTION              0x12000004
-!define BOOTCFG_BCDE_DEVICE                   0x11000001
-!define BOOTCFG_BCDE_PATH                     0x12000002
-!define BOOTCFG_BOOT_SECTOR                   0x10400008
-!define BOOTCFG_DISPLAY_ORDER                 0x24000001
-!define BOOTCFG_BOOTSEQUENCE                  0x24000002
-!define BOOTCFG_BOOTMGR_GUID   "{9dea862c-5cdd-4e70-acc1-f32b344d4795}"
-!define BOOTCFG_CURRENT_GUID   "{fa926493-6f1c-4193-a414-58f0b2456d1e}"
-!define BOOTCFG_FWBOOTMGR_GUID "{a5a30fa2-3d06-4e9f-b5f4-a01df9d1fcba}"
-!define BOOTCFG_PARTIONDEVICE_TYPE     2
-
-!define CLSCTX_INPROC_SERVER           1
-!define CLSID_WbemLocator      "{4590f811-1d3a-11d0-891f-00aa004b2e24}"
-
-!define EOAC_NONE                      0
-
-!define ERROR_INVALID_DATA            13
-!define ERROR_INVALID_PARAMETER       87
-!define ERROR_NO_ACCESS              998
-!define ERROR_NO_MORE_ITEMS          259
-!define ERROR_NOT_ENOUGH_MEMORY        8
-
-!define FIRMWARE_TYPE_UEFI             2
-
-!define IID_IWbemLocator       "{dc12a687-737f-11cf-884d-00aa004b2e24}"
-
-!define RPC_C_AUTHN_LEVEL_DEFAULT      0
-!define RPC_C_AUTHN_LEVEL_NONE         1
-!define RPC_C_IMP_LEVEL_IMPERSONATE    3
-
-!define RPC_E_TOO_LATE               -2147417831 ; 0x80010119
-
-!define SE_PRIVILEGE_ENABLED         0x00000002
-
-!define TOKEN_ADJUST_PRIVILEGES      0x0020
-!define TOKEN_QUERY                  0x0008
-
-!define WBEM_FLAG_FORWARD_ONLY       0x20
-!define WBEM_FLAG_RETURN_IMMEDIATELY 0x10
-!define WBEM_INFINITE                0xffffffff
-
-!define wbemPrivilegeBackup           16
-!define wbemPrivilegeRestore          17
-
-!define VT_ARRAY                    8192 ; 0x2000
-!define VT_ARRAY_BSTR               8200 ; 0x2008
-!define VT_BOOL                       11 ; 0x000B
-!define VT_BSTR                        8 ; 0x0008
-!define VT_EMPTY                       0 ; 0x0000
-!define VT_I4                          3 ; 0x0003
-!define VT_UNKNOWN                    13 ; 0x000D
 
 !macro BOOTCFG_AllocEmptyVariant UN
 ; Allocate empty variant
@@ -893,10 +902,8 @@ FunctionEnd
 
   ; name=$2, services=$3
 
-  ; IWbemServices::GetObject
-  ; services->GetObject(objectpath, flags, context, object, result)
-
-  System::Call "$3->6(w r2, i 0, p 0, *p 0 r1, p 0) p.r0"
+  ; IWbemServices::GetObject(objectpath, flags, context, object, result)
+  ${IWbemServices::GetObject} $3 "(r2,0,0,0r1,0).r0"
   ${If} $0 != 0
      StrCpy $1 "GetObject $2 failed"
   ${EndIf}
@@ -934,9 +941,8 @@ FunctionEnd
   ; variant=$1
 
   ${If} $1 != 0
-    ; IWbemClassObject::Get
-    ; object->Get(property, flags, variant, vtType, flavor)
-    System::Call "$3->4(w r2, i 0, p r1, p 0, p 0) i.r0"
+    ; IWbemClassObject::Get(property, flags, variant, vtType, flavor)
+    ${IWbemClassObject::Get} $3 "(r2,0,r1,0,0).r0"
     ${If} $0 != 0
       System::Free $1
       StrCpy $1 "Unable to get property $2"
@@ -973,9 +979,8 @@ FunctionEnd
 
   ; method=$2, baseobject=$3
 
-  ; IWbemClassObject::GetMethod
-  ; object->GetMethod(method, flags, inparams, outparams)
-  System::Call "$3->19(w r2, i 0, *p 0 r1, p 0) i.r0"
+  ; IWbemClassObject::GetMethod(method, flags, inparams, outparams)
+  ${IWbemClassObject::GetMethod} $3 "(r2,0,0r1,0).r0"
   ${If} $0 != 0
     StrCpy $1 "GetMethod $3 failed"
   ${EndIf}
@@ -1004,10 +1009,9 @@ FunctionEnd
 
   ; inparams=$2
 
-  ; IWbemClassObject::SpawnInstance
-  ; inparams->SpawnInstance(flags, classinstance)
+  ; IWbemClassObject::SpawnInstance(flags, classinstance)
   ; inparmasinstance=$1
-  System::Call "$2->15(i 0, *p 0 r1) i.r0"
+  ${IWbemClassObject::SpawnInstance} $2 "(0,0r1).r0"
 
   Pop $2
   Exch $1
@@ -1075,9 +1079,8 @@ FunctionEnd
   Exch $3
 
   ; instance=$1, param=$2, varvalue=$3
-  ; IWbemClassObject::Put
-  ; inparamsinstance->Put(param, flags, valuevariant, vtType)
-  System::Call "$1->5(w r2, i 0, p r3, i 0) i.r0"
+  ; IWbemClassObject::Put(param, flags, valuevariant, vtType)
+  ${IWbemClassObject::Put} $1 "(r2,0,r3,0).r0"
 
   Pop $3
   Pop $2
@@ -1132,11 +1135,9 @@ FunctionEnd
     ; Free variant
     System::Free $1
     ${If} $0 == 0
-      ; IWbemServices::ExecMethod
-      ; services->ExecMethod(objectpath, method, flags, context
+      ; IWbemServices::ExecMethod(objectpath, method, flags, context
       ;   inparamsinstance, outparams, result)
-      System::Call "$5->24(w r6, w r4, i 0, p 0, p r3, *p 0 r1, \
-            p 0) i.r0"
+      ${IWbemServices::ExecMethod} $5 "(r6,r4,0,0,r3,0r1,0).r0"
       ${If} $0 != 0
         StrCpy $1 "ExecMethod $4 failed"
       ${Else}
@@ -2732,11 +2733,9 @@ FunctionEnd
       ${If} $0 != 0
         StrCpy $1 "CoCreateInstance failed"
       ${Else}
-        ; IWbemLocator::ConnectServer
-        ; locator->ConnectServer(objectpath, user, password, locale,
+        ; IWbemLocator::ConnectServer(objectpath, user, password, locale,
         ;   securityflags, authority, context, services)
-        System::Call "$2->3(w 'root/wmi', p 0, p 0, p 0, i 0, p 0, p 0, \
-          *p .r3) p.r0"
+	${IWbemLocator::ConnectServer} $2 "('root/wmi',0,0,0,0,0,0,.r3).r0"
         ; services=$3
         ${If} $0 != 0
           ; Release locator
