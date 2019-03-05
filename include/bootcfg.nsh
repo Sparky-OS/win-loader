@@ -586,11 +586,12 @@ ${NSISCOMIFACEDECL}IWbemClassObject GetMethod 19 (w,i,*p,p)i
 !macroend
 
 ; ${BOOTCFG_ReleaseObject} obj
-!define BOOTCFG_ReleaseObject `!insertmacro BOOTCFG_ReleaseObject_Call ""`
-!define ${BOOTCFG_UNFUNC}BOOTCFG_ReleaseObject \
-   `!insertmacro BOOTCFG_ReleaseObject_Call ${BOOTCFG_UNFUNC}`
+!insertmacro BOOTCFG_FUNCDEF ReleaseObject
 !macro BOOTCFG_ReleaseObject_Call UN OBJ
   ${IUnknown::Release} ${OBJ} ""
+!macroend
+!macro BOOTCFG_ReleaseObject UN
+  !define `${UN}${BOOTCFG_PREFIX}ReleaseObject_INCLUDED`
 !macroend
 
 !macro BOOTCFG_AllocEmptyVariant UN
