@@ -2564,6 +2564,7 @@ FunctionEnd
   ; Release bcdobject
   !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $2
 
+  Pop $9
   Pop $8
   Pop $7
   Pop $6
