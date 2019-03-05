@@ -710,7 +710,7 @@ FunctionEnd
 ; Get boolean value of variant
 ; Parameter:
 ;   variant
-; Return value:
+; Return values:
 ;   value - boolean value (0 = false) or error message
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" GetBoolOfVariant
@@ -743,7 +743,7 @@ FunctionEnd
 ; Get object of variant
 ; Parameter:
 ;   variant
-; Return value:
+; Return values:
 ;   obj - object or error message
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" GetObjectOfVariant
@@ -776,7 +776,7 @@ FunctionEnd
 ; Get string of variant
 ; Parameter:
 ;   variant
-; Return value:
+; Return values:
 ;   string - string or error message
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" GetStringOfVariant
@@ -809,7 +809,7 @@ FunctionEnd
 ; Get string array of variant
 ; Parameter:
 ;   variant
-; Return value:
+; Return values:
 ;   array - string array or error message
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" GetStringArrayOfVariant
@@ -839,7 +839,7 @@ FunctionEnd
 
 !macro BOOTCFG_IsUEFI UN
 ; Check for UEFI firmware
-; Return value
+; Return value:
 ;   1 - UEFI
 ;   0 - BIOS
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" IsUEFI
@@ -916,7 +916,7 @@ FunctionEnd
 ; Parameters:
 ;   object - IWbemClassObject
 ;   property - name of property
-; Return Values:
+; Return values:
 ;   value - allocated property value as a variant
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" GetObjectPropertyValue
@@ -990,7 +990,7 @@ FunctionEnd
 
 !macro BOOTCFG_SpawnInstance UN
 ; Spawn instance
-; Parameters:
+; Parameter:
 ;   inparams - inparams object
 ; Return values:
 ;   instance - instance object
@@ -1063,7 +1063,7 @@ FunctionEnd
 ;   instance - instance object of input parameters
 ;   key - name of input parameter
 ;   value - input parameter variant value
-; Return values:
+; Return value:
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" Put
   Push $0
@@ -1615,9 +1615,9 @@ FunctionEnd
 !macro BOOTCFG_ObjectListGetSafeArray UN
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetStringArrayOfVariant
 ; Get safe array from object list
-; Parameters:
+; Parameter:
 ;   objectlist - object list
-; Return value:
+; Return values:
 ;   safearray - safe array respectively an error message
 ;   err - error code
 !insertmacro BOOTCFG_FUNCPROLOG "${UN}" ObjectListGetSafeArray
@@ -1697,7 +1697,7 @@ FunctionEnd
 !macro BOOTCFG_GetElementDescription UN
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetObjectPropertyValue
 ; Get element description from BCDObject
-; Parameters:
+; Parameter:
 ;   element - element object
 ; Return value:
 ;   description - description or "" if it could not be obtained
@@ -1896,7 +1896,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetObjectPropertyValue
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetObjectOfVariant
 ; Create BCD object
-; Parameter
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdstore - BcdStore base class object
 ;   bcdstore - BcdStore object
@@ -2000,7 +2000,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" FreeStringVariant
 !insertmacro BOOTCFG_FUNCINC "${UN}" ExecMethod
 ; Delete BCD object
-; Parameter
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdstore - BcdStore base class object
 ;   bcdstore - BcdStore object
@@ -2073,7 +2073,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" FreeStringVariant
 !insertmacro BOOTCFG_FUNCINC "${UN}" ExecMethod
 ; Set string element
-; Parameter
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdobject - BcdObject base class
 ;   bcdobject - BcdObject
@@ -2160,7 +2160,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" FreeStringVariant
 !insertmacro BOOTCFG_FUNCINC "${UN}" ExecMethod
 ; Set partition
-; Parameter
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdobject - BcdObject base class
 ;   bcdobject - BcdObject
@@ -2356,7 +2356,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetSizeOfSafeArray
 !insertmacro BOOTCFG_FUNCINC "${UN}" SetObjectList
 ; Append boot entry to boot manager
-; Parameter:
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdstore - BcdStore base class object
 ;   bcdstore - BcdStore object
@@ -2463,7 +2463,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetSizeOfSafeArray
 !insertmacro BOOTCFG_FUNCINC "${UN}" SetObjectList
 ; Remove boot entry from boot manager
-; Parameter:
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdstore - BcdStore base class object
 ;   bcdstore - BcdStore object
@@ -2582,7 +2582,7 @@ FunctionEnd
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetBcdObject
 !insertmacro BOOTCFG_FUNCINC "${UN}" SetObjectList
 ; Set active boot entry
-; Parameter:
+; Parameters:
 ;   services - IWbemServices object
 ;   basebcdstore - BcdStore base class object
 ;   bcdstore - BcdStore object
