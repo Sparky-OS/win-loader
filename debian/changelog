@@ -1,3 +1,14 @@
+win32-loader (0.9.5) unstable; urgency=medium
+
+  [ Didier Raboud ]
+  * Add Thomas Gaugler as co-maintainer
+  * Trim trailing whitespace
+
+  [ Thomas Gaugler ]
+  * Restore register $9 in BOOTCFG_RemoveBootEntry
+
+ -- Didier Raboud <odyx@debian.org>  Wed, 06 Mar 2019 10:57:10 +0100
+
 win32-loader (0.9.4) unstable; urgency=medium
 
   [ Thomas Gaugler ]
