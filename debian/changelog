@@ -544,7 +544,7 @@ win32-loader (0.6.90) unstable; urgency=low
     - Only build the standalone version if BYHAND is yes.
     - Document which packages in which versions are embedded.
     - Build the standalone exe with its definitive name.
-  
+
   * Bug-fixing
     - Make sure grub.cfg is always referred to as being in $INSTDIR
       (C:\win32-loader\).
@@ -561,7 +561,7 @@ win32-loader (0.6.90) unstable; urgency=low
     - Force LANGUAGE to fallback to LANG_ENGLISH.
     - Re-brand the program as 'Debian-Installer loader'.
     - Add target distribution and kernel to boot line.
- 
+
   * Packaging
    - Append version and arch to the byhand filenames, to make dak happy;
      thanks to Joerg Jaspert for the dak digging!
@@ -645,7 +645,7 @@ win32-loader (0.6.18) unstable; urgency=low
   [ Didier Raboud ]
   * Call makensis verbosely.
   * Vietnamese is not activated; document that in l10n/Makefile
-  * Bump Standards to 3.9.1.0 without changes needed. 
+  * Bump Standards to 3.9.1.0 without changes needed.
 
  -- Didier Raboud <didier@raboud.com>  Tue, 03 Aug 2010 20:57:36 +0200
 
@@ -775,10 +775,10 @@ win32-loader (0.6.11) unstable; urgency=low
   [ Added translations ]
   * Kazakh (kk.po) by Dauren Sarsenov. Closes: #520999
     This language is not activated yet because NSIS is not
-    translated. 
+    translated.
   * Bengali (bn.po) by Rezwan Shahid
     This language is not activated yet because NSIS is not
-    translated. 
+    translated.
 
   [ Updated translations ]
   * Belarusian (be.po) by Pavel Piatruk
@@ -1027,4 +1027,3 @@ win32-loader (0.6.0~pre1) unstable; urgency=low
   * Initial release (Closes: #425038).
 
  -- Robert Millan <rmh@debian.org>  Tue, 28 Aug 2007 23:14:19 +0200
-
