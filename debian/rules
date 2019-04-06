@@ -1,12 +1,10 @@
 #!/usr/bin/make -f
+include /usr/share/dpkg/pkg-info.mk
 
 # Install the win32-loader-standalone.exe as debian/tools/win32-loader/$(SUITE)/win32-loader.exe on the mirrors
 BYHAND ?= yes
 
-BUILD_DATE := $(shell dpkg-parsechangelog -S Date)
-
-W32_VERSION := $(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
-W32_BYHAND_NAME := win32-loader_$(W32_VERSION)_all
+W32_BYHAND_NAME := win32-loader_$(DEB_VERSION)_all
 
 B_D_PACKAGES := grub-pc-bin cpio-win32 gzip-win32 gpgv-win32 debian-archive-keyring loadlin ipxe nsis libgcrypt-mingw-w64-dev libgpg-error-mingw-w64-dev
 
@@ -35,19 +33,19 @@ ifeq ($(BYHAND),yes)
 		PXE=yes \
 		NOT_ALLKERNELS=yes \
 		OUTFILE_NAME=$(W32_BYHAND_NAME).exe \
-		BUILD_DATE="$(BUILD_DATE)" \
+		SOURCE_DATE_EPOCH="$(SOURCE_DATE_EPOCH)" \
 		dh_auto_build
 	
 	# Prepare the README file
 	gawk '{sub(/@PACKAGES_LIST@/,"$(PACKAGES_LIST)")}1 \
 	      {sub(/@NSIS_VERSION@/,"$(NSIS_VERSION)")}1 \
-	      {sub(/@W32_VERSION@/,"$(W32_VERSION)")}1' \
+	      {sub(/@W32_VERSION@/,"$(DEB_VERSION)")}1' \
 		debian/win32-loader_doc.txt > $(W32_BYHAND_NAME).txt
 	cat debian/copyright >> $(W32_BYHAND_NAME).txt
 endif
 	# Build the cdrom version
 	OUTFILE_NAME=win32-loader.exe \
-		BUILD_DATE="$(BUILD_DATE)" \
+		SOURCE_DATE_EPOCH="$(SOURCE_DATE_EPOCH)" \
 		dh_auto_build
 
 override_dh_auto_clean:

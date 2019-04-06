@@ -6,8 +6,8 @@ export SHELL := bash
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
-BUILD_DATE	?= $(shell LC_ALL=C date +'%a, %d %b %Y %T %z')
-FOUR_DIGITS_DATE	:= $(shell date -u +'%Y.%m.%d.%H%M' --date="$(BUILD_DATE)")
+SOURCE_DATE_EPOCH	?= $(shell LC_ALL=C date +'%s')
+FOUR_DIGITS_DATE	:= $(shell date -u +'%Y.%m.%d.%H%M' --date="@$(SOURCE_DATE_EPOCH)")
 
 NSIS_CC		:= i686-w64-mingw32-gcc -Os -Xlinker --no-insert-timestamp
 NSIS_STRIP	:= i686-w64-mingw32-strip
@@ -141,7 +141,7 @@ win32-loader.exe: main.nsi maps.ini \
 		plugins/libgcrypt_hash.dll \
 		$(PXE_TARGETS) \
 		win32-loader.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
-	find $^ -newermt "$(BUILD_DATE)" -print0 | xargs -0r touch --date="$(BUILD_DATE)"
+	find $^ -newermt "@$(SOURCE_DATE_EPOCH)" -print0 | xargs -0r touch --date="@$(SOURCE_DATE_EPOCH)"
 	$(MAKE) -C l10n
 	$(MAKENSIS) main.nsi
 ifndef OUTFILE_NAME
