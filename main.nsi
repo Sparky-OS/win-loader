@@ -18,7 +18,11 @@
 ; SetCompressor must _always_ be the first command
 SetCompressor /SOLID lzma
 
-!include l10n/templates/all.nsh
+!ifndef BUILD_DIR
+!define BUILD_DIR "."
+!endif
+
+!include ${BUILD_DIR}/l10n/templates/all.nsh
 
 !include branding.nsi
 
@@ -46,9 +50,9 @@ ${BOOTCFG_SetPartition}
 ${BOOTCFG_SetPath}
 ${BOOTCFG_ReleaseObject}
 
-!addplugindir plugins
-!addplugindir plugins/cpuid
-!addplugindir plugins/systeminfo
+!addplugindir ${BUILD_DIR}/plugins
+!addplugindir ${BUILD_DIR}/plugins/cpuid
+!addplugindir ${BUILD_DIR}/plugins/systeminfo
 
 ;--------------------------------
 

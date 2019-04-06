@@ -101,7 +101,7 @@ Function .onInit
 
   ; Language selection dialog
   Push ""
-!include l10n/templates/dialog.nsh
+!include ${BUILD_DIR}/l10n/templates/dialog.nsh
   Push unsupported
   Push "-- Not in this list --"
 

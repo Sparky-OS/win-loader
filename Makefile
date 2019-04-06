@@ -1,8 +1,11 @@
-
 export SHELL := bash
 
+BUILD_DIR ?= build
+MKDIR_P := mkdir -p
+RMDIR := rmdir
+
 # Targets that will always be run (as they depend on stuff from installed packages)
-.PHONY: core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe pxe.lkrn
+.PHONY: $(BUILD_DIR)/core.img $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr $(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe $(BUILD_DIR)/pxe.lkrn
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
@@ -27,9 +30,10 @@ MAKENSIS	:= makensis -V3
 # Add to it some version'ing and date
 MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=$(FOUR_DIGITS_DATE)
 
-ifdef OUTFILE_NAME
-MAKENSIS	+= -D_OUTFILE_NAME=$(OUTFILE_NAME)
+ifndef OUTFILE_NAME
+OUTFILE_NAME	:= $(BUILD_DIR)/win32-loader.exe
 endif
+MAKENSIS	+= -D_OUTFILE_NAME=$(OUTFILE_NAME) -DBUILD_DIR=$(BUILD_DIR)
 
 # Distributor/Company name (defaults to "The Debian Project")
 ifdef COMPANY_NAME
@@ -97,28 +101,31 @@ ifdef PXE
 GRUB_MODULES	+= linux16
 endif
 
-all: win32-loader.exe g2ldr g2ldr.mbr
+all: $(OUTFILE_NAME) $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr
+
+$(BUILD_DIR):
+	$(MKDIR_P) $(BUILD_DIR)
 
 core.img:
 	grub-mkimage --output=$@ --prefix=/win32-loader --format=i386-pc $(GRUB_MODULES)
 
-g2ldr: /usr/lib/grub/i386-pc/g2hdr.bin core.img
+$(BUILD_DIR)/g2ldr: /usr/lib/grub/i386-pc/g2hdr.bin core.img | $(BUILD_DIR)
 	cat $^ > $@
 
-g2ldr.mbr: /usr/lib/grub/i386-pc/g2ldr.mbr
+$(BUILD_DIR)/g2ldr.mbr: /usr/lib/grub/i386-pc/g2ldr.mbr | $(BUILD_DIR)
 	cp $^ $@
 
-loadlin.pif: genpif
+$(BUILD_DIR)/loadlin.pif: genpif | $(BUILD_DIR)
 	bash $^ > $@
 
-loadlin.exe: /usr/lib/loadlin/loadlin.exe.gz
+$(BUILD_DIR)/loadlin.exe: /usr/lib/loadlin/loadlin.exe.gz | $(BUILD_DIR)
 	gunzip -c $^ > $@
 
-pxe.lkrn: /usr/lib/ipxe/ipxe.lkrn
+$(BUILD_DIR)/pxe.lkrn: /usr/lib/ipxe/ipxe.lkrn | $(BUILD_DIR)
 	cp $^ $@
 
 ifdef PXE
-PXE_TARGETS = pxe.lkrn templates/ternary_choice.ini
+PXE_TARGETS = $(BUILD_DIR)/pxe.lkrn templates/ternary_choice.ini
 else
 PXE_TARGETS =
 endif
@@ -127,112 +134,136 @@ templates/gtk.bmp: templates/gtk_orig.png
 	convert $^ -resize 107x80 BMP3:$@
 
 # Build icons out of the SVG source, force them being square
-icon/swirl-%.png: icon/swirl.svg
+$(BUILD_DIR)/icon/swirl-%.png: icon/swirl.svg
+	$(MKDIR_P) $(BUILD_DIR)/icon
 	rsvg-convert -f png -h $* -w $* $^ > $@
 
 # Build the icon out of the PNG icons
-win32-loader.ico: $(ICONSIZES:%=icon/swirl-%.png)
+$(BUILD_DIR)/win32-loader.ico: $(ICONSIZES:%=$(BUILD_DIR)/icon/swirl-%.png)
 	icotool -c -o $@ $^
 
-win32-loader.exe: main.nsi maps.ini \
+$(OUTFILE_NAME): main.nsi maps.ini \
 		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		templates/gtk.bmp templates/text.bmp \
-		plugins/cpuid/test64.dll plugins/systeminfo/systeminfo.dll plugins/string.dll \
-		plugins/libgcrypt_hash.dll \
-		$(PXE_TARGETS) \
-		win32-loader.ico loadlin.pif loadlin.exe g2ldr g2ldr.mbr
+		$(BUILD_DIR)/plugins/cpuid/test64.dll \
+		$(BUILD_DIR)/plugins/systeminfo/systeminfo.dll \
+		$(BUILD_DIR)/plugins/string.dll \
+		$(BUILD_DIR)/plugins/libgcrypt_hash.dll \
+		$(PXE_TARGETS) $(BUILD_DIR)/win32-loader.ico \
+		$(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe \
+		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr
 	find $^ -newermt "@$(SOURCE_DATE_EPOCH)" -print0 | xargs -0r touch --date="@$(SOURCE_DATE_EPOCH)"
-	$(MAKE) -C l10n
+	$(MKDIR_P) $(BUILD_DIR)/l10n
+	$(MAKE) -C $(BUILD_DIR)/l10n -f $(CURDIR)/l10n/Makefile VPATH=$(CURDIR)/l10n
 	$(MAKENSIS) main.nsi
-ifndef OUTFILE_NAME
-	du -h win32-loader.exe
-else
 	du -h $(OUTFILE_NAME)
-endif
 
-plugins/cpuid/test64.dll: plugins/cpuid/cpuid.c plugins/cpuid/plugin.c
+$(BUILD_DIR)/plugins:
+	$(MKDIR_P) $@
+
+$(BUILD_DIR)/plugins/cpuid/test64.dll: plugins/cpuid/cpuid.c plugins/cpuid/plugin.c
+	$(MKDIR_P) $(dir $@)
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
 	$(NSIS_STRIP) $@
 
-plugins/systeminfo/systeminfo.dll: plugins/systeminfo/systeminfo.c
+$(BUILD_DIR)/plugins/systeminfo/systeminfo.dll: plugins/systeminfo/systeminfo.c
+	$(MKDIR_P) $(dir $@)
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
 	$(NSIS_STRIP) $@
 
-plugins/string.dll: plugins/string.c
+$(BUILD_DIR)/plugins/string.dll: plugins/string.c | $(BUILD_DIR)/plugins
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
 	$(NSIS_STRIP) $@
 
-plugins/libgcrypt_hash.dll: plugins/libgcrypt_hash.c
+$(BUILD_DIR)/plugins/libgcrypt_hash.dll: plugins/libgcrypt_hash.c | $(BUILD_DIR)/plugins
 	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -static-libgcc /usr/i686-w64-mingw32/lib/libgcrypt.a /usr/i686-w64-mingw32/lib/libgpg-error.a /usr/i686-w64-mingw32/lib/libwsock32.a -o $@
 	$(NSIS_STRIP) $@
 
-iso: stable.iso daily.iso
-stable.iso: \
-  netboot/download-stable-stamp \
-  netboot/stable/win32-loader.exe netboot/stable/g2ldr netboot/stable/g2ldr.mbr \
-  netboot/stable/autorun.inf netboot/stable/win32-loader.ini \
-  $(NULL)
-	genisoimage -r -J -o $@ netboot/stable
+iso: $(BUILD_DIR)/stable.iso $(BUILD_DIR)/daily.iso
+$(BUILD_DIR)/stable.iso: \
+  $(BUILD_DIR)/netboot/download-stable-stamp \
+  $(BUILD_DIR)/netboot/stable/win32-loader.exe \
+  $(BUILD_DIR)/netboot/stable/g2ldr \
+  $(BUILD_DIR)/netboot/stable/g2ldr.mbr \
+  $(BUILD_DIR)/netboot/stable/autorun.inf \
+  $(BUILD_DIR)/netboot/stable/win32-loader.ini \
+  $(NULL) | $(BUILD_DIR)
+	genisoimage -r -J -o $@ $(BUILD_DIR)/netboot/stable
 
-daily.iso: \
-  netboot/download-daily-stamp \
-  netboot/daily/win32-loader.exe netboot/daily/g2ldr netboot/daily/g2ldr.mbr \
-  netboot/daily/autorun.inf netboot/daily/win32-loader.ini \
-  $(NULL)
-	genisoimage -r -J -o $@ netboot/daily
+$(BUILD_DIR)/daily.iso: \
+  $(BUILD_DIR)/netboot/download-daily-stamp \
+  $(BUILD_DIR)/netboot/daily/win32-loader.exe \
+  $(BUILD_DIR)/netboot/daily/g2ldr $(BUILD_DIR)/netboot/daily/g2ldr.mbr \
+  $(BUILD_DIR)/netboot/daily/autorun.inf \
+  $(BUILD_DIR)/netboot/daily/win32-loader.ini \
+  $(NULL) | $(BUILD_DIR)
+	genisoimage -r -J -o $@ $(BUILD_DIR)/netboot/daily
 
 BASE_URL=http://deb.debian.org/debian/dists/stable/main
-netboot/download-stable-stamp:
-	mkdir -p netboot/stable/install.{386,amd}/gtk
+$(BUILD_DIR)/netboot/download-stable-stamp:
+	$(MKDIR_P) $(BUILD_DIR)/netboot/stable/install.{386,amd}/gtk
 	wget $(BASE_URL)/installer-i386/current/images/netboot/debian-installer/i386/linux \
-		-O netboot/stable/install.386/vmlinuz
+		-O $(BUILD_DIR)/netboot/stable/install.386/vmlinuz
 	wget $(BASE_URL)/installer-i386/current/images/netboot/debian-installer/i386/initrd.gz \
-		-O netboot/stable/install.386/initrd.gz
+		-O $(BUILD_DIR)/netboot/stable/install.386/initrd.gz
 	wget $(BASE_URL)/installer-i386/current/images/netboot/gtk/debian-installer/i386/initrd.gz \
-		-O netboot/stable/install.386/gtk/initrd.gz
+		-O $(BUILD_DIR)/netboot/stable/install.386/gtk/initrd.gz
 	wget $(BASE_URL)/installer-amd64/current/images/netboot/debian-installer/amd64/linux \
-		-O netboot/stable/install.amd/vmlinuz
+		-O $(BUILD_DIR)/netboot/stable/install.amd/vmlinuz
 	wget $(BASE_URL)/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz \
-		-O netboot/stable/install.amd/initrd.gz
+		-O $(BUILD_DIR)/netboot/stable/install.amd/initrd.gz
 	wget $(BASE_URL)/installer-amd64/current/images/netboot/gtk/debian-installer/amd64/initrd.gz \
-		-O netboot/stable/install.amd/gtk/initrd.gz
+		-O $(BUILD_DIR)/netboot/stable/install.amd/gtk/initrd.gz
 	touch $@
 
-netboot/download-daily-stamp:
-	mkdir -p netboot/daily/install.{386,amd}/gtk
+$(BUILD_DIR)/netboot/download-daily-stamp:
+	$(MKDIR_P) $(BUILD_DIR)/netboot/daily/install.{386,amd}/gtk
 	wget https://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/linux \
-		-O netboot/daily/install.386/vmlinuz
+		-O $(BUILD_DIR)/netboot/daily/install.386/vmlinuz
 	wget https://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/initrd.gz \
-		-O netboot/daily/install.386/initrd.gz
+		-O $(BUILD_DIR)/netboot/daily/install.386/initrd.gz
 	wget https://d-i.debian.org/daily-images/i386/daily/netboot/gtk/debian-installer/i386/initrd.gz \
-		-O netboot/daily/install.386/gtk/initrd.gz
+		-O n$(BUILD_DIR)/etboot/daily/install.386/gtk/initrd.gz
 	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/linux \
-		-O netboot/daily/install.amd/vmlinuz
+		-O $(BUILD_DIR)/netboot/daily/install.amd/vmlinuz
 	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/initrd.gz \
-		-O netboot/daily/install.amd/initrd.gz
+		-O $(BUILD_DIR)/netboot/daily/install.amd/initrd.gz
 	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/gtk/debian-installer/amd64/initrd.gz \
-		-O netboot/daily/install.amd/gtk/initrd.gz
+		-O $(BUILD_DIR)/netboot/daily/install.amd/gtk/initrd.gz
 	touch $@
 
-netboot/stable/autorun.inf netboot/daily/autorun.inf: autorun.inf
-	mkdir -p netboot/{stable,daily}
-	todos < $< > $@
-netboot/stable/win32-loader.ini netboot/daily/win32-loader.ini: win32-loader.ini
-	mkdir -p netboot/{stable,daily}
+$(BUILD_DIR)/netboot/stable/autorun.inf $(BUILD_DIR)/netboot/daily/autorun.inf: autorun.inf
+	$(MKDIR_P) $(BUILD_DIR)/netboot/{stable,daily}
 	todos < $< > $@
 
-netboot/stable/win32-loader.exe netboot/daily/win32-loader.exe: win32-loader.exe
-	mkdir -p netboot/{stable,daily}
+$(BUILD_DIR)/netboot/stable/win32-loader.ini $(BUILD_DIR)/netboot/daily/win32-loader.ini: win32-loader.ini
+	$(MKDIR_P) $(BUILD_DIR)/netboot/{stable,daily}
+	todos < $< > $@
+
+$(BUILD_DIR)/netboot/stable/win32-loader.exe $(BUILD_DIR)/netboot/daily/win32-loader.exe: $(OUTFILE_NAME)
+	$(MKDIR_P) $(BUILD_DIR)/netboot/{stable,daily}
 	cp $^ $@
 
-netboot/stable/% netboot/daily/%: %
-	mkdir -p netboot/{stable,daily}
+$(BUILD_DIR)/netboot/stable/% $(BUILD_DIR)/netboot/daily/%: $(BUILD_DIR)/%
+	$(MKDIR_P) $(BUILD_DIR)/netboot/{stable,daily}
 	cp $(shell basename $@) $@
 
 clean:
-	$(MAKE) -C l10n clean
-	rm -f plugins/cpuid/*.dll plugins/cpuid/*.exe plugins/systeminfo/*.dll plugins/*.dll win32-loader.exe \
-		*.iso *~ */*~ core.img g2ldr g2ldr.mbr loadlin.pif loadlin.exe pxe.lkrn icon/*.png win32-loader.ico
+	if [ -d $(BUILD_DIR)/l10n ]; then $(MAKE) -C $(BUILD_DIR)/l10n -f ../../l10n/Makefile clean; $(RMDIR) $(BUILD_DIR)/l10n; fi
+	rm -f $(BUILD_DIR)/plugins/cpuid/*.dll \
+		$(BUILD_DIR)/plugins/cpuid/*.exe \
+		$(BUILD_DIR)/plugins/systeminfo/*.dll \
+		$(BUILD_DIR)/plugins/*.dll $(OUTFILE_NAME) \
+		$(BUILD_DIR)/*.iso $(BUILD_DIR)/*~ $(BUILD_DIR)/*/*~ \
+		$(BUILD_DIR)/core.img \
+		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr \
+		$(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe \
+		$(BUILD_DIR)/pxe.lkrn $(BUILD_DIR)/icon/*.png \
+		$(BUILD_DIR)/win32-loader.ico
+	if [ -d $(BUILD_DIR)/icon ]; then $(RMDIR) $(BUILD_DIR)/icon; fi
+	if [ -d $(BUILD_DIR)/plugins/cpuid ]; then $(RMDIR) $(BUILD_DIR)/plugins/cpuid; fi
+	if [ -d $(BUILD_DIR)/plugins/systeminfo ]; then $(RMDIR) $(BUILD_DIR)/plugins/systeminfo; fi
+	if [ -d $(BUILD_DIR)/plugins ]; then $(RMDIR) $(BUILD_DIR)/plugins; fi
 
 distclean: clean
-	rm -rf netboot
+	rm -rf $(BUILD_DIR)/netboot

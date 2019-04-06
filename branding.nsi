@@ -9,7 +9,7 @@
  !define _OUTFILE_NAME "win32-loader.exe"
 !endif
 !ifndef _PROGRAM_ICON
- !define _PROGRAM_ICON "win32-loader.ico"
+ !define _PROGRAM_ICON "${BUILD_DIR}/win32-loader.ico"
 !endif
 !ifndef _COMPANY_NAME
  !define _COMPANY_NAME "The Debian Project"

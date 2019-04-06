@@ -420,11 +420,11 @@ ${EndIf}
 ; ********************************************** Do bootloader last, because it's the most dangerous
   ${If} $windows_boot_method == ntldr
 !ifdef NOCD
-       File /oname=$c\g2ldr g2ldr
-       File /oname=$c\g2ldr.mbr g2ldr.mbr
+       File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
+       File /oname=$c\g2ldr.mbr "${BUILD_DIR}/g2ldr.mbr"
       !ifdef PXE
        ${If} $pxe_mode == "true"
-          File /oname=$INSTDIR\pxe.lkrn pxe.lkrn
+          File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
        ${EndIf} ; $pxe_mode == "true"
       !endif ; PXE
 !else
@@ -471,17 +471,17 @@ ${EndIf}
   ${Endif}
 
   ${If} $windows_boot_method == direct
-    File /oname=$INSTDIR\loadlin.exe loadlin.exe
-    File /oname=$INSTDIR\loadlin.pif loadlin.pif
+    File /oname=$INSTDIR\loadlin.exe "${BUILD_DIR}/loadlin.exe"
+    File /oname=$INSTDIR\loadlin.pif "${BUILD_DIR}/loadlin.pif"
   ${Endif}
 
   ${If} $windows_boot_method == bootmgr
 !ifdef NOCD
-       File /oname=$c\g2ldr g2ldr
-       File /oname=$c\g2ldr.mbr g2ldr.mbr
+       File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
+       File /oname=$c\g2ldr.mbr "${BUILD_DIR}/g2ldr.mbr"
       !ifdef PXE
        ${If} $pxe_mode == "true"
-          File /oname=$INSTDIR\pxe.lkrn pxe.lkrn
+          File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
        ${EndIf} ; $pxe_mode == "true"
       !endif ; PXE
 !else
