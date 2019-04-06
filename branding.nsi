@@ -32,6 +32,7 @@ VIProductVersion "${4DIGITS_DATE}"
 
 VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "${_COMPANY_NAME}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "${_EN_PROGRAM_NAME}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_OPT}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "${_PRODUCT_NAME}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION_OPT}"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "GPLv3+"
