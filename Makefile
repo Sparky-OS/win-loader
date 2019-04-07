@@ -223,7 +223,7 @@ $(BUILD_DIR)/netboot/download-daily-stamp:
 	wget https://d-i.debian.org/daily-images/i386/daily/netboot/debian-installer/i386/initrd.gz \
 		-O $(BUILD_DIR)/netboot/daily/install.386/initrd.gz
 	wget https://d-i.debian.org/daily-images/i386/daily/netboot/gtk/debian-installer/i386/initrd.gz \
-		-O n$(BUILD_DIR)/etboot/daily/install.386/gtk/initrd.gz
+		-O $(BUILD_DIR)/netboot/daily/install.386/gtk/initrd.gz
 	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/linux \
 		-O $(BUILD_DIR)/netboot/daily/install.amd/vmlinuz
 	wget https://d-i.debian.org/daily-images/amd64/daily/netboot/debian-installer/amd64/initrd.gz \
@@ -246,7 +246,7 @@ $(BUILD_DIR)/netboot/stable/win32-loader.exe $(BUILD_DIR)/netboot/daily/win32-lo
 
 $(BUILD_DIR)/netboot/stable/% $(BUILD_DIR)/netboot/daily/%: $(BUILD_DIR)/%
 	$(MKDIR_P) $(BUILD_DIR)/netboot/{stable,daily}
-	cp $(shell basename $@) $@
+	cp $< $@
 
 clean:
 	if [ -d $(BUILD_DIR)/l10n ]; then $(MAKE) -C $(BUILD_DIR)/l10n -f ../../l10n/Makefile clean; $(RMDIR) $(BUILD_DIR)/l10n; fi
