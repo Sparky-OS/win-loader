@@ -5,7 +5,7 @@ MKDIR_P := mkdir -p
 RMDIR := rmdir
 
 # Targets that will always be run (as they depend on stuff from installed packages)
-.PHONY: $(BUILD_DIR)/core.img $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr $(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe $(BUILD_DIR)/pxe.lkrn
+.PHONY: clean distclean test $(BUILD_DIR)/core.img $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr $(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe $(BUILD_DIR)/pxe.lkrn
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
@@ -157,6 +157,12 @@ $(OUTFILE_NAME): main.nsi maps.ini \
 	$(MAKE) -C $(BUILD_DIR)/l10n -f $(CURDIR)/l10n/Makefile VPATH=$(CURDIR)/l10n
 	$(MAKENSIS) main.nsi
 	du -h $(OUTFILE_NAME)
+
+test:
+	for arch in win32 win64; do \
+		$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) \
+			$${arch} $(realpath $(BUILD_DIR)); \
+	done
 
 $(BUILD_DIR)/plugins:
 	$(MKDIR_P) $@
