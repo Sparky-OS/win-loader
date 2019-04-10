@@ -20,7 +20,7 @@
 ; Parameter:
 ;   device - path of device, e. g. \Device\HarddiskVolume2
 ; Return value:
-;   drive letter
+;   drive letter or error if device is not mapped to a drive letter
 Function GetDriveLetterOfDevice
   Exch $0
   Push $1
@@ -182,9 +182,10 @@ windows_version_ok:
 
   ${If} $windows_boot_method == ntldr
   ${OrIf} $windows_boot_method == bootmgr
-    systeminfo::find_system_partition
+    Push "\Device\HarddiskVolume1"
+    Call GetDriveLetterOfDevice
     Pop $c
-    ${If} $c == failed
+    ${If} $c == error
       ${If} $windows_boot_method == bootmgr
 	; If we are under Vista or Win7, try reading the partition from {current} entry of default BCD store
 	Call GetDevicePathOfPartition
