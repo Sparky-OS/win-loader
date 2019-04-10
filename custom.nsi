@@ -90,16 +90,12 @@ d-i debian-installer/locale string $0"
   ${Endif}
 
 ; ********************************************** preseed domain
-  systeminfo::domain
-  Pop $2
-  Pop $0
-  ${If} $2 != 0
-    ${If} $0 != ""
-      StrCpy $preseed_cfg "\
+  ${SYSINFO_Domain} $0
+  ${If} $0 != ""
+    StrCpy $preseed_cfg "\
 $preseed_cfg$\n\
 d-i netcfg/get_domain string $0$\n\
 d-i netcfg/get_domain seen false"
-    ${Endif}
   ${EndIf}
 
 ; ********************************************** preseed timezone
@@ -116,11 +112,7 @@ d-i time/zone seen false"
   ${Endif}
 
 ; ********************************************** preseed keymap
-  systeminfo::keyboard_layout
-  Pop $0
-  ; lower word is the locale identifier (higher word is a handler to the actual layout)
-  IntOp $0 $0 & 0x0000FFFF
-  IntFmt $0 "0x%04X" $0
+  ${SYSINFO_KeyboardLayout} $0
   ReadINIStr $0 $PLUGINSDIR\maps.ini "keymaps" "$0"
   ; FIXME: do we need to support non-AT keyboards here?
   ${If} $0 != ""
@@ -143,16 +135,12 @@ d-i console-keymaps-at/keymap seen false"
   ${Endif}
 
 ; ********************************************** preseed hostname
-  systeminfo::hostname
-  Pop $2
-  Pop $0
-  ${If} $2 != 0
-    ${If} $0 != ""
-      StrCpy $preseed_cfg "\
+  ${SYSINFO_HostName} $0
+  ${If} $0 != ""
+    StrCpy $preseed_cfg "\
 $preseed_cfg$\n\
 d-i netcfg/get_hostname string $0$\n\
 d-i netcfg/get_hostname seen false"
-    ${Endif}
   ${EndIf}
 
 ; ********************************************** preseed priority
@@ -161,8 +149,7 @@ d-i netcfg/get_hostname seen false"
   ${Endif}
 
 ; ********************************************** preseed user-fullname
-  systeminfo::username
-  Pop $0
+  ${SYSINFO_UserName} $0
   ${If} $0 != ""
     StrCpy $preseed_cfg "\
 $preseed_cfg$\n\

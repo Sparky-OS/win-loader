@@ -36,7 +36,7 @@ RequestExecutionLevel admin
 !include WinVer.nsh
 !insertmacro GetRoot
 
-!include include/bootcfg.nsh
+!include include\bootcfg.nsh
 ; Include required functions
 ${BOOTCFG_AppendBootEntry}
 ${BOOTCFG_CreateGUID}
@@ -49,6 +49,12 @@ ${BOOTCFG_SetDescription}
 ${BOOTCFG_SetPartition}
 ${BOOTCFG_SetPath}
 ${BOOTCFG_ReleaseObject}
+
+!include include\sysinfo.nsh
+${SYSINFO_Domain}
+${SYSINFO_HostName}
+${SYSINFO_KeyboardLayout}
+${SYSINFO_UserName}
 
 !addplugindir ${BUILD_DIR}/plugins
 !addplugindir ${BUILD_DIR}/plugins/cpuid
