@@ -267,3 +267,4 @@ clean:
 
 distclean: clean
 	rm -rf $(BUILD_DIR)/netboot
+	if [ -d $(BUILD_DIR) ]; then $(RMDIR) $(BUILD_DIR); fi
