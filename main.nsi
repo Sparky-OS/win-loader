@@ -34,6 +34,7 @@ RequestExecutionLevel admin
 !include FileFunc.nsh
 !include WinMessages.nsh
 !include WinVer.nsh
+!include x64.nsh
 !insertmacro GetRoot
 
 !include include\bootcfg.nsh
@@ -50,11 +51,18 @@ ${BOOTCFG_SetPartition}
 ${BOOTCFG_SetPath}
 ${BOOTCFG_ReleaseObject}
 
+!define CPUID_HELPER_DIR "${BUILD_DIR}/helpers/cpuid"
+!include include\cpuid.nsh
+${CPUID_DataWidth}
+
 !include include\sysinfo.nsh
 ${SYSINFO_Domain}
 ${SYSINFO_HostName}
 ${SYSINFO_KeyboardLayout}
 ${SYSINFO_UserName}
+
+!include include\wmiquery.nsh
+${WMIQUERY_SingleProp}
 
 !addplugindir ${BUILD_DIR}/plugins
 !addplugindir ${BUILD_DIR}/plugins/cpuid

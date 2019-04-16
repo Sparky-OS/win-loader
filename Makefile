@@ -1,11 +1,29 @@
 export SHELL := bash
 
 BUILD_DIR ?= build
+HELPERS_DIR := helpers
 MKDIR_P := mkdir -p
 RMDIR := rmdir
 
+HELPER_DIRS := $(patsubst %/.,%,$(wildcard $(CURDIR)/$(HELPERS_DIR)/*/.))
+HELPERS := $(notdir $(HELPER_DIRS))
+
+define HELPER_template =
+$(2)_helper: $(1)
+	$(MKDIR_P) $(BUILD_DIR)/$(HELPERS_DIR)/$(2)
+	$(MAKE) -C $(BUILD_DIR)/$(HELPERS_DIR)/$(2) \
+		-f "$$</Makefile" "VPATH=$$<"
+
+$(2)_clean: $(1)
+	if [ -d $(BUILD_DIR)/$(HELPERS_DIR)/$(2) ]; then \
+		$(MAKE) -C $(BUILD_DIR)/$(HELPERS_DIR)/$(2) \
+			-f "$$</Makefile" clean; \
+		$(RMDIR) $(BUILD_DIR)/$(HELPERS_DIR)/$(2); \
+	fi
+endef
+
 # Targets that will always be run (as they depend on stuff from installed packages)
-.PHONY: clean distclean test $(BUILD_DIR)/core.img $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr $(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe $(BUILD_DIR)/pxe.lkrn
+.PHONY: clean distclean test $(BUILD_DIR)/core.img $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr $(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe $(BUILD_DIR)/pxe.lkrn $(HELPERS:=_helper) $(HELPERS:=_clean)
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
@@ -111,6 +129,8 @@ all: $(OUTFILE_NAME) $(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr
 $(BUILD_DIR):
 	$(MKDIR_P) $(BUILD_DIR)
 
+$(foreach helper_dir,$(HELPER_DIRS),$(eval $(call HELPER_template,$(helper_dir),$(notdir $(helper_dir)))))
+
 core.img:
 	grub-mkimage --output=$@ --prefix=/win32-loader --format=i386-pc $(GRUB_MODULES)
 
@@ -156,14 +176,14 @@ $(OUTFILE_NAME): main.nsi maps.ini \
 		$(BUILD_DIR)/plugins/libgcrypt_hash.dll \
 		$(PXE_TARGETS) $(BUILD_DIR)/win32-loader.ico \
 		$(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe \
-		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr
+		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr | $(HELPERS:=_helper)
 	find $^ -newermt "@$(SOURCE_DATE_EPOCH)" -print0 | xargs -0r touch --date="@$(SOURCE_DATE_EPOCH)"
 	$(MKDIR_P) $(BUILD_DIR)/l10n
 	$(MAKE) -C $(BUILD_DIR)/l10n -f $(CURDIR)/l10n/Makefile VPATH=$(CURDIR)/l10n
 	$(MAKENSIS) main.nsi
 	du -h $(OUTFILE_NAME)
 
-test:
+test:  $(HELPERS:=_helper)
 	for arch in win32 win64; do \
 		$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) \
 			$${arch} $(realpath $(BUILD_DIR)); \
@@ -260,7 +280,15 @@ $(BUILD_DIR)/netboot/stable/% $(BUILD_DIR)/netboot/daily/%: $(BUILD_DIR)/%
 	cp $< $@
 
 clean:
-	if [ -d $(BUILD_DIR)/l10n ]; then $(MAKE) -C $(BUILD_DIR)/l10n -f ../../l10n/Makefile clean; $(RMDIR) $(BUILD_DIR)/l10n; fi
+	if [ -d $(BUILD_DIR)/$(HELPERS_DIR) ]; then \
+		$(MAKE) $(HELPERS:=_clean); \
+		$(RMDIR) $(BUILD_DIR)/$(HELPERS_DIR); \
+	fi
+	if [ -d $(BUILD_DIR)/l10n ]; then \
+		$(MAKE) -C $(BUILD_DIR)/l10n \
+			-f $(CURDIR)/l10n/Makefile clean; \
+		$(RMDIR) $(BUILD_DIR)/l10n; \
+	fi
 	rm -f $(BUILD_DIR)/plugins/cpuid/*.dll \
 		$(BUILD_DIR)/plugins/cpuid/*.exe \
 		$(BUILD_DIR)/plugins/systeminfo/*.dll \

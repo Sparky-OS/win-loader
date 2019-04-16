@@ -145,8 +145,17 @@ readme_file_not_found:
 !endif
 
 ; ********************************************** Initialise $arch
-  test64::get_arch
-  StrCpy $arch $0
+  StrCpy $arch "amd64"
+  ${IfNot} ${RunningX64}
+    ${WMIQUERY_SingleProp} "DataWidth" "Win32_Processor" $0
+    ${If} $0 = ""
+      ; Fall back to CPUID helper
+      ${CPUID_DataWidth} $0
+    ${EndIf}
+    ${If} $0 != 64
+      StrCpy $arch "i386"
+    ${EndIf}
+  ${EndIf}
 !ifndef NOCD
   ReadINIStr $0 $d\win32-loader.ini "installer" "arch"
   ${If} "$0:$arch" == "amd64:i386"
