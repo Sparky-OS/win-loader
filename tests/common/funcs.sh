@@ -75,7 +75,7 @@ assert_equal() {
 		echo "${1} != ${2}"
 		echo "FAIL"
 		exit 1
-	else	
+	else
 		echo "OK"
 	fi
 }
