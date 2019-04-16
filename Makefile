@@ -9,7 +9,12 @@ RMDIR := rmdir
 
 PACKAGE	:= win32-loader
 VERSION	:= $(shell head -n 1 debian/changelog | sed -e "s/^$(PACKAGE) (\(.*\)).*/\1/g")
-SOURCE_DATE_EPOCH	?= $(shell LC_ALL=C date +'%s')
+
+ifndef SOURCE_DATE_EPOCH
+SOURCE_DATE_EPOCH	:= $(shell git log -1 --pretty=%ct 2>/dev/null || LC_ALL=C date +'%s')
+export SOURCE_DATE_EPOCH
+endif
+
 FOUR_DIGITS_DATE	:= $(shell date -u +'%Y.%m.%d.%H%M' --date="@$(SOURCE_DATE_EPOCH)")
 
 NSIS_CC		:= i686-w64-mingw32-gcc -Os -Xlinker --no-insert-timestamp

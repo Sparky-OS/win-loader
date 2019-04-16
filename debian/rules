@@ -35,7 +35,6 @@ ifeq ($(BYHAND),yes)
 		PXE=yes \
 		NOT_ALLKERNELS=yes \
 		OUTFILE_NAME="$(BUILD_DIR)/$(W32_BYHAND_NAME).exe" \
-		SOURCE_DATE_EPOCH="$(SOURCE_DATE_EPOCH)" \
 		BUILD_DIR="$(BUILD_DIR)"
 	
 	# Prepare the README file
@@ -48,7 +47,6 @@ ifeq ($(BYHAND),yes)
 endif
 	# Build the cdrom version
 	dh_auto_build -- OUTFILE_NAME="$(BUILD_DIR)/win32-loader.exe" \
-		SOURCE_DATE_EPOCH="$(SOURCE_DATE_EPOCH)" \
 		BUILD_DIR="$(BUILD_DIR)"
 
 override_dh_install:
