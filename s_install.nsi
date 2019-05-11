@@ -211,7 +211,7 @@ Section "Installer Loader"
     File /oname=$PLUGINSDIR\debian-archive-removed-keys.gpg /usr/share/keyrings/debian-archive-removed-keys.gpg
     StrCpy $0 "Release"
     DetailPrint $(gpg_checking_release)
-    nsExec::Exec '"$PLUGINSDIR\gpgv.exe" --keyring $PLUGINSDIR\debian-archive-removed-keys.gpg --keyring $PLUGINSDIR\debian-archive-keyring.gpg $PLUGINSDIR\Release.gpg $PLUGINSDIR\Release'
+    nsExec::Exec '"$PLUGINSDIR\gpgv.exe" --keyring "$PLUGINSDIR\debian-archive-removed-keys.gpg" --keyring "$PLUGINSDIR\debian-archive-keyring.gpg" "$PLUGINSDIR\Release.gpg" "$PLUGINSDIR\Release"'
     Pop $0
     ${If} $0 != 0
       StrCpy $0 "Release"
