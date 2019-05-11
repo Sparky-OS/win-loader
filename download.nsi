@@ -1,5 +1,5 @@
 ; Debian-Installer Loader - Download functions
-; 
+;
 ; Copyright (C) 2007,2008,2009  Robert Millan <rmh@aybabtu.com>
 ; Copyright (C) 2010,2011       Didier Raboud <odyx@debian.org>
 ;
@@ -16,7 +16,21 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+!include include\crypthash.nsh
+${CRYPTHASH_ContextAcquire}
+${CRYPTHASH_SHA256Digest}
+${CRYPTHASH_ContextRelease}
+
+!ifndef NO_SHA256_HELPER
+!define SHA256_HELPER_DIR "${BUILD_DIR}/helpers/sha256"
+!include include\sha256.nsh
+${SHA256_Alloc}
+${SHA256_Hash}
+${SHA256_Free}
+!endif
+
 Function Download
+    System::Store 'S'
     ; Base URL
     Pop $0
     ; Target dir
@@ -25,7 +39,7 @@ Function Download
     Pop $2
     ; Allow it to fail?
     Pop $3
-    ; Check its md5sum ?
+    ; Check its sha256sum ?
     Pop $4
     Var /GLOBAL nsisdl_proxy
     ${If} $proxy == ""
@@ -42,6 +56,7 @@ Function Download
          MessageBox MB_OK|MB_ICONSTOP "$(error): $0/$2 $R0"
       ${EndIf}
       ${If} $3 == "false"
+        System::Store 'L'
         Quit
       ${Endif}
     ${EndIf}
@@ -50,26 +65,34 @@ Function Download
       ; $2 goes in the text
       DetailPrint "$(computing_checksum)"
       ; Compute sha256sum of downloaded file, put it as $1
-      libgcrypt_hash::hashsum "sha256" $6\$2
-      Pop $1
-      ${If} $4 != $1
-       ; SHA256 don't match, try sha1sum
-       libgcrypt_hash::hashsum "sha1" $6\$2
-       Pop $1
-       ${If} $4 != $1
-        ; SHA1 don't match, try md5sum
-        libgcrypt_hash::hashsum "md5" $6\$2
-        Pop $1
-        ${If} $4 != $1
-          MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
-          Quit
+      StrCpy $1 error
+      ClearErrors
+      FileOpen $5 $6\$2 r
+      ${IfNot} ${Errors}
+        ${CRYPTHASH_ContextAcquire} ${PROV_RSA_AES} ${CRYPT_VERIFYCONTEXT} $7
+        ${If} $7 P<> 0
+          ${CRYPTHASH_SHA256Digest} $7 $5 $1
+          ${CRYPTHASH_ContextRelease} $7 $7
+        ${Else}
+          ${SHA256_Alloc} $7
+          ${If} $7 P<> 0
+            ${SHA256_Hash} $7 $5 $1
+            ${SHA256_Free} $7
+          ${EndIf}
         ${EndIf}
-       ${EndIf}
+        FileClose $5
+      ${EndIf}
+      ${If} $4 != $1
+        ; SHA256 don't match
+        MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
+        System::Store 'L'
+        Quit
       ${EndIf}
       DetailPrint "$4 = $1"
     ${EndIf}
 
     Push "$R0"
+    System::Store 'L'
 FunctionEnd
 
 Function Get_SHA256_ref
