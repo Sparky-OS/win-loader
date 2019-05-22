@@ -13,7 +13,7 @@
 !define HP_HASHVAL 0x0002
 !define PROV_RSA_AES 24
 
-!define CRYPTHASH_BUFFER_SIZE 8192
+!define CRYPTHASH_BUFFER_SIZE 262144
 !define CRYPTHASH_PREFIX "CRYPTHASH_"
 
 !include include\stdmacros.nsh
