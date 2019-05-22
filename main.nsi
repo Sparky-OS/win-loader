@@ -22,17 +22,12 @@ SetCompressor /SOLID lzma
 !define BUILD_DIR "."
 !endif
 
-!include ${BUILD_DIR}/l10n/templates/all.nsh
-
-!include branding.nsi
-
 ; Needed to disable idiotic compatibility mode where Vista identifies itself
 ; as XP.  Otherwise useless (admin privilege is the default for installers).
 RequestExecutionLevel admin
 
-!include LogicLib.nsh
+!include MUI2.nsh
 !include FileFunc.nsh
-!include WinMessages.nsh
 !include WinVer.nsh
 !include x64.nsh
 !insertmacro GetRoot
@@ -72,6 +67,8 @@ ${WMIQUERY_SingleProp}
 
 ; Pages
 
+!define MUI_CUSTOMFUNCTION_ABORT Cancelled
+!define MUI_CUSTOMFUNCTION_UNABORT un.Cancelled
 Page custom ShowExpert ; expert.nsi
 Page custom ShowRescue ; rescue.nsi
 Page custom ShowKernel ; kernel.nsi
@@ -80,12 +77,19 @@ Page custom ShowGraphics ; graphics.nsi
 Page custom ShowBranch ; download.nsi and branch.nsi
 !endif
 Page custom ShowCustom ; custom.nsi
-Page instfiles CreateBootEntry
+!define MUI_PAGE_CUSTOMFUNCTION_PRE CreateBootEntry
+!insertmacro MUI_PAGE_INSTFILES
 
-UninstPage uninstConfirm
-UninstPage instfiles un.RemoveBootEntry
+!insertmacro MUI_UNPAGE_CONFIRM
+!define MUI_PAGE_CUSTOMFUNCTION_PRE un.RemoveBootEntry
+!insertmacro MUI_UNPAGE_INSTFILES
+
+!include ${BUILD_DIR}/l10n/templates/all.nsh
+
+!include branding.nsi
 
 ;--------------------------------
+Var /GLOBAL cancel
 Var /GLOBAL c
 !ifndef NOCD
 Var /GLOBAL d

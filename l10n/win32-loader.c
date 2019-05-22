@@ -19,7 +19,19 @@
 #include <locale.h>
 #include <libintl.h>
 #define _(str) gettext(str)
+#define GETTEXT_CONTEXT_GLUE "\004"
+#define pgettext(msgctxt, msgid) \
+  pgettext_aux(msgctxt GETTEXT_CONTEXT_GLUE msgid, msgid)
 #include <stdio.h>
+
+static const char *pgettext_aux(const char *msg_ctxt_id, const char *msgid)
+{
+  const char *translation = dcgettext(NULL, msg_ctxt_id, LC_MESSAGES);
+  if (translation == msg_ctxt_id) {
+    translation = msgid;
+  }
+  return translation;
+}
 
 int
 main (int argc, char **argv)
@@ -62,10 +74,11 @@ main (int argc, char **argv)
 
 /*
   translate:
-  The nlf file for your language should be found in
+  The MUI_LANGUAGE macro expects the nlf file without extension for your
+  language as a parameter. The nlf file should be found in
   /usr/share/nsis/Contrib/Language files/
  */
-  printf ("LoadLanguageFile \"${NSISDIR}\\Contrib\\Language files\\%s\"\n", _("English.nlf"));
+  printf ("!insertmacro MUI_LANGUAGE \"%s\"\n", pgettext("NLFID", "English"));
 
 /*
   translate:

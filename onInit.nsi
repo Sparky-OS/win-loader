@@ -136,14 +136,21 @@ wider choice, where your language is more likely to be present."
   ${Endif}
 FunctionEnd
 
-Function .onUserAbort
-  Call CleanUp
+Function Cancelled
+  ${If} $cancel == ""
+    StrCpy $cancel 1
+    Call CleanUp
+    ${If} $mui.InstFilesPage != ""
+      EnableWindow $mui.Button.Cancel 0
+      Abort
+    ${EndIf}
+  ${EndIf}
+FunctionEnd
+
+Function un.Cancelled
+  Call un.CleanUp
 FunctionEnd
 
 Function un.onInit
   Call un.SetUp
-FunctionEnd
-
-Function un.onUserAbort
-  Call un.CleanUp
 FunctionEnd
