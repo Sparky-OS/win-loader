@@ -226,33 +226,27 @@ c_is_initialized:
   SetOutPath $INSTDIR
 
 !ifdef PXE
-  File /oname=$PLUGINSDIR\expert.ini	templates/ternary_choice.ini
-  WriteINIStr $PLUGINSDIR\expert.ini "Field 4" "Text" $(expert4)
+  ${Choice_Present} expert 4
 !else ;PXE
-  File /oname=$PLUGINSDIR\expert.ini	templates/binary_choice.ini
+  ${Choice_Present} expert 3
 !endif ;PXE
-  WriteINIStr $PLUGINSDIR\expert.ini "Field 1" "Text" $(expert1)
-  WriteINIStr $PLUGINSDIR\expert.ini "Field 2" "Text" $(expert2)
-  WriteINIStr $PLUGINSDIR\expert.ini "Field 3" "Text" $(expert3)
-  InstallOptions::dialog $PLUGINSDIR\expert.ini
+  ${Choice_Get} $0
 
   Var /GLOBAL expert
 !ifdef PXE
   Var /GLOBAL pxe_mode
-  ReadINIStr $0 $PLUGINSDIR\expert.ini "Field 4" "State"
-  ${If} $0 == "1"
+  ${If} $0 == "3"
     StrCpy $pxe_mode true
     StrCpy $expert false
   ${Else}
     StrCpy $pxe_mode false
 !endif ; PXE
-    ReadINIStr $0 $PLUGINSDIR\expert.ini "Field 3" "State"
-    ${If} $0 == "1"
+    ${If} $0 == "2"
       StrCpy $expert true
     ${Else}
       StrCpy $expert false
     ${Endif}
 !ifdef PXE
-  ${Endif} ; Field 4 (PXE) checked ?
+  ${Endif} ; PXE checked ?
 !endif ;PXE
 FunctionEnd

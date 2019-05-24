@@ -46,6 +46,12 @@ ${BOOTCFG_SetPartition}
 ${BOOTCFG_SetPath}
 ${BOOTCFG_ReleaseObject}
 
+!include include\choice.nsh
+${Choice_Present}
+${Choice_OnClick}
+${Choice_Set}
+${Choice_Get}
+
 !define CPUID_HELPER_DIR "${BUILD_DIR}/helpers/cpuid"
 !include include\cpuid.nsh
 ${CPUID_DataWidth}

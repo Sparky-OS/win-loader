@@ -20,15 +20,11 @@ Function ShowBranch
   Var /GLOBAL di_branch
   StrCpy $di_branch stable
 !ifdef DAILIES
-  File /oname=$PLUGINSDIR\di_branch.ini	templates/binary_choice.ini
   ${If} $kernel == 'linux'
    ${If} $expert == true
-    WriteINIStr $PLUGINSDIR\di_branch.ini "Field 1" "Text" $(di_branch1)
-    WriteINIStr $PLUGINSDIR\di_branch.ini "Field 2" "Text" $(di_branch2)
-    WriteINIStr $PLUGINSDIR\di_branch.ini "Field 3" "Text" $(di_branch3)
-    InstallOptions::dialog $PLUGINSDIR\di_branch.ini
-    ReadINIStr $0 $PLUGINSDIR\di_branch.ini "Field 3" "State"
-    ${If} $0 == "1"
+    ${Choice_Present} di_branch 3
+    ${Choice_Get} $0
+    ${If} $0 == "2"
       StrCpy $di_branch daily
     ${Endif}
    ${Endif}
