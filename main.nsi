@@ -82,7 +82,7 @@ Page custom ShowGraphics ; graphics.nsi
 !ifdef NOCD
 Page custom ShowBranch ; download.nsi and branch.nsi
 !endif
-Page custom ShowCustom ; custom.nsi
+Page custom ShowCustom LeaveCustom ; custom.nsi
 !define MUI_PAGE_CUSTOMFUNCTION_PRE CreateBootEntry
 !insertmacro MUI_PAGE_INSTFILES
 

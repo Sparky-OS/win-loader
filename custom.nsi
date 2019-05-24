@@ -16,10 +16,12 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+${STDMACROS_DefIfNotDef} GW_HWNDNEXT 2
+${STDMACROS_DefIfNotDef} GW_CHILD 5
 
 Function ShowCustom
 ; Gather all the missing information before ShowCustom is displayed
-
+  System::Store 'S'
 !ifndef NOCD
 
 ; ********************************************** Media-based install
@@ -184,24 +186,79 @@ $1"
 
 ; ********************************************** Display customisation dialog now
   ${If} $expert == true
-    File /oname=$PLUGINSDIR\custom.ini templates/custom.ini
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 1" "Text" $(custom1)
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 2" "Text" $(custom2)
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 3" "Text" $(custom3)
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 4" "Text" "Kernel commandline:"
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 5" "Text" $(custom5)
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 6" "State" "$proxy"
+    nsDialogs::Create ${IDC_CHILDRECT}
+    Pop $0
+    ${If} $0 != error
+      !insertmacro MUI_HEADER_TEXT $(^NameDA) $(custom1)
+      ${NSD_CreateText} 116u 10u -119u 13u "$proxy"
+      Pop $1
+      ${NSD_CreateLabel} 0u 12u 113u 8u $(custom2)
+      Pop $1
+      ${NSD_CreateLabel} 0u 48u -3u 8u $(custom5)
+      Pop $1
 !ifdef NOCD
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 8" "State" "$base_url"
+      StrCpy $2 "$base_url"
+!else
+      StrCpy $2 ""
 !endif
-    WriteINIStr $PLUGINSDIR\custom.ini "Field 9" "State" "$preseed_cmdline"
-    InstallOptions::dialog $PLUGINSDIR\custom.ini
-    ReadINIStr $proxy		$PLUGINSDIR\custom.ini "Field 6" "State"
-!ifdef NOCD
-    ReadINIStr $base_url	$PLUGINSDIR\custom.ini "Field 8" "State"
-!endif
-    ReadINIStr $preseed_cmdline	$PLUGINSDIR\custom.ini "Field 9" "State"
+      ${NSD_CreateText} 0u 60u -3u 13u "$2"
+      Pop $1
+      ${NSD_CreateLabel} 0u 82u 113u 8u "Kernel commandline:"
+      Pop $1
+      ${NSD_CreateText} 0u 94u -3u 13u "$preseed_cmdline"
+      Pop $1
+      nsDialogs::show
+    ${EndIf}
   ${Endif}
+
+  System::Store 'L'
+FunctionEnd
+
+Function LeaveCustom
+  System::Store 'S'
+
+  GetLabelAddress $3 ${__FUNCTION__}_SetVar
+  ; Get inner dialog
+  FindWindow $0 "#32770" "" $HWNDPARENT
+  ${If} $0 P<> 0
+    ; Retrieve content from all edit controls of the inner dialog
+    ; and push it to stack
+    System::Call "user32::GetWindow(p r0, i ${GW_CHILD}) p.r0"
+    ${While} $0 P<> 0
+      System::Call "user32::GetClassName(p r0, t .r1, i ${NSIS_MAX_STRLEN}) i.r2"
+      ${If} $1 != 0
+      ${AndIf} $1 == "EDIT"
+        ${NSD_GetText} $0 $1
+        Goto $3
+${__FUNCTION__}_SetVar:
+        ; 1st edit field: proxy
+        StrCpy $proxy "$1"
+        Goto ${__FUNCTION__}_NextVar
+        ; 2nd edit field: base_url
+!ifdef NOCD
+        StrCpy $base_url "$1"
+!else
+        StrCpy $1 ""
+!endif
+        Goto ${__FUNCTION__}_NextVar
+        ; Last edit field: preseed_cmdline
+        StrCpy $preseed_cmdline "$1"
+        Goto ${__FUNCTION__}_LastVar
+${__FUNCTION__}_NextVar:
+        IntOp $3 $3 + 2
+${__FUNCTION__}_LastVar:
+      ${EndIf}
+      System::Call "user32::GetWindow(p r0, i ${GW_HWNDNEXT}) p.r0"
+    ${EndWhile}
+  ${EndIf}
+
+!ifdef NOCD
+; Ensure $base_url is ending with /
+  StrCpy $0 "$base_url" 1 -1
+  ${If} $0 != "/"
+    StrCpy $base_url "$base_url/"
+  ${EndIf}
+!endif
 
 ; do this inmediately after custom.ini, because proxy settings can be
 ; overriden there
@@ -215,4 +272,6 @@ d-i mirror/http/proxy seen true$\n"
 $preseed_cfg$\n\
 d-i mirror/http/proxy string http://$proxy/$\n"
   ${Endif}
+
+  System::Store 'L'
 FunctionEnd
