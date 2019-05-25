@@ -215,12 +215,13 @@ Section "Installer Loader"
     SetOutPath "$PLUGINSDIR"
     nsExec::Exec 'gpgv.exe --keyring ".\debian-archive-removed-keys.gpg" --keyring ".\debian-archive-keyring.gpg" Release.gpg Release'
     Pop $0
-    Pop $OUTDIR
     ${If} $0 != 0
       StrCpy $0 "Release"
       MessageBox MB_OK|MB_ICONSTOP "$(unsecure_release)"
       Quit
     ${EndIf}
+    Pop $0
+    SetOutPath "$0"
 
     ; Get SHA256SUMS file SHA1SUM
     Push "$PLUGINSDIR\Release"
