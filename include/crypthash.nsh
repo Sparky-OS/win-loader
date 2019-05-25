@@ -194,14 +194,14 @@ ${CRYPTHASH_FUNCPROLOG} "${UN}" Final
       System::Call "advapi32::CryptGetHashParam(p r0, i ${HP_HASHVAL}, p r3, *i r2r2, i 0) i.r1"
       ${If} $1 != 0
         Push ${NSIS_MAX_STRLEN}
-        ${If} ${AtMostWinXP}
+        ${IfNot} ${AtLeastWinVista}
           StrCpy $1 0
         ${Else}
           System::Call "crypt32::CryptBinaryToString(p r3, i r2, i ${CRYPT_STRING_HEXRAW}|${CRYPT_STRING_NOCRLF}, t .r0, *i ss) i.r1"
         ${EndIf}
         ${If} $1 == 0
-          ; CryptBinaryToString of Wine 4.0, Windows XP or earlier
-          ; do not support CRYPT_STRING_HEXRAW flag
+          ; CryptBinaryToString of Wine 4.0 and any version prior
+          ; Windows Vista do not support CRYPT_STRING_HEXRAW flag
           ; Fall back to generic binary to hex implementation
           StrCpy $0 ""
           IntOp $3 $3 + $2
