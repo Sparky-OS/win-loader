@@ -19,20 +19,21 @@
 Function ShowBranch
   Var /GLOBAL di_branch
   StrCpy $di_branch stable
+  ${If} ${AtLeastWin7}
 !ifdef DAILIES
-  ${If} $kernel == 'linux'
-   ${If} $expert == true
-    ${Choice_Present} di_branch 3
-    ${Choice_Get} $0
-    ${If} $0 == "2"
-      StrCpy $di_branch daily
-    ${Endif}
-   ${Endif}
-  ${Else}
+  ${AndIf} $expert == true
+!endif
+    ${If} $kernel == 'linux'
+      ${Choice_Present} di_branch 3
+      ${Choice_Get} $0
+      ${If} $0 == "2"
+        StrCpy $di_branch daily
+      ${Endif}
+    ${Else}
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $di_branch daily
+    ${EndIf}
   ${EndIf}
-!endif  ; DAILIES
 
 ; ********************************************** Initialise base_url
   Var /GLOBAL base_url ; URL to the Release{,.gpg} files
@@ -59,7 +60,12 @@ Function ShowBranch
       StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
     ${EndIf}
   ${Else}
-    StrCpy $base_url         "http://deb.debian.org/debian/dists/stable/"
+    ${If} ${AtLeastWin7}
+      StrCpy $base_url "https://"
+    ${Else}
+      StrCpy $base_url "http://"
+    ${EndIf}
+    StrCpy $base_url         "$base_urldeb.debian.org/debian/dists/stable/"
     ${If} $kernel == "linux"
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $base_path_hashes    "main/installer-$arch/current/images/"
