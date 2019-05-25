@@ -16,18 +16,63 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-!include include\crypthash.nsh
-${CRYPTHASH_ContextAcquire}
-${CRYPTHASH_SHA256Digest}
-${CRYPTHASH_ContextRelease}
+${STDMACROS_DefIfNotDef} IDCANCEL 2
+${STDMACROS_DefIfNotDef} IDC_STATIC1 1001
+${STDMACROS_DefIfNotDef} IDC_PROGRESS 1004
+${STDMACROS_DefIfNotDef} IDC_PROGRESS1 1005
+${STDMACROS_DefIfNotDef} IDC_INTROTEXT 1006
+${STDMACROS_DefIfNotDef} IDC_SHOWDETAILS 1027
 
 !ifndef NO_SHA256_HELPER
 !define SHA256_HELPER_DIR "${BUILD_DIR}/helpers/sha256"
-!include include\sha256.nsh
-${SHA256_Alloc}
-${SHA256_Hash}
-${SHA256_Free}
 !endif
+
+!define WININET_CANCEL_FLAG $cancel
+!define WININET_PROGRESSBAR_CONTROL ${IDC_PROGRESS1}
+!define WININET_PROXY $proxy
+!define WININET_STATUSTEXT_CONTROL ${IDC_STATIC1}
+!define WININET_TEXT_CONNECTING $(nsisdl2)
+!define WININET_TEXT_PROGRESS "$1 left - $2 of $4$0$(^Byte) ($3$0$(^Byte)/s)"
+!define WININET_TIMEOUT 10000
+!define WININET_USER_AGENT "Mozilla/4.0 (compatible; Win32; ${_PRODUCT_NAME})"
+
+!include include\wininet.nsh
+${WININET_Get}
+
+ChangeUI IDD_INSTFILES "${BUILD_DIR}/helpers/instdlg/instdlg.exe"
+
+; Show window controls for reporting progress of download
+; Parameter:
+;   flag - 0: hide 1: show
+Function Download_ShowControls
+  Exch $0
+!ifdef MUI_INCLUDED
+  ${IfNot} ${Silent}
+  ${AndIf} $mui.InstFilesPage P<> 0
+    ${If} $0 != 0
+      StrCpy $0 ${SW_NORMAL}
+      SetDetailsView hide
+      EnableWindow $mui.InstFilesPage.ShowLogButton 0
+    ${Else}
+      StrCpy $0 ${SW_HIDE}
+      EnableWindow $mui.InstFilesPage.ShowLogButton 1
+    ${EndIf}
+
+    Push $1
+    GetDlgItem $1 $mui.InstFilesPage ${IDC_STATIC1}
+    ${If} $1 P<> 0
+      ShowWindow $1 $0
+    ${EndIf}
+    GetDlgItem $1 $mui.InstFilesPage ${IDC_PROGRESS1}
+    ${If} $1 P<> 0
+      ShowWindow $1 $0
+    ${EndIf}
+    Pop $1
+  ${EndIf}
+!endif ; MUI_INCLUDED
+
+  Push $0
+FunctionEnd
 
 Function Download
     System::Store 'S'
@@ -41,57 +86,34 @@ Function Download
     Pop $3
     ; Check its sha256sum ?
     Pop $4
-    Var /GLOBAL nsisdl_proxy
-    ${If} $proxy == ""
-      StrCpy $nsisdl_proxy /NOIEPROXY
-    ${Else}
-      StrCpy $nsisdl_proxy "/PROXY $proxy"
-    ${Endif}
 
     DetailPrint "GET: $0/$2"
-    NSISdl::download /TRANSLATE $(nsisdl1) $(nsisdl2) $(nsisdl3) $(nsisdl4) $(nsisdl5) $(nsisdl6) $(nsisdl7) $(nsisdl8) $nsisdl_proxy $0/$2 $6\$2
-    Pop $R0
-    ${If} $R0 != "success"
-      ${If} $R0 != "cancel"
-         MessageBox MB_OK|MB_ICONSTOP "$(error): $0/$2 $R0"
-      ${EndIf}
-      ${If} $3 == "false"
-        System::Store 'L'
-        Quit
-      ${Endif}
-    ${EndIf}
-
     ${If} $4 != "false"
-      ; $2 goes in the text
-      DetailPrint "$(computing_checksum)"
-      ; Compute sha256sum of downloaded file, put it as $1
-      StrCpy $1 error
-      ClearErrors
-      FileOpen $5 $6\$2 r
-      ${IfNot} ${Errors}
-        ${CRYPTHASH_ContextAcquire} ${PROV_RSA_AES} ${CRYPT_VERIFYCONTEXT} $7
-        ${If} $7 P<> 0
-          ${CRYPTHASH_SHA256Digest} $7 $5 $1
-          ${CRYPTHASH_ContextRelease} $7 $7
-        ${Else}
-          ${SHA256_Alloc} $7
-          ${If} $7 P<> 0
-            ${SHA256_Hash} $7 $5 $1
-            ${SHA256_Free} $7
+      StrCpy $5 ${CALG_SHA256}
+    ${Else}
+      StrCpy $5 0
+      StrCpy $4 0
+    ${EndIf}
+    ${WININET_Get} $0 $2 $6 $5 $1
+    ${If} $1 != ${ERROR_CANCELLED}
+      ${If} $1 != $4
+        ${If} $4 == 0
+          MessageBox MB_OK|MB_ICONSTOP "$(error): $0/$2 $1"
+          ${If} $3 == "false"
+            Quit
           ${EndIf}
+        ${Else}
+          MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
+          Quit
         ${EndIf}
-        FileClose $5
+      ${Else}
+        StrCpy $1 "success"
       ${EndIf}
-      ${If} $4 != $1
-        ; SHA256 don't match
-        MessageBox MB_OK|MB_ICONSTOP "$(checksum_mismatch)"
-        System::Store 'L'
-        Quit
-      ${EndIf}
-      DetailPrint "$4 = $1"
+    ${Else}
+      Quit
     ${EndIf}
 
-    Push "$R0"
+    Push "$1"
     System::Store 'L'
 FunctionEnd
 

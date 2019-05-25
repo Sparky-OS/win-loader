@@ -190,21 +190,30 @@ Section "Installer Loader"
 !ifdef PXE
  ${If} $pxe_mode == "false"
 !endif ;PXE
+  ; Enable cancel button and make download controls visible
+  EnableWindow $mui.Button.Cancel 1
+  Push 1
+  Call Download_ShowControls
   ${If} $base_path_hashes != ""
+    ; Remove trailing / from $base_url
+    StrCpy $1 "$base_url" -1
     ; Download the Release and Release.gpg files
     Push "false"
     Push "false"
     Push "Release"
     Push "$PLUGINSDIR"
-    Push "$base_url"
+    Push "$1"
     Call Download
+    Pop $0
     Push "false"
     Push "false"
     Push "Release.gpg"
     Push "$PLUGINSDIR"
-    Push "$base_url"
+    Push "$1"
     Call Download
+    Pop $0
 
+    EnableWindow $mui.Button.Cancel 0
     ; Now check gpg validity of this
     File /oname=$PLUGINSDIR\gpgv.exe /usr/share/win32/gpgv.exe
     File /oname=$PLUGINSDIR\debian-archive-keyring.gpg /usr/share/keyrings/debian-archive-keyring.gpg
@@ -222,6 +231,7 @@ Section "Installer Loader"
     ${EndIf}
     Pop $0
     SetOutPath "$0"
+    EnableWindow $mui.Button.Cancel 1
 
     ; Get SHA256SUMS file SHA1SUM
     Push "$PLUGINSDIR\Release"
@@ -239,6 +249,7 @@ Section "Installer Loader"
   Push "$PLUGINSDIR"
   Push "$base_url$base_path_hashes"
   Call Download
+  Pop $0
 
   ${If} $kernel == "linux"
     Push "$PLUGINSDIR\SHA256SUMS"
@@ -250,6 +261,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
     
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/initrd.gz"
@@ -260,6 +272,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
   ${ElseIf} $kernel == "kfreebsd"
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/kfreebsd.gz"
@@ -270,6 +283,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
 
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/initrd.gz"
@@ -280,6 +294,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
   ${ElseIf} $kernel == "hurd"
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/gnumach.gz"
@@ -290,6 +305,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
 
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/ext2fs.static"
@@ -300,6 +316,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
 
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/initrd.gz"
@@ -310,6 +327,7 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
 
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/ld.so.1"
@@ -320,7 +338,12 @@ Section "Installer Loader"
     Push "$INSTDIR"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
+    Pop $0
   ${EndIf}
+  ; Hide download controls and disable cancel button
+  Push 0
+  Call Download_ShowControls
+  EnableWindow $mui.Button.Cancel 0
 !ifdef PXE
  ${EndIf} ; $pxe_mode == "false"
 !endif ;PXE
