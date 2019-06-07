@@ -150,7 +150,7 @@ $(BUILD_DIR)/pxe.lkrn: /usr/lib/ipxe/ipxe.lkrn | $(BUILD_DIR)
 	cp $^ $@
 
 ifdef PXE
-PXE_TARGETS = $(BUILD_DIR)/pxe.lkrn templates/ternary_choice.ini
+PXE_TARGETS = $(BUILD_DIR)/pxe.lkrn
 else
 PXE_TARGETS =
 endif
@@ -168,7 +168,6 @@ $(BUILD_DIR)/win32-loader.ico: $(ICONSIZES:%=$(BUILD_DIR)/icon/swirl-%.png)
 	icotool -c -o $@ $^
 
 $(OUTFILE_NAME): main.nsi maps.ini \
-		templates/binary_choice.ini templates/graphics.ini templates/custom.ini templates/4_choices.ini \
 		templates/gtk.bmp templates/text.bmp \
 		$(BUILD_DIR)/plugins/cpuid/test64.dll \
 		$(BUILD_DIR)/plugins/systeminfo/systeminfo.dll \
