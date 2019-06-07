@@ -5,6 +5,7 @@
 
 !include "LogicLib.nsh"
 !include "Win\COM.nsh"
+!include "Win\WinError.nsh"
 
 !define IID_IWbemLocator       "{dc12a687-737f-11cf-884d-00aa004b2e24}"
 ${NSISCOMIFACEDECL}IWbemLocator ConnectServer 3 (w,p,p,p,i,p,p,*p)p
@@ -34,11 +35,9 @@ ${NSISCOMIFACEDECL}IWbemClassObject GetMethod 19 (w,i,*p,p)i
 
 !define EOAC_NONE                      0
 
-!define ERROR_INVALID_DATA            13
 !define ERROR_INVALID_PARAMETER       87
 !define ERROR_NO_ACCESS              998
 !define ERROR_NO_MORE_ITEMS          259
-!define ERROR_NOT_ENOUGH_MEMORY        8
 
 !define FIRMWARE_TYPE_UEFI             2
 
