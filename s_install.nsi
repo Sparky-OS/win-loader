@@ -403,42 +403,59 @@ boot$\n"
 !ifdef PXE
  ${If} $pxe_mode == "false"
 !endif ; PXE
-; ********************************************** cpio hack
-  File /oname=$INSTDIR\cpio.exe /usr/share/win32/cpio.exe
-  File /oname=$INSTDIR\gzip.exe /usr/share/win32/gzip.exe
 
-  StrCpy $0 "$INSTDIR\initrd.gz"
+; TODO: FIX THIS FOR kFreeBSD
+${If} $kernel == "linux"
+  ; ********************************************** cpio hack
+  StrCpy $1 "preseed.cfg"
+  StrCpy $2 "newc_chunk"
+  StrCpy $3 "initrd.gz"
+  StrCpy $4 "gzip.exe"
+  File "/oname=$INSTDIR\$4" /usr/share/win32/gzip.exe
+
+  StrCpy $0 "$INSTDIR\$3"
   DetailPrint "$(appending_preseeding)"
 
-  FileOpen $0 $INSTDIR\preseed.cfg w
-  FileWrite $0 "$preseed_cfg$\n"
-  FileClose $0
-
-  ; cpio awkward CLI, meet Winf**k awkward CLI
-  FileOpen $0 $INSTDIR\cpio_list w
-  FileWrite $0 "preseed.cfg"
-  FileClose $0
-
-  ; IMPORTANT!!  All files accessed by this script must be in the same
+  ; IMPORTANT!!  All accessed files must be in the same
   ; filesystem as the script itself, because cmd.exe/command.com gets
   ; confused when using absolute paths.  This is why $INSTDIR is used
   ; instead of $PLUGINSDIR.
-  FileOpen $0 $INSTDIR\cpio.bat w
-  FileWrite $0 "\
-cpio.exe -o -H newc < cpio_list > newc_chunk$\r$\n\
-attrib -r initrd.gz$\r$\n\
-gzip.exe -1 < newc_chunk >> initrd.gz$\r$\n\
-"
-  FileClose $0
-; TODO: FIX THIS FOR kFreeBSD
-${If} $kernel == "linux"
-  nsExec::Exec '"$INSTDIR\cpio.bat"'
-  Pop $0
-  ${If} $0 != 0
-    StrCpy $0 "$INSTDIR\cpio.bat"
+
+  StrCpy $0 "$1"
+  ClearErrors
+  FileOpen $5 "$1" w
+  ${IfNot} ${Errors}
+    FileWrite $5 "$preseed_cfg$\n"
+    FileClose $5
+    ${IfNot} ${Errors}
+      StrCpy $0 "$2"
+      FileOpen $5 "$2" w
+      ${IfNot} ${Errors}
+        ${CPIO_Write} $5 "$1" $0
+        ${If} $0 == 0
+          ${CPIO_Write} $5 "" $0
+        ${EndIf}
+        ${If} $0 != 0
+          StrCpy $0 "$2"
+        ${Else}
+          ExpandEnvStrings $0 '"%COMSPEC%" "/C .\$4 -1 <$2 >>$3"'
+          nsExec::Exec '$0'
+          Pop $0
+          ${If} $0 != 0
+            StrCpy $0 "$INSTDIR\$4"
+          ${Else}
+            StrCpy $0 ""
+          ${EndIf}
+        ${EndIf}
+        FileClose $5
+      ${EndIf}
+    ${EndIf}
+  ${EndIf}
+
+  ${If} $0 != ""
     MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
     Quit
-  ${Endif}
+  ${EndIf}
 ${EndIf}
 !ifdef PXE
  ${EndIf} ; $pxe_mode == "false"

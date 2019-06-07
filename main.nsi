@@ -52,6 +52,9 @@ ${Choice_OnClick}
 ${Choice_Set}
 ${Choice_Get}
 
+!include include\cpio.nsh
+${CPIO_Write}
+
 !define CPUID_HELPER_DIR "${BUILD_DIR}/helpers/cpuid"
 !include include\cpuid.nsh
 ${CPUID_DataWidth}

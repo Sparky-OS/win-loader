@@ -21,7 +21,7 @@ Build-Depends: debhelper (>= 11~),
                locales-all,
                gpgv-win32,
                debian-archive-keyring,
-               cpio-win32,
+               cpio,
                gzip-win32,
                wine [i386]
 Standards-Version: 4.2.1
