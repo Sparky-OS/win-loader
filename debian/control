@@ -6,10 +6,7 @@ Section: utils
 Priority: optional
 Build-Depends: debhelper (>= 11~),
                nsis (>= 3),
-               nsis-pluginapi,
                mingw-w64,
-               libgcrypt-mingw-w64-dev,
-               libgpg-error-mingw-w64-dev,
                librsvg2-bin,
                icoutils,
                gawk,

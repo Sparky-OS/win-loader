@@ -169,10 +169,6 @@ $(BUILD_DIR)/win32-loader.ico: $(ICONSIZES:%=$(BUILD_DIR)/icon/swirl-%.png)
 
 $(OUTFILE_NAME): main.nsi maps.ini \
 		templates/gtk.bmp templates/text.bmp \
-		$(BUILD_DIR)/plugins/cpuid/test64.dll \
-		$(BUILD_DIR)/plugins/systeminfo/systeminfo.dll \
-		$(BUILD_DIR)/plugins/string.dll \
-		$(BUILD_DIR)/plugins/libgcrypt_hash.dll \
 		$(PXE_TARGETS) $(BUILD_DIR)/win32-loader.ico \
 		$(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe \
 		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr | $(HELPERS:=_helper)
@@ -187,27 +183,6 @@ test:  $(HELPERS:=_helper)
 		$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) \
 			$${arch} $(realpath $(BUILD_DIR)); \
 	done
-
-$(BUILD_DIR)/plugins:
-	$(MKDIR_P) $@
-
-$(BUILD_DIR)/plugins/cpuid/test64.dll: plugins/cpuid/cpuid.c plugins/cpuid/plugin.c
-	$(MKDIR_P) $(dir $@)
-	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
-	$(NSIS_STRIP) $@
-
-$(BUILD_DIR)/plugins/systeminfo/systeminfo.dll: plugins/systeminfo/systeminfo.c
-	$(MKDIR_P) $(dir $@)
-	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
-	$(NSIS_STRIP) $@
-
-$(BUILD_DIR)/plugins/string.dll: plugins/string.c | $(BUILD_DIR)/plugins
-	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -o $@
-	$(NSIS_STRIP) $@
-
-$(BUILD_DIR)/plugins/libgcrypt_hash.dll: plugins/libgcrypt_hash.c | $(BUILD_DIR)/plugins
-	$(NSIS_CC) $^ $(NSIS_CFLAGS) -shared -static-libgcc /usr/i686-w64-mingw32/lib/libgcrypt.a /usr/i686-w64-mingw32/lib/libgpg-error.a /usr/i686-w64-mingw32/lib/libwsock32.a -o $@
-	$(NSIS_STRIP) $@
 
 iso: $(BUILD_DIR)/stable.iso $(BUILD_DIR)/daily.iso
 $(BUILD_DIR)/stable.iso: \
