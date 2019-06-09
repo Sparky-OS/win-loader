@@ -1,5 +1,5 @@
 ; Debian-Installer Loader - Initialisation
-; 
+;
 ; Copyright (C) 2007,2008,2009  Robert Millan <rmh@aybabtu.com>
 ; Copyright (C) 2010,2011       Didier Raboud <odyx@debian.org>
 ;
@@ -18,9 +18,9 @@
 
 !macro SetUp UN
 ${SECURITY_FUNCINC} "${UN}" COMSetDefaultLevel
-!insertmacro BOOTCFG_FUNCINC "${UN}" ConnectWMI
-!insertmacro BOOTCFG_FUNCINC "${UN}" GetObject
-!insertmacro BOOTCFG_FUNCINC "${UN}" OpenDefaultBcdStore
+${BOOTCFG_FUNCINC} "${UN}" ConnectWMI
+${BOOTCFG_FUNCINC} "${UN}" GetObject
+${BOOTCFG_FUNCINC} "${UN}" OpenDefaultBcdStore
 Function `${UN}Setup`
   Push $0
   Push $1
