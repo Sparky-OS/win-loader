@@ -3,9 +3,10 @@
 !ifndef BOOTCFG_INCLUDED
 !define BOOTCFG_INCLUDED
 
-!include "LogicLib.nsh"
-!include "Win\COM.nsh"
-!include "Win\WinError.nsh"
+!include LogicLib.nsh
+!include WinCore.nsh
+!include Win\COM.nsh
+!include include\security.nsh
 
 !define IID_IWbemLocator       "{dc12a687-737f-11cf-884d-00aa004b2e24}"
 ${NSISCOMIFACEDECL}IWbemLocator ConnectServer 3 (w,p,p,p,i,p,p,*p)p
@@ -33,31 +34,15 @@ ${NSISCOMIFACEDECL}IWbemClassObject GetMethod 19 (w,i,*p,p)i
 
 !define CLSID_WbemLocator      "{4590f811-1d3a-11d0-891f-00aa004b2e24}"
 
-!define EOAC_NONE                      0
-
 !define ERROR_INVALID_PARAMETER       87
 !define ERROR_NO_ACCESS              998
 !define ERROR_NO_MORE_ITEMS          259
 
 !define FIRMWARE_TYPE_UEFI             2
 
-!define RPC_C_AUTHN_LEVEL_DEFAULT      0
-!define RPC_C_AUTHN_LEVEL_NONE         1
-!define RPC_C_IMP_LEVEL_IMPERSONATE    3
-
-!define RPC_E_TOO_LATE               -2147417831 ; 0x80010119
-
-!define SE_PRIVILEGE_ENABLED         0x00000002
-
-!define TOKEN_ADJUST_PRIVILEGES      0x0020
-!define TOKEN_QUERY                  0x0008
-
 !define WBEM_FLAG_FORWARD_ONLY       0x20
 !define WBEM_FLAG_RETURN_IMMEDIATELY 0x10
 !define WBEM_INFINITE                0xffffffff
-
-!define wbemPrivilegeBackup           16
-!define wbemPrivilegeRestore          17
 
 !define VT_ARRAY                    8192 ; 0x2000
 !define VT_ARRAY_BSTR               8200 ; 0x2008
@@ -2662,42 +2647,9 @@ FunctionEnd
 !macroend ; BOOTCFG_SetActiveBootEntry
 
 !macro BOOTCFG_ConnectWMI UN
-; Acquire backup and restore privileges
-; Return value:
-;   If the function succeeds, the return value is zero.
-;   Otherwise return value represents an error code.
-Function `${UN}${BOOTCFG_PREFIX}AcquirePrivileges`
-  Push $0
-  Push $1
-  Push $2
-
-  System::Call "kernel32::GetCurrentProcess() p .r0"
-  System::Call "advapi32::OpenProcessToken(p r0, \
-    i ${TOKEN_QUERY}|${TOKEN_ADJUST_PRIVILEGES}, *p 0 r1) i .r0"
-  ${If} $0 != 0
-    System::Call "*(i 2, \
-      l ${wbemPrivilegeBackup}, i ${SE_PRIVILEGE_ENABLED}, \
-      l ${wbemPrivilegeRestore}, i ${SE_PRIVILEGE_ENABLED}, \
-      ) p .r2"
-    ${If} $2 != 0
-      System::Call "advapi32::AdjustTokenPrivileges(p r1, i 0, \
-        p r2, i 0, i 0, i 0) i.r0"
-      ${If} $0 != 0
-        StrCpy $0 0
-      ${Else}
-        System::Call "kernel32::GetLastError() i.r0"
-      ${EndIf}
-      System::Free $2
-    ${Else}
-      StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
-    ${EndIf}
-    System::Call "kernel32::CloseHandle(p r1)"
-  ${EndIf}
-  Pop $2
-  Pop $1
-  Exch $0
-FunctionEnd
-
+${SECURITY_FUNCINC} "${UN}" AcquirePrivileges
+${SECURITY_FUNCINC} "${UN}" COMSetDefaultLevel
+${SECURITY_FUNCINC} "${UN}" PrivilegeValueToStack
 ; Connect to the root/wmi namespace
 ; Return values:
 ;   locator - IWbemLocator object
@@ -2709,17 +2661,19 @@ FunctionEnd
   Push $2
   Push $3
 
-  ; Initialization of COM is done via OleInitialize in NSIS installer code
-  ; Set general COM security level
-  System::Call "ole32::CoInitializeSecurity( \
-        p 0, i -1, p 0, p 0, i ${RPC_C_AUTHN_LEVEL_DEFAULT}, \
-        i ${RPC_C_IMP_LEVEL_IMPERSONATE}, p 0, i ${EOAC_NONE}, p 0) i.r0"
+  ; Set default COM security level
+  !insertmacro ${SECURITY_PREFIX}COMSetDefaultLevel_Call "${UN}" $0
   ${If} $0 != 0
      StrCpy $1 "CoInitializeSecurity failed"
   ${Else}
     ; Acquire backup and restore privileges
-    Call `${UN}${BOOTCFG_PREFIX}AcquirePrivileges`
-    Pop $0
+    StrCpy $0 0
+    !insertmacro ${SECURITY_PREFIX}PrivilegeValueToStack_Call "${UN}" \
+      ${SE_BACKUP_NAME} $0
+    !insertmacro ${SECURITY_PREFIX}PrivilegeValueToStack_Call "${UN}" \
+      ${SE_RESTORE_NAME} $0
+    Push $0
+    !insertmacro ${SECURITY_PREFIX}AcquirePrivileges_Call "${UN}" $0
     ${If} $0 != 0
       StrCpy $1 "Failed to acquire required privileges"
     ${Else}

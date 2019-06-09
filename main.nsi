@@ -59,6 +59,8 @@ ${CPIO_Write}
 !include include\cpuid.nsh
 ${CPUID_DataWidth}
 
+!include include\security.nsh
+
 !include include\sysinfo.nsh
 ${SYSINFO_Domain}
 ${SYSINFO_HostName}

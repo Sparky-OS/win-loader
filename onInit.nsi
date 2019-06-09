@@ -17,6 +17,7 @@
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 !macro SetUp UN
+${SECURITY_FUNCINC} "${UN}" COMSetDefaultLevel
 !insertmacro BOOTCFG_FUNCINC "${UN}" ConnectWMI
 !insertmacro BOOTCFG_FUNCINC "${UN}" GetObject
 !insertmacro BOOTCFG_FUNCINC "${UN}" OpenDefaultBcdStore
@@ -24,29 +25,33 @@ Function `${UN}Setup`
   Push $0
   Push $1
 
-  !insertmacro ${BOOTCFG_PREFIX}ConnectWMI_Call "${UN}" $locator $services $0
-  ${If} $0 != 0
-    StrCpy $1 $services
-    StrCpy $services ""
-    StrCpy $locator ""
-  ${Else}
-    !insertmacro ${BOOTCFG_PREFIX}GetObject_Call "${UN}" \
-      $services "BcdStore" $basebcdstore $0
+  ; Set default COM security level
+  !insertmacro ${SECURITY_PREFIX}COMSetDefaultLevel_Call "${UN}" $0
+  ${If} $0 == 0
+    !insertmacro ${BOOTCFG_PREFIX}ConnectWMI_Call "${UN}" $locator $services $0
     ${If} $0 != 0
-      StrCpy $1 $basebcdstore
-      StrCpy $basebcdstore ""
+      StrCpy $1 $services
+      StrCpy $services ""
+      StrCpy $locator ""
     ${Else}
       !insertmacro ${BOOTCFG_PREFIX}GetObject_Call "${UN}" \
-        $services "BcdObject" $basebcdobject $0
+        $services "BcdStore" $basebcdstore $0
       ${If} $0 != 0
-        StrCpy $1 $basebcdobject
-        StrCpy $basebcdobject ""
+        StrCpy $1 $basebcdstore
+        StrCpy $basebcdstore ""
       ${Else}
-        !insertmacro ${BOOTCFG_PREFIX}OpenDefaultBcdStore_Call "${UN}" \
-          $services $basebcdstore $bcdstore $0
+        !insertmacro ${BOOTCFG_PREFIX}GetObject_Call "${UN}" \
+          $services "BcdObject" $basebcdobject $0
         ${If} $0 != 0
-          StrCpy $1 $bcdstore
-          StrCpy $bcdstore ""
+          StrCpy $1 $basebcdobject
+          StrCpy $basebcdobject ""
+        ${Else}
+          !insertmacro ${BOOTCFG_PREFIX}OpenDefaultBcdStore_Call "${UN}" \
+            $services $basebcdstore $bcdstore $0
+          ${If} $0 != 0
+            StrCpy $1 $bcdstore
+            StrCpy $bcdstore ""
+          ${EndIf}
         ${EndIf}
       ${EndIf}
     ${EndIf}
