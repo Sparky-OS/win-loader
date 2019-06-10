@@ -70,12 +70,7 @@ ${SYSINFO_UserName}
 !include include\wmiquery.nsh
 ${WMIQUERY_SingleProp}
 
-!addplugindir ${BUILD_DIR}/plugins
-!addplugindir ${BUILD_DIR}/plugins/cpuid
-!addplugindir ${BUILD_DIR}/plugins/systeminfo
-
 ;--------------------------------
-
 ; Pages
 
 !define MUI_CUSTOMFUNCTION_ABORT Cancelled
