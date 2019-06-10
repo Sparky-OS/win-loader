@@ -21,66 +21,64 @@
 ;   guid - global unique identifier of boot entry
 ;   label - brief description of boot entry
 Function AddBootEntry
-  Exch $0
-  Exch
-  Exch $1
-  Push $2
-  Push $3
-  Push $4
+  System::Store 'S'
+  Pop $3
+  Pop $2
 
-  StrCpy $3 $0
-  StrCpy $2 $1
-  StrCpy $1 $c
-  System::Call "kernel32::QueryDosDevice(t r1, t .r4, \
-    i${NSIS_MAX_STRLEN}) i .r0"
+  System::Call 'kernel32::QueryDosDevice(t "$c", t .r4, \
+    i${NSIS_MAX_STRLEN}) i.r0'
 
   ; guid=$2, label=$3, systempartition=$4
   ${If} $2 != ""
-    ${BOOTCFG_CreateObject} $services $basebcdstore $bcdstore \
-      ${BOOTCFG_BOOT_SECTOR} $2 $1 $0
+  ${AndIf} $0 != 0
+    ${BOOTCFG_ConnectWMI} $R0 $R1 $0
     ${If} $0 == 0
-      ${BOOTCFG_SetDescription} $services $basebcdobject $1 "$3" $3 $0
+      ${BOOTCFG_GetObject} $R1 "BcdStore" $R2 $0
       ${If} $0 == 0
-        ; Release result
-        ${BOOTCFG_ReleaseObject} $3
-        ${BOOTCFG_SetPartition} $services $basebcdobject $1 $4 $3 $0
+        ${BOOTCFG_GetObject} $R1 "BcdObject" $R3 $0
         ${If} $0 == 0
-          ; Release result
-          ${BOOTCFG_ReleaseObject} $3
-          ${BOOTCFG_SetPath} $services $basebcdobject $1 \
-            "\g2ldr.mbr" $3 $0
+          ${BOOTCFG_OpenDefaultBcdStore} $R1 $R2 $R4 $0
           ${If} $0 == 0
-            ; Release result
-            ${BOOTCFG_ReleaseObject} $3
+            ${BOOTCFG_CreateObject} $R1 $R2 $R4 \
+              ${BOOTCFG_BOOT_SECTOR} $2 $5 $0
+            ${If} $0 == 0
+              ; Associate data with boot sector object
+              ${BOOTCFG_SetDescription} $R1 $R3 $5 "$3" $1 $0
+              ${If} $0 == 0
+                ${BOOTCFG_SetPartition} $R1 $R3 $5 $4 $1 $0
+                ${If} $0 == 0
+                  ${BOOTCFG_SetPath} $R1 $R3 $5 "\g2ldr.mbr" $1 $0
+                ${EndIf}
+              ${EndIf}
+              ; Release boot sector object and its associated data
+              ${BOOTCFG_ReleaseObject} $5
+              ${If} $0 == 0
+                ; Append boot entry to list
+                ${BOOTCFG_AppendBootEntry} $R1 $R2 \
+                  $R4 $R3 $2 $1 $0
+                ${If} $0 == 0
+                  ; Release result
+                  ${BOOTCFG_ReleaseObject} $1
+                ${EndIf}
+              ${EndIf}
+            ${EndIf}
+            ${BOOTCFG_ReleaseObject} $R4
           ${EndIf}
+          ${BOOTCFG_ReleaseObject} $R3
         ${EndIf}
+        ${BOOTCFG_ReleaseObject} $R2
       ${EndIf}
-      ; Release bcdobject
-      ${BOOTCFG_ReleaseObject} $1
-      ${If} $0 != 0
-        StrCpy $1 $3
-      ${Else}
-        ; Append boot entry to list
-        ${BOOTCFG_AppendBootEntry} $services $basebcdstore \
-          $bcdstore $basebcdobject $2 $1 $0
-        ${If} $0 == 0
-          ; Release result
-          ${BOOTCFG_ReleaseObject} $1
-        ${EndIf}
-      ${EndIf}
+      ${BOOTCFG_ReleaseObject} $R1
+      ${BOOTCFG_ReleaseObject} $R0
     ${EndIf}
   ${EndIf}
 
   ${If} $0 != 0
     IntFmt $2 "0x%08X" $0
-    MessageBox MB_OK "$1: $2"
+    DetailPrint "$1: $2"
   ${EndIf}
 
-  Pop $4
-  Pop $3
-  Pop $2
-  Pop $1
-  Pop $0
+  System::Store 'L'
 FunctionEnd
 
 Function CreateBootEntry
@@ -101,7 +99,6 @@ Function CreateBootEntry
 !endif ; PXE
         Call AddBootEntry
         WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
-        Call CleanUp
       ${Else}
         MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
         Quit
@@ -543,11 +540,8 @@ ${EndIf}
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
 !endif
-    ${If} $bcdstore != ""
-      Call CleanUp
-    ${Else}
-      DetailPrint "$(registering_bootmgr)"
-    ${EndIf}
+    DetailPrint "$(registering_bootmgr)"
+    Call CreateBootEntry
   ${Endif}
 
 ; ********************************************** Needed for systems with compressed NTFS

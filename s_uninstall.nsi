@@ -17,31 +17,54 @@
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ; Include required functions
+${un.BOOTCFG_ConnectWMI}
 ${un.BOOTCFG_DeleteObject}
+${un.BOOTCFG_GetObject}
+${un.BOOTCFG_OpenDefaultBcdStore}
+${un.BOOTCFG_ReleaseObject}
 ${un.BOOTCFG_RemoveBootEntry}
 
 Function un.RemoveBootEntry
-  ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
-  ${If} $0 != ""
-    ${un.BOOTCFG_DeleteObject} $services $basebcdstore $bcdstore $0 $2 $1
-    ${If} $1 != 0
-      IntFmt $1 "0x%08X" $1
-      MessageBox MB_OK "$2: $1"
+  System::Store 'S'
+  ReadRegStr $2 HKLM "${REGSTR_WIN32}" "bootmgr"
+  ${If} $2 != ""
+    ${un.BOOTCFG_ConnectWMI} $R0 $R1 $0
+    ${If} $0 == 0
+      ${un.BOOTCFG_GetObject} $R1 "BcdStore" $R2 $0
+      ${If} $0 == 0
+        ${un.BOOTCFG_GetObject} $R1 "BcdObject" $R3 $0
+        ${If} $0 == 0
+          ${un.BOOTCFG_OpenDefaultBcdStore} $R1 $R2 $R4 $0
+          ${If} $0 == 0
+            ${un.BOOTCFG_DeleteObject} $R1 $R2 $R4 $2 $1 $0
+            ${If} $0 != 0
+              IntFmt $0 "0x%08X" $0
+              DetailPrint "$1: $0"
+            ${EndIf}
+            ${un.BOOTCFG_RemoveBootEntry} $R1 $R2 $R4 \
+              $R3 $2 $1 $0
+            ${If} $0 != 0
+              IntFmt $1 "0x%08X" $1
+              DetailPrint "$1: $0"
+            ${EndIf}
+            ${un.BOOTCFG_ReleaseObject} $R4
+          ${Endif}
+          ${un.BOOTCFG_ReleaseObject} $R3
+        ${EndIf}
+        ${un.BOOTCFG_ReleaseObject} $R2
+      ${EndIf}
+      ${un.BOOTCFG_ReleaseObject} $R1
+      ${un.BOOTCFG_ReleaseObject} $R0
     ${EndIf}
-    ${un.BOOTCFG_RemoveBootEntry} $services $basebcdstore $bcdstore \
-      $basebcdobject $0 $2 $1
-    ${If} $1 != 0
-      IntFmt $1 "0x%08X" $1
-      MessageBox MB_OK "$2: $1"
-    ${EndIf}
-  ${Endif}
-
-  Call un.CleanUp
+  ${EndIf}
+  System::Store 'L'
 FunctionEnd
 
 Section "Uninstall"
   ; Initialise $c
   ReadRegStr $c HKLM "${REGSTR_WIN32}" "system_drive"
+
+  Call un.RemoveBootEntry
 
   IfFileExists "$c\boot.ini" 0 no_saved_boot_ini_timeout
   SetFileAttributes "$c\boot.ini" NORMAL

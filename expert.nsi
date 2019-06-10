@@ -67,49 +67,62 @@ FunctionEnd
 ; Return value:
 ;  device path or empty string in case of failure 
 Function GetDevicePathOfPartition
-  Push $0
-  Push $1
-  Push $2
+  System::Store 'S'
 
-  ${BOOTCFG_GetElementFromBcd} $services $basebcdstore $bcdstore \
-    $basebcdobject ${BOOTCFG_CURRENT_GUID} ${BOOTCFG_BCDE_DEVICE} \
-    $2 $1 $0
+  ${BOOTCFG_ConnectWMI} $R0 $R1 $0
   ${If} $0 == 0
-    ; Save returned element onto stack
-    Push $1
-    ; Release returned bcd object
-    ${BOOTCFG_ReleaseObject} $2
-    StrCpy $2 $1
-    ${BOOTCFG_GetObjectPropertyValue} $2 "Device" $1 $0
+    ${BOOTCFG_GetObject} $R1 "BcdStore" $R2 $0
     ${If} $0 == 0
-      ${BOOTCFG_GetObjectOfVariant} $1 $2 $0
-      ; Free variant
-      System::Free $1
+      ${BOOTCFG_GetObject} $R1 "BcdObject" $R3 $0
       ${If} $0 == 0
-        ${BOOTCFG_GetObjectPropertyValue} $2 "Path" $1 $0
+        ${BOOTCFG_OpenDefaultBcdStore} $R1 $R2 $R4 $0
         ${If} $0 == 0
-          ${BOOTCFG_GetStringOfVariant} $1 $2 $0
-          ; Free variant
-          System::Free $1
-          StrCpy $1 $2
+          ${BOOTCFG_GetElementFromBcd} $R1 $R2 $R4 \
+            $R3 ${BOOTCFG_CURRENT_GUID} ${BOOTCFG_BCDE_DEVICE} \
+            $2 $1 $0
+          ${If} $0 == 0
+            ; Save returned element onto stack
+            Push $1
+            ; Release returned bcd object
+            ${BOOTCFG_ReleaseObject} $2
+            StrCpy $2 $1
+            ${BOOTCFG_GetObjectPropertyValue} $2 "Device" $1 $0
+            ${If} $0 == 0
+              ${BOOTCFG_GetObjectOfVariant} $1 $2 $0
+              ; Free variant
+              System::Free $1
+              ${If} $0 == 0
+                ${BOOTCFG_GetObjectPropertyValue} $2 "Path" $1 $0
+                ${If} $0 == 0
+                  ${BOOTCFG_GetStringOfVariant} $1 $2 $0
+                  ; Free variant
+                  System::Free $1
+                  StrCpy $1 $2
+                ${EndIf}
+              ${EndIf}
+            ${EndIf}
+            ; Release returned element
+            Pop $2
+            ${BOOTCFG_ReleaseObject} $2
+          ${EndIf}
+          ${BOOTCFG_ReleaseObject} $R4
         ${EndIf}
+        ${BOOTCFG_ReleaseObject} $R3
       ${EndIf}
+      ${BOOTCFG_ReleaseObject} $R2
     ${EndIf}
-    ; Release returned element
-    Pop $2
-    ${BOOTCFG_ReleaseObject} $2
+    ${BOOTCFG_ReleaseObject} $R1
+    ${BOOTCFG_ReleaseObject} $R0
   ${EndIf}
 
   ${If} $0 != 0
-    DetailPrint $1
     StrCpy $0 ""
   ${Else}
     StrCpy $0 $1
   ${EndIf}
 
-  Pop $2
-  Pop $1
-  Exch $0
+  Push $0
+  System::Store 'L'
 FunctionEnd
 
 Function ShowExpert

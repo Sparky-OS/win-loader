@@ -32,49 +32,20 @@ RequestExecutionLevel admin
 !include x64.nsh
 !insertmacro GetRoot
 
-!include include\bootcfg.nsh
-; Include required functions
-${BOOTCFG_AppendBootEntry}
-${BOOTCFG_CreateGUID}
-${BOOTCFG_CreateObject}
-${BOOTCFG_GetElementFromBcd}
-${BOOTCFG_GetObjectPropertyValue}
-${BOOTCFG_GetObjectOfVariant}
-${BOOTCFG_GetStringOfVariant}
-${BOOTCFG_SetDescription}
-${BOOTCFG_SetPartition}
-${BOOTCFG_SetPath}
-${BOOTCFG_ReleaseObject}
-
-!include include\choice.nsh
-${Choice_Present}
-${Choice_OnClick}
-${Choice_Set}
-${Choice_Get}
-
-!include include\cpio.nsh
-${CPIO_Write}
-
 !define CPUID_HELPER_DIR "${BUILD_DIR}/helpers/cpuid"
+
+!include include\bootcfg.nsh
+!include include\choice.nsh
+!include include\cpio.nsh
 !include include\cpuid.nsh
-${CPUID_DataWidth}
-
 !include include\security.nsh
-
 !include include\sysinfo.nsh
-${SYSINFO_Domain}
-${SYSINFO_HostName}
-${SYSINFO_KeyboardLayout}
-${SYSINFO_UserName}
-
 !include include\wmiquery.nsh
-${WMIQUERY_SingleProp}
 
 ;--------------------------------
 ; Pages
 
 !define MUI_CUSTOMFUNCTION_ABORT Cancelled
-!define MUI_CUSTOMFUNCTION_UNABORT un.Cancelled
 Page custom ShowExpert ; expert.nsi
 Page custom ShowRescue ; rescue.nsi
 Page custom ShowKernel ; kernel.nsi
@@ -83,11 +54,9 @@ Page custom ShowGraphics ; graphics.nsi
 Page custom ShowBranch ; download.nsi and branch.nsi
 !endif
 Page custom ShowCustom LeaveCustom ; custom.nsi
-!define MUI_PAGE_CUSTOMFUNCTION_PRE CreateBootEntry
 !insertmacro MUI_PAGE_INSTFILES
 
 !insertmacro MUI_UNPAGE_CONFIRM
-!define MUI_PAGE_CUSTOMFUNCTION_PRE un.RemoveBootEntry
 !insertmacro MUI_UNPAGE_INSTFILES
 
 !include ${BUILD_DIR}/l10n/templates/all.nsh
@@ -104,16 +73,42 @@ Var /GLOBAL preseed_cmdline
 Var /GLOBAL preseed_cfg
 Var /GLOBAL proxy
 Var /GLOBAL arch
-Var /GLOBAL services
-Var /GLOBAL locator
-Var /GLOBAL basebcdstore
-Var /GLOBAL basebcdobject
-Var /GLOBAL bcdstore
 Var /GLOBAL target_distro
 
 ;--------------------------------
 ; Installer
+${Security_COMSetDefaultLevel}
+${un.Security_COMSetDefaultLevel}
 !include onInit.nsi
+
+; Include functions after .onInit and un.onInit functions allowing
+; expansion of macros to occur first in these functions
+${BOOTCFG_AppendBootEntry}
+${BOOTCFG_ConnectWMI}
+${BOOTCFG_CreateGUID}
+${BOOTCFG_CreateObject}
+${BOOTCFG_GetElementFromBcd}
+${BOOTCFG_GetObject}
+${BOOTCFG_GetObjectPropertyValue}
+${BOOTCFG_GetObjectOfVariant}
+${BOOTCFG_GetStringOfVariant}
+${BOOTCFG_SetDescription}
+${BOOTCFG_OpenDefaultBcdStore}
+${BOOTCFG_SetPartition}
+${BOOTCFG_SetPath}
+${BOOTCFG_ReleaseObject}
+${Choice_Present}
+${Choice_OnClick}
+${Choice_Set}
+${Choice_Get}
+${CPIO_Write}
+${CPUID_DataWidth}
+${SYSINFO_Domain}
+${SYSINFO_HostName}
+${SYSINFO_KeyboardLayout}
+${SYSINFO_UserName}
+${WMIQUERY_SingleProp}
+
 !include expert.nsi
 !include rescue.nsi
 !include kernel.nsi

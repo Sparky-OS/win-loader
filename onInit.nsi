@@ -16,81 +16,9 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-!macro SetUp UN
-${SECURITY_FUNCINC} "${UN}" COMSetDefaultLevel
-${BOOTCFG_FUNCINC} "${UN}" ConnectWMI
-${BOOTCFG_FUNCINC} "${UN}" GetObject
-${BOOTCFG_FUNCINC} "${UN}" OpenDefaultBcdStore
-Function `${UN}Setup`
-  Push $0
-  Push $1
-
-  ; Set default COM security level
-  !insertmacro ${SECURITY_PREFIX}COMSetDefaultLevel_Call "${UN}" $0
-  ${If} $0 == 0
-    !insertmacro ${BOOTCFG_PREFIX}ConnectWMI_Call "${UN}" $locator $services $0
-    ${If} $0 != 0
-      StrCpy $1 $services
-      StrCpy $services ""
-      StrCpy $locator ""
-    ${Else}
-      !insertmacro ${BOOTCFG_PREFIX}GetObject_Call "${UN}" \
-        $services "BcdStore" $basebcdstore $0
-      ${If} $0 != 0
-        StrCpy $1 $basebcdstore
-        StrCpy $basebcdstore ""
-      ${Else}
-        !insertmacro ${BOOTCFG_PREFIX}GetObject_Call "${UN}" \
-          $services "BcdObject" $basebcdobject $0
-        ${If} $0 != 0
-          StrCpy $1 $basebcdobject
-          StrCpy $basebcdobject ""
-        ${Else}
-          !insertmacro ${BOOTCFG_PREFIX}OpenDefaultBcdStore_Call "${UN}" \
-            $services $basebcdstore $bcdstore $0
-          ${If} $0 != 0
-            StrCpy $1 $bcdstore
-            StrCpy $bcdstore ""
-          ${EndIf}
-        ${EndIf}
-      ${EndIf}
-    ${EndIf}
-  ${EndIf}
-
-  ${If} $0 != 0
-    IntFmt $0 "0x%08X" $0
-    DetailPrint "$1: $0"
-  ${EndIf}
-
-  Pop $1
-  Pop $0
-FunctionEnd
-!macroend
-
-!macro CleanUp UN
-Function `${UN}CleanUp`
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $bcdstore
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $basebcdobject
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $basebcdstore
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $services
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $locator
-  StrCpy $bcdstore ""
-  StrCpy $basebcdobject ""
-  StrCpy $basebcdstore ""
-  StrCpy $services ""
-  StrCpy $locator ""
-FunctionEnd
-!macroend
-
-!insertmacro SetUp ""
-!insertmacro Setup "un."
-!insertmacro CleanUp ""
-!insertmacro CleanUp "un."
-
 Function .onInit
   InitPluginsDir
-
-  Call SetUp
+  ${Security_COMSetDefaultLevel} $0
 
 !ifdef TARGET_DISTRO
   StrCpy $target_distro "${TARGET_DISTRO}"
@@ -144,7 +72,6 @@ FunctionEnd
 Function Cancelled
   ${If} $cancel == ""
     StrCpy $cancel 1
-    Call CleanUp
     ${If} $mui.InstFilesPage != ""
       EnableWindow $mui.Button.Cancel 0
       Abort
@@ -152,10 +79,6 @@ Function Cancelled
   ${EndIf}
 FunctionEnd
 
-Function un.Cancelled
-  Call un.CleanUp
-FunctionEnd
-
 Function un.onInit
-  Call un.SetUp
+  ${un.Security_COMSetDefaultLevel} $0
 FunctionEnd
