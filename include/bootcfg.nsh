@@ -11,9 +11,9 @@
 
 ${STDMACROS_DefIfNotDef} IID_IWbemLocator \
   "{dc12a687-737f-11cf-884d-00aa004b2e24}"
-${NSISCOMIFACEDECL}IWbemLocator ConnectServer 3 (w,p,p,p,i,p,p,*p)p
+${NSISCOMIFACEDECL}IWbemLocator ConnectServer 3 (w,p,p,p,i,p,p,*p)i
 
-${NSISCOMIFACEDECL}IWbemServices GetObject 6 (w,i,p,*p,p)p
+${NSISCOMIFACEDECL}IWbemServices GetObject 6 (w,i,p,*p,p)i
 ${NSISCOMIFACEDECL}IWbemServices ExecMethod 24 (w,w,i,p,p,*p,p)i
 
 ${NSISCOMIFACEDECL}IWbemClassObject Get 4 (w,i,p,p,p)i
