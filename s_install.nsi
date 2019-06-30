@@ -546,21 +546,4 @@ ${EndIf}
     DetailPrint "$(registering_bootmgr)"
     Call CreateBootEntry
   ${Endif}
-
-; ********************************************** Needed for systems with compressed NTFS
-  DetailPrint "$(disabling_ntfs_compression)"
-  nsExec::Exec '"compact" /u $c\g2ldr "$INSTDIR\g2ldr.mbr" $INSTDIR\grub.cfg'
-  ; in my tests, uncompressing $INSTDIR\grub.cfg wasn't necessary, but better be safe than sorry
-  ${If} $kernel == "linux"
-    nsExec::Exec '"compact" /u $INSTDIR\linux $INSTDIR\initrd.gz'
-  ${ElseIf} $kernel == "kfreebsd"
-    nsExec::Exec '"compact" /u $INSTDIR\kfreebsd.gz $INSTDIR\initrd.gz'
-  ${ElseIf} $kernel == "hurd"
-    nsExec::Exec '"compact" /u $INSTDIR\gnumach.gz $INSTDIR\ext2fs.static $INSTDIR\initrd.gz $INSTDIR\ld.so.1'
-  ${EndIf}
-!ifdef PXE
-  ${If} $pxe_mode == "true"
-    nsExec::Exec '"compact" /u $INSTDIR\pxe.lkrn'
-  ${EndIf}
-!endif ;PXE
 SectionEnd
