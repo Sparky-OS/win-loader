@@ -131,7 +131,7 @@ Section "Installer Loader"
   
 
 !ifndef NOCD
-  ${If} $kernel == "linux"
+  ${If} $kernel == ${KERNEL_LINUX}
     ClearErrors
     StrCpy $0 "$EXEDIR\$linux"
     StrCpy $1 "$INSTDIR\linux"
@@ -145,7 +145,7 @@ Section "Installer Loader"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
-  ${ElseIf} $kernel == "kfreebsd"
+  ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
     ClearErrors
     StrCpy $0 "$EXEDIR\$kfreebsd"
     StrCpy $1 "$INSTDIR\kfreebsd.gz"
@@ -159,7 +159,7 @@ Section "Installer Loader"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
-  ${ElseIf} $kernel == "hurd"
+  ${ElseIf} $kernel == ${KERNEL_HURD}
     ClearErrors
     StrCpy $0 "$EXEDIR\$gnumach"
     StrCpy $1 "$INSTDIR\gnumach.gz"
@@ -251,7 +251,7 @@ Section "Installer Loader"
   Call Download
   Pop $0
 
-  ${If} $kernel == "linux"
+  ${If} $kernel == ${KERNEL_LINUX}
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/linux"
     Call Get_SHA256_ref
@@ -273,7 +273,7 @@ Section "Installer Loader"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
     Pop $0
-  ${ElseIf} $kernel == "kfreebsd"
+  ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/kfreebsd.gz"
     Call Get_SHA256_ref
@@ -295,7 +295,7 @@ Section "Installer Loader"
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
     Pop $0
-  ${ElseIf} $kernel == "hurd"
+  ${ElseIf} $kernel == ${KERNEL_HURD}
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/gnumach.gz"
     Call Get_SHA256_ref
@@ -369,12 +369,12 @@ linux16 /win32-loader/pxe.lkrn$\n\
 boot$\n"
  ${Else}
 !endif ;PXE
-  ${If} $kernel == "linux"
+  ${If} $kernel == ${KERNEL_LINUX}
     FileWrite $0 "\
 linux	/win32-loader/linux $preseed_cmdline$\n\
 initrd	/win32-loader/initrd.gz$\n\
 boot$\n"
-  ${ElseIf} $kernel == "kfreebsd"
+  ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
     FileWrite $0 "\
 kfreebsd	/win32-loader/kfreebsd.gz$\n\
 kfreebsd_module	/win32-loader/initrd.gz type=mfs_root$\n\
@@ -382,7 +382,7 @@ set kFreeBSD.vfs.root.mountfrom=ufs:/dev/md0$\n\
 set kFreeBSD.hw.ata.ata_dma=0   # needed for qemu hard disk # TODO: delete$\n\
 set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
 boot$\n"
-  ${ElseIf} $kernel == "hurd"
+  ${ElseIf} $kernel == ${KERNEL_HURD}
     FileWrite $0 "\
 multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 $preseed_cmdline$\n\
 module --nounzip	/win32-loader/initrd.gz initrd '$$(ramdisk-create)'$\n\
@@ -405,7 +405,7 @@ boot$\n"
 !endif ; PXE
 
 ; TODO: FIX THIS FOR kFreeBSD
-${If} $kernel == "linux"
+${If} $kernel == ${KERNEL_LINUX}
   ; ********************************************** cpio hack
   StrCpy $1 "preseed.cfg"
   StrCpy $2 "newc_chunk"

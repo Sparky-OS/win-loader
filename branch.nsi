@@ -23,7 +23,7 @@ Function ShowBranch
 !ifdef DAILIES
   ${AndIf} $expert == true
 !endif
-    ${If} $kernel == 'linux'
+    ${If} $kernel == ${KERNEL_LINUX}
       ${Choice_Present} di_branch 3
       ${Choice_Get} $0
       ${If} $0 == "2"
@@ -49,13 +49,13 @@ Function ShowBranch
 
     ; Daily images URL
     ; See http://svn.debian.org/viewsvn/d-i/trunk/scripts/daily-build-aggregator for the canonical list
-    ${If} $kernel == "linux"
+    ${If} $kernel == ${KERNEL_LINUX}
       StrCpy $base_url         "https://d-i.debian.org/daily-images/$arch/daily/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
-    ${ElseIf} $kernel == "kfreebsd"
+    ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
       StrCpy $base_url          "https://d-i.debian.org/daily-images/kfreebsd-$arch/daily/"
       StrCpy $base_path_images  "netboot/$gtkdebian-installer/kfreebsd-$arch"
-    ${ElseIf} $kernel == "hurd"
+    ${ElseIf} $kernel == ${KERNEL_HURD}
       StrCpy $base_url          "https://d-i.debian.org/daily-images/hurd-$arch/daily/"
       StrCpy $base_path_images  "netboot/debian-installer/hurd-$arch"
     ${EndIf}
@@ -66,15 +66,15 @@ Function ShowBranch
       StrCpy $base_url "http://"
     ${EndIf}
     StrCpy $base_url         "$base_urldeb.debian.org/debian/dists/stable/"
-    ${If} $kernel == "linux"
+    ${If} $kernel == ${KERNEL_LINUX}
       ; Only Debian GNU/Linux will have a stable branch for the stretch cycle
       StrCpy $base_path_hashes    "main/installer-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/$arch"
-    ${ElseIf} $kernel == "kfreebsd"
+    ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
       ; Debian GNU/kFreeBSD will have no stable branch for the stretch cycle, this branch can't happen
       StrCpy $base_path_hashes    "main/installer-kfreebsd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/kfreebsd-$arch"
-    ${ElseIf} $kernel == "hurd"
+    ${ElseIf} $kernel == ${KERNEL_HURD}
       ; Debian GNU/Hurd will have no stable branch for the stretch cycle, this branch can't happen
       StrCpy $base_path_hashes    "main/installer-hurd-$arch/current/images/"
       StrCpy $base_path_images "netboot/$gtkdebian-installer/hurd-$arch"

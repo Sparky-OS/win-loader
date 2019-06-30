@@ -17,6 +17,10 @@
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+!define KERNEL_LINUX 1
+!define KERNEL_KFREEBSD 2
+!define KERNEL_HURD 3
+
 Function ShowKernel
   Var /GLOBAL kernel 
 !ifdef NOCD
@@ -24,38 +28,40 @@ Function ShowKernel
   ${If} $expert == true
   ${AndIf} $windows_boot_method != direct ; loadlin can only load linux
     ${Choice_Present} kernel 4
-    ${Choice_Get} $0
+    ${Choice_Get} $kernel
 
-    ${If} $0 == "2"
-      StrCpy $kernel kfreebsd
-    ${ElseIf} $0 == "3"
+    ${If} $kernel == ${KERNEL_HURD}
       StrCpy $kernel hurd
       # hurd doesn't exist in other architectures other than i386
       StrCpy $arch i386
-    ${Else}
-      StrCpy $kernel linux
+    ${ElseIf} $kernel == 0
+      StrCpy $kernel ${KERNEL_LINUX}
     ${Endif}
   ${Else}
     ; ** Default to GNU/Linux
-    StrCpy $kernel linux
+    StrCpy $kernel ${KERNEL_LINUX}
   ${Endif}
  !else ; ALLKERNELS
-    StrCpy $kernel linux
+    StrCpy $kernel ${KERNEL_LINUX}
  !endif ; ALLKERNELS
 !else ; NOCD
   ; When on CD, the win32-loader.ini contains a kernel={linux,kfreebsd} in the [installer] section
   ReadINIStr $kernel $d\win32-loader.ini "installer" "kernel"
   ; If there is nothing, default to linux
-  ${If} $kernel == ""
-    StrCpy $kernel linux
+  ${If} $kernel == "kfreebsd"
+    StrCpy $kernel ${KERNEL_KFREEBSD}
+  ${ElseIf} $kernel == "hurd"
+    StrCpy $kernel ${KERNEL_HURD}
+  ${Else}
+    StrCpy $kernel ${KERNEL_LINUX}
   ${EndIf}
 !endif ; NOCD
   Var /GLOBAL kernel_name
-  ${If} $kernel == "kfreebsd"
+  ${If} $kernel == ${KERNEL_KFREEBSD}
     StrCpy $kernel_name "GNU/kFreeBSD"
-  ${ElseIf} $kernel == "linux"
+  ${ElseIf} $kernel == ${KERNEL_LINUX}
     StrCpy $kernel_name "GNU/Linux"
-  ${ElseIf} $kernel == "hurd"
+  ${ElseIf} $kernel == ${KERNEL_HURD}
     StrCpy $kernel_name "GNU/Hurd"
     # hurd doesn't exist in other architectures other than i386
     StrCpy $arch i386
