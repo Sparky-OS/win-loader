@@ -19,7 +19,7 @@
 
 Function .onInstSuccess
   Var /GLOBAL warning2
-  ${If} $windows_boot_method == direct
+  ${If} $windows_boot_method == ${BOOT_DIRECT}
     StrCpy $warning2 $(warning2_direct)
   ${Else}
     StrCpy $warning2 $(warning2_reboot)
@@ -32,5 +32,3 @@ Function .onInstSuccess
     Reboot
   ${Endif}
 FunctionEnd
-
-

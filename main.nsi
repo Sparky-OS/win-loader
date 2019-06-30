@@ -92,6 +92,7 @@ ${BOOTCFG_GetObject}
 ${BOOTCFG_GetObjectPropertyValue}
 ${BOOTCFG_GetObjectOfVariant}
 ${BOOTCFG_GetStringOfVariant}
+${BOOTCFG_IsUEFI}
 ${BOOTCFG_SetDescription}
 ${BOOTCFG_OpenDefaultBcdStore}
 ${BOOTCFG_SetPartition}

@@ -85,28 +85,26 @@ Function AddBootEntry
 FunctionEnd
 
 Function CreateBootEntry
-  ${If} $windows_boot_method == bootmgr
-    ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
-    ${If} $0 == ""
-      ${BOOTCFG_CreateGUID} $2
-      ${If} $2 != ""
-        Push "$2"
+  ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
+  ${If} $0 == ""
+    ${BOOTCFG_CreateGUID} $2
+    ${If} $2 != ""
+      Push "$2"
 !ifdef PXE
-        ${If} $pxe_mode == "true"
-          Push "$(pxe)"
-        ${Else}
-!endif ; PXE
-          Push "$(d-i)"
-!ifdef PXE
-        ${EndIf} ; $pxe_mode == "true"
-!endif ; PXE
-        Call AddBootEntry
-        WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
+      ${If} $pxe_mode == "true"
+        Push "$(pxe)"
       ${Else}
-        MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
-        Quit
-      ${EndIf}
-    ${Endif}
+!endif ; PXE
+        Push "$(d-i)"
+!ifdef PXE
+      ${EndIf} ; $pxe_mode == "true"
+!endif ; PXE
+      Call AddBootEntry
+      WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
+    ${Else}
+      MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
+      Quit
+    ${EndIf}
   ${Endif}
 FunctionEnd
 
@@ -516,7 +514,7 @@ SectionEnd
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
 Section "Bootloader" sec_bootloader
-  ${If} $windows_boot_method == direct
+  ${If} $windows_boot_method == ${BOOT_DIRECT}
     File /oname=$INSTDIR\loadlin.exe "${BUILD_DIR}/loadlin.exe"
     File /oname=$INSTDIR\loadlin.pif "${BUILD_DIR}/loadlin.pif"
   ${Else}
@@ -534,7 +532,7 @@ Section "Bootloader" sec_bootloader
       Quit
     ${EndIf}
 !endif
-    ${If} $windows_boot_method == ntldr
+    ${If} $windows_boot_method == ${BOOT_NTLDR}
       DetailPrint "$(registering_ntldr)"
       SetFileAttributes "$c\boot.ini" NORMAL
       SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
@@ -561,7 +559,7 @@ Section "Bootloader" sec_bootloader
       System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
         m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
       WriteIniStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr" '"$2"'
-    ${ElseIf} $windows_boot_method == bootmgr
+    ${ElseIf} $windows_boot_method == ${BOOT_BOOTMGR}
       DetailPrint "$(registering_bootmgr)"
       Call CreateBootEntry
     ${EndIf}

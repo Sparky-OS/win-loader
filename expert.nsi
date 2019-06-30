@@ -16,6 +16,11 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+!define BOOT_FWBOOTMGR 1
+!define BOOT_BOOTMGR 2
+!define BOOT_NTLDR 3
+!define BOOT_DIRECT 4
+
 ; Get drive letter of device
 ; Parameter:
 ;   device - path of device, e. g. \Device\HarddiskVolume2
@@ -185,30 +190,34 @@ readme_file_not_found:
   ; Windows version is another abort condition
   Var /GLOBAL windows_boot_method
   ${If} ${AtMostWinME}
-    StrCpy $windows_boot_method direct
+    StrCpy $windows_boot_method ${BOOT_DIRECT}
     ${If} ${IsNT}
-      StrCpy $windows_boot_method ntldr
+      StrCpy $windows_boot_method ${BOOT_NTLDR}
     ${Endif}
     Goto windows_version_ok
   ${Endif}
   ${If} ${AtMostWin2003}
-    StrCpy $windows_boot_method ntldr
+    StrCpy $windows_boot_method ${BOOT_NTLDR}
     Goto windows_version_ok
   ${Endif}
   ; So far, all versions post Windows 7 support BCD
-  StrCpy $windows_boot_method bootmgr
+  ${BOOTCFG_IsUEFI} $0
+  ${If} $0 != 0
+    StrCpy $windows_boot_method ${BOOT_FWBOOTMGR}
+  ${Else}
+    StrCpy $windows_boot_method ${BOOT_BOOTMGR}
+  ${EndIf}
 windows_version_ok:
 
 ; ********************************************** Initialise $c
 ; We set it to the "System partition" (see http://en.wikipedia.org/wiki/System_partition_and_boot_partition)
 
-  ${If} $windows_boot_method == ntldr
-  ${OrIf} $windows_boot_method == bootmgr
+  ${If} $windows_boot_method != ${BOOT_DIRECT}
     Push "\Device\HarddiskVolume1"
     Call GetDriveLetterOfDevice
     Pop $c
     ${If} $c == error
-      ${If} $windows_boot_method == bootmgr
+      ${If} $windows_boot_method != ${BOOT_NTLDR}
 	; If we are under Vista or Win7, try reading the partition from {current} entry of default BCD store
 	Call GetDevicePathOfPartition
         Pop $0
@@ -226,7 +235,7 @@ windows_version_ok:
     ${Endif}
     Goto c_is_initialized
   ${Endif}
-  ${If} $windows_boot_method == direct
+  ${If} $windows_boot_method == ${BOOT_DIRECT}
     ; Doesn't really matter.
     ${GetRoot} $WINDIR $c
     Goto c_is_initialized
