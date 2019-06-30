@@ -69,7 +69,7 @@ Section "Uninstall"
   IfFileExists "$c\boot.ini" 0 no_saved_boot_ini_timeout
   SetFileAttributes "$c\boot.ini" NORMAL
   SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
-  DeleteINIStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr"
+  DeleteINIStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr"
     
   ReadIniStr $0 "$c\boot.ini" "boot loader" "old_timeout_win32-loader"
   IfErrors 0 no_saved_boot_ini_timeout
@@ -82,6 +82,5 @@ Section "Uninstall"
   DeleteRegKey HKLM "${REGSTR_WIN32}"
   DeleteRegKey HKLM "${REGSTR_UNINST}"
   Delete $c\g2ldr
-  Delete $c\g2ldr.mbr
   RMDir /r /REBOOTOK $INSTDIR
 SectionEnd

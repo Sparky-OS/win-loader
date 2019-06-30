@@ -47,7 +47,10 @@ Function AddBootEntry
               ${If} $0 == 0
                 ${BOOTCFG_SetPartition} $R1 $R3 $5 $4 $1 $0
                 ${If} $0 == 0
-                  ${BOOTCFG_SetPath} $R1 $R3 $5 "\g2ldr.mbr" $1 $0
+                  StrLen $0 $c
+                  StrCpy $0 "$INSTDIR" "" $0
+                  ; $0=Directory without drive letter
+                  ${BOOTCFG_SetPath} $R1 $R3 $5 "$0\g2ldr.mbr" $1 $0
                 ${EndIf}
               ${EndIf}
               ; Release boot sector object and its associated data
@@ -462,7 +465,7 @@ ${EndIf}
   ${If} $windows_boot_method == ntldr
 !ifdef NOCD
        File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
-       File /oname=$c\g2ldr.mbr "${BUILD_DIR}/g2ldr.mbr"
+       File "${BUILD_DIR}/g2ldr.mbr"
       !ifdef PXE
        ${If} $pxe_mode == "true"
           File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
@@ -477,7 +480,7 @@ ${EndIf}
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
     StrCpy $0 "$EXEDIR\$g2ldr_mbr"
-    StrCpy $1 "$c\g2ldr.mbr"
+    StrCpy $1 "$INSTDIR\g2ldr.mbr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
@@ -508,7 +511,7 @@ ${EndIf}
 !endif ; PXE
    System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
      m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
-   WriteIniStr "$c\boot.ini" "operating systems" "$c\g2ldr.mbr" '"$2"'
+   WriteIniStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr" '"$2"'
   ${Endif}
 
   ${If} $windows_boot_method == direct
@@ -519,7 +522,7 @@ ${EndIf}
   ${If} $windows_boot_method == bootmgr
 !ifdef NOCD
        File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
-       File /oname=$c\g2ldr.mbr "${BUILD_DIR}/g2ldr.mbr"
+       File "${BUILD_DIR}/g2ldr.mbr"
       !ifdef PXE
        ${If} $pxe_mode == "true"
           File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
@@ -534,7 +537,7 @@ ${EndIf}
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
     StrCpy $0 "$EXEDIR\$g2ldr_mbr"
-    StrCpy $1 "$c\g2ldr.mbr"
+    StrCpy $1 "$INSTDIR\g2ldr.mbr"
     CopyFiles /FILESONLY "$0" "$1"
     IfErrors 0 +3
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
@@ -546,7 +549,7 @@ ${EndIf}
 
 ; ********************************************** Needed for systems with compressed NTFS
   DetailPrint "$(disabling_ntfs_compression)"
-  nsExec::Exec '"compact" /u $c\g2ldr $c\g2ldr.mbr $INSTDIR\grub.cfg'
+  nsExec::Exec '"compact" /u $c\g2ldr "$INSTDIR\g2ldr.mbr" $INSTDIR\grub.cfg'
   ; in my tests, uncompressing $INSTDIR\grub.cfg wasn't necessary, but better be safe than sorry
   ${If} $kernel == "linux"
     nsExec::Exec '"compact" /u $INSTDIR\linux $INSTDIR\initrd.gz'
