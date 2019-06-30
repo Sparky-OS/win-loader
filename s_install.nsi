@@ -16,6 +16,8 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+!define GRUB2_EFI_FILE "bootnetx64.efi"
+
 ; Create boot entry and add it to display list of boot manager
 ; Parameter:
 ;   guid - global unique identifier of boot entry
@@ -273,6 +275,22 @@ SectionEnd
   ${EndIf}
 !macroend
 
+Function CopyGrub2Bootloader
+  Push $0
+  Push $1
+  ClearErrors
+  !insertmacro CopyFile "$g2ldr_mbr" g2ldr_mbr
+  StrCpy $0 "$EXEDIR\$g2ldr"
+  StrCpy $1 "$c\g2ldr"
+  CopyFiles /FILESONLY "$0" "$1"
+  ${If} ${Errors}
+    MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+    Quit
+  ${EndIf}
+  Pop $1
+  Pop $0
+FunctionEnd
+
 Section /o "Linux" sec_linux
   ClearErrors
   !insertmacro CopyFile "$linux" linux
@@ -297,7 +315,31 @@ Section /o "Hurd" sec_hurd
   Call WriteGrubConfig${__SECTION__}
 SectionEnd
 
+Section /o "GRUB 2 EFI" sec_grub2_efi
+  ${If} $arch == "amd64"
+    ClearErrors
+    !insertmacro CopyFile "${GRUB2_EFI_FILE}" "${GRUB2_EFI_FILE}"
+  ${EndIf}
+SectionEnd
+
+Section /o "GRUB 2 boot loader for bootmgr" sec_g2ldr_bootmgr
+  Call CopyGrub2Bootloader
+SectionEnd
+
+Section /o "GRUB 2 boot loader for NTLDR" sec_g2ldr_ntldr
+  Call CopyGrub2Bootloader
+SectionEnd
+
+Section /o "Linux boot loader loadlin" sec_loadlin
+  File "${BUILD_DIR}/loadlin.exe"
+  File "${BUILD_DIR}/loadlin.pif"
+SectionEnd
 !else ;NOCD
+
+Function ExtractGrub2Bootloader
+  File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
+  File "${BUILD_DIR}/g2ldr.mbr"
+FunctionEnd
 
 Section "Download" sec_download
 !ifdef PXE
@@ -504,6 +546,34 @@ SectionEnd
 !endif
 
 !ifdef NOCD
+Section /o "GRUB 2 EFI" sec_grub2_efi
+  ${If} $arch == "amd64"
+    Push "$PLUGINSDIR\SHA256SUMS"
+    Push "$base_path_images/${GRUB2_EFI_FILE}"
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
+    Push "false"
+    Push "${GRUB2_EFI_FILE}"
+    Push "$INSTDIR"
+    Push "$base_url$base_path_hashes$base_path_images"
+    Call Download
+    Pop $0
+  ${EndIf}
+SectionEnd
+
+Section /o "GRUB 2 boot loader for bootmgr" sec_g2ldr_bootmgr
+  Call ExtractGrub2Bootloader
+SectionEnd
+
+Section /o "GRUB 2 boot loader for NTLDR" sec_g2ldr_ntldr
+  Call ExtractGrub2Bootloader
+SectionEnd
+
+Section /o "Linux boot loader loadlin" sec_loadlin
+  File "${BUILD_DIR}/loadlin.exe"
+  File "${BUILD_DIR}/loadlin.pif"
+SectionEnd
+
 Section "Download completed" sec_download_done
   ; Hide download controls and disable cancel button
   Push 0
@@ -513,57 +583,45 @@ SectionEnd
 !endif
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
-Section "Bootloader" sec_bootloader
-  ${If} $windows_boot_method == ${BOOT_DIRECT}
-    File /oname=$INSTDIR\loadlin.exe "${BUILD_DIR}/loadlin.exe"
-    File /oname=$INSTDIR\loadlin.pif "${BUILD_DIR}/loadlin.pif"
-  ${Else}
-!ifdef NOCD
-    File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
-    File "${BUILD_DIR}/g2ldr.mbr"
-!else
-    ClearErrors
-    !insertmacro CopyFile "$g2ldr_mbr" g2ldr_mbr
-    StrCpy $0 "$EXEDIR\$g2ldr"
-    StrCpy $1 "$c\g2ldr"
-    CopyFiles /FILESONLY "$0" "$1"
-    ${If} ${Errors}
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    ${EndIf}
-!endif
-    ${If} $windows_boot_method == ${BOOT_NTLDR}
-      DetailPrint "$(registering_ntldr)"
-      SetFileAttributes "$c\boot.ini" NORMAL
-      SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
+Section /o "Firmware Boot Manager" sec_fwbootmgr
+  DetailPrint "${__SECTION__}"
+SectionEnd
 
-      ; Sometimes timeout isn't set.  This may result in ntldr booting straight to
-      ; Windows (bad) or straight to Debian-Installer (also bad)!  Force it to 30
-      ; just in case. Store its eventual old value alongside
-      ; Read the already defined timeout
-      ReadIniStr $0 "$c\boot.ini" "boot loader" "timeout"
-      ${If} ${Errors}
-        ClearErrors
-        WriteIniStr "$c\boot.ini" "boot loader" "old_timeout_win32-loader" $0
-      ${EndIf}
-      WriteIniStr "$c\boot.ini" "boot loader" "timeout" "30"
+Section /o "Boot Manager" sec_bootmgr
+  DetailPrint "$(registering_bootmgr)"
+  Call CreateBootEntry
+SectionEnd
+
+Section /o "Windows NT Loader" sec_ntldr
+  DetailPrint "$(registering_ntldr)"
+  SetFileAttributes "$c\boot.ini" NORMAL
+  SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
+
+  ; Sometimes timeout isn't set.  This may result in ntldr booting straight to
+  ; Windows (bad) or straight to Debian-Installer (also bad)!  Force it to 30
+  ; just in case. Store its eventual old value alongside
+  ; Read the already defined timeout
+  ReadIniStr $0 "$c\boot.ini" "boot loader" "timeout"
+  ${If} ${Errors}
+    ClearErrors
+    WriteIniStr "$c\boot.ini" "boot loader" "old_timeout_win32-loader" $0
+  ${EndIf}
+  WriteIniStr "$c\boot.ini" "boot loader" "timeout" "30"
 !ifdef PXE
-      ${If} $pxe_mode == "true"
-        StrCpy $1 "$(pxe)"
-      ${Else}
+  ${If} $pxe_mode == "true"
+    StrCpy $1 "$(pxe)"
+  ${Else}
 !endif ; PXE
-        StrCpy $1 "$(d-i)"
+    StrCpy $1 "$(d-i)"
 !ifdef PXE
-      ${EndIf} ; $pxe_mode == "true"
+  ${EndIf} ; $pxe_mode == "true"
 !endif ; PXE
-      System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
-        m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
-      WriteIniStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr" '"$2"'
-    ${ElseIf} $windows_boot_method == ${BOOT_BOOTMGR}
-      DetailPrint "$(registering_bootmgr)"
-      Call CreateBootEntry
-    ${EndIf}
-  ${Endif}
+  System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
+    m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
+  WriteIniStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr" '"$2"'
+SectionEnd
+
+Section /o "Direct via loadlin" sec_direct
 SectionEnd
 
 ; Make preparations for installation
@@ -587,6 +645,21 @@ Function Preparation
 !ifdef PXE
   ${Else}
     SectionSetFlags ${sec_pxe} ${SF_SELECTED}
+  ${EndIf}
+  ${If} $windows_boot_method != ""
+  ${AndIf} $windows_boot_method > 0
+    Push $0
+    Push $1
+    ; Select section to copy respectively download
+    ; required files for booting
+    IntOp $0 $windows_boot_method - 1
+    IntOp $1 $0 + ${sec_grub2_efi}
+    SectionSetFlags $1 ${SF_SELECTED}
+    ; Select section to configure boot loader
+    IntOp $1 $0 + ${sec_fwbootmgr}
+    SectionSetFlags $1 ${SF_SELECTED}
+    Pop $1
+    Pop $0
   ${EndIf}
 !endif
 FunctionEnd
