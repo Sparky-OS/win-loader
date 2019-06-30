@@ -1,5 +1,5 @@
 ; Debian-Installer Loader - Installation
-; 
+;
 ; Copyright (C) 2007,2008,2009  Robert Millan <rmh@aybabtu.com>
 ; Copyright (C) 2010,2011       Didier Raboud <odyx@debian.org>
 ;
@@ -110,280 +110,50 @@ Function CreateBootEntry
   ${Endif}
 FunctionEnd
 
-Section "Installer Loader"
-; ******************************************************************************
-; ***************************************** THIS IS WHERE THE REAL ACTION STARTS
-; ******************************************************************************
-
-  ; Up to this point, we haven't modified host system.  The first modification
-  ; we want to do is preparing the Uninstaller (so that in case something went
-  ; wrong, our half-install can be undone).
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayName" $(program_name)
-  WriteRegStr HKLM "${REGSTR_UNINST}" "UninstallString" "$INSTDIR\Uninstall.exe"
-  ; Add more branding (see branding.nsi)
-  WriteRegStr HKLM "${REGSTR_UNINST}" "Publisher" "${_COMPANY_NAME}"
-  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayIcon" "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "${REGSTR_UNINST}" "NoModify" "1"
-  WriteRegStr HKLM "${REGSTR_UNINST}" "NoRepair" "1"
-  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayVersion" "${VERSION_OPT}"
-  WriteRegStr HKLM "${REGSTR_UNINST}" "ProductID" "${4DIGITS_DATE}"
-  
-
-!ifndef NOCD
-  ${If} $kernel == ${KERNEL_LINUX}
-    ClearErrors
-    StrCpy $0 "$EXEDIR\$linux"
-    StrCpy $1 "$INSTDIR\linux"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$initrd"
-    StrCpy $1 "$INSTDIR\initrd.gz"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-  ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
-    ClearErrors
-    StrCpy $0 "$EXEDIR\$kfreebsd"
-    StrCpy $1 "$INSTDIR\kfreebsd.gz"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$kfreebsd_module"
-    StrCpy $1 "$INSTDIR\initrd.gz"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-  ${ElseIf} $kernel == ${KERNEL_HURD}
-    ClearErrors
-    StrCpy $0 "$EXEDIR\$gnumach"
-    StrCpy $1 "$INSTDIR\gnumach.gz"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$ext2fs"
-    StrCpy $1 "$INSTDIR\ext2fs.static"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$initrd"
-    StrCpy $1 "$INSTDIR\initrd.gz"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$ld"
-    StrCpy $1 "$INSTDIR\ld.so.1"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-  ${EndIf}
-!else ;NOCD
-!ifdef PXE
- ${If} $pxe_mode == "false"
-!endif ;PXE
-  ; Enable cancel button and make download controls visible
-  EnableWindow $mui.Button.Cancel 1
-  Push 1
-  Call Download_ShowControls
-  ${If} $base_path_hashes != ""
-    ; Remove trailing / from $base_url
-    StrCpy $1 "$base_url" -1
-    ; Download the Release and Release.gpg files
-    Push "false"
-    Push "false"
-    Push "Release"
-    Push "$PLUGINSDIR"
-    Push "$1"
-    Call Download
-    Pop $0
-    Push "false"
-    Push "false"
-    Push "Release.gpg"
-    Push "$PLUGINSDIR"
-    Push "$1"
-    Call Download
-    Pop $0
-
-    EnableWindow $mui.Button.Cancel 0
-    ; Now check gpg validity of this
-    File /oname=$PLUGINSDIR\gpgv.exe /usr/share/win32/gpgv.exe
-    File /oname=$PLUGINSDIR\debian-archive-keyring.gpg /usr/share/keyrings/debian-archive-keyring.gpg
-    File /oname=$PLUGINSDIR\debian-archive-removed-keys.gpg /usr/share/keyrings/debian-archive-removed-keys.gpg
-    StrCpy $0 "Release"
-    DetailPrint $(gpg_checking_release)
-    Push "$OUTDIR"
-    SetOutPath "$PLUGINSDIR"
-    nsExec::Exec 'gpgv.exe --keyring ".\debian-archive-removed-keys.gpg" --keyring ".\debian-archive-keyring.gpg" Release.gpg Release'
-    Pop $0
-    ${If} $0 != 0
-      StrCpy $0 "Release"
-      MessageBox MB_OK|MB_ICONSTOP "$(unsecure_release)"
-      Quit
-    ${EndIf}
-    Pop $0
-    SetOutPath "$0"
-    EnableWindow $mui.Button.Cancel 1
-
-    ; Get SHA256SUMS file SHA1SUM
-    Push "$PLUGINSDIR\Release"
-    Push "$base_path_hashesSHA256SUMS"
-    Call Get_SHA256_ref
-    ; SHA-256 is on the stack.
-  ${Else}
-    Push "false" ; Don't try to compare the SHA1SUM (daily images don't have that).
-  ${EndIf}
-  
-  ; Download the SHA256SUMS file
-  ; SHA-1 or "false" is on the stack
-  Push "false"
-  Push "SHA256SUMS"
-  Push "$PLUGINSDIR"
-  Push "$base_url$base_path_hashes"
-  Call Download
-  Pop $0
-
-  ${If} $kernel == ${KERNEL_LINUX}
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/linux"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "linux"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-    
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/initrd.gz"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "initrd.gz"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-  ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/kfreebsd.gz"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "kfreebsd.gz"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/initrd.gz"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "initrd.gz"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-  ${ElseIf} $kernel == ${KERNEL_HURD}
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/gnumach.gz"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "gnumach.gz"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/ext2fs.static"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "ext2fs.static"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/initrd.gz"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "initrd.gz"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/ld.so.1"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "ld.so.1"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
-  ${EndIf}
-  ; Hide download controls and disable cancel button
-  Push 0
-  Call Download_ShowControls
-  EnableWindow $mui.Button.Cancel 0
-!ifdef PXE
- ${EndIf} ; $pxe_mode == "false"
-!endif ;PXE
-!endif
-
-; We're about to write down our preseed line.  This would be a nice place
-; to add post-install parameters.
-  StrCpy $preseed_cmdline "$preseed_cmdline ---"
-
-; ********************************************** preseed quietness
-  ${If} $expert == false
-    StrCpy $preseed_cmdline "$preseed_cmdline quiet"
-  ${Endif}
-
 ; ********************************************** grub.cfg
+; Generate grub.cfg file
+; Return value:
+;   file handle of grub.cfg file
+Function GenerateGrubConfig
+  Push $0
   StrCpy $0 "$INSTDIR\grub.cfg"
   DetailPrint "$(generating)"
-  FileOpen $0 $INSTDIR\grub.cfg w
-!ifdef PXE
- ${If} $pxe_mode == "true"
-    FileWrite $0 "\
-linux16 /win32-loader/pxe.lkrn$\n\
-boot$\n"
- ${Else}
-!endif ;PXE
-  ${If} $kernel == ${KERNEL_LINUX}
-    FileWrite $0 "\
+  FileOpen $0 "$0" w
+  Exch $0
+FunctionEnd
+
+; Write grub.cfg file for Linux kernel
+Function WriteGrubConfigLinux
+  Call GenerateGrubConfig
+  Exch $0
+  FileWrite $0 "\
 linux	/win32-loader/linux $preseed_cmdline$\n\
 initrd	/win32-loader/initrd.gz$\n\
 boot$\n"
-  ${ElseIf} $kernel == ${KERNEL_KFREEBSD}
-    FileWrite $0 "\
+  FileClose $0
+  Pop $0
+FunctionEnd
+
+; Write grub.cfg file for kFreeBSD kernel
+Function WriteGrubConfigkFreeBSD
+  Call GenerateGrubConfig
+  Exch $0
+  FileWrite $0 "\
 kfreebsd	/win32-loader/kfreebsd.gz$\n\
 kfreebsd_module	/win32-loader/initrd.gz type=mfs_root$\n\
 set kFreeBSD.vfs.root.mountfrom=ufs:/dev/md0$\n\
 set kFreeBSD.hw.ata.ata_dma=0   # needed for qemu hard disk # TODO: delete$\n\
 set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
 boot$\n"
-  ${ElseIf} $kernel == ${KERNEL_HURD}
-    FileWrite $0 "\
+  FileClose $0
+  Pop $0
+FunctionEnd
+
+; Write grub.cfg file for Hurd kernel
+Function WriteGrubConfigHurd
+  Call GenerateGrubConfig
+  Exch $0
+  FileWrite $0 "\
 multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 $preseed_cmdline$\n\
 module --nounzip	/win32-loader/initrd.gz initrd '$$(ramdisk-create)'$\n\
 module 			/win32-loader/ext2fs.static ext2fs \$\n\
@@ -394,19 +164,24 @@ module 			/win32-loader/ext2fs.static ext2fs \$\n\
 			'$$(task-create)' '$$(task-resume)'$\n\
 module			/win32-loader/ld.so.1 exec /hurd/exec '$$(exec-task=task-create)'$\n\
 boot$\n"
-  ${EndIf}
-!ifdef PXE
- ${EndIf} ; $pxe_mode == "true"
-!endif ;PXE
   FileClose $0
+  Pop $0
+FunctionEnd
 
 !ifdef PXE
- ${If} $pxe_mode == "false"
+Function WriteGrubConfigPXE
+  Call GenerateGrubConfig
+  Exch $0
+  FileWrite $0 "\
+linux16 /win32-loader/pxe.lkrn$\n\
+boot$\n"
+  FileClose $0
+FunctionEnd
 !endif ; PXE
 
-; TODO: FIX THIS FOR kFreeBSD
-${If} $kernel == ${KERNEL_LINUX}
-  ; ********************************************** cpio hack
+; Adding the preseed file to the installer's initrd.gz
+Function PreSeedLinux
+  System::Store 'S'
   StrCpy $1 "preseed.cfg"
   StrCpy $2 "newc_chunk"
   StrCpy $3 "initrd.gz"
@@ -456,94 +231,335 @@ ${If} $kernel == ${KERNEL_LINUX}
     MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
     Quit
   ${EndIf}
-${EndIf}
-!ifdef PXE
- ${EndIf} ; $pxe_mode == "false"
-!endif ; PXE
+  System::Store 'L'
+FunctionEnd
 
-; ********************************************** Do bootloader last, because it's the most dangerous
-  ${If} $windows_boot_method == ntldr
-!ifdef NOCD
-       File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
-       File "${BUILD_DIR}/g2ldr.mbr"
-      !ifdef PXE
-       ${If} $pxe_mode == "true"
-          File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
-       ${EndIf} ; $pxe_mode == "true"
-      !endif ; PXE
-!else
-    ClearErrors
-    StrCpy $0 "$EXEDIR\$g2ldr"
-    StrCpy $1 "$c\g2ldr"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-    StrCpy $0 "$EXEDIR\$g2ldr_mbr"
-    StrCpy $1 "$INSTDIR\g2ldr.mbr"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
-!endif
-    DetailPrint "$(registering_ntldr)"
-    SetFileAttributes "$c\boot.ini" NORMAL
-    SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
+; ******************************************************************************
+; ***************************************** THIS IS WHERE THE REAL ACTION STARTS
+; ******************************************************************************
+Section "Preparation" sec_prep
+  Call Preparation
 
-    ; Sometimes timeout isn't set.  This may result in ntldr booting straight to
-    ; Windows (bad) or straight to Debian-Installer (also bad)!  Force it to 30
-    ; just in case. Store its eventual old value alongside
-    ; Read the already defined timeout
-    ReadIniStr $0 "$c\boot.ini" "boot loader" "timeout"
-    IfErrors 0 no_boot_ini_timeout
-       ClearErrors
-       WriteIniStr "$c\boot.ini" "boot loader" "old_timeout_win32-loader" $0
-    no_boot_ini_timeout:
-    WriteIniStr "$c\boot.ini" "boot loader" "timeout" "30"
-!ifdef PXE
-   ${If} $pxe_mode == "true"
-    StrCpy $1 "$(pxe)"
-   ${Else}
-!endif ; PXE
-    StrCpy $1 "$(d-i)"
-!ifdef PXE
-   ${EndIf} ; $pxe_mode == "true"
-!endif ; PXE
-   System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
-     m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
-   WriteIniStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr" '"$2"'
+  ; We're about to write down our preseed line.  This would be a nice place
+  ; to add post-install parameters.
+  StrCpy $preseed_cmdline "$preseed_cmdline ---"
+
+  ; ********************************************** preseed quietness
+  ${If} $expert == false
+    StrCpy $preseed_cmdline "$preseed_cmdline quiet"
   ${Endif}
 
+  ; Up to this point, we haven't modified host system.  The first modification
+  ; we want to do is preparing the Uninstaller (so that in case something went
+  ; wrong, our half-install can be undone).
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayName" $(program_name)
+  WriteRegStr HKLM "${REGSTR_UNINST}" "UninstallString" "$INSTDIR\Uninstall.exe"
+  ; Add more branding (see branding.nsi)
+  WriteRegStr HKLM "${REGSTR_UNINST}" "Publisher" "${_COMPANY_NAME}"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayIcon" "$INSTDIR\Uninstall.exe"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "NoModify" "1"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "NoRepair" "1"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "DisplayVersion" "${VERSION_OPT}"
+  WriteRegStr HKLM "${REGSTR_UNINST}" "ProductID" "${4DIGITS_DATE}"
+SectionEnd
+
+!ifndef NOCD
+!macro CopyFile SOURCE DEST
+  StrCpy $0 "$EXEDIR\${SOURCE}"
+  StrCpy $1 "$INSTDIR\${DEST}"
+  CopyFiles /FILESONLY "$0" "$1"
+  ${If} ${Errors}
+    MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
+    Quit
+  ${EndIf}
+!macroend
+
+Section /o "Linux" sec_linux
+  ClearErrors
+  !insertmacro CopyFile "$linux" linux
+  !insertmacro CopyFile "$initrd" initrd.gz
+  Call WriteGrubConfig${__SECTION__}
+  Call PreSeed${__SECTION__}
+SectionEnd
+
+Section /o "kFreeBSD" sec_kfreebsd
+  ClearErrors
+  !insertmacro CopyFile "$kfreebsd" kfreebsd.gz
+  !insertmacro CopyFile "$kfreebsd_module" initrd.gz
+  Call WriteGrubConfig${__SECTION__}
+SectionEnd
+
+Section /o "Hurd" sec_hurd
+  ClearErrors
+  !insertmacro CopyFile "$gnumach" gnumach.gz
+  !insertmacro CopyFile "$ext2fs" ext2fs.static
+  !insertmacro CopyFile "$initrd" initrd.gz
+  !insertmacro CopyFile "$ld" ld.so.1
+  Call WriteGrubConfig${__SECTION__}
+SectionEnd
+
+!else ;NOCD
+
+Section "Download" sec_download
+!ifdef PXE
+  ${If} $pxe_mode != "true"
+!endif
+    ; Enable cancel button and make download controls visible
+    EnableWindow $mui.Button.Cancel 1
+    Push 1
+    Call Download_ShowControls
+    ${If} $base_path_hashes != ""
+      ; Remove trailing / from $base_url
+      StrCpy $1 "$base_url" -1
+      ; Download the Release and Release.gpg files
+      Push "false"
+      Push "false"
+      Push "Release"
+      Push "$PLUGINSDIR"
+      Push "$1"
+      Call Download
+      Pop $0
+      Push "false"
+      Push "false"
+      Push "Release.gpg"
+      Push "$PLUGINSDIR"
+      Push "$1"
+      Call Download
+      Pop $0
+
+      EnableWindow $mui.Button.Cancel 0
+      ; Now check gpg validity of this
+      File /oname=$PLUGINSDIR\gpgv.exe /usr/share/win32/gpgv.exe
+      File /oname=$PLUGINSDIR\debian-archive-keyring.gpg /usr/share/keyrings/debian-archive-keyring.gpg
+      File /oname=$PLUGINSDIR\debian-archive-removed-keys.gpg /usr/share/keyrings/debian-archive-removed-keys.gpg
+      StrCpy $0 "Release"
+      DetailPrint $(gpg_checking_release)
+      Push "$OUTDIR"
+      SetOutPath "$PLUGINSDIR"
+      nsExec::Exec 'gpgv.exe --keyring ".\debian-archive-removed-keys.gpg" --keyring ".\debian-archive-keyring.gpg" Release.gpg Release'
+      Pop $0
+      ${If} $0 != 0
+        StrCpy $0 "Release"
+        MessageBox MB_OK|MB_ICONSTOP "$(unsecure_release)"
+        Quit
+      ${EndIf}
+      Pop $0
+      SetOutPath "$0"
+      EnableWindow $mui.Button.Cancel 1
+
+      ; Get SHA256SUMS file
+      Push "$PLUGINSDIR\Release"
+      Push "$base_path_hashesSHA256SUMS"
+      Call Get_SHA256_ref
+      ; SHA-256 is on the stack.
+    ${Else}
+      Push "false" ; Don't try to compare the SHA256SUM (daily images don't have that).
+    ${EndIf}
+
+    ; Download the SHA256SUMS file
+    ; SHA-256 or "false" is on the stack
+    Push "false"
+    Push "SHA256SUMS"
+    Push "$PLUGINSDIR"
+    Push "$base_url$base_path_hashes"
+    Call Download
+    Pop $0
+!ifdef PXE
+  ${EndIf}
+!endif
+SectionEnd
+
+Section /o "Linux" sec_linux
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/linux"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "linux"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/initrd.gz"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "initrd.gz"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+  Call WriteGrubConfig${__SECTION__}
+  Call PreSeed${__SECTION__}
+SectionEnd
+
+Section /o "kFreeBSD" sec_kfreebsd
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/kfreebsd.gz"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "kfreebsd.gz"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/initrd.gz"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "initrd.gz"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+  Call WriteGrubConfig${__SECTION__}
+SectionEnd
+
+Section /o "Hurd" sec_hurd
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/gnumach.gz"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "gnumach.gz"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/ext2fs.static"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "ext2fs.static"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/initrd.gz"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "initrd.gz"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+
+  Push "$PLUGINSDIR\SHA256SUMS"
+  Push "$base_path_images/ld.so.1"
+  Call Get_SHA256_ref
+  ; SHA256 is on stack
+  Push "false"
+  Push "ld.so.1"
+  Push "$INSTDIR"
+  Push "$base_url$base_path_hashes$base_path_images"
+  Call Download
+  Pop $0
+  Call WriteGrubConfig${__SECTION__}
+SectionEnd
+!endif
+
+!ifdef PXE
+Section /o "PXE" sec_pxe
+  File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
+  Call WriteGrubConfig${__SECTION__}
+SectionEnd
+!endif
+
+!ifdef NOCD
+Section "Download completed" sec_download_done
+  ; Hide download controls and disable cancel button
+  Push 0
+  Call Download_ShowControls
+  EnableWindow $mui.Button.Cancel 0
+SectionEnd
+!endif
+
+; ********************************************** Do bootloader last, because it's the most dangerous
+Section "Bootloader" sec_bootloader
   ${If} $windows_boot_method == direct
     File /oname=$INSTDIR\loadlin.exe "${BUILD_DIR}/loadlin.exe"
     File /oname=$INSTDIR\loadlin.pif "${BUILD_DIR}/loadlin.pif"
-  ${Endif}
-
-  ${If} $windows_boot_method == bootmgr
+  ${Else}
 !ifdef NOCD
-       File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
-       File "${BUILD_DIR}/g2ldr.mbr"
-      !ifdef PXE
-       ${If} $pxe_mode == "true"
-          File /oname=$INSTDIR\pxe.lkrn "${BUILD_DIR}/pxe.lkrn"
-       ${EndIf} ; $pxe_mode == "true"
-      !endif ; PXE
+    File /oname=$c\g2ldr "${BUILD_DIR}/g2ldr"
+    File "${BUILD_DIR}/g2ldr.mbr"
 !else
     ClearErrors
+    !insertmacro CopyFile "$g2ldr_mbr" g2ldr_mbr
     StrCpy $0 "$EXEDIR\$g2ldr"
     StrCpy $1 "$c\g2ldr"
     CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
+    ${If} ${Errors}
       MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
       Quit
-    StrCpy $0 "$EXEDIR\$g2ldr_mbr"
-    StrCpy $1 "$INSTDIR\g2ldr.mbr"
-    CopyFiles /FILESONLY "$0" "$1"
-    IfErrors 0 +3
-      MessageBox MB_OK|MB_ICONSTOP "$(error_copyfiles)"
-      Quit
+    ${EndIf}
 !endif
-    DetailPrint "$(registering_bootmgr)"
-    Call CreateBootEntry
+    ${If} $windows_boot_method == ntldr
+      DetailPrint "$(registering_ntldr)"
+      SetFileAttributes "$c\boot.ini" NORMAL
+      SetFileAttributes "$c\boot.ini" SYSTEM|HIDDEN
+
+      ; Sometimes timeout isn't set.  This may result in ntldr booting straight to
+      ; Windows (bad) or straight to Debian-Installer (also bad)!  Force it to 30
+      ; just in case. Store its eventual old value alongside
+      ; Read the already defined timeout
+      ReadIniStr $0 "$c\boot.ini" "boot loader" "timeout"
+      ${If} ${Errors}
+        ClearErrors
+        WriteIniStr "$c\boot.ini" "boot loader" "old_timeout_win32-loader" $0
+      ${EndIf}
+      WriteIniStr "$c\boot.ini" "boot loader" "timeout" "30"
+!ifdef PXE
+      ${If} $pxe_mode == "true"
+        StrCpy $1 "$(pxe)"
+      ${Else}
+!endif ; PXE
+        StrCpy $1 "$(d-i)"
+!ifdef PXE
+      ${EndIf} ; $pxe_mode == "true"
+!endif ; PXE
+      System::Call "kernel32::WideCharToMultiByte(i 850, i 0, w r1, i -1, \
+        m.r2, i${NSIS_MAX_STRLEN}, p 0, p 0) i.r0"
+      WriteIniStr "$c\boot.ini" "operating systems" "$INSTDIR\g2ldr.mbr" '"$2"'
+    ${ElseIf} $windows_boot_method == bootmgr
+      DetailPrint "$(registering_bootmgr)"
+      Call CreateBootEntry
+    ${EndIf}
   ${Endif}
 SectionEnd
+
+; Make preparations for installation
+; Note:
+; Function has to be placed below defintion of sections
+; in order to select sections based on their identifiers.
+Function Preparation
+!ifdef PXE
+  ${If} $pxe_mode != "true"
+!endif
+    ${If} $kernel != ""
+    ${AndIf} $kernel > 0
+      Push $0
+      IntOp $0 $kernel - 1
+      IntOp $0 $0 + ${sec_linux}
+      SectionSetFlags $0 ${SF_SELECTED}
+      Pop $0
+    ${Else}
+      SectionSetFlags ${sec_linux} ${SF_SELECTED}
+    ${EndIf}
+!ifdef PXE
+  ${Else}
+    SectionSetFlags ${sec_pxe} ${SF_SELECTED}
+  ${EndIf}
+!endif
+FunctionEnd
