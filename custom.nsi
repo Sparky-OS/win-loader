@@ -159,31 +159,6 @@ d-i passwd/user-fullname string $0$\n\
 d-i passwd/user-fullname seen false"
   ${Endif}
 
-!ifdef NETWORK_BASE_URL
-; ********************************************** if ${NETWORK_BASE_URL} provides a preseed.cfg, use it
-  Push ${NETWORK_BASE_URL_CHECKSUM}
-  Push true
-  Push "preseed.cfg"
-  Push "$PLUGINSDIR"
-  Push "${NETWORK_BASE_URL}"
-  Call Download
-  Pop $0
-  ${If} $0 == "success"
-    StrCpy $preseed_cfg "$preseed_cfg$\n$\n"
-    ClearErrors
-    FileOpen $0 $PLUGINSDIR\preseed.cfg r
-network_preseed_loop:
-    FileRead $0 $1
-    IfErrors +3
-    StrCpy $preseed_cfg "\
-$preseed_cfg\
-$1"
-    Goto network_preseed_loop
-    FileClose $0
-    StrCpy $preseed_cfg "$preseed_cfg$\n"
-  ${Endif}
-!endif
-
 ; ********************************************** Display customisation dialog now
   ${If} $expert == true
     nsDialogs::Create ${IDC_CHILDRECT}

@@ -370,6 +370,35 @@ Section "Download" sec_download
 !endif
 SectionEnd
 
+!ifdef NETWORK_BASE_URL
+; ********************************************** if ${NETWORK_BASE_URL} provides a preseed.cfg, use it
+Section "Custom preseeding" sec_preseeding
+  Push ${NETWORK_BASE_URL_CHECKSUM}
+  Push true
+  Push "preseed.cfg"
+  Push "$PLUGINSDIR"
+  Push "${NETWORK_BASE_URL}"
+  Call Download
+  Pop $0
+  ${If} $0 == "success"
+    StrCpy $preseed_cfg "$preseed_cfg$\n$\n"
+    ClearErrors
+    FileOpen $0 $PLUGINSDIR\preseed.cfg r
+    ${Do}
+      FileRead $0 $1
+      ${If} ${Errors}
+        ${ExitDo}
+      ${EndIf}
+      StrCpy $preseed_cfg "\
+$preseed_cfg\
+$1"
+    ${Loop}
+    FileClose $0
+    StrCpy $preseed_cfg "$preseed_cfg$\n"
+  ${Endif}
+SectionEnd
+!endif ; NETWORK_BASE_URL
+
 Section /o "Linux" sec_linux
   Push "$PLUGINSDIR\SHA256SUMS"
   Push "$base_path_images/linux"
