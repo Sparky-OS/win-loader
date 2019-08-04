@@ -34,6 +34,8 @@ ${NSISCOMIFACEDECL}IWbemClassObject GetMethod 19 (w,i,*p,p)i
 !define BOOTCFG_CURRENT_GUID   "{fa926493-6f1c-4193-a414-58f0b2456d1e}"
 !define BOOTCFG_FWBOOTMGR_GUID "{a5a30fa2-3d06-4e9f-b5f4-a01df9d1fcba}"
 !define BOOTCFG_PARTIONDEVICE_TYPE     2
+!define BOOTCFG_VOLUME_BLOCK_RECORD_SIZE 512
+!define BOOTCFG_VOLUME_SERIAL_NUMBER_OFFSET 72
 
 ${STDMACROS_DefIfNotDef} CLSID_WbemLocator \
   "{4590f811-1d3a-11d0-891f-00aa004b2e24}"
@@ -42,6 +44,8 @@ ${STDMACROS_DefIfNotDef} ERROR_NO_ACCESS              998
 ${STDMACROS_DefIfNotDef} ERROR_NO_MORE_ITEMS          259
 
 ${STDMACROS_DefIfNotDef} FIRMWARE_TYPE_UEFI             2
+
+${STDMACROS_DefIfNotDef} OPEN_EXISTING                  3
 
 ${STDMACROS_DefIfNotDef} WBEM_FLAG_FORWARD_ONLY       0x20
 ${STDMACROS_DefIfNotDef} WBEM_FLAG_RETURN_IMMEDIATELY 0x10
@@ -345,6 +349,14 @@ ${BOOTCFG_FUNCDEF} GetESPVolume
   Call `${UN}${BOOTCFG_PREFIX}GetESPVolume`
   Pop ${ERR}
   Pop ${VOLUME}
+!macroend
+
+; ${BOOTCFG_GetFileSystemUUID} drive uuid
+${BOOTCFG_FUNCDEF} GetFileSystemUUID
+!macro BOOTCFG_GetFileSystemUUID_Call UN DRIVE UUID
+  Push ${DRIVE}
+  Call `${UN}${BOOTCFG_PREFIX}GetFileSystemUUID`
+  Pop ${UUID}
 !macroend
 
 ; ${BOOTCFG_GetSystemPartition} services basebcdstore partition err
@@ -1651,6 +1663,59 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" GetESPVolume
   System::Store 'L'
 FunctionEnd
 !macroend ; BOOOTCFG_GetESPVolume
+
+!macro BOOTCFG_GetFileSystemUUID UN
+; Get universally unique identifer (UUID) of filesystem
+; Parameter:
+;   drive - MS-DOS device name of drive, e. g. C:
+; Return value:
+;   UUID - unique identifer of filesystem
+${BOOTCFG_FUNCPROLOG} "${UN}" GetFileSystemUUID
+  System::Store 'S'
+  Pop $0
+
+  StrCpy $0 "\\.\$0"
+  System::Call "kernel32::CreateFile(t r0, i ${GENERIC_READ}, i ${FILE_SHARE_READ}|${FILE_SHARE_WRITE}, p 0, i ${OPEN_EXISTING}, i 0, p 0) p.r1"
+  StrCpy $0 ""
+  ${If} $1 P<> ${INVALID_HANDLE_VALUE}
+    System::Call "kernel32::GetVolumeInformationByHandleW(p r1, p 0, i 0, *i .r2, p 0, p 0, w .r3, i ${NSIS_MAX_STRLEN}) i.r4"
+    ${If} $4 != 0
+      ${If} $3 == "NTFS"
+        ; Get complete NTFS volume serial number (8 bytes)
+        System::Alloc ${BOOTCFG_VOLUME_BLOCK_RECORD_SIZE}
+        Pop $2
+        ${If} $2 P<> 0
+          ; The NTFS file system driver is sensitive about the
+          ; buffer size. ReadFile is going to fail with
+          ; ERROR_INVALID_PARAMETER (87 = 0x57) in case of reading
+          ; from the NTFS volume if the buffer size is not a multiple
+          ; of 512 bytes.
+          System::Call "kernel32::ReadFile(p r1, p r2, i ${BOOTCFG_VOLUME_BLOCK_RECORD_SIZE}, p 0, p 0) i.r3"
+          ${If} $3 != 0
+            System::Call "*$2(&v${BOOTCFG_VOLUME_SERIAL_NUMBER_OFFSET}, l.r3)"
+            System::Int64Op $3 & 0xffffffff
+            System::Int64Op $3 >> 32
+            Pop $3
+            IntFmt $0 "%0x" $3
+            Pop $3
+            IntFmt $0 "$0%0x" $3
+          ${EndIf}
+          System::Free $2
+        ${EndIf}
+      ${Else}
+        IntOp $0 $2 & 0xffff
+        IntFmt $0 "%04x" $0
+        IntOp $2 $2 >> 16
+        IntFmt $0 "%04x-$0" $2
+      ${EndIf}
+    ${EndIf}
+    System::Call "kernel32::CloseHandle(p r1)"
+  ${EndIf}
+
+  Push $0
+  System::Store 'L'
+FunctionEnd
+!macroend ; BOOTCFG_GetFileSystemUUID
 
 !macro BOOTCFG_GetSystemPartition UN
 ${BOOTCFG_FUNCINC} "${UN}" GetMethod
