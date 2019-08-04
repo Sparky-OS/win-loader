@@ -45,6 +45,10 @@ ${STDMACROS_DefIfNotDef} ERROR_NO_MORE_ITEMS          259
 
 ${STDMACROS_DefIfNotDef} FIRMWARE_TYPE_UEFI             2
 
+${STDMACROS_DefIfNotDef} IOCTL_DISK_GET_PARTITION_INFO_EX 0x00070048
+${STDMACROS_DefIfNotDef} PARTITION_INFORMATION_EX_SIZEOF 144
+${STDMACROS_DefIfNotDef} PARTITION_STYLE_GPT 1
+
 ${STDMACROS_DefIfNotDef} OPEN_EXISTING                  3
 
 ${STDMACROS_DefIfNotDef} WBEM_FLAG_FORWARD_ONLY       0x20
@@ -367,6 +371,15 @@ ${BOOTCFG_FUNCDEF} GetSystemPartition
   Call `${UN}${BOOTCFG_PREFIX}GetSystemPartition`
   Pop ${ERR}
   Pop ${PARTITION}
+!macroend
+
+; ${BOOTCFG_GetVolumeUUID} volume uuid err
+${BOOTCFG_FUNCDEF} GetVolumeUUID
+!macro BOOTCFG_GetVolumeUUID_Call UN VOLUME UUID ERR
+  Push ${VOLUME}
+  Call `${UN}${BOOTCFG_PREFIX}GetVolumeUUID`
+  Pop ${ERR}
+  Pop ${UUID}
 !macroend
 
 ; ${BOOTCFG_ObjectListGetSafeArray} objectlist safearray err
@@ -1849,6 +1862,54 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" GetSystemPartition
 FunctionEnd
 !macroend ; BOOOTCFG_GetSystemPartition
 
+!macro BOOTCFG_GetVolumeUUID UN
+; Get universally unique identifer (UUID) of volume
+; Parameter:
+;   volume - volume name
+; Return values:
+;   UUID - unique identifer of volume
+;   err - error code
+${BOOTCFG_FUNCPROLOG} "${UN}" GetVolumeUUID
+  Exch $0
+  Push $1
+  Push $2
+  Push $3
+
+  System::Call "kernel32::CreateFile(t r0, i 0, i ${FILE_SHARE_READ}, p 0, i ${OPEN_EXISTING}, i 0, p 0) p.r2 ?e"
+  ${If} $2 P<> ${INVALID_HANDLE_VALUE}
+    StrCpy $0 0
+    Exch $0
+  ${EndIf}
+  Pop $0
+  ${If} $0 == 0
+    System::Alloc ${PARTITION_INFORMATION_EX_SIZEOF}
+    Pop $3
+    ${If} $3 P<> 0
+      System::Call "kernel32::DeviceIoControl(p r2, i ${IOCTL_DISK_GET_PARTITION_INFO_EX}, p 0, i 0, p r3, i ${PARTITION_INFORMATION_EX_SIZEOF}, *i .r1, p 0) i.r0 ?e"
+      ${If} $0 != 0
+        StrCpy $0 0
+        Exch $0
+      ${EndIf}
+      Pop $0
+      ${If} $0 == 0
+        System::Call "*$3(&i4 .r1)"
+        ${If} $1 == ${PARTITION_STYLE_GPT}
+          System::Call "*$3(&i4, &i4, &i8, &i8, &i4, &i4, g, g .r1)"
+        ${EndIf}
+      ${EndIf}
+      System::Free $3
+    ${EndIf}
+    System::Call "kernel32::CloseHandle(p r2)"
+  ${EndIf}
+
+  Pop $3
+  Pop $2
+  Exch $1
+  Exch
+  Exch $0
+FunctionEnd
+!macroend ; BOOOTCFG_GetVolumeUUID
+
 !macro BOOTCFG_ObjectListGetSafeArray UN
 ${BOOTCFG_FUNCINC} "${UN}" GetStringArrayOfVariant
 ; Get safe array from object list
@@ -2753,27 +2814,16 @@ ${BOOTCFG_FUNCINC} "${UN}" SetObjectList
 ;   result object
 ;   err - error code
 ${BOOTCFG_FUNCPROLOG} "${UN}" RemoveBootEntry
-  Push $0
-  Exch 5
-  Push $1
-  Exch 5
-  Exch $2
-  Exch 4
-  Exch $3
-  Exch 3
-  Exch $4
-  Exch 2
-  Exch $5
-  Exch
-  Exch $6
-  Push $7
-  Push $8
-  Push $9
+  System::Store 'S'
+  Pop $6 ; guid=$6
+  Pop $5 ; basebcdobject=$5
+  Pop $4 ; bcdstore=$4
+  Pop $3 ; basebcdstore=$3
+  Pop $2 ; services=$2
 
-  ; basebcdstore=$2, bcdstore=$3, basebcdobject=$4, guid=$5, services=$6
   !insertmacro ${BOOTCFG_PREFIX}GetElementFromBcd_Call "${UN}" \
-    $6 $2 $3 $4 ${BOOTCFG_BOOTMGR_GUID} ${BOOTCFG_DISPLAY_ORDER} $2 $8 $0
-  ; element=$8, bcdobject=$2
+    $2 $3 $4 $5 ${BOOTCFG_BOOTMGR_GUID} ${BOOTCFG_DISPLAY_ORDER} $3 $8 $0
+  ; element=$8, bcdobject=$3
   ${If} $0 != 0
     StrCpy $1 $8
   ${Else}
@@ -2797,7 +2847,7 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" RemoveBootEntry
           IntOp $1 $1 - 1
           ${For} $0 0 $1
             System::Call "*$8(w .r9)"
-            ${If} $9 == $5
+            ${If} $9 == $6
               IntOp $0 $0 + 1
               ${Break}
             ${EndIf}
@@ -2810,51 +2860,37 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" RemoveBootEntry
             System::Call "*$8(p r9)"
             Pop $8
           ${Next}
-          System::Call "oleaut32::SafeArrayUnaccessData(p r7) i.r0"
-          ${If} $0 != 0
-            StrCpy $0 "SafeArrayUnaccessData failed"
-          ${Else}
-            StrCpy $0 ""
-          ${EndIf}
         ${EndIf}
-        System::Call "*(i $1, i 0) p.r8"
-        ${If} $8 != 0
-          System::Call "oleaut32::SafeArrayRedim(p r7r7, p r8) i.r0"
-          ${If} $0 != 0
-            StrCpy $1 "SafeArrayReDim failed"
-          ${EndIf}
-          System::Free $8
-          !insertmacro ${BOOTCFG_PREFIX}GetSizeOfSafeArray_Call "${UN}" \
-            $7 $1
+        System::Call "oleaut32::SafeArrayUnaccessData(p r7) i.r0"
+        ${If} $0 != 0
+          StrCpy $1 "SafeArrayUnaccessData failed"
         ${Else}
-          StrCpy $1 "Memory allocation failed for SafeArrayRedim"
-          StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
+          System::Call "*(i $1, i 0) p.r8"
+          ${If} $8 P<> 0
+            System::Call "oleaut32::SafeArrayRedim(p r7r7, p r8) i.r0"
+            ${If} $0 != 0
+              StrCpy $1 "SafeArrayReDim failed"
+            ${EndIf}
+            System::Free $8
+            !insertmacro ${BOOTCFG_PREFIX}GetSizeOfSafeArray_Call "${UN}" \
+              $7 $1
+          ${Else}
+            StrCpy $1 "Memory allocation failed for SafeArrayRedim"
+            StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
+          ${EndIf}
         ${EndIf}
       ${EndIf}
+      !insertmacro ${BOOTCFG_PREFIX}SetObjectList_Call "${UN}" \
+        $2 $5 $3 ${BOOTCFG_DISPLAY_ORDER} $7 $1 $0
+      System::Call "oleaut32::SafeArrayDestroy(p r7)"
     ${EndIf}
+    ; Release bcdobject
+    !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $3
   ${EndIf}
 
-  ${If} $0 == 0
-    ; objectlist=$7
-    !insertmacro ${BOOTCFG_PREFIX}SetObjectList_Call "${UN}" \
-      $6 $4 $2 ${BOOTCFG_DISPLAY_ORDER} $7 $1 $0
-    System::Call "oleaut32::SafeArrayDestroy(p r7) i.r5"
-  ${EndIf}
-
-  ; Release bcdobject
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $2
-
-  Pop $9
-  Pop $8
-  Pop $7
-  Pop $6
-  Pop $5
-  Pop $4
-  Pop $3
-  Pop $2
-  Exch $1
-  Exch
-  Exch $0
+  Push $1
+  Push $0
+  System::Store 'L'
 FunctionEnd
 !macroend ; BOOTCFG_RemoveBootEntry
 
