@@ -537,19 +537,54 @@ ${BOOTCFG_FUNCDEF} SetObjectList
   Pop ${RESULT}
 !macroend
 
+; ${BOOTCFG_AppendBootObject} services basebcdobject \
+;   guid result err
+${BOOTCFG_FUNCDEF} AppendBootObject
+!macro BOOTCFG_AppendBootObject_Call UN SERVICES BASEBCDOBJECT \
+  GUID RESULT ERR
+  Push ${SERVICES}
+  Push ${BASEBCDOBJECT}
+  Push ${RESULT}
+  Push ${GUID}
+  Call `${UN}${BOOTCFG_PREFIX}AppendBootObject`
+  Pop ${ERR}
+  Pop ${RESULT}
+!macroend
+
 ; ${BOOTCFG_AppendBootEntry} services basebcdstore bcdstore \
 ;   guid result err
 ${BOOTCFG_FUNCDEF} AppendBootEntry
 !macro BOOTCFG_AppendBootEntry_Call UN SERVICES BASEBCDSTORE \
   BCDSTORE BASEBCDOBJECT GUID RESULT ERR
-  Push ${SERVICES}
-  Push ${BASEBCDSTORE}
-  Push ${BCDSTORE}
-  Push ${BASEBCDOBJECT}
-  Push ${GUID}
-  Call `${UN}${BOOTCFG_PREFIX}AppendBootEntry`
-  Pop ${ERR}
-  Pop ${RESULT}
+  !insertmacro ${BOOTCFG_PREFIX}GetBcdObject_Call "${UN}" \
+    ${SERVICES} ${BASEBCDSTORE} ${BCDSTORE} ${BOOTCFG_BOOTMGR_GUID} \
+    ${RESULT} ${ERR}
+  ${If} ${ERR} == 0
+    !insertmacro ${BOOTCFG_PREFIX}AppendBootObject_Call "${UN}" \
+      ${SERVICES} ${BASEBCDOBJECT} ${GUID} ${RESULT} ${ERR}
+  ${EndIf}
+!macroend
+!macro BOOTCFG_AppendBootEntry UN
+  ${BOOTCFG_FUNCINC} "${UN}" GetBcdObject
+  ${BOOTCFG_FUNCINC} "${UN}" AppendBootObject
+!macroend
+
+; ${BOOTCFG_AppendFwBootEntry} services basebcdstore bcdstore \
+;   guid result err
+${BOOTCFG_FUNCDEF} AppendFwBootEntry
+!macro BOOTCFG_AppendFwBootEntry UN
+  ${BOOTCFG_FUNCINC} "${UN}" GetBcdObject
+  ${BOOTCFG_FUNCINC} "${UN}" AppendBootObject
+!macroend
+!macro BOOTCFG_AppendFwBootEntry_Call UN SERVICES BASEBCDSTORE \
+  BCDSTORE BASEBCDOBJECT GUID RESULT ERR
+  !insertmacro ${BOOTCFG_PREFIX}GetBcdObject_Call "${UN}" \
+    ${SERVICES} ${BASEBCDSTORE} ${BCDSTORE} ${BOOTCFG_FWBOOTMGR_GUID} \
+    ${RESULT} ${ERR}
+  ${If} ${ERR} == 0
+    !insertmacro ${BOOTCFG_PREFIX}AppendBootObject_Call "${UN}" \
+      ${SERVICES} ${BASEBCDOBJECT} ${GUID} ${RESULT} ${ERR}
+  ${EndIf}
 !macroend
 
 ; ${BOOTCFG_RemoveBootEntry} services basebcdstore bcdstore \
@@ -2552,112 +2587,155 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" SetObjectList
 FunctionEnd
 !macroend ; BOOTCFG_SetObjectList
 
-!macro BOOTCFG_AppendBootEntry UN
-${BOOTCFG_FUNCINC} "${UN}" GetElementFromBcd
+!macro BOOTCFG_AppendBootObject UN
+${BOOTCFG_FUNCINC} "${UN}" GetBcdElement
 ${BOOTCFG_FUNCINC} "${UN}" ObjectListGetSafeArray
 ${BOOTCFG_FUNCINC} "${UN}" GetSizeOfSafeArray
 ${BOOTCFG_FUNCINC} "${UN}" SetObjectList
-; Append boot entry to boot manager
+; Append boot object to boot manager
 ; Parameters:
 ;   services - IWbemServices object
-;   basebcdstore - BcdStore base class object
-;   bcdstore - BcdStore object
 ;   basebcdobject - BcdObject base class object
+;   bcdobject - boot manager BcdObject
 ;   guid - GUID of boot entry
 ; Return values:
 ;   result object
 ;   err - error code
-${BOOTCFG_FUNCPROLOG} "${UN}" AppendBootEntry
-  Push $0
-  Exch 5
-  Push $1
-  Exch 5
-  Exch $2
-  Exch 4
-  Exch $3
-  Exch 3
-  Exch $4
-  Exch 2
-  Exch $5
-  Exch
-  Exch $6
-  Push $7
-  Push $8
+${BOOTCFG_FUNCPROLOG} "${UN}" AppendBootObject
+  System::Store 'S'
+  Pop $5 ; guid=$5
+  Pop $4 ; bcdobject=$4
+  Pop $3 ; basebcdobject=$3
+  Pop $2 ; services=$2
 
-  ; basebcdstore=$2, bcdstore=$3, basebcdobject=$4, guid=$5, services=$6
-  !insertmacro ${BOOTCFG_PREFIX}GetElementFromBcd_Call "${UN}" \
-    $6 $2 $3 $4 ${BOOTCFG_BOOTMGR_GUID} ${BOOTCFG_DISPLAY_ORDER} $2 $8 $0
-  ; element=$8, bcdobject=$2
-  ${If} $0 != 0
-    StrCpy $1 $8
-  ${Else}
-    !insertmacro ${BOOTCFG_PREFIX}ObjectListGetSafeArray_Call "${UN}" \
-      $8 $7 $0
-    ; Release object list element
-    !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $8
+  ${If} $4 != 0
+    !insertmacro ${BOOTCFG_PREFIX}GetBcdElement_Call "${UN}" \
+      $2 $3 $4 ${BOOTCFG_DISPLAY_ORDER} $7 $0
     ${If} $0 != 0
-      System::Call "oleaut32::SafeArrayCreateVector(i ${VT_BSTR}, \
-        i 0, i 1) p.r7"
-      StrCpy $1 0
-      StrCpy $0 0
+      StrCpy $1 $7
     ${Else}
-      !insertmacro ${BOOTCFG_PREFIX}GetSizeOfSafeArray_Call "${UN}" \
-        $7 $1
-      Push $1
-      IntOp $1 $1 + 1
-      System::Call "*(i $1, i 0) p.r8"
-      Pop $1
-      ${If} $8 != 0
-        System::Call "oleaut32::SafeArrayRedim(p r7r7, p r8) i.r0"
-        ${If} $0 != 0
-          StrCpy $1 "SafeArrayReDim failed"
-        ${EndIf}
-        System::Free $8
-      ${Else}
-        StrCpy $1 "Memory allocation failed for SafeArrayRedim"
-        StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
-      ${EndIf}
-    ${EndIf}
-    ${If} $7 != 0
-      ; Allocate BSTR variant and fill it with GUID
-      System::Call "oleaut32::SysAllocString(w r5) p.s"
-      Pop $5
-      ${If} $5 != 0
-        System::Call "oleaut32::SafeArrayPutElement(p r7, *i r1, p r5) i.r0"
-        System::Call "oleaut32::SysFreeString(p r5)"
-        ${If} $0 != 0
-          StrCpy $1 "SafeArrayPutElement failed"
-          System::Call "oleaut32::SafeArrayDestroy(p r7) i.r5"
+      !insertmacro ${BOOTCFG_PREFIX}ObjectListGetSafeArray_Call "${UN}" \
+        $7 $6 $0
+      ; Release object list element
+      !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $7
+      ${If} $0 != 0
+        System::Call "oleaut32::SafeArrayCreateVector(i ${VT_BSTR}, \
+          i 0, i 1) p.r6?e"
+        Pop $0
+        ${If} $6 P<> 0
+          StrCpy $1 0
+          StrCpy $0 0
+        ${Else}
+          StrCpy $1 "SafeArrayCreateVector failed"
         ${EndIf}
       ${Else}
-        StrCpy $1 "SysAllocString failed"
-        StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
+        !insertmacro ${BOOTCFG_PREFIX}GetSizeOfSafeArray_Call "${UN}" \
+          $6 $1
+        System::Call "oleaut32::SafeArrayAccessData(p r6, *p.r7) i.r0"
+        ${If} $0 == 0
+          ; Search for GUID in array
+          ${For} $0 1 $1
+            System::Call "*$7(w.r8)"
+            ${If} $8 == $5
+              ${ExitFor}
+            ${EndIf}
+            IntOp $7 $7 + ${NSIS_PTR_SIZE}
+          ${Next}
+          System::Call "oleaut32::SafeArrayUnaccessData(p r6) i.r7"
+          ${If} $7 == 0
+            ${If} $0 == $1
+              ; Array includes the GUID and it is the last element
+              System::Call "oleaut32::SafeArrayDestroy(p r6)"
+              StrCpy $6 0
+              StrCpy $0 0
+            ${Else}
+              ${If} $0 > $1
+                ; Array does not include the GUID, hence extend the array
+                System::Call "*(i r0, i 0) p.r7"
+                ${If} $7 P<> 0
+                  System::Call "oleaut32::SafeArrayRedim(p r6r6, p r7) i.r0"
+                  ${If} $0 != 0
+                    StrCpy $1 "SafeArrayReDim failed"
+                  ${EndIf}
+                  System::Free $7
+                ${Else}
+                  StrCpy $1 "Memory allocation failed for SafeArrayRedim"
+                  StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
+                ${EndIf}
+              ${Else}
+                ; Array includes the GUID, hence move this entry to the end
+                System::Call "oleaut32::SafeArrayAccessData(p r6, *p.r7) i.r8"
+                ${If} $8 == 0
+                  ; Zero-based index for SafeArrayPutElement
+                  IntOp $0 $0 - 1
+                  IntOp $1 $1 - 1
+                  ${While} $0 < $1
+                    IntOp $7 $7 + ${NSIS_PTR_SIZE}
+                    System::Call "*$7(w.r8)"
+                    System::Call "oleaut32::SysAllocString(w r8) p.r8"
+                    ${If} $8 P<> 0
+                      System::Call "oleaut32::SafeArrayPutElement(p r6, *i r0, p r8) p.s"
+                      System::Call "oleaut32::SysFreeString(p r8)"
+                      Pop $8
+                      ${If} $8 != 0
+                        StrCpy $1 "SafeArrayPutElement failed"
+                        StrCpy $0 $8
+                        ${ExitWhile}
+                      ${EndIf}
+                    ${Else}
+                      StrCpy $1 "SysAllocString failed"
+                      StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
+                      ${ExitWhile}
+                    ${EndIf}
+                    IntOp $0 $0 + 1
+                  ${EndWhile}
+                  ${If} $0 == $1
+                    StrCpy $0 0
+                  ${EndIf}
+                  System::Call "oleaut32::SafeArrayUnaccessData(p r6)"
+                ${Else}
+                  StrCpy $1 "SafeArrayAccessData failed"
+                  StrCpy $0 $8
+                ${EndIf}
+              ${EndIf}
+            ${EndIf}
+          ${Else}
+            StrCpy $1 "SafeArrayUnaccessData failed"
+          ${EndIf}
+        ${Else}
+          StrCpy $1 "SafeArrayAccessData failed"
+        ${EndIf}
+      ${EndIf}
+      ${If} $0 == 0
+      ${AndIf} $6 P<> 0
+        ; Allocate BSTR variant and fill it with GUID
+        System::Call "oleaut32::SysAllocString(w r5) p.r5"
+        ${If} $5 != 0
+          System::Call "oleaut32::SafeArrayPutElement(p r6, *i r1, p r5) i.r0"
+          System::Call "oleaut32::SysFreeString(p r5)"
+          ${If} $0 != 0
+            StrCpy $1 "SafeArrayPutElement failed"
+            System::Call "oleaut32::SafeArrayDestroy(p r6)"
+          ${Else}
+            !insertmacro ${BOOTCFG_PREFIX}SetObjectList_Call "${UN}" \
+              $2 $3 $4 ${BOOTCFG_DISPLAY_ORDER} $6 $1 $0
+            System::Call "oleaut32::SafeArrayDestroy(p r6)"
+          ${EndIf}
+        ${Else}
+          StrCpy $1 "SysAllocString failed"
+          StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
+        ${EndIf}
       ${EndIf}
     ${EndIf}
+    ; Release bcdobject
+    !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $4
   ${EndIf}
 
-  ${If} $0 == 0
-    ; objectlist=$7
-    !insertmacro ${BOOTCFG_PREFIX}SetObjectList_Call "${UN}" \
-      $6 $4 $2 ${BOOTCFG_DISPLAY_ORDER} $7 $1 $0
-    System::Call "oleaut32::SafeArrayDestroy(p r7) i.r5"
-  ${EndIf}
-
-  ; Release bcdobject
-  !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $2
-
-  Pop $8
-  Pop $7
-  Pop $6
-  Pop $5
-  Pop $4
-  Pop $3
-  Pop $2
-  Exch $1
-  Exch
-  Exch $0
+  Push $1
+  Push $0
+  System::Store 'L'
 FunctionEnd
-!macroend ; BOOTCFG_AppendBootEntry
+!macroend ; BOOTCFG_AppendBootObject
 
 !macro BOOTCFG_RemoveBootEntry UN
 ${BOOTCFG_FUNCINC} "${UN}" GetElementFromBcd
