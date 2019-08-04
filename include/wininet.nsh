@@ -151,15 +151,27 @@ ${WININET_FUNCDEF} Read
   Pop ${RESULT}
 !macroend
 
+; ${WININET_Fetch} url filename algorithm result
+${WININET_FUNCDEF} Fetch
+!macro WININET_Fetch_Call UN URL FILENAME ALGORITHM RESULT
+  Push "${URL}"
+  Push "${FILENAME}"
+  Push ${ALGORITHM}
+  Call `${UN}${WININET_PREFIX}Fetch`
+  Pop ${RESULT}
+!macroend
+
 ; ${WININET_Get} baseurl filename basedir algorithm result
 ${WININET_FUNCDEF} Get
 !macro WININET_Get_Call UN BASEURL FILENAME BASEDIR ALGORITHM RESULT
-  Push ${BASEURL}
-  Push ${FILENAME}
-  Push ${BASEDIR}
+  Push "${BASEURL}/${FILENAME}"
+  Push "${BASEDIR}\${FILENAME}"
   Push ${ALGORITHM}
-  Call `${UN}${WININET_PREFIX}Get`
+  Call `${UN}${WININET_PREFIX}Fetch`
   Pop ${RESULT}
+!macroend
+!macro WININET_Get UN
+${WININET_FUNCINC} "${UN}" Fetch
 !macroend
 
 !macro WININET_Div1024Tenth UN
@@ -520,7 +532,7 @@ WININET_Read_Next:
 FunctionEnd
 !macroend ; WININET_Read
 
-!macro WININET_Get UN
+!macro WININET_Fetch UN
 ${CRYPTHASH_FUNCINC} "${UN}" ContextAcquire
 ${CRYPTHASH_FUNCINC} "${UN}" Init
 ${CRYPTHASH_FUNCINC} "${UN}" Update_GetFunctionAddress
@@ -588,28 +600,25 @@ Function ${UN}${WININET_PREFIX}HelperHashFree
 FunctionEnd
 !endif
 
-; Get file from base URL and save it in base directory
+; Fetch file from URL
 ; Parameters:
-;   baseurl - base URL
+;   url - internet address
 ;   filename - name of file
-;   basedir - directory where to save downloaded files
 ;   algorithm - identifier of the hash algorithm to use
 ; Return value
 ;   hex string of digest value or error code
-${WININET_FUNCPROLOG} "${UN}" Get
+${WININET_FUNCPROLOG} "${UN}" Fetch
   System::Store 'S'
-  Pop $4
-  Pop $3
-  Pop $2
-  Pop $1
-  ; baseurl=$1 filename=$2 basedir=$3 algorithm=$4
+  Pop $3 ; algorithm=$3
+  Pop $2 ; filename=$2
+  Pop $1 ; url=$1
  
   ; Handle of crypto context or loaded module
   StrCpy $R5 ""
   ; Address of hash update function
   StrCpy $R4 ""
 
-  ${If} $4 != 0
+  ${If} $3 != 0
     !insertmacro ${CRYPTHASH_PREFIX}ContextAcquire_Call "${UN}" ${PROV_RSA_AES} ${CRYPT_VERIFYCONTEXT} $R5
     ${If} $R5 P<> 0
       !insertmacro ${CRYPTHASH_PREFIX}Update_GetFunctionAddress_Call "${UN}" $R4
@@ -665,8 +674,7 @@ ${WININET_FUNCPROLOG} "${UN}" Get
     ${EndIf}
     SendMessage $8 ${WM_SETTEXT} 0 "STR:${WININET_TEXT_CONNECTING}"
     System::Call "wininet::InternetSetOption(p r10, i ${INTERNET_OPTION_CONNECT_TIMEOUT}, *i ${WININET_TIMEOUT}, i ${WININET_SIZEOF_DWORD}) i.r0"
-    StrCpy $5 "$1/$2"
-    !insertmacro ${WININET_PREFIX}Connect_Call "${UN}" $R0 $5 $R1 $5 $6
+    !insertmacro ${WININET_PREFIX}Connect_Call "${UN}" $R0 $1 $R1 $5 $6
     ${If} $R1 P<> 0
     ${AndIfNot} ${WININET_CANCEL_FLAG} != ""
       StrCpy $R2 0
@@ -716,7 +724,7 @@ ${WININET_FUNCPROLOG} "${UN}" Get
               IntOp $0 $5 + ${HTTP_E_STATUS_BASE}
             ${Else}
               ClearErrors
-              FileOpen $R3 "$3\$2" w
+              FileOpen $R3 "$2" w
               ; filehandle=$R3
               ${IfNot} ${Errors}
               ${AndIfNot} ${WININET_CANCEL_FLAG} != ""
@@ -727,7 +735,7 @@ ${WININET_FUNCPROLOG} "${UN}" Get
                 ${If} $R5 != ""
                   ; Hash computation initializiation
                   Push $R5
-                  Push $4
+                  Push $3
                   Call $R6
                   Pop $5
                 ${EndIf}
@@ -772,6 +780,6 @@ ${WININET_FUNCPROLOG} "${UN}" Get
   Push $0
   System::Store 'L'
 FunctionEnd
-!macroend ; WININET_Get
+!macroend ; WININET_Fetch
 
 !endif ; WININET_INCLUDED
