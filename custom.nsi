@@ -192,7 +192,7 @@ FunctionEnd
 Function LeaveCustom
   System::Store 'S'
 
-  GetLabelAddress $3 ${__FUNCTION__}_SetVar
+  GetLabelAddress $3 _${__FUNCTION__}_SetVar
   ; Get inner dialog
   FindWindow $0 "#32770" "" $HWNDPARENT
   ${If} $0 P<> 0
@@ -205,23 +205,23 @@ Function LeaveCustom
       ${AndIf} $1 == "EDIT"
         ${NSD_GetText} $0 $1
         Goto $3
-${__FUNCTION__}_SetVar:
+_${__FUNCTION__}_SetVar:
         ; 1st edit field: proxy
         StrCpy $proxy "$1"
-        Goto ${__FUNCTION__}_NextVar
+        Goto _${__FUNCTION__}_NextVar
         ; 2nd edit field: base_url
 !ifdef NOCD
         StrCpy $base_url "$1"
 !else
         StrCpy $1 ""
 !endif
-        Goto ${__FUNCTION__}_NextVar
+        Goto _${__FUNCTION__}_NextVar
         ; Last edit field: preseed_cmdline
         StrCpy $preseed_cmdline "$1"
-        Goto ${__FUNCTION__}_LastVar
-${__FUNCTION__}_NextVar:
+        Goto _${__FUNCTION__}_LastVar
+_${__FUNCTION__}_NextVar:
         IntOp $3 $3 + 2
-${__FUNCTION__}_LastVar:
+_${__FUNCTION__}_LastVar:
       ${EndIf}
       System::Call "user32::GetWindow(p r0, i ${GW_HWNDNEXT}) p.r0"
     ${EndWhile}
