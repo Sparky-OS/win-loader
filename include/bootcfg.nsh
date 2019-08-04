@@ -1808,7 +1808,7 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" EnumerateBcdObjectList
         StrCpy $0 "SafeArrayUnaccessData failed"
       ${Else}
         StrCpy $0 ""
-      ${EndIF}
+      ${EndIf}
     ${EndIf}
   ${EndIf}
 
@@ -2500,7 +2500,7 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" RemoveBootEntry
             StrCpy $0 "SafeArrayUnaccessData failed"
           ${Else}
             StrCpy $0 ""
-          ${EndIF}
+          ${EndIf}
         ${EndIf}
         System::Call "*(i $1, i 0) p.r8"
         ${If} $8 != 0
@@ -2677,7 +2677,7 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" ConnectWMI
           StrCpy $1 "ConnectServer failed"
         ${Else}
           StrCpy $1 $3
-        ${EndIF}
+        ${EndIf}
       ${EndIf}
     ${EndIf}
   ${EndIf}
