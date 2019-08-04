@@ -77,8 +77,6 @@ Var /GLOBAL target_distro
 
 ;--------------------------------
 ; Installer
-${Security_COMSetDefaultLevel}
-${un.Security_COMSetDefaultLevel}
 !include onInit.nsi
 
 ; Include functions after .onInit and un.onInit functions allowing
