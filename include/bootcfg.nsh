@@ -26,6 +26,7 @@ ${NSISCOMIFACEDECL}IWbemClassObject GetMethod 19 (w,i,*p,p)i
 !define BOOTCFG_BCDE_DESCRIPTION              0x12000004
 !define BOOTCFG_BCDE_DEVICE                   0x11000001
 !define BOOTCFG_BCDE_PATH                     0x12000002
+!define BOOTCFG_BOOT_MANAGER                  0x10100002
 !define BOOTCFG_BOOT_SECTOR                   0x10400008
 !define BOOTCFG_DISPLAY_ORDER                 0x24000001
 !define BOOTCFG_BOOTSEQUENCE                  0x24000002
@@ -118,6 +119,15 @@ ${BOOTCFG_FUNCDEF} GetBoolOfVariant
 !macro BOOTCFG_GetBoolOfVariant_Call UN VARIANT VALUE ERR
   Push ${VARIANT}
   Call `${UN}${BOOTCFG_PREFIX}GetBoolOfVariant`
+  Pop ${ERR}
+  Pop ${VALUE}
+!macroend
+
+; ${BOOTCFG_GetI4OfVariant} variant value err
+${BOOTCFG_FUNCDEF} GetI4OfVariant
+!macro BOOTCFG_GetI4OfVariant_Call UN VARIANT VALUE ERR
+  Push ${VARIANT}
+  Call `${UN}${BOOTCFG_PREFIX}GetI4OfVariant`
   Pop ${ERR}
   Pop ${VALUE}
 !macroend
@@ -323,6 +333,18 @@ ${BOOTCFG_FUNCDEF} GetElementFromBcd
   Pop ${ERR}
   Pop ${ELEM}
   Pop ${OBJ}
+!macroend
+
+; ${BOOTCFG_GetESPVolume} services basebcdstore bcdstore basebcdobject volume err
+${BOOTCFG_FUNCDEF} GetESPVolume
+!macro BOOTCFG_GetESPVolume_Call UN SERVICES BASEBCDSTORE BCDSTORE BASEBCDOBJECT VOLUME ERR
+  Push ${SERVICES}
+  Push ${BASEBCDSTORE}
+  Push ${BCDSTORE}
+  Push ${BASEBCDOBJECT}
+  Call `${UN}${BOOTCFG_PREFIX}GetESPVolume`
+  Pop ${ERR}
+  Pop ${VOLUME}
 !macroend
 
 ; ${BOOTCFG_GetSystemPartition} services basebcdstore partition err
@@ -710,6 +732,39 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" GetBoolOfVariant
   Exch $0
 FunctionEnd
 !macroend ; BOOTCFG_GetBoolOfVariant
+
+!macro BOOTCFG_GetI4OfVariant UN
+${BOOTCFG_FUNCINC} "${UN}" GetVariantType
+; Get double word (I4) value of variant
+; Parameter:
+;   variant
+; Return values:
+;   value - double word integer or error message
+;   err - error code
+${BOOTCFG_FUNCPROLOG} "${UN}" GetI4OfVariant
+  Push $0
+  Exch
+  Push $1
+  Exch
+  Exch $2
+
+  ; variant=$2
+
+  !insertmacro ${BOOTCFG_PREFIX}GetVariantType_Call "${UN}" $2 $0
+  ${If} $0 != ${VT_I4}
+    StrCpy $1 "unexpected variant type: $0"
+    StrCpy $0 ${ERROR_INVALID_DATA}
+  ${Else}
+    System::Call "*$2(&i2, &i2, &i2, &i2, i .r1)"
+    StrCpy $0 0
+  ${EndIf}
+
+  Pop $2
+  Exch $1
+  Exch
+  Exch $0
+FunctionEnd
+!macroend ; BOOTCFG_GetI4OfVariant
 
 !macro BOOTCFG_GetObjectOfVariant UN
 ${BOOTCFG_FUNCINC} "${UN}" GetVariantType
@@ -1514,6 +1569,88 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" GetElementFromBcd
   Exch $0
 FunctionEnd
 !macroend ; BOOTCFG_GetElementFromBcd
+
+!macro BOOTCFG_GetESPVolume UN
+${BOOTCFG_FUNCINC} "${UN}" GetElementFromBcd
+${BOOTCFG_FUNCINC} "${UN}" GetObjectPropertyValue
+${BOOTCFG_FUNCINC} "${UN}" GetObjectOfVariant
+${BOOTCFG_FUNCINC} "${UN}" GetI4OfVariant
+${BOOTCFG_FUNCINC} "${UN}" GetStringOfVariant
+; Get volume identifier of EFI system partition
+; Parameters:
+;   services - IWbemServices object
+;   basebcdstore - BcdStore base class object
+;   bcdstore - BcdStore object
+;   basebcdobject - BcdObject base class object
+; Return values:
+;   volume - volume identifier of EFI system partition or error message
+;   err - error code
+${BOOTCFG_FUNCPROLOG} "${UN}" GetESPVolume
+  System::Store 'S'
+  Pop $5 ; basebcdobject=$5
+  Pop $4 ; bcdstore=$4
+  Pop $3 ; basebcdstore=$3
+  Pop $2 ; services=$2
+
+  !insertmacro ${BOOTCFG_PREFIX}GetElementFromBcd_Call "${UN}" \
+    $2 $3 $4 $5 ${BOOTCFG_BOOTMGR_GUID} ${BOOTCFG_BCDE_DEVICE} $6 $7 $0
+  ; bcdobject=$6, element=$7
+  ${If} $0 != 0
+    StrCpy $1 $7
+  ${Else}
+    ; Release bcdobject
+    !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $6
+    ; Save element
+    Push $7
+    !insertmacro ${BOOTCFG_PREFIX}GetObjectPropertyValue_Call "${UN}" $7 "Device" $6 $0
+    ${If} $0 != 0
+      StrCpy $1 $6
+    ${Else}
+      ; Save device object
+      Push $6
+      !insertmacro ${BOOTCFG_PREFIX}GetObjectOfVariant_Call "${UN}" $6 $7 $0
+      ${If} $0 != 0
+        StrCpy $1 $7
+      ${Else}
+        !insertmacro ${BOOTCFG_PREFIX}GetObjectPropertyValue_Call "${UN}" $7 "DeviceType" $6 $0
+        ${If} $0 != 0
+          StrCpy $1 $6
+        ${Else}
+          ; Save device type variant
+          Push $6
+          !insertmacro ${BOOTCFG_PREFIX}GetI4OfVariant_Call "${UN}" $6 $1 $0
+          ${If} $0 == 0
+            ${If} $1 != ${BOOTCFG_PARTIONDEVICE_TYPE}
+              StrCpy $1 "unexpected device type: $1"
+            ${Else}
+              !insertmacro ${BOOTCFG_PREFIX}GetObjectPropertyValue_Call "${UN}" $7 "Path" $6 $0
+              ${If} $0 != 0
+                StrCpy $1 $6
+              ${Else}
+                !insertmacro ${BOOTCFG_PREFIX}GetStringOfVariant_Call "${UN}" $6 $1 $0
+                System::Free $6
+              ${EndIf}
+            ${EndIf}
+          ${EndIf}
+          ; Restore and free device type variant
+          Pop $6
+          System::Free $6
+        ${EndIf}
+      ${EndIf}
+      ; Restore and free device object
+      Pop $6
+      System::Free $6
+    ${EndIf}
+    ; Restore and release element
+    Pop $7
+    !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $7
+  ${EndIf}
+
+  Push $1
+  Push $0
+  System::Store 'L'
+FunctionEnd
+!macroend ; BOOOTCFG_GetESPVolume
 
 !macro BOOTCFG_GetSystemPartition UN
 ${BOOTCFG_FUNCINC} "${UN}" GetMethod
