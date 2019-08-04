@@ -567,19 +567,54 @@ ${BOOTCFG_FUNCDEF} RemoveBootEntry
   Pop ${RESULT}
 !macroend
 
+; ${BOOTCFG_SetActiveBootObject} services basebcdobject \
+;   guid result err
+${BOOTCFG_FUNCDEF} SetActiveBootObject
+!macro BOOTCFG_SetActiveBootObject_Call UN SERVICES BASEBCDOBJECT \
+  GUID RESULT ERR
+  Push ${SERVICES}
+  Push ${BASEBCDOBJECT}
+  Push ${RESULT}
+  Push ${GUID}
+  Call `${UN}${BOOTCFG_PREFIX}SetActiveBootObject`
+  Pop ${ERR}
+  Pop ${RESULT}
+!macroend
+
 ; ${BOOTCFG_SetActiveBootEntry} services basebcdstore bcdstore \
 ;   guid result err
 ${BOOTCFG_FUNCDEF} SetActiveBootEntry
 !macro BOOTCFG_SetActiveBootEntry_Call UN SERVICES BASEBCDSTORE \
   BCDSTORE BASEBCDOBJECT GUID RESULT ERR
-  Push ${SERVICES}
-  Push ${BASEBCDSTORE}
-  Push ${BCDSTORE}
-  Push ${BASEBCDOBJECT}
-  Push ${GUID}
-  Call `${UN}${BOOTCFG_PREFIX}SetActiveBootEntry`
-  Pop ${ERR}
-  Pop ${RESULT}
+  !insertmacro ${BOOTCFG_PREFIX}GetBcdObject_Call "${UN}" \
+    ${SERVICES} ${BASEBCDSTORE} ${BCDSTORE} ${BOOTCFG_BOOTMGR_GUID} \
+    ${RESULT} ${ERR}
+  ${If} ${ERR} == 0
+    !insertmacro ${BOOTCFG_PREFIX}SetActiveBootObject_Call "${UN}" \
+      ${SERVICES} ${BASEBCDOBJECT} ${GUID} ${RESULT} ${ERR}
+  ${EndIf}
+!macroend
+!macro BOOTCFG_SetActiveBootEntry UN
+  ${BOOTCFG_FUNCINC} "${UN}" GetBcdObject
+  ${BOOTCFG_FUNCINC} "${UN}" SetActiveBootObject
+!macroend
+
+; ${BOOTCFG_SetActiveFwBootEntry} services basebcdstore bcdstore \
+;   guid result err
+${BOOTCFG_FUNCDEF} SetActiveFwBootEntry
+!macro BOOTCFG_SetActiveFwBootEntry_Call UN SERVICES BASEBCDSTORE \
+  BCDSTORE BASEBCDOBJECT GUID RESULT ERR
+  !insertmacro ${BOOTCFG_PREFIX}GetBcdObject_Call "${UN}" \
+    ${SERVICES} ${BASEBCDSTORE} ${BCDSTORE} ${BOOTCFG_FWBOOTMGR_GUID} \
+    ${RESULT} ${ERR}
+  ${If} ${ERR} == 0
+    !insertmacro ${BOOTCFG_PREFIX}SetActiveBootObject_Call "${UN}" \
+      ${SERVICES} ${BASEBCDOBJECT} ${GUID} ${RESULT} ${ERR}
+  ${EndIf}
+!macroend
+!macro BOOTCFG_SetActiveFwBootEntry UN
+  ${BOOTCFG_FUNCINC} "${UN}" GetBcdObject
+  ${BOOTCFG_FUNCINC} "${UN}" SetActiveBootObject
 !macroend
 
 ; ${BOOTCFG_ReleaseObject} obj
@@ -2745,87 +2780,57 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" RemoveBootEntry
 FunctionEnd
 !macroend ; BOOTCFG_RemoveBootEntry
 
-!macro BOOTCFG_SetActiveBootEntry UN
+!macro BOOTCFG_SetActiveBootObject UN
 ${BOOTCFG_FUNCINC} "${UN}" GetBcdObject
 ${BOOTCFG_FUNCINC} "${UN}" SetObjectList
 ; Set active boot entry
 ; Parameters:
 ;   services - IWbemServices object
-;   basebcdstore - BcdStore base class object
-;   bcdstore - BcdStore object
 ;   basebcdobject - BcdObject base class object
+;   bcdobject - Boot manager BcdObject
 ;   guid - GUID of boot entry
 ; Return values:
 ;   result object
 ;   err - error code
-${BOOTCFG_FUNCPROLOG} "${UN}" SetActiveBootEntry
-  Push $0
-  Exch 5
-  Push $1
-  Exch 5
-  Exch $2
-  Exch 4
-  Exch $3
-  Exch 3
-  Exch $4
-  Exch 2
-  Exch $5
-  Exch
-  Exch $6
-  Push $7
-  Push $8
+${BOOTCFG_FUNCPROLOG} "${UN}" SetActiveBootObject
+  System::Store 'S'
+  Pop $5 ; guid=$5
+  Pop $4 ; bcdobject=$4
+  Pop $3 ; basebcdobject=$3
+  Pop $2 ; services=$2
 
-  ; basebcdstore=$2, bcdstore=$3, basebcdobject=$4, guid=$5, services=$6
-
-  System::Call "oleaut32::SafeArrayCreateVector(i ${VT_BSTR}, i 0, i 1) \
-    p.r7"
-  ${If} $7 != 0
-    ; Allocate BSTR variant and fill it with GUID
-    System::Call "oleaut32::SysAllocString(w r5) p.r8"
-    ${If} $8 != 0
-      StrCpy $1 0
-      System::Call "oleaut32::SafeArrayPutElement(p r7, *i r1, p r8) i.r0"
-      System::Call "oleaut32::SysFreeString(p r8)"
-      ${If} $0 != 0
-        StrCpy $1 "SafeArrayPutElement failed"
-        System::Call "oleaut32::SafeArrayDestroy(p r7) i.r8"
-        StrCpy $7 0
+  ${If} $4 != 0
+    System::Call "oleaut32::SafeArrayCreateVector(i ${VT_BSTR}, i 0, i 1) \
+      p.r6"
+    ${If} $6 != 0
+      ; Allocate BSTR variant and fill it with GUID
+      System::Call "oleaut32::SysAllocString(w r5) p.r7"
+      ${If} $7 != 0
+        StrCpy $1 0
+        System::Call "oleaut32::SafeArrayPutElement(p r6, *i r1, p r7) i.r0"
+        System::Call "oleaut32::SysFreeString(p r7)"
+        ${If} $0 != 0
+          StrCpy $1 "SafeArrayPutElement failed"
+        ${Else}
+          ; bootorderlist=$6
+          !insertmacro ${BOOTCFG_PREFIX}SetObjectList_Call "${UN}" \
+            $2 $3 $4 ${BOOTCFG_BOOTSEQUENCE} $6 $1 $0
+        ${EndIf}
+      ${Else}
+        StrCpy $1 "SysAllocString failed"
+        StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
       ${EndIf}
-    ${Else}
-      StrCpy $1 "SysAllocString failed"
-      StrCpy $0 ${ERROR_NOT_ENOUGH_MEMORY}
     ${EndIf}
+    ; Release bcdobject
+    !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $4
+    System::Call "oleaut32::SafeArrayDestroy(p r6)"
   ${EndIf}
 
-  ${If} $7 != 0
-    !insertmacro ${BOOTCFG_PREFIX}GetBcdObject_Call "${UN}" \
-      $6 $2 $3 ${BOOTCFG_BOOTMGR_GUID} $2 $0
-    ; bcdobject=$2
-    ${If} $0 != 0
-      StrCpy $1 $2
-    ${Else}
-      ; bootorderlist=$7
-      !insertmacro ${BOOTCFG_PREFIX}SetObjectList_Call "${UN}" \
-        $6 $4 $2 ${BOOTCFG_BOOTSEQUENCE} $7 $1 $0
-      System::Call "oleaut32::SafeArrayDestroy(p r7) i.r5"
-      ; Release bcdobject
-      !insertmacro ${BOOTCFG_PREFIX}ReleaseObject_Call "${UN}" $2
-    ${EndIf}
-    System::Call "oleaut32::SafeArrayDestroy(p r7) i.r4"
-  ${EndIf}
-
-  Pop $8
-  Pop $7
-  Pop $6
-  Pop $5
-  Pop $4
-  Pop $3
-  Pop $2
-  Exch $1
-  Exch
-  Exch $0
+  Push $1
+  Push $0
+  System::Store 'L'
 FunctionEnd
-!macroend ; BOOTCFG_SetActiveBootEntry
+!macroend ; BOOTCFG_SetActiveBootObject
 
 !macro BOOTCFG_ConnectWMI UN
 ${SECURITY_FUNCINC} "${UN}" AcquirePrivileges
