@@ -16,6 +16,9 @@
 ; You should have received a copy of the GNU General Public License
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+!define EFI_FOLDER "EFI\debian"
+!define EFI_LOADER "shimx64.efi"
+!define GRUB2_CFG_FILE "grub.cfg"
 !define GRUB2_EFI_FILE "bootnetx64.efi"
 
 ; Create boot entry and add it to display list of boot manager
@@ -116,7 +119,7 @@ FunctionEnd
 ;   file handle of grub.cfg file
 Function GenerateGrubConfig
   Push $0
-  StrCpy $0 "$INSTDIR\grub.cfg"
+  StrCpy $0 "$INSTDIR\${GRUB2_CFG_FILE}"
   DetailPrint "$(generating)"
   FileOpen $0 "$0" w
   Exch $0
@@ -584,7 +587,113 @@ SectionEnd
 
 ; ********************************************** Do bootloader last, because it's the most dangerous
 Section /o "Firmware Boot Manager" sec_fwbootmgr
+  System::Store 'S'
   DetailPrint "${__SECTION__}"
+  ${BOOTCFG_ConnectWMI} $R0 $R1 $0
+  ${If} $0 == 0
+    ${BOOTCFG_GetObject} $R1 "BcdStore" $R2 $0
+    ${If} $0 == 0
+      ${BOOTCFG_GetObject} $R1 "BcdObject" $R3 $0
+      ${If} $0 == 0
+        ${BOOTCFG_OpenDefaultBcdStore} $R1 $R2 $R4 $0
+        ${If} $0 == 0
+          ${BOOTCFG_GetESPVolume} $R1 $R2 $R4 $R3 $1 $0
+          ${If} $0 != 0
+            DetailPrint "Unable to identify ESP volume: $1 [$0]"
+          ${Else}
+            DetailPrint "ESP volume: $1"
+            ; Save ESP volume
+            Push $1
+            ${BOOTCFG_GetVolumeUUID} "\\?\GLOBALROOT$1" $1 $0
+            ${If} $0 == 0
+              ; Terminating backslash is required for SetVolumeMountPoint
+              StrCpy $2 "$PLUGINSDIR_esp\"
+              ClearErrors
+              CreateDirectory $2
+              ${If} ${Errors}
+                DetailPrint "Unable to create $2 directory"
+                StrCpy $0 ${ERROR_ACCESS_DENIED}
+              ${Else}
+                ; Terminating backslash is required for SetVolumeMountPoint
+                StrCpy $1 "\\?\Volume$1\"
+                DetailPrint "Volume Name: $1"
+                System::Call \
+                  "kernel32::SetVolumeMountPoint(t r2, t r1) i.r0 ?e"
+                ${If} $0 != 0
+                  StrCpy $0 0
+                  Exch $0
+                ${EndIf}
+                Pop $0
+                ${If} $0 == 0
+                  Push $2
+                  StrCpy $2 "$2${EFI_FOLDER}"
+                  ClearErrors
+                  CreateDirectory $2
+                  ${If} ${Errors}
+                    DetailPrint \
+                      "Unable to create ${EFI_FOLDER} directory"
+                    StrCpy $0 ${ERROR_ACCESS_DENIED}
+                  ${Else}
+                    SetOutPath $2
+                    File "${BUILD_DIR}/${EFI_LOADER}"
+                    ${BOOTCFG_GetFileSystemUUID} "C:" $3
+                    ${If} $3 != ""
+                      ClearErrors
+                      FileOpen $4 ${GRUB2_CFG_FILE} w
+                      ${IfNot} ${Errors}
+                        FileWrite $4 "\
+search --set --fs-uuid $3$\n\
+configfile ($$root)/win32-loader/${GRUB2_CFG_FILE}$\n"
+                        FileClose $4
+                      ${EndIf}
+                    ${EndIf}
+                  ${EndIf}
+                  Pop $2
+                  System::Call "kernel32::DeleteVolumeMountPoint(t r2)"
+                ${EndIf}
+              ${EndIf}
+            ${EndIf}
+            ; Restore ESP volume
+            Pop $3
+            ${BOOTCFG_CreateGUID} $2
+            DetailPrint "GUID=$2 Label=$(d-i) Volume=$3"
+            ${BOOTCFG_CreateObject} $R1 $R2 $R4 \
+              ${BOOTCFG_BOOT_MANAGER} $2 $5 $0
+            ${If} $0 == 0
+              ; Associate data with boot manager object
+              ${BOOTCFG_SetDescription} $R1 $R3 $5 "$(d-i)" $1 $0
+              ${If} $0 == 0
+                ${BOOTCFG_SetPartition} $R1 $R3 $5 $3 $1 $0
+                ${If} $0 == 0
+                  ${BOOTCFG_SetPath} $R1 $R3 $5 "\${EFI_FOLDER}\${EFI_LOADER}" $1 $0
+                ${EndIf}
+              ${EndIf}
+              ; Release boot manager object and its associated data
+              ${BOOTCFG_ReleaseObject} $5
+              ${BOOTCFG_AppendFwBootEntry} $R1 $R2 $R4 $R3 $2 $1 $0
+              ${If} $0 == 0
+                ${BOOTCFG_ReleaseObject} $1
+              ${Else}
+                DetailPrint "AppendFwBootEntry: $1 [$0]"
+              ${EndIf}
+              ${BOOTCFG_SetActiveFwBootEntry} $R1 $R2 $R4 $R3 $2 $1 $0
+              ${If} $0 == 0
+                ${BOOTCFG_ReleaseObject} $1
+              ${Else}
+                DetailPrint "SetActiveFwBootEntry: $1 [$0]"
+              ${EndIf}
+            ${EndIf}
+            ${BOOTCFG_ReleaseObject} $R4
+          ${EndIf}
+          ${BOOTCFG_ReleaseObject} $R3
+        ${EndIf}
+        ${BOOTCFG_ReleaseObject} $R2
+      ${EndIf}
+      ${BOOTCFG_ReleaseObject} $R1
+      ${BOOTCFG_ReleaseObject} $R0
+    ${EndIf}
+  ${EndIf}
+  System::Store 'L'
 SectionEnd
 
 Section /o "Boot Manager" sec_bootmgr

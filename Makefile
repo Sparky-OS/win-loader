@@ -140,6 +140,9 @@ $(BUILD_DIR)/g2ldr: /usr/lib/grub/i386-pc/g2hdr.bin core.img | $(BUILD_DIR)
 $(BUILD_DIR)/g2ldr.mbr: /usr/lib/grub/i386-pc/g2ldr.mbr | $(BUILD_DIR)
 	cp $^ $@
 
+$(BUILD_DIR)/shimx64.efi: /usr/lib/shim/shimx64.efi.signed | $(BUILD_DIR)
+	cp $^ $@
+
 $(BUILD_DIR)/loadlin.pif: genpif | $(BUILD_DIR)
 	bash $^ > $@
 
@@ -171,7 +174,8 @@ $(OUTFILE_NAME): main.nsi maps.ini \
 		templates/gtk.bmp templates/text.bmp \
 		$(PXE_TARGETS) $(BUILD_DIR)/win32-loader.ico \
 		$(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe \
-		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr | $(HELPERS:=_helper)
+		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr \
+		$(BUILD_DIR)/shimx64.efi | $(HELPERS:=_helper)
 	find $^ -newermt "@$(SOURCE_DATE_EPOCH)" -print0 | xargs -0r touch --date="@$(SOURCE_DATE_EPOCH)"
 	$(MKDIR_P) $(BUILD_DIR)/l10n
 	$(MAKE) -C $(BUILD_DIR)/l10n -f $(CURDIR)/l10n/Makefile VPATH=$(CURDIR)/l10n

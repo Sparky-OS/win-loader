@@ -82,10 +82,14 @@ Var /GLOBAL target_distro
 ; Include functions after .onInit and un.onInit functions allowing
 ; expansion of macros to occur first in these functions
 ${BOOTCFG_AppendBootEntry}
+${BOOTCFG_AppendFwBootEntry}
 ${BOOTCFG_ConnectWMI}
 ${BOOTCFG_CreateGUID}
 ${BOOTCFG_CreateObject}
 ${BOOTCFG_GetElementFromBcd}
+${BOOTCFG_GetESPVolume}
+${BOOTCFG_GetFileSystemUUID}
+${BOOTCFG_GetVolumeUUID}
 ${BOOTCFG_GetObject}
 ${BOOTCFG_GetObjectPropertyValue}
 ${BOOTCFG_GetObjectOfVariant}
@@ -93,6 +97,7 @@ ${BOOTCFG_GetStringOfVariant}
 ${BOOTCFG_IsUEFI}
 ${BOOTCFG_SetDescription}
 ${BOOTCFG_OpenDefaultBcdStore}
+${BOOTCFG_SetActiveFwBootEntry}
 ${BOOTCFG_SetPartition}
 ${BOOTCFG_SetPath}
 ${BOOTCFG_ReleaseObject}
