@@ -121,7 +121,14 @@ Function GenerateGrubConfig
   Push $0
   StrCpy $0 "$INSTDIR\${GRUB2_CFG_FILE}"
   DetailPrint "$(generating)"
+  ClearErrors
   FileOpen $0 "$0" w
+  ${IfNot} ${Errors}
+    FileWrite $0 "set gfxpayload=auto$\n"
+  ${Else}
+    DetailPrint "$(error) ${GRUB2_CFG_FILE}"
+    StrCpy $0 ""
+  ${EndIf}
   Exch $0
 FunctionEnd
 
@@ -129,11 +136,13 @@ FunctionEnd
 Function WriteGrubConfigLinux
   Call GenerateGrubConfig
   Exch $0
-  FileWrite $0 "\
+  ${If} $0 != ""
+    FileWrite $0 "\
 linux	/win32-loader/linux $preseed_cmdline$\n\
 initrd	/win32-loader/initrd.gz$\n\
 boot$\n"
-  FileClose $0
+    FileClose $0
+  ${EndIf}
   Pop $0
 FunctionEnd
 
@@ -141,14 +150,16 @@ FunctionEnd
 Function WriteGrubConfigkFreeBSD
   Call GenerateGrubConfig
   Exch $0
-  FileWrite $0 "\
+  ${If} $0 != ""
+    FileWrite $0 "\
 kfreebsd	/win32-loader/kfreebsd.gz$\n\
 kfreebsd_module	/win32-loader/initrd.gz type=mfs_root$\n\
 set kFreeBSD.vfs.root.mountfrom=ufs:/dev/md0$\n\
 set kFreeBSD.hw.ata.ata_dma=0   # needed for qemu hard disk # TODO: delete$\n\
 set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
 boot$\n"
-  FileClose $0
+    FileClose $0
+  ${EndIf}
   Pop $0
 FunctionEnd
 
@@ -156,7 +167,8 @@ FunctionEnd
 Function WriteGrubConfigHurd
   Call GenerateGrubConfig
   Exch $0
-  FileWrite $0 "\
+  ${If} $0 != ""
+    FileWrite $0 "\
 multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 $preseed_cmdline$\n\
 module --nounzip	/win32-loader/initrd.gz initrd '$$(ramdisk-create)'$\n\
 module 			/win32-loader/ext2fs.static ext2fs \$\n\
@@ -167,7 +179,8 @@ module 			/win32-loader/ext2fs.static ext2fs \$\n\
 			'$$(task-create)' '$$(task-resume)'$\n\
 module			/win32-loader/ld.so.1 exec /hurd/exec '$$(exec-task=task-create)'$\n\
 boot$\n"
-  FileClose $0
+    FileClose $0
+  ${EndIf}
   Pop $0
 FunctionEnd
 
@@ -175,10 +188,13 @@ FunctionEnd
 Function WriteGrubConfigPXE
   Call GenerateGrubConfig
   Exch $0
-  FileWrite $0 "\
+  ${If} $0 != ""
+    FileWrite $0 "\
 linux16 /win32-loader/pxe.lkrn$\n\
 boot$\n"
-  FileClose $0
+    FileClose $0
+  ${EndIf}
+  Pop $0
 FunctionEnd
 !endif ; PXE
 
