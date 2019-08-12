@@ -2762,6 +2762,7 @@ ${BOOTCFG_FUNCPROLOG} "${UN}" AppendBootObject
             ${EndIf}
           ${Else}
             StrCpy $1 "SafeArrayUnaccessData failed"
+            StrCpy $0 $7
           ${EndIf}
         ${Else}
           StrCpy $1 "SafeArrayAccessData failed"
