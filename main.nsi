@@ -54,6 +54,7 @@ Page custom ShowGraphics ; graphics.nsi
 Page custom ShowBranch ; download.nsi and branch.nsi
 !endif
 Page custom ShowCustom LeaveCustom ; custom.nsi
+!define MUI_PAGE_CUSTOMFUNCTION_PRE Preparation
 !insertmacro MUI_PAGE_INSTFILES
 
 !insertmacro MUI_UNPAGE_CONFIRM
