@@ -1,3 +1,10 @@
+win32-loader (0.9.4+deb10u1) buster; urgency=medium
+
+  * Rebuild in stable to embed the latest debian-archive-keyring
+    (Closes: #933829)
+
+ -- Didier Raboud <odyx@debian.org>  Fri, 16 Aug 2019 08:53:00 +0200
+
 win32-loader (0.9.4) unstable; urgency=medium
 
   [ Thomas Gaugler ]
