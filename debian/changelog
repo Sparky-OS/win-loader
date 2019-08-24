@@ -1,3 +1,9 @@
+win32-loader (0.9.4+deb10u2) buster; urgency=medium
+
+  * Fix stable FTBFS through enforcing LC_ALL=POSIX
+
+ -- Didier Raboud <odyx@debian.org>  Sat, 24 Aug 2019 18:44:18 +0200
+
 win32-loader (0.9.4+deb10u1) buster; urgency=medium
 
   * Rebuild in stable to embed the latest debian-archive-keyring
