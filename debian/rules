@@ -24,6 +24,10 @@ BUILT_USING_LIST := $(shell set -e; \
 
 NSIS_VERSION  := $(shell dpkg-query -f='$${Version}' -W nsis )
 
+# A non-UTF-8 locale is needed for the NSIS build to convert some language strings
+LC_ALL := POSIX
+export LC_ALL
+
 %:
 	dh $@
 
