@@ -41,12 +41,6 @@ NSIS_CFLAGS	:= -Wl,--file-alignment,512 -Werror -D_WIN32_WINNT=0x0500
 
 ICONSIZES       := 16 24 32 48 256
 
-ifeq ($(wildcard /usr/i686-w64-mingw32/include/exdll.h), /usr/i686-w64-mingw32/include/exdll.h)
-NSIS_CFLAGS	+= -DHAVE_EXDLL_H
-else
-NSIS_CFLAGS	+= -L/usr/i686-w64-mingw32/lib/nsis/ -lpluginapi-x86-ansi
-endif
-
 # Standard makensis call
 MAKENSIS	:= makensis -V3
 
@@ -267,10 +261,7 @@ clean:
 			-f $(CURDIR)/l10n/Makefile clean; \
 		$(RMDIR) $(BUILD_DIR)/l10n; \
 	fi
-	rm -f $(BUILD_DIR)/plugins/cpuid/*.dll \
-		$(BUILD_DIR)/plugins/cpuid/*.exe \
-		$(BUILD_DIR)/plugins/systeminfo/*.dll \
-		$(BUILD_DIR)/plugins/*.dll $(OUTFILE_NAME) \
+	rm -f 	$(OUTFILE_NAME) \
 		$(BUILD_DIR)/*.iso $(BUILD_DIR)/*~ $(BUILD_DIR)/*/*~ \
 		$(BUILD_DIR)/core.img \
 		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr \
@@ -278,9 +269,6 @@ clean:
 		$(BUILD_DIR)/pxe.lkrn $(BUILD_DIR)/icon/*.png \
 		$(BUILD_DIR)/win32-loader.ico
 	if [ -d $(BUILD_DIR)/icon ]; then $(RMDIR) $(BUILD_DIR)/icon; fi
-	if [ -d $(BUILD_DIR)/plugins/cpuid ]; then $(RMDIR) $(BUILD_DIR)/plugins/cpuid; fi
-	if [ -d $(BUILD_DIR)/plugins/systeminfo ]; then $(RMDIR) $(BUILD_DIR)/plugins/systeminfo; fi
-	if [ -d $(BUILD_DIR)/plugins ]; then $(RMDIR) $(BUILD_DIR)/plugins; fi
 
 distclean: clean
 	rm -rf $(BUILD_DIR)/netboot
