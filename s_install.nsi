@@ -19,7 +19,8 @@
 !define EFI_FOLDER "EFI\debian"
 !define EFI_LOADER "shimx64.efi"
 !define GRUB2_CFG_FILE "grub.cfg"
-!define GRUB2_EFI_FILE "bootnetx64.efi"
+!define GRUB2_EFI_FILE "grubx64.efi"
+!define SHIM_EFI_FILE "bootnetx64.efi"
 
 ; Create boot entry and add it to display list of boot manager
 ; Parameter:
@@ -336,6 +337,7 @@ Section /o "GRUB 2 EFI" sec_grub2_efi
   ${If} $arch == "amd64"
     ClearErrors
     !insertmacro CopyFile "${GRUB2_EFI_FILE}" "${GRUB2_EFI_FILE}"
+    !insertmacro CopyFile "${SHIM_EFI_FILE}" "${SHIM_EFI_FILE}"
   ${EndIf}
 SectionEnd
 
@@ -575,6 +577,16 @@ Section /o "GRUB 2 EFI" sec_grub2_efi
     Push "$base_url$base_path_hashes$base_path_images"
     Call Download
     Pop $0
+    Push "$PLUGINSDIR\SHA256SUMS"
+    Push "$base_path_images/${SHIM_EFI_FILE}"
+    Call Get_SHA256_ref
+    ; SHA256 is on stack
+    Push "false"
+    Push "${SHIM_EFI_FILE}"
+    Push "$INSTDIR"
+    Push "$base_url$base_path_hashes$base_path_images"
+    Call Download
+    Pop $0
   ${EndIf}
 SectionEnd
 
@@ -648,12 +660,12 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                       "Unable to create ${EFI_FOLDER} directory"
                     StrCpy $0 ${ERROR_ACCESS_DENIED}
                   ${Else}
-                    SetOutPath $2
-                    File "${BUILD_DIR}/${EFI_LOADER}"
+                    CopyFiles /FILESONLY "$INSTDIR\${SHIM_EFI_FILE}" "$2\${EFI_LOADER}"
+                    CopyFiles /FILESONLY "$INSTDIR\${GRUB2_EFI_FILE}" "$2\${GRUB2_EFI_FILE}"
                     ${BOOTCFG_GetFileSystemUUID} "C:" $3
                     ${If} $3 != ""
                       ClearErrors
-                      FileOpen $4 ${GRUB2_CFG_FILE} w
+                      FileOpen $4 "$2\${GRUB2_CFG_FILE}" w
                       ${IfNot} ${Errors}
                         FileWrite $4 "\
 search --set --fs-uuid $3$\n\

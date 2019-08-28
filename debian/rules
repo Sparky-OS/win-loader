@@ -8,7 +8,7 @@ BYHAND ?= yes
 
 W32_BYHAND_NAME := win32-loader_$(DEB_VERSION)_all
 
-B_D_PACKAGES := grub-pc-bin shim-signed gzip-win32 gpgv-win32 debian-archive-keyring loadlin ipxe nsis
+B_D_PACKAGES := grub-pc-bin gzip-win32 gpgv-win32 debian-archive-keyring loadlin ipxe nsis
 
 PACKAGES_LIST := $(shell set -e; \
 	for p in ${B_D_PACKAGES}; \
