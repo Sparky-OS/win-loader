@@ -150,6 +150,15 @@ Function AddBootEntry
   System::Store 'L'
 FunctionEnd
 
+; Write GUID to the registry
+; Parameter:
+;   guid - GUID of boot entry
+Function WriteRegGUID
+  Exch $0
+  WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$0"
+  Pop $0
+FunctionEnd
+
 Function CreateBootEntry
   ReadRegStr $0 HKLM "${REGSTR_WIN32}" "bootmgr"
   ${If} $0 == ""
@@ -166,7 +175,8 @@ Function CreateBootEntry
       ${EndIf} ; $pxe_mode == "true"
 !endif ; PXE
       Call AddBootEntry
-      WriteRegStr HKLM "${REGSTR_WIN32}" "bootmgr" "$2"
+      Push $2
+      Call WriteRegGUID
     ${Else}
       MessageBox MB_OK|MB_ICONSTOP "$(error_bcdedit_extract_id)"
       Quit
@@ -780,6 +790,8 @@ configfile ($$root)/win32-loader/${GRUB2_CFG_FILE}$\n"
                 DetailPrint "SetActiveFwBootEntry: $1 [$0]"
               ${EndIf}
             ${EndIf}
+            Push $2
+            Call WriteRegGUID
             ${BOOTCFG_ReleaseObject} $R4
           ${EndIf}
           ${BOOTCFG_ReleaseObject} $R3

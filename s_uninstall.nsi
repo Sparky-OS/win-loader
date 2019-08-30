@@ -22,7 +22,6 @@ ${un.BOOTCFG_DeleteObject}
 ${un.BOOTCFG_GetObject}
 ${un.BOOTCFG_OpenDefaultBcdStore}
 ${un.BOOTCFG_ReleaseObject}
-${un.BOOTCFG_RemoveBootEntry}
 
 Function un.RemoveBootEntry
   System::Store 'S'
@@ -39,12 +38,6 @@ Function un.RemoveBootEntry
             ${un.BOOTCFG_DeleteObject} $R1 $R2 $R4 $2 $1 $0
             ${If} $0 != 0
               IntFmt $0 "0x%08X" $0
-              DetailPrint "$1: $0"
-            ${EndIf}
-            ${un.BOOTCFG_RemoveBootEntry} $R1 $R2 $R4 \
-              $R3 $2 $1 $0
-            ${If} $0 != 0
-              IntFmt $1 "0x%08X" $1
               DetailPrint "$1: $0"
             ${EndIf}
             ${un.BOOTCFG_ReleaseObject} $R4
