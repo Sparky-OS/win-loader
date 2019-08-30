@@ -22,6 +22,11 @@
 !define GRUB2_EFI_FILE "grubx64.efi"
 !define SHIM_EFI_FILE "bootnetx64.efi"
 
+!include StrFunc.nsh
+!ifndef StrRep_INCLUDED
+${StrRep}
+!endif
+
 ; TODO: Remove work around 
 ; ---
 ${STDMACROS_DefIfNotDef} CRYPT_STRING_BASE64 0x00000001
@@ -209,8 +214,8 @@ Function WriteGrubConfigLinux
   Exch $0
   ${If} $0 != ""
     FileWrite $0 "\
-linux	/win32-loader/linux $preseed_cmdline$\n\
-initrd	/win32-loader/initrd.gz$\n\
+linux	$$prefix/linux $preseed_cmdline$\n\
+initrd	$$prefix/initrd.gz$\n\
 boot$\n"
     FileClose $0
   ${EndIf}
@@ -223,8 +228,8 @@ Function WriteGrubConfigkFreeBSD
   Exch $0
   ${If} $0 != ""
     FileWrite $0 "\
-kfreebsd	/win32-loader/kfreebsd.gz$\n\
-kfreebsd_module	/win32-loader/initrd.gz type=mfs_root$\n\
+kfreebsd	$$prefix/kfreebsd.gz$\n\
+kfreebsd_module	$$prefix/initrd.gz type=mfs_root$\n\
 set kFreeBSD.vfs.root.mountfrom=ufs:/dev/md0$\n\
 set kFreeBSD.hw.ata.ata_dma=0   # needed for qemu hard disk # TODO: delete$\n\
 set kFreeBSD.hw.ata.atapi_dma=0 # needed for qemu cd # TODO: 1$\n\
@@ -240,15 +245,15 @@ Function WriteGrubConfigHurd
   Exch $0
   ${If} $0 != ""
     FileWrite $0 "\
-multiboot		/win32-loader/gnumach.gz root=gunzip:device:rd0 $preseed_cmdline$\n\
-module --nounzip	/win32-loader/initrd.gz initrd '$$(ramdisk-create)'$\n\
-module 			/win32-loader/ext2fs.static ext2fs \$\n\
+multiboot		$$prefix/gnumach.gz root=gunzip:device:rd0 $preseed_cmdline$\n\
+module --nounzip	$$prefix/initrd.gz initrd '$$(ramdisk-create)'$\n\
+module 			$$prefix/ext2fs.static ext2fs \$\n\
 			--multiboot-command-line='$${kernel-command-line}' \$\n\
 			--host-priv-port='$${host-port}' \$\n\
 			--device-master-port='$${device-port}' \$\n\
 			--exec-server-task='$${exec-task}' -T typed '$${root}' \$\n\
 			'$$(task-create)' '$$(task-resume)'$\n\
-module			/win32-loader/ld.so.1 exec /hurd/exec '$$(exec-task=task-create)'$\n\
+module			$$prefix/ld.so.1 exec /hurd/exec '$$(exec-task=task-create)'$\n\
 boot$\n"
     FileClose $0
   ${EndIf}
@@ -261,7 +266,7 @@ Function WriteGrubConfigPXE
   Exch $0
   ${If} $0 != ""
     FileWrite $0 "\
-linux16 /win32-loader/pxe.lkrn$\n\
+linux16 $$prefix/pxe.lkrn$\n\
 boot$\n"
     FileClose $0
   ${EndIf}
@@ -754,9 +759,13 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                       ClearErrors
                       FileOpen $4 "$2\${GRUB2_CFG_FILE}" w
                       ${IfNot} ${Errors}
+                        StrLen $0 $c
+                        StrCpy $0 "$INSTDIR" "" $0
+                        ${StrRep} $0 "$0" "\" "/"
                         FileWrite $4 "\
 search --set --fs-uuid $3$\n\
-configfile ($$root)/win32-loader/${GRUB2_CFG_FILE}$\n"
+set prefix=($$root)$0$\n\
+normal$\n"
                         FileClose $4
                       ${EndIf}
                     ${EndIf}
