@@ -22,6 +22,66 @@
 !define GRUB2_EFI_FILE "grubx64.efi"
 !define SHIM_EFI_FILE "bootnetx64.efi"
 
+; TODO: Remove work around 
+; ---
+${STDMACROS_DefIfNotDef} CRYPT_STRING_BASE64 0x00000001
+; Patch grub efi file from netboot
+;
+; This effectively changes grubnetx64-installer.efi.signed into
+; grubnetx64.efi.signed of the grub-efi-amd64-signed_1+2.02+dfsg1+20
+; package (stable).
+;
+; grub efi file from netboot sets the prefix to
+; ($root)debian-installer/amd64/grub
+; In my opinion this prefix lacks the leading /.
+;
+; The default netboot grub efi file (grubnetx64.efi.signed) sets
+; the prefix to ($root)/grub.
+Function PatchNetBootGrub
+  System::Store 'S'
+  ; GenPat grubnetx64-installer.efi.signed grubnetx64.efi.signed patch.bin
+  ; base64 patch.bin
+  StrCpy $1 "\
+VlBBVAEAAIAMAAAAS/ICSiUH3tZ4/D0BHnCoNSlEFDNpksF0kRbus/Z4SP+mAQAAAdgAAAAABQKL\
+WQM2nwEA2gAAAAUBiANraREAEaABAAUJEAAAAC9ncnViAnwGgH0BAAJwEAEQEwAFIEqoEQeenlnS\
+oFdqnJF00Yciq2VWywiMKJi88KYdzojaAqYDkSATAAY5AS07YkBwv1/3u8lIKl+/hFUAWaZBqNeK\
+9LoQ0luh/ZGmMA0GCSqGSIb3DQEBAQUABIIBABPkjTVtAG05pjCwVnrDjPSOnnQ4HW0dqMVMl25W\
+axBKQqUMOzuivs3TCxqZH80zVQ3eOUTqOlaqUbu1wVF4Zn9Jg5fVnciqE9kngPzl6OLJCQkuA9/p\
+v1tgtNwOe4F4GrUz8gxNtox0jhN1mvCLWzvLRjPGh2Di00jOA998QyMWnvR8+Qk3q2M4l3ziDjJL\
+eKzFnRAs6kn8fPBP00K9AOqyHfTvUZHSdrYtPLexe0X0HW8H9FYEqOt8p8DCaVd/Nan1tk6jucVa\
+661yH/MGKBWR7TtD92jF7GMIHZa/6bbxjQppJG+fxjhabRPiakumpOeXzjXCmxoccx4xYEqEBsQA\
+AAAAAAD/ADj77jUr1QE="
+  StrLen $2 $1
+  ; Length of binary string
+  IntOp $3 $2 * 3
+  IntOp $3 $3 / 4
+  System::Alloc $3
+  Pop $4
+  ${If} $4 P<> 0
+    System::Call "Crypt32::CryptStringToBinary(t r1, i r2, i ${CRYPT_STRING_BASE64}, p r4, *i r3r3, i 0, i 0) i.r0"
+    ${If} $0 != 0
+      ClearErrors
+      StrCpy $2 "$PLUGINSDIR\patch.bin"
+      FileOpen $1 "$2" w
+      ${IfNot} ${Errors}
+        System::Call "kernel32::WriteFile(p r1, p r4, i r3, *i .r3, p 0) i.r0"
+        FileClose $1
+        ${If} $0 != 0
+          StrCpy $0 "$INSTDIR\${GRUB2_EFI_FILE}"
+          StrCpy $3 "$PLUGINSDIR\${GRUB2_EFI_FILE}"
+          Rename "$0" "$3"
+          vpatch::vpatchfile $2 $3 $0
+          Pop $0
+          DetailPrint $0
+        ${EndIf}
+      ${EndIf}
+    ${EndIf}
+    System::Free $4
+  ${EndIf}
+  System::Store 'L'
+FunctionEnd
+; ---
+
 ; Create boot entry and add it to display list of boot manager
 ; Parameter:
 ;   guid - global unique identifier of boot entry
@@ -661,9 +721,20 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                     StrCpy $0 ${ERROR_ACCESS_DENIED}
                   ${Else}
                     CopyFiles /FILESONLY "$INSTDIR\${SHIM_EFI_FILE}" "$2\${EFI_LOADER}"
+                    ; TODO: Remove workaround
+                    ; ---
+                    Call PatchNetBootGrub
+                    ; ---
                     CopyFiles /FILESONLY "$INSTDIR\${GRUB2_EFI_FILE}" "$2\${GRUB2_EFI_FILE}"
                     ${BOOTCFG_GetFileSystemUUID} "C:" $3
                     ${If} $3 != ""
+                      ; TODO: Remove workaround
+                      ; ---
+                      Pop $2
+                      Push $2
+                      StrCpy $2 "$2grub"
+                      CreateDirectory $2
+                      ; ---
                       ClearErrors
                       FileOpen $4 "$2\${GRUB2_CFG_FILE}" w
                       ${IfNot} ${Errors}
