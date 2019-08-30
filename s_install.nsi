@@ -685,6 +685,12 @@ SectionEnd
 Section /o "Firmware Boot Manager" sec_fwbootmgr
   System::Store 'S'
   DetailPrint "${__SECTION__}"
+!ifdef PXE
+  ${If} $pxe_mode == "true"
+    DetailPrint "$(^Skipped)$(pxe)"
+    Return
+  ${EndIf}
+!endif
   ${BOOTCFG_ConnectWMI} $R0 $R1 $0
   ${If} $0 == 0
     ${BOOTCFG_GetObject} $R1 "BcdStore" $R2 $0
