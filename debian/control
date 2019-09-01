@@ -4,8 +4,7 @@ Uploaders: Thomas Gaugler <thomas@dadie.net>,
            Didier Raboud <odyx@debian.org>
 Section: utils
 Priority: optional
-Build-Depends: debhelper (>= 11~),
-               nsis (>= 3),
+Build-Depends: nsis (>= 3),
                mingw-w64,
                librsvg2-bin,
                icoutils,
@@ -19,7 +18,8 @@ Build-Depends: debhelper (>= 11~),
                gpgv-win32,
                debian-archive-keyring,
                gzip-win32,
-               wine [i386]
+               wine [i386],
+               debhelper-compat (= 12)
 Standards-Version: 4.2.1
 Vcs-Browser: https://salsa.debian.org/installer-team/win32-loader
 Vcs-Git: https://salsa.debian.org/installer-team/win32-loader.git
