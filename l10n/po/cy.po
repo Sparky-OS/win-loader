@@ -290,6 +290,9 @@ msgstr "awr"
 msgid "s"
 msgstr " "
 
+#. Former values:
+#. "%dkB (%d%%) o %dkB ar %d.%01dkB/s"
+#. " (%d %s%s ar ôl)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -471,9 +474,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "Hoffech chi ailgychwyn nawr?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Amgylchedd penbwrdd:"
-
-#~ msgid "None"
-#~ msgstr "Dim"

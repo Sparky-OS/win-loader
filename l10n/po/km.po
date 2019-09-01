@@ -276,6 +276,9 @@ msgstr "ម៉ោង"
 msgid "s"
 msgstr "វិ."
 
+#. Former values:
+#. "%dkB (%d%%) នៃ %dkB នៅ %d.%01dkB/s"
+#. " (នៅ​សល់ %d %s%s​)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -449,9 +452,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "តើ​អ្នក​ចង់​ចាប់ផ្ដើម​ឡើងវិញ​ឥឡូវ​ដែរឬទេ ?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "បរិស្ថាន​ផ្ទៃតុ ៖"
-
-#~ msgid "None"
-#~ msgstr "គ្មាន"

@@ -280,6 +280,9 @@ msgstr "மணி"
 msgid "s"
 msgstr "கள்"
 
+#. Former values:
+#. "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+#. " (%d %s%s மீதமுள்ளது)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -456,9 +459,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "இப்போது மறுதுவக்கம் செய்ய வேண்டுமா?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "மேஜை சுழல்"
-
-#~ msgid "None"
-#~ msgstr "ஒன்றுமில்லை"

@@ -286,6 +286,9 @@ msgstr "stunda"
 msgid "s"
 msgstr "s"
 
+#. Former values:
+#. "%dkB (%d%%) no %dkB ar %d.%01dkB/s"
+#. " (%d %s%s atlicis)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -464,9 +467,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "Vai vēlaties pārstartēt tagad?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Darbvirsmas vide:"
-
-#~ msgid "None"
-#~ msgstr "Neviena"

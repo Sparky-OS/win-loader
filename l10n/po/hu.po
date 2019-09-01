@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2019-05-22 22:56+0200\n"
+"POT-Creation-Date: 2019-09-01 11:42+0200\n"
 "PO-Revision-Date: 2011-02-22 08:37+0100\n"
 "Last-Translator: SZERVÁC Attila <sas@321.hu>\n"
 "Language-Team: Hungarian <debian-l10n-hungarian@lists.d.o>\n"
@@ -248,55 +248,36 @@ msgid "Text install"
 msgstr "Szöveges telepítés"
 
 #: win32-loader.c:120
-#, c-format
-msgid "Downloading %s"
-msgstr "%s letöltése"
-
-#: win32-loader.c:121
 msgid "Connecting ..."
 msgstr "Kapcsolódás"
 
-#: win32-loader.c:122
-msgid "second"
-msgstr "másodperc"
-
-#: win32-loader.c:123
-msgid "minute"
-msgstr "perc"
-
-#: win32-loader.c:124
-msgid "hour"
-msgstr "óra"
-
 #. translate:
-#. This string is appended to "second", "minute" or "hour" to make plurals.
-#. I know it's quite unfortunate.  An alternate method for translating NSISdl
-#. has been proposed [1] but in the meantime we'll have to cope with this.
-#. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
+#. $(^Byte), $0, $1, $4 must not be translated.
+#. These are substitutes as the following:
+#. $(^Byte) -> B
+#. $0 -> unit prefix such as G (giga), M (mega), K (kilo) or empty
+#. $1 -> estimated time remaining for the download
+#. It includes the unit. Examples are 1h, 5m, 3s
+#. $2 -> current size of downloaded content
+#. $4 -> total size of file
+#. Example: 3s left - 49.2 of 55.0 MB (2.2 MB/s)
 #.
-#: win32-loader.c:132
-msgid "s"
-msgstr " "
-
+#. Former values:
+#. "%dkB (%d%%)/%dkB %d.%01dkB/mp-vel"
+#. " (%d %s%s van hátra)"
 #: win32-loader.c:133
-#, c-format
-msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
-msgstr "%dkB (%d%%)/%dkB %d.%01dkB/mp-vel"
+msgid "$1 left - $2 of $4$0$(^Byte) ($3$0$(^Byte)/s)"
+msgstr ""
 
 #: win32-loader.c:134
-#, c-format
-msgid " (%d %s%s remaining)"
-msgstr " (%d %s%s van hátra)"
-
-#: win32-loader.c:135
 msgid "Select which version of Debian-Installer to use:"
 msgstr "Jelöld ki a Debian-Telepítő használandó változatát:"
 
-#: win32-loader.c:136
+#: win32-loader.c:135
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "Stabil kiadás. Ez telepíti a Debian jelenlegi stabil változatát."
 
-#: win32-loader.c:137
+#: win32-loader.c:136
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -309,7 +290,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:142
+#: win32-loader.c:141
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -317,44 +298,44 @@ msgstr ""
 "Ajánljuk, ellenőrizd az ismert hibákat a napi kép használata előtt. "
 "Megteszed most?"
 
-#: win32-loader.c:143
+#: win32-loader.c:142
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
 msgstr ""
 "Az alábbi paramétereket használjuk. NE módosítsd, ha nem tudod, mit teszel."
 
-#: win32-loader.c:144
+#: win32-loader.c:143
 msgid "Proxy settings (host:port):"
 msgstr "Proxi beállítások (gép:port):"
 
-#: win32-loader.c:145
+#: win32-loader.c:144
 msgid "Location of boot.ini:"
 msgstr "A boot.ini helye:"
 
-#: win32-loader.c:146
+#: win32-loader.c:145
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Alap URL a netboot képekhez (linux és initrd.gz):"
 
-#: win32-loader.c:147
+#: win32-loader.c:146
 msgid "Error"
 msgstr "Hiba"
 
-#: win32-loader.c:148
+#: win32-loader.c:147
 msgid "Error: failed to copy $0 to $1."
 msgstr "Hiba: nem tudtam $0-t ide másolni: $1."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:153
+#: win32-loader.c:152
 msgid "Checking GPG signature on $0."
 msgstr "GPG aláírás ellenőrzése ezen: $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:158
+#: win32-loader.c:157
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "A letöltött $0 fájl nem megbízható! Leállok."
 
@@ -362,50 +343,50 @@ msgstr "A letöltött $0 fájl nem megbízható! Leállok."
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:164
+#: win32-loader.c:163
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr "Eltérő ellenőrzőösszeg ehhez: $0/$2. $1 jött $4 helyett. Leállok."
 
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:169
+#: win32-loader.c:168
 msgid "Computing checksum for $2"
 msgstr "Ellenőrzőösszeg kiszámítása ehhez: $2"
 
-#: win32-loader.c:170
+#: win32-loader.c:169
 msgid "Generating $0"
 msgstr "$0 generálása"
 
-#: win32-loader.c:171
+#: win32-loader.c:170
 msgid "Appending preseeding information to $0"
 msgstr "Előíró adatok fűzése a $0 mögé"
 
-#: win32-loader.c:172
+#: win32-loader.c:171
 msgid "Error: unable to run $0."
 msgstr "Hiba: $0 futtatása sikertelen"
 
-#: win32-loader.c:173
+#: win32-loader.c:172
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "NTFS tömörítés kikapcsolása a bootstrap fájlokban"
 
-#: win32-loader.c:174
+#: win32-loader.c:173
 msgid "Registering in NTLDR"
 msgstr "Bejegyzés az NTLDR-be"
 
-#: win32-loader.c:175
+#: win32-loader.c:174
 msgid "Registering in BootMgr"
 msgstr "Bejegyzés s a BootMgr-be"
 
-#: win32-loader.c:176
+#: win32-loader.c:175
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Hiba: a bcdedit.exe kimenet értelmezhetetlen"
 
-#: win32-loader.c:177
+#: win32-loader.c:176
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "Hiba: nincs $0. Ez tényleg Windows $windows_version?"
 
-#: win32-loader.c:178
+#: win32-loader.c:177
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "NAGYON FONTOS MEGJEGYZÉS:\\n\\n"
 
@@ -415,7 +396,7 @@ msgstr "NAGYON FONTOS MEGJEGYZÉS:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:186
+#: win32-loader.c:185
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -424,7 +405,7 @@ msgstr ""
 "Most indul a telepítő folyamat 2. része. Jóváhagyásod által a Windows DOS "
 "módban indul és automatikusan betölti a Telepítő következő részét.\\n\\n"
 
-#: win32-loader.c:187
+#: win32-loader.c:186
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -434,7 +415,7 @@ msgstr ""
 "során mind a Windows újraindítása mind a telepítés folytatása lehetővé válik."
 "\\n\\n"
 
-#: win32-loader.c:188
+#: win32-loader.c:187
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -452,18 +433,6 @@ msgstr ""
 "eltávolítása pontjával eltávolíthatod ezt a Debian-Telepítő betöltő "
 "programot."
 
-#: win32-loader.c:189
+#: win32-loader.c:188
 msgid "Do you want to reboot now?"
 msgstr "Újraindítod a gépet most?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Asztali környezet:"
-
-#~ msgid "None"
-#~ msgstr "Nincs"
-
-#~ msgid "Debian Installer"
-#~ msgstr "Debian Telepítő"
-
-#~ msgid "Debconf preseed line:"
-#~ msgstr "Debconf előíró sor:"

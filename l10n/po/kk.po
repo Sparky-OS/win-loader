@@ -282,6 +282,9 @@ msgstr "сағат"
 msgid "s"
 msgstr " с"
 
+#. Former values:
+#. "%dкБ (%d%%) - %dкБ; жылдамдығы %d,%01dкБ/с"
+#. " (%d %s%s қалды)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -463,12 +466,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "Қайта жүктеуді қазір орындауды қалайсыз ба?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Жұмыс үстелінің ортасы:"
-
-#~ msgid "None"
-#~ msgstr "Жоқ"
-
-#~ msgid "Debian Installer"
-#~ msgstr "Debian Орнату"

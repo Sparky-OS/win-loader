@@ -251,6 +251,9 @@ msgstr "గంట"
 msgid "s"
 msgstr ""
 
+#. Former values:
+#. ""
+#. " (%d %s%s మిగిలివుంది)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -413,9 +416,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "మీరిప్పుడు పునఃప్రారంభించాలి అనుకుంటున్నారా?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "రంగస్థల ఆవరణం:"
-
-#~ msgid "None"
-#~ msgstr "ఏమీలేదు"

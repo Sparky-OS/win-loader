@@ -287,6 +287,9 @@ msgstr "ཆུ་ཚོད་"
 msgid "s"
 msgstr "ཨེསི་"
 
+#. Former values:
+#. "%dkB (%d%%) of %dkB at %d.%01dkB/s"
+#. "(%d %s%s ལྷག་ལུས་)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -466,15 +469,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "ཁྱོད་ཀྱིས་ ད་ལྟོ་ར་ ལོག་བུཊི་འབད་ནི་ཨིན་ན་?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "ཌེཀསི་ཊོཔ་མཐའ་འཁོར་:"
-
-#~ msgid "None"
-#~ msgstr "ཅི་མེད་"
-
-#~ msgid "Debian Installer"
-#~ msgstr "ཌི་བི་ཡཱན་ གཞི་བཙུགས་པ་"
-
-#~ msgid "Debconf preseed line:"
-#~ msgstr "Debconf སྔ་གོང་གཞི་བཙུགས་གྲལ་ཐིག་:"

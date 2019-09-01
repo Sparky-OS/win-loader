@@ -287,6 +287,9 @@ msgstr "giờ"
 msgid "s"
 msgstr " "
 
+#. Former values:
+#. "%dkB (%d%%) trên %dkB theo %d.%01dkB/g"
+#. " (%d %s%s còn lại)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -470,9 +473,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "Bạn có muốn khởi động lại máy ngay bây giờ không?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Môi trường máy làm việc:"
-
-#~ msgid "None"
-#~ msgstr "Không có"

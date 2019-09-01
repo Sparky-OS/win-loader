@@ -2,13 +2,14 @@
 # For others, a PO file may be added and kept until NSIS is translated
 # Languages not yet supported by NSIS: ast bn dz kk ml ta te ug vi
 
+VPATH ?= .
 MKDIR_P := mkdir -p
 TEMPLATES := templates
 PO := po
 
 LINGUAS= ar be bg bs ca cs da de el en eo es eu fa fi fr ga gl he hr hu is it ja ko lt nb nl pl pt pt_BR ro ru sk sl sq sr sr@latin sv th tr uk zh_CN zh_TW
 
-all: $(TEMPLATES)/all.nsh $(TEMPLATES)/dialog.nsh po/messages.pot
+all: $(TEMPLATES)/all.nsh $(TEMPLATES)/dialog.nsh $(VPATH)/$(PO)/messages.pot
 
 $(TEMPLATES):
 	$(MKDIR_P) $@
@@ -28,7 +29,7 @@ win32-loader: win32-loader.c
 $(TEMPLATES)/en.nsh: win32-loader.sh win32-loader | $(TEMPLATES)
 	LANGUAGE=C $(realpath $<) > $@
 
-locale/%/LC_MESSAGES/win32-loader.mo: po/%.po $(PO)/messages.pot | $(TEMPLATES)
+locale/%/LC_MESSAGES/win32-loader.mo: $(PO)/%.po $(VPATH)/$(PO)/messages.pot | $(TEMPLATES)
 	$(MKDIR_P) locale/$*/LC_MESSAGES
 	msgmerge -U $< $(dir $<)messages.pot
 	msgfmt -c --statistics -o $@ $<

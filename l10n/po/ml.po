@@ -252,6 +252,9 @@ msgstr ""
 msgid "s"
 msgstr ""
 
+#. Former values:
+#. ""
+#. ""
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"

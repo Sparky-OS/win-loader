@@ -301,6 +301,9 @@ msgstr "jam"
 msgid "s"
 msgstr "s"
 
+#. Former values:
+#. "%dkB (%d%%) dari %dkB pada %d.%01dkB/s"
+#. " (%d %s%s tersisa)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -484,9 +487,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "Apakah anda ingin menyalakan ulang sekarang?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Lingkungan Desktop:"
-
-#~ msgid "None"
-#~ msgstr "Kosong"

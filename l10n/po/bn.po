@@ -287,6 +287,9 @@ msgstr "ঘন্টা"
 msgid "s"
 msgstr "s"
 
+#. Former values:
+#. "%d.%01dkB/s-তে %dkB-র %dkB (%d%%)"
+#. " (%d %s%s অবশিষ্ট আছে)"
 #: win32-loader.c:133
 #, c-format
 msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
@@ -465,12 +468,3 @@ msgstr ""
 #: win32-loader.c:189
 msgid "Do you want to reboot now?"
 msgstr "আপনি কি এখন পুনরায় বুট করতে চান?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "ডেস্কটপ এনভায়রনমেন্ট:"
-
-#~ msgid "None"
-#~ msgstr "কোনটি না"
-
-#~ msgid "Debian Installer"
-#~ msgstr "ডেবিয়ান ইন্সটলার"

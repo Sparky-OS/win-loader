@@ -117,21 +117,20 @@ main (int argc, char **argv)
   langstring ("graphics1",			_("Select install mode:"));
   langstring ("graphics2",			_("Graphical install"));
   langstring ("graphics3",			_("Text install"));
-  langstring ("nsisdl1",			_("Downloading %s"));
-  langstring ("nsisdl2",			_("Connecting ..."));
-  langstring ("nsisdl3",			_("second"));
-  langstring ("nsisdl4",			_("minute"));
-  langstring ("nsisdl5",			_("hour"));
+  langstring ("connecting",			_("Connecting ..."));
 /*
   translate:
-  This string is appended to "second", "minute" or "hour" to make plurals.
-  I know it's quite unfortunate.  An alternate method for translating NSISdl
-  has been proposed [1] but in the meantime we'll have to cope with this.
-  [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
- */
-  langstring ("nsisdl6",			_("s"));
-  langstring ("nsisdl7",			_("%dkB (%d%%) of %dkB at %d.%01dkB/s"));
-  langstring ("nsisdl8",			_(" (%d %s%s remaining)"));
+  $(^Byte), $0, $1, $4 must not be translated.
+  These are substitutes as the following:
+  $(^Byte) -> B
+  $0 -> unit prefix such as G (giga), M (mega), K (kilo) or empty
+  $1 -> estimated time remaining for the download
+     It includes the unit. Examples are 1h, 5m, 3s
+  $2 -> current size of downloaded content
+  $4 -> total size of file
+  Example: 3s left - 49.2 of 55.0 MB (2.2 MB/s)
+*/
+  langstring ("progress",			_("$1 left - $2 of $4$0$(^Byte) ($3$0$(^Byte)/s)"));
   langstring ("di_branch1",			_("Select which version of Debian-Installer to use:"));
   langstring ("di_branch2",			_("Stable release.  This will install Debian \"stable\"."));
   langstring ("di_branch3",			_("Daily build.  This is the development version of Debian-Installer.  It will install Debian \"testing\" by default, and may be capable of installing \"stable\" or \"unstable\" as well."));

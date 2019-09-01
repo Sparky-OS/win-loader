@@ -31,8 +31,8 @@ ${STDMACROS_DefIfNotDef} IDC_SHOWDETAILS 1027
 !define WININET_PROGRESSBAR_CONTROL ${IDC_PROGRESS1}
 !define WININET_PROXY $proxy
 !define WININET_STATUSTEXT_CONTROL ${IDC_STATIC1}
-!define WININET_TEXT_CONNECTING $(nsisdl2)
-!define WININET_TEXT_PROGRESS "$1 left - $2 of $4$0$(^Byte) ($3$0$(^Byte)/s)"
+!define WININET_TEXT_CONNECTING $(connecting)
+!define WININET_TEXT_PROGRESS $(progress)
 !define WININET_TIMEOUT 10000
 !define WININET_USER_AGENT "Mozilla/4.0 (compatible; Win32; ${_PRODUCT_NAME})"
 

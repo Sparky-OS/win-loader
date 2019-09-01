@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: win32-loader\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
-"POT-Creation-Date: 2019-05-22 22:56+0200\n"
+"POT-Creation-Date: 2019-09-01 11:42+0200\n"
 "PO-Revision-Date: 2011-02-22 00:18+0200\n"
 "Last-Translator: Tommi Vainikainen <tvainika@debian.org>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -255,56 +255,36 @@ msgid "Text install"
 msgstr "Tekstiasennus"
 
 #: win32-loader.c:120
-#, c-format
-msgid "Downloading %s"
-msgstr "Ladataan kohdetta %s"
-
-#: win32-loader.c:121
 msgid "Connecting ..."
 msgstr "Yhdistetään..."
 
-#: win32-loader.c:122
-msgid "second"
-msgstr "sekunti"
-
-#: win32-loader.c:123
-msgid "minute"
-msgstr "minuutti"
-
-#: win32-loader.c:124
-msgid "hour"
-msgstr "tunti"
-
-# Taitaa toimia tässä taivutuksessa näinkin vaikka on ihan kamala
 #. translate:
-#. This string is appended to "second", "minute" or "hour" to make plurals.
-#. I know it's quite unfortunate.  An alternate method for translating NSISdl
-#. has been proposed [1] but in the meantime we'll have to cope with this.
-#. [1] http://sourceforge.net/tracker/index.php?func=detail&aid=1656076&group_id=22049&atid=373087
+#. $(^Byte), $0, $1, $4 must not be translated.
+#. These are substitutes as the following:
+#. $(^Byte) -> B
+#. $0 -> unit prefix such as G (giga), M (mega), K (kilo) or empty
+#. $1 -> estimated time remaining for the download
+#. It includes the unit. Examples are 1h, 5m, 3s
+#. $2 -> current size of downloaded content
+#. $4 -> total size of file
+#. Example: 3s left - 49.2 of 55.0 MB (2.2 MB/s)
 #.
-#: win32-loader.c:132
-msgid "s"
-msgstr "a"
-
+#. Former values:
+#. "%d kt (%d %%) / %d kt nopeudella %d,%01d kt/s"
+#. " (%d %s%s jäljellä)"
 #: win32-loader.c:133
-#, c-format
-msgid "%dkB (%d%%) of %dkB at %d.%01dkB/s"
-msgstr "%d kt (%d %%) / %d kt nopeudella %d,%01d kt/s"
+msgid "$1 left - $2 of $4$0$(^Byte) ($3$0$(^Byte)/s)"
+msgstr ""
 
 #: win32-loader.c:134
-#, c-format
-msgid " (%d %s%s remaining)"
-msgstr " (%d %s%s jäljellä)"
-
-#: win32-loader.c:135
 msgid "Select which version of Debian-Installer to use:"
 msgstr "Valitse mitä versiota Debian-asentimesta haluat käyttää:"
 
-#: win32-loader.c:136
+#: win32-loader.c:135
 msgid "Stable release.  This will install Debian \"stable\"."
 msgstr "Vakaa julkaisu: Tämä asentaa version Debian \"vakaa\" (stable)."
 
-#: win32-loader.c:137
+#: win32-loader.c:136
 msgid ""
 "Daily build.  This is the development version of Debian-Installer.  It will "
 "install Debian \"testing\" by default, and may be capable of installing "
@@ -317,7 +297,7 @@ msgstr ""
 #. translate:
 #. You might want to mention that so-called "known issues" page is only available in English.
 #.
-#: win32-loader.c:142
+#: win32-loader.c:141
 msgid ""
 "It is recommended that you check for known issues before using a daily "
 "build.  Would you like to do that now?"
@@ -325,7 +305,7 @@ msgstr ""
 "On suositeltavaa tarkistaa tunnettuja virhetapauksia (vain englanniksi) "
 "ennen päivittäisen käännöksen käyttöä. Haluatko tehdä näin nyt?"
 
-#: win32-loader.c:143
+#: win32-loader.c:142
 msgid ""
 "The following parameters will be used.  Do NOT change any of these unless "
 "you know what you're doing."
@@ -333,37 +313,37 @@ msgstr ""
 "Käytetään seuraavia parametreja. ÄLÄ vaihda mitään näistä ellet tiedä mitä "
 "olet tekemässä."
 
-#: win32-loader.c:144
+#: win32-loader.c:143
 msgid "Proxy settings (host:port):"
 msgstr "Välipalvelinasetukset (nimi:portti):"
 
-#: win32-loader.c:145
+#: win32-loader.c:144
 msgid "Location of boot.ini:"
 msgstr "Tiedoston boot.ini sijainti:"
 
-#: win32-loader.c:146
+#: win32-loader.c:145
 msgid "Base URL for netboot images (linux and initrd.gz):"
 msgstr "Urlin perusosa netboot-vedoksille (linux ja initrd.gz):"
 
-#: win32-loader.c:147
+#: win32-loader.c:146
 msgid "Error"
 msgstr "Virhe"
 
-#: win32-loader.c:148
+#: win32-loader.c:147
 msgid "Error: failed to copy $0 to $1."
 msgstr "Virhe: tiedoston $0 kopiointi hakemistoon $1 epäonnistui."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:153
+#: win32-loader.c:152
 msgid "Checking GPG signature on $0."
 msgstr "Tarkistetaan GPG-allekirjoitusta tiedostolle $0."
 
 #. translate:
 #. $0 will be "Release" (it is a filename).
 #.
-#: win32-loader.c:158
+#: win32-loader.c:157
 msgid "The downloaded $0 file cannot be trusted! Aborting."
 msgstr "Ladattuun tiedostoon $0 ei voi luottaa! Keskeytetään."
 
@@ -371,7 +351,7 @@ msgstr "Ladattuun tiedostoon $0 ei voi luottaa! Keskeytetään."
 #. This appears in a MessageBox when the md5 checksum verification failed. $0 is a url; $2 is the filename $1 is the
 #. computed checksum and $4 is the expected one.
 #.
-#: win32-loader.c:164
+#: win32-loader.c:163
 msgid "Checksum mismatch for $0/$2. Got $1 when expecting $4. Aborting."
 msgstr ""
 "Tarkistussumma ei täsmää kohteelle $0/$2. Laskettiin $1 mutta\n"
@@ -380,43 +360,43 @@ msgstr ""
 #. translate:
 #. $2 is a filename
 #.
-#: win32-loader.c:169
+#: win32-loader.c:168
 msgid "Computing checksum for $2"
 msgstr "Lasketaan tarkistussummaa tiedostolle $2"
 
-#: win32-loader.c:170
+#: win32-loader.c:169
 msgid "Generating $0"
 msgstr "Luodaan $0"
 
-#: win32-loader.c:171
+#: win32-loader.c:170
 msgid "Appending preseeding information to $0"
 msgstr "Lisätään esivalintatiedot kohteeseen $0"
 
-#: win32-loader.c:172
+#: win32-loader.c:171
 msgid "Error: unable to run $0."
 msgstr "Virhe: Komentoa $0 ei voi suorittaa."
 
-#: win32-loader.c:173
+#: win32-loader.c:172
 msgid "Disabling NTFS compression in bootstrap files"
 msgstr "Poistetaan NTFS-pakkaus käynnistystiedostoilta"
 
-#: win32-loader.c:174
+#: win32-loader.c:173
 msgid "Registering in NTLDR"
 msgstr "Rekisteröidään NTLDR:ään"
 
-#: win32-loader.c:175
+#: win32-loader.c:174
 msgid "Registering in BootMgr"
 msgstr "Rekisteröidään BootMgr:ään"
 
-#: win32-loader.c:176
+#: win32-loader.c:175
 msgid "Error: failed to parse bcdedit.exe output."
 msgstr "Virhe: bcdedit.exe:n tulosteen jäsennys epäonnistui"
 
-#: win32-loader.c:177
+#: win32-loader.c:176
 msgid "Error: $0 not found.  Is this really Windows $windows_version?"
 msgstr "Virhe: $0 ei löydy. Onko tämä varmasti Windows $windows_version?"
 
-#: win32-loader.c:178
+#: win32-loader.c:177
 msgid "VERY IMPORTANT NOTICE:\\n\\n"
 msgstr "ERITTÄIN TÄRKEÄ HUOMAUTUS:\\n\\n"
 
@@ -426,7 +406,7 @@ msgstr "ERITTÄIN TÄRKEÄ HUOMAUTUS:\\n\\n"
 #. Take into account that either option has to make sense in our
 #. current context (i.e. be careful when using pronouns, etc).
 #.
-#: win32-loader.c:186
+#: win32-loader.c:185
 msgid ""
 "The second stage of this install process will now be started.  After your "
 "confirmation, this program will restart Windows in DOS mode, and "
@@ -436,7 +416,7 @@ msgstr ""
 "tämä ohjelma uudelleenkäynnistää Windowsin DOS-tilassa, ja lataa "
 "automaattisesti asennusprosessin seuraavan vaiheen.\\n\\n"
 
-#: win32-loader.c:187
+#: win32-loader.c:186
 msgid ""
 "You need to reboot in order to proceed with the install process.  During "
 "your next boot, you will be asked whether you want to start Windows or "
@@ -446,7 +426,7 @@ msgstr ""
 "uudelleenkäynnistyksessä sinulta kysytään haluatko käynnistää Windowsin "
 "vaiko jatkaa asennusprosessia.\\n\\n"
 
-#: win32-loader.c:188
+#: win32-loader.c:187
 msgid ""
 "During the install process, you will be offered the possibility of either "
 "reducing your Windows partition or completely replacing it.  In both cases, "
@@ -464,18 +444,6 @@ msgstr ""
 "pitää Windowsin levyllä), voit poistaa lataimen Windowsissa Ohjauspaneelin "
 "(Control Panel) kohdasta Lisää tai poista sovelluksia (Add/Remove Programs)."
 
-#: win32-loader.c:189
+#: win32-loader.c:188
 msgid "Do you want to reboot now?"
 msgstr "Haluatko uudelleenkäynnistää nyt?"
-
-#~ msgid "Desktop environment:"
-#~ msgstr "Työpöytäympäristö:"
-
-#~ msgid "None"
-#~ msgstr "Ei mitään"
-
-#~ msgid "Debian Installer"
-#~ msgstr "Debian-asennin"
-
-#~ msgid "Debconf preseed line:"
-#~ msgstr "Debconf-esiasetusrivi:"
