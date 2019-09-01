@@ -20,13 +20,19 @@
 !define EFI_LOADER "shimx64.efi"
 !define GRUB2_CFG_FILE "grub.cfg"
 !define GRUB2_EFI_FILE "grubx64.efi"
+!ifdef NOCD
 !define SHIM_EFI_FILE "bootnetx64.efi"
+!else
+!define CD_EFI_FOLDER "EFI\boot"
+!define SHIM_EFI_FILE "bootx64.efi"
+!endif
 
 !include StrFunc.nsh
 !ifndef StrRep_INCLUDED
 ${StrRep}
 !endif
 
+!ifdef NOCD
 ; TODO: Remove work around 
 ; ---
 ${STDMACROS_DefIfNotDef} CRYPT_STRING_BASE64 0x00000001
@@ -86,6 +92,7 @@ AAAAAAD/ADj77jUr1QE="
   System::Store 'L'
 FunctionEnd
 ; ---
+!endif
 
 ; Create boot entry and add it to display list of boot manager
 ; Parameter:
@@ -411,8 +418,8 @@ SectionEnd
 Section /o "GRUB 2 EFI" sec_grub2_efi
   ${If} $arch == "amd64"
     ClearErrors
-    !insertmacro CopyFile "${GRUB2_EFI_FILE}" "${GRUB2_EFI_FILE}"
-    !insertmacro CopyFile "${SHIM_EFI_FILE}" "${SHIM_EFI_FILE}"
+    !insertmacro CopyFile "${CD_EFI_FOLDER}\${GRUB2_EFI_FILE}" "${GRUB2_EFI_FILE}"
+    !insertmacro CopyFile "${CD_EFI_FOLDER}\${SHIM_EFI_FILE}" "${SHIM_EFI_FILE}"
   ${EndIf}
 SectionEnd
 
@@ -742,13 +749,16 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                     StrCpy $0 ${ERROR_ACCESS_DENIED}
                   ${Else}
                     CopyFiles /FILESONLY "$INSTDIR\${SHIM_EFI_FILE}" "$2\${EFI_LOADER}"
+!ifdef NOCD
                     ; TODO: Remove workaround
                     ; ---
                     Call PatchNetBootGrub
                     ; ---
+!endif
                     CopyFiles /FILESONLY "$INSTDIR\${GRUB2_EFI_FILE}" "$2\${GRUB2_EFI_FILE}"
                     ${BOOTCFG_GetFileSystemUUID} "C:" $3
                     ${If} $3 != ""
+!ifdef NOCD
                       ; TODO: Remove workaround
                       ; ---
                       Pop $2
@@ -756,6 +766,7 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                       StrCpy $2 "$2grub"
                       CreateDirectory $2
                       ; ---
+!endif
                       ClearErrors
                       FileOpen $4 "$2\${GRUB2_CFG_FILE}" w
                       ${IfNot} ${Errors}
