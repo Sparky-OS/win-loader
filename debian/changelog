@@ -1,3 +1,27 @@
+win32-loader (0.10.0) unstable; urgency=medium
+
+  [ Thomas Gaugler ]
+  * Introduce UEFI boot manager and Secure Boot support (Closes: #918863)
+    - Patch netboot debian-installer grub efi file (temporary workaround)
+  * Use Modern User Interface
+  * Replace 'vga=' option with gfxpayload in grub.cfg
+  * Major code refactor and cleanup:
+    - Enable downloading via https for Windows 7 or newer
+    - Allow GPG validity check in a folder with spaces
+    - Add progress text and tidy up localization files
+    - Replace use of external cpio.exe
+    - Remove obsolete plugins
+    - Use SOURCE_DATE_EPOCH and DEB_VERSION
+
+  [ Didier Raboud ]
+  * Trim trailing whitespace.
+  * Disable Farsi translation as its NSIS translation doesn't convert
+    correctly to its designated codepage, see #939151
+  * Bump debhelper from old 11 to 12, and S-V to 4.4.0 without changes needed
+  * Add standard Salsa Gitlab-CI configuration
+
+ -- Didier Raboud <odyx@debian.org>  Mon, 02 Sep 2019 08:50:12 +0200
+
 win32-loader (0.9.5) unstable; urgency=medium
 
   [ Didier Raboud ]
