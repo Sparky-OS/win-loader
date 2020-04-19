@@ -6,7 +6,7 @@ Section: utils
 Priority: optional
 Build-Depends: nsis (>= 3),
                mingw-w64,
-               librsvg2-2,
+               librsvg2-bin,
                gawk,
                gettext,
                grub-pc-bin,
