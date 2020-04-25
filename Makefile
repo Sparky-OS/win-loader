@@ -169,7 +169,7 @@ $(OUTFILE_NAME): main.nsi maps.ini \
 		$(BUILD_DIR)/loadlin.pif $(BUILD_DIR)/loadlin.exe \
 		$(BUILD_DIR)/g2ldr $(BUILD_DIR)/g2ldr.mbr \
 		| $(HELPERS:=_helper)
-	find $^ -newermt "@$(SOURCE_DATE_EPOCH)" -print0 | xargs -0r touch --date="@$(SOURCE_DATE_EPOCH)"
+	find $(BUILD_DIR) -type f -exec touch --date="@$(SOURCE_DATE_EPOCH)" '{}' ';'
 	$(MKDIR_P) $(BUILD_DIR)/l10n
 	$(MAKE) -C $(BUILD_DIR)/l10n -f $(CURDIR)/l10n/Makefile VPATH=$(CURDIR)/l10n
 	$(MAKENSIS) main.nsi
