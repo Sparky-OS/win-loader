@@ -2,6 +2,18 @@ win32-loader (0.10.1) unstable; urgency=medium
 
   * Team upload.
 
+  [ Thomas Gaugler ]
+  * Skip blhc job in Salsa CI pipeline
+  * Generate the installer icon from the SVG source in one go
+  * librsvg is required to convert a SVG via imagemagick
+  * d/control: Replace tab with spaces
+  * d/control: provide full specifier of librsvg
+  * d/control: rsvg-convert from librsvg2-bin is required for imagemagick
+  * d/control: Set Rules-Requires-Root to no
+  * d/control: Update to Standards-Version 4.5.0
+  * Test win32-loader in its installed state
+  * Limit updating of timestamps to build directory
+
   [ Updated translations ]
   * Czech (cs.po) by Miroslav Kure
   * German (de.po) by Holger Wansing
