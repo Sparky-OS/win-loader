@@ -1,3 +1,15 @@
+win32-loader (0.10.1) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Updated translations ]
+  * Czech (cs.po) by Miroslav Kure
+  * German (de.po) by Holger Wansing
+  * Korean (ko.po) by Changwoo Ryu
+  * Portuguese (Brazil) (pt_BR.po) by Adriano Rafael Gomes
+
+ -- Holger Wansing <hwansing@mailbox.org>  Sun, 12 Jul 2020 13:44:23 +0200
+
 win32-loader (0.10.0) unstable; urgency=medium
 
   [ Thomas Gaugler ]
