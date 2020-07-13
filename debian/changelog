@@ -1,6 +1,4 @@
-win32-loader (0.10.1) unstable; urgency=medium
-
-  * Team upload.
+win32-loader (0.10.1) UNRELEASED; urgency=medium
 
   [ Thomas Gaugler ]
   * Skip blhc job in Salsa CI pipeline
