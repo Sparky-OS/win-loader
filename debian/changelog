@@ -1,3 +1,9 @@
+win32-loader (0.10.2) UNRELEASED; urgency=medium
+
+  * Correct typo in 0.10.1 changelog entry
+
+ -- Didier Raboud <odyx@debian.org>  Thu, 16 Jul 2020 18:29:59 +0200
+
 win32-loader (0.10.1) unstable; urgency=medium
 
   * Team upload
@@ -5,7 +11,7 @@ win32-loader (0.10.1) unstable; urgency=medium
   [ Thomas Gaugler ]
   * Skip blhc job in Salsa CI pipeline
   * Generate the installer icon from the SVG source in one go, so drop
-    icoutis B-D
+    icoutils B-D
   * d/control: Set Rules-Requires-Root to no
   * d/control: Update to Standards-Version 4.5.0
   * Test win32-loader in its installed state
