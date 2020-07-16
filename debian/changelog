@@ -1,12 +1,11 @@
-win32-loader (0.10.1) UNRELEASED; urgency=medium
+win32-loader (0.10.1) unstable; urgency=medium
+
+  * Team upload
 
   [ Thomas Gaugler ]
   * Skip blhc job in Salsa CI pipeline
-  * Generate the installer icon from the SVG source in one go
-  * librsvg is required to convert a SVG via imagemagick
-  * d/control: Replace tab with spaces
-  * d/control: provide full specifier of librsvg
-  * d/control: rsvg-convert from librsvg2-bin is required for imagemagick
+  * Generate the installer icon from the SVG source in one go, so drop
+    icoutis B-D
   * d/control: Set Rules-Requires-Root to no
   * d/control: Update to Standards-Version 4.5.0
   * Test win32-loader in its installed state
@@ -18,7 +17,7 @@ win32-loader (0.10.1) UNRELEASED; urgency=medium
   * Korean (ko.po) by Changwoo Ryu
   * Portuguese (Brazil) (pt_BR.po) by Adriano Rafael Gomes
 
- -- Holger Wansing <hwansing@mailbox.org>  Sun, 12 Jul 2020 13:44:23 +0200
+ -- Didier Raboud <odyx@debian.org>  Thu, 16 Jul 2020 18:18:40 +0200
 
 win32-loader (0.10.0) unstable; urgency=medium
 
