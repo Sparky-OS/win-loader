@@ -20,6 +20,7 @@
 !define EFI_LOADER "shimx64.efi"
 !define GRUB2_CFG_FILE "grub.cfg"
 !define GRUB2_EFI_FILE "grubx64.efi"
+!define GRUB2_PREFIX_DI "debian-installer\amd64\grub"
 !ifdef NOCD
 !define SHIM_EFI_FILE "bootnetx64.efi"
 !else
@@ -48,8 +49,12 @@ ${STDMACROS_DefIfNotDef} CRYPT_STRING_BASE64 0x00000001
 ;
 ; The default netboot grub efi file (grubnetx64.efi.signed) sets
 ; the prefix to ($root)/grub.
+;
+; Return value:
+;   prefix path used by netboot grub
 Function PatchNetBootGrub
   System::Store 'S'
+  Push "${GRUB2_PREFIX_DI}"
   ; GenPat grubnetx64-installer.efi.signed grubnetx64.efi.signed patch.bin
   ; base64 patch.bin
   StrCpy $1 "\
@@ -84,6 +89,10 @@ OjHqZk8GTgIRLXyztlY8s5cvvb4DzX45d6vvd2WQq4p4PgG9tRqs2HTx+yhMpbXNrW7TkFg559Kk\
           vpatch::vpatchfile $2 $3 $0
           Pop $0
           DetailPrint $0
+	  ${If} $0 == "OK"
+            StrCpy $0 "grub"
+            Exch $0
+          ${EndIf}
         ${EndIf}
       ${EndIf}
     ${EndIf}
@@ -753,6 +762,7 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                     ; TODO: Remove workaround
                     ; ---
                     Call PatchNetBootGrub
+                    Pop $4
                     ; ---
 !endif
                     CopyFiles /FILESONLY "$INSTDIR\${GRUB2_EFI_FILE}" "$2\${GRUB2_EFI_FILE}"
@@ -763,7 +773,7 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                       ; ---
                       Pop $2
                       Push $2
-                      StrCpy $2 "$2grub"
+                      StrCpy $2 "$2$4"
                       CreateDirectory $2
                       ; ---
 !endif
