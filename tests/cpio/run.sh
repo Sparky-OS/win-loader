@@ -15,6 +15,7 @@ TOPDIR=$(cd "${SOURCEDIR}/../.."; pwd -P)
 HELPERDIR=${1:-"${TOPDIR}/build"}
 
 INSTALLER="${SCRIPT%.*}.exe"
+UNINSTALLER="uninstall.exe"
 
 TESTID=
 
@@ -34,6 +35,20 @@ after() {
 	[ -f "${CPIO_NAME}" ] && rm "${CPIO_NAME}"
 	[ -f "${OUTPUT}" ] && rm "${OUTPUT}"
 	[ -f "${INSTALLER}" ] && rm "${INSTALLER}"
+	[ -f "${UNINSTALLER}" ] && rm "${UNINSTALLER}"
+}
+
+check_cpio() {
+	result=$1
+	if [ "${result}" = "${ERROR_SUCCESS}" ]; then
+		cpio --extract --to-stdout < "${CPIO_NAME}" | \
+			diff -q "${t}" -
+		if [ $? -ne 0 ]; then
+			result=${ERROR_INVALID_DATA}
+		fi
+	fi
+	result=$(assert_equal "${ERROR_SUCCESS}" "${result}")
+	check_result $? "${result} ($2)"
 }
 
 test_it() {
@@ -43,18 +58,15 @@ test_it() {
 		run_installer ${INSTALLER} "/IN=${t}" "/OUT=${CPIO_NAME}" \
 			"/RESULT=${OUTPUT}" || exit 1
 		result=$(tail -n 1 ${OUTPUT})
-		if [ "${result}" = "${ERROR_SUCCESS}" ]; then
-			cpio --extract --to-stdout < "${CPIO_NAME}" | \
-				diff -q "${t}" -
-			if [ $? -eq 0 ]; then
-				[ -f "${t}" ] && rm "${t}"
-				[ -f "${CPIO_NAME}" ] && rm "${CPIO_NAME}"
-			else
-				result=${ERROR_INVALID_DATA}
-			fi
-		fi
-		result=$(assert_equal "${ERROR_SUCCESS}" "${result}")
-		check_result $? "${result} (Installer)"
+		check_cpio ${result} "Installer"
+		rm -f ${OUTPUT}
+		run_uninstaller ${UNINSTALLER} "/IN=${t}" "/OUT=${CPIO_NAME}" \
+			"/RESULT=${OUTPUT}" || exit 1
+		result=$(tail -n 1 ${OUTPUT})
+		check_cpio ${result} "Uninstaller"
+		[ -f "${t}" ] && rm "${t}"
+		[ -f "${CPIO_NAME}" ] && rm "${CPIO_NAME}"
+		rm -f ${OUTPUT}
 	fi
 }
 
@@ -66,6 +78,14 @@ test_non_existent_file() {
 	result=$(assert_equal $(tail -n 1 ${OUTPUT}) \
 		"${ERROR_FILE_NOT_FOUND}")
 	check_result $? "${result} (Installer)"
+	rm -f ${OUTPUT}
+	run_uninstaller ${UNINSTALLER} "/IN=${t}" "/OUT=${CPIO_NAME}" \
+		"/RESULT=${OUTPUT}" || exit 1
+	result=$(assert_equal $(tail -n 1 ${OUTPUT}) \
+		"${ERROR_FILE_NOT_FOUND}")
+	check_result $? "${result} (Uninstaller)"
+	rm -f ${OUTPUT}
+
 }
 
 test_empty_file() {
