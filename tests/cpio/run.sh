@@ -5,6 +5,8 @@
 #
 # Usage: run.sh [<helper dir [<Windows architecture> [<test dir>]]]
 
+set -e
+
 CPIO_NAME="archive.cpio"
 OUTPUT="output.log"
 SCRIPT="cpio_test.nsi"

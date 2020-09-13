@@ -5,6 +5,8 @@
 #
 # Usage: run.sh [<helper dir [<Windows architecture> [<test dir>]]]
 
+set -e
+
 SOURCEDIR=$(cd "$(dirname "$0")"; pwd -P)
 TOPDIR=$(cd "${SOURCEDIR}/.."; pwd -P)
 HELPERDIR=${1:-"${TOPDIR}/build"}

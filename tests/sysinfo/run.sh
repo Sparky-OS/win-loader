@@ -5,6 +5,8 @@
 #
 # Usage: run.sh [<helper dir [<Windows architecture> [<test dir>]]]
 
+set -e
+
 OUTPUT="output.log"
 SCRIPT="sysinfo_test.nsi"
 SOURCEDIR=$(cd "$(dirname "$0")"; pwd -P)
