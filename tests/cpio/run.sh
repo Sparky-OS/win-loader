@@ -36,16 +36,13 @@ after() {
 	[ -f "${INSTALLER}" ] && rm "${INSTALLER}"
 }
 
-run_installer() {
-	${WINE} ${INSTALLER} /S "${1}" "/OUT=${CPIO_NAME}" "/RESULT=${OUTPUT}" \
-	&& tail -n 1 ${OUTPUT}
-}
-
 test_it() {
 	if [ $# -gt 0 ]; then
 		t="${1}"
 		echo "${t}"
-		result=$(run_installer "/IN=${t}")
+		run_installer ${INSTALLER} "/IN=${t}" "/OUT=${CPIO_NAME}" \
+			"/RESULT=${OUTPUT}" || exit 1
+		result=$(tail -n 1 ${OUTPUT})
 		if [ "${result}" = "${ERROR_SUCCESS}" ]; then
 			cpio --extract --to-stdout < "${CPIO_NAME}" | \
 				diff -q "${t}" -
@@ -57,16 +54,18 @@ test_it() {
 			fi
 		fi
 		result=$(assert_equal "${ERROR_SUCCESS}" "${result}")
-		echo "${result}"
+		check_result $? "${result} (Installer)"
 	fi
 }
 
 test_non_existent_file() {
         t="non_existent_file"
 	echo "${t}"
-	result=$(assert_equal "${ERROR_FILE_NOT_FOUND}" \
-		$(run_installer "/IN=${t}"))
-	echo "${result}"
+	run_installer ${INSTALLER} "/IN=${t}" "/OUT=${CPIO_NAME}" \
+		"/RESULT=${OUTPUT}" || exit 1
+	result=$(assert_equal $(tail -n 1 ${OUTPUT}) \
+		"${ERROR_FILE_NOT_FOUND}")
+	check_result $? "${result} (Installer)"
 }
 
 test_empty_file() {

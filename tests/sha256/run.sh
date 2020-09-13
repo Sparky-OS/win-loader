@@ -38,14 +38,6 @@ run_reference() {
 	set -- safety $(sha256sum < "${1}") && shift && echo "${1}"
 }
 
-run_installer() {
-	${WINE} ${INSTALLER} /S "/FILE=${1}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
-}
-
-run_uninstaller() {
-	${WINE} ${UNINSTALLER} /S "/?=${PWD}" "/FILE=${1}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
-}
-
 # Convert hexadecimal number into a byte
 hex2byte() {
 	# Transform hexadecimal number into its octal representation
@@ -97,13 +89,16 @@ EOF
 		# Compute SHA256 digest via Installer and Uninstaller
                 # for the generated test data and compare the result
                 # with the expected one.
-		result=$(assert_equal "${1}" \
-			$(run_installer "${1}"))
-		echo "${result} (Installer)"
-		result=$(assert_equal "${1}" \
-			$(run_uninstaller "${1}"))
-		echo "${result} (Uninstaller)"
-		rm -f "${1}"
+		run_installer ${INSTALLER} \
+			"/FILE=${1}" "/RESULT=${OUTPUT}" || exit 1
+		result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
+		check_result $? "${result} (Installer)"
+		rm -f ${OUTPUT}
+		run_uninstaller ${UNINSTALLER} \
+			"/FILE=${1}" "/RESULT=${OUTPUT}" || exit 1
+		result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
+		check_result $? "${result} (Uninstaller)"
+		rm -f ${OUTPUT} "${1}"
 	fi
 }
 

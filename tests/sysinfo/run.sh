@@ -27,16 +27,15 @@ after() {
 	[ -f "${INSTALLER}" ] && rm "${INSTALLER}"
 }
 
-run_installer() {
-	${WINE} ${INSTALLER} /S "${1}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
-}
-
 test_it() {
 	if [ $# -gt 1 ]; then
 		t="${2}"
 		echo "${t}"
-		result=$(assert_equal "${1}" $(run_installer "/TEST=${t}"))
-		echo "${result}"
+		run_installer ${INSTALLER} "/TEST=${t}" \
+			"/RESULT=${OUTPUT}" || exit 1
+		result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
+		check_result $? "${result} (Installer)"
+		rm -f ${OUTPUT}
 	fi
 }
 

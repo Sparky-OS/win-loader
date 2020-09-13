@@ -70,14 +70,37 @@ wine_clean_up() {
 	fi
 }
 
+# Convert POSIX to wine path
+# Parameter:
+#   path - POSIX path
+# Returns wine path
+wine_convert_path() {
+	echo "Z:$1" | sed 's&/&\\&g'
+}
+
+# Test that first and second argument are equal
+# Parameters:
+#   first - first parameter
+#   second - second parameter
+# Returns 0 if the parameter values are equal
 assert_equal() {
 	if [ "${1}" != "${2}" ]; then
 		echo "${1} != ${2}"
 		echo "FAIL"
-		exit 1
+		return 1
 	else
 		echo "OK"
 	fi
+}
+
+# Check and report result
+# Parameters:
+#   result - return code from check
+#   message - message to display
+# Exits if result code is not zero
+check_result() {
+	echo "$2"
+	if [ $1 -ne 0 ]; then exit 1; fi
 }
 
 # Map wine architecture to the respective NSIS target
@@ -104,4 +127,23 @@ map_architecture() {
 make_installer() {
 	(cd "${TOPDIR}" && ${MAKENSIS} -NOCD "$(map_architecture)" "$@") \
 	|| exit
+}
+
+# Run installer
+# Parameters:
+#   additional command line parameters for installer
+run_installer() {
+	installer="$1"
+	shift
+	${WINE} "${installer}" /S $@
+}
+
+# Run uninstaller
+#   additional command line parameters for uninstaller
+run_uninstaller() {
+	uninstaller="$1"
+	shift
+	${WINE} "${uninstaller}" /S $@ \
+		_?=$(wine_convert_path \
+			$(dirname $(realpath "${uninstaller}")))
 }

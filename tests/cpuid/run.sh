@@ -30,22 +30,16 @@ after() {
 	[ -f "${UNINSTALLER}" ] && rm "${UNINSTALLER}"
 }
 
-run_installer() {
-	${WINE} ${INSTALLER} /S "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
-}
-
-run_uninstaller() {
-	${WINE} ${UNINSTALLER} /S "/?=${PWD}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
-}
-
 test_vendor_id() {
         echo "vendor id"
-	result=$(assert_equal "${1}" \
-		$(run_installer))
-	echo "${result} (Installer)"
-	result=$(assert_equal "${1}" \
-		$(run_uninstaller))
-	echo "${result} (Uninstaller)"
+	run_installer ${INSTALLER} "/RESULT=${OUTPUT}" || exit 1
+	result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
+	check_result $? "${result} (Installer)"
+	rm -f ${OUTPUT}
+	run_uninstaller ${UNINSTALLER} "/RESULT=${OUTPUT}" || exit 1
+	result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
+	check_result $? "${result} (Uninstaller)"
+	rm -f ${OUTPUT}
 }
 
 main() {
