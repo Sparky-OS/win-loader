@@ -14,6 +14,7 @@ TOPDIR=$(cd "${SOURCEDIR}/../.."; pwd -P)
 HELPERDIR=${1:-"${TOPDIR}/build"}
 
 INSTALLER="${SCRIPT%.*}.exe"
+UNINSTALLER="uninstall.exe"
 
 . "${SOURCEDIR}/../common/funcs.sh"
 
@@ -25,6 +26,7 @@ before() {
 after() {
 	[ -f "${OUTPUT}" ] && rm "${OUTPUT}"
 	[ -f "${INSTALLER}" ] && rm "${INSTALLER}"
+	[ -f "${UNINSTALLER}" ] && rm "${UNINSTALLER}"
 }
 
 test_it() {
@@ -35,6 +37,11 @@ test_it() {
 			"/RESULT=${OUTPUT}" || exit 1
 		result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
 		check_result $? "${result} (Installer)"
+		rm -f ${OUTPUT}
+		run_uninstaller ${UNINSTALLER} "/TEST=${t}" \
+			"/RESULT=${OUTPUT}" || exit 1
+		result=$(assert_equal "${1}" "$(tail -n 1 ${OUTPUT})")
+		check_result $? "${result} (Uninstaller)"
 		rm -f ${OUTPUT}
 	fi
 }
