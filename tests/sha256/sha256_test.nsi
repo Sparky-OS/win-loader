@@ -3,9 +3,8 @@
 ; SHA256 test runner
 ; Run installer with the following arguments
 ;  /S /FILE=<reference file> /RESULT=<result file>
-; and uninstaller
-;  /S _?=<directory containing uninstaller>
-;    /FILE=<reference file> /RESULT=<result file>
+; and for the uninstaller append the argument below:
+; _?=<directory containing uninstaller>
 
 Unicode True
 Name sha256
@@ -30,16 +29,15 @@ UninstPage InstFiles
 
 Var Arguments
 
-!macro .onInit UN
-Function ${UN}${__MACRO__}
+!macro Run UN
+!searchreplace INIT_FUNC "${UN}.onInit" ".." "."
+Function ${INIT_FUNC}
   InitPluginsDir
   ${GetParameters} $Arguments
   ClearErrors
   SetOutPath "$EXEDIR"
 FunctionEnd
-!macroend
 
-!macro Run UN
 !ifndef NO_SHA256_HELPER
 ${SHA256_FUNCINC} "${UN}" Alloc
 ${SHA256_FUNCINC} "${UN}" Hash
@@ -88,9 +86,6 @@ Function ${UN}${__MACRO__}
   ${EndIf}
 FunctionEnd
 !macroend
-
-!insertmacro .onInit ""
-!insertmacro .onInit ${UNFUNC}
 
 !insertmacro Run ""
 !insertmacro Run ${UNFUNC}
