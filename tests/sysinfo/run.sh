@@ -18,7 +18,7 @@ INSTALLER="${SCRIPT%.*}.exe"
 . "${SOURCEDIR}/../common/funcs.sh"
 
 before() {
-	makeInstaller "-XOutFile ${PWD}/${INSTALLER}" \
+	make_installer "-XOutFile ${PWD}/${INSTALLER}" \
 		"${SOURCEDIR}/${SCRIPT}"
 }
 
@@ -27,7 +27,7 @@ after() {
 	[ -f "${INSTALLER}" ] && rm "${INSTALLER}"
 }
 
-runInstaller() {
+run_installer() {
 	${WINE} ${INSTALLER} /S "${1}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
 }
 
@@ -35,12 +35,12 @@ test_it() {
 	if [ $# -gt 1 ]; then
 		t="${2}"
 		echo "${t}"
-		result=$(assert_equal "${1}" $(runInstaller "/TEST=${t}"))
+		result=$(assert_equal "${1}" $(run_installer "/TEST=${t}"))
 		echo "${result}"
 	fi
 }
 
-test_Domain() {
+test_domain() {
         t="Domain"
 	domain=$(hostname -d 2>/dev/null)
 	if [ -n "${domain}" ]; then
@@ -52,13 +52,13 @@ test_Domain() {
 	fi
 }
 
-test_HostName() {
-        t="HostName"
+test_hostname() {
+        t="Hostname"
 	test_it "$(hostname -s)" "${t}"
 }
 
-test_KeyboardLayout() {
-        t="KeyboardLayout"
+test_keyboard_layout() {
+        t="Keyboard_Layout"
 	layout="0x0000"
 	if [ -n "${DISPLAY}" ]; then
 		# United States - English (0x409)
@@ -67,20 +67,21 @@ test_KeyboardLayout() {
 	test_it "${layout}" "${t}"
 }
 
-test_UserName() {
-        t="UserName"
+test_username() {
+        t="Username"
 	test_it "$(logname 2>/dev/null || echo ${LOGNAME})" "${t}"
 }
 
 main() {
-	for t in Domain HostName KeyboardLayout UserName; do
-		eval test_${t}
-	done
+	test_domain
+	test_hostname
+	test_keyboard_layout
+	test_username
 }
 
 [ $# -gt 1 ] && shift
-wineSetUp "${@}"
+wine_set_up "${@}"
 before
 main
 after
-wineCleanUp "${@}"
+wine_clean_up "${@}"

@@ -25,7 +25,7 @@ after() {
 }
 
 [ $# -gt 1 ] && shift
-wineSetUp $@
+wine_set_up $@
 err=$?
 case ${err} in
 0)
@@ -41,4 +41,4 @@ case ${err} in
 	echo "Failed to boot wine"
 	;;
 esac
-wineCleanUp
+wine_clean_up

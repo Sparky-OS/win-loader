@@ -16,7 +16,7 @@ WINEPREFIX=
 #   workdir - optional working directory
 #             If not provided then a new temporary directeroy is
 #             going to be created.
-wineSetUp() {
+wine_set_up() {
 	WINEARCH=${1:-win32}
 	WORKDIR="${2}"
 	err=0
@@ -40,7 +40,7 @@ wineSetUp() {
 			err=95
 		else
 			for sig in ALRM HUP INT QUIT TERM USR1; do
-				trap "wineCleanUp; after; trap - $sig EXIT; exit 1" "$sig"
+				trap "wine_clean_up; after; trap - $sig EXIT; exit 1" "$sig"
 			done
 		fi
 	fi
@@ -50,14 +50,14 @@ wineSetUp() {
 # Clean up wine environment of current working directory in case
 # no working directory parameter was passed on
 # Parameters:
-#   arch - optional architecture to be used with Wine, defaults to win32
-#   workdir - optional working directory to keep
-wineCleanUp() {
+#   arch - optional architecture used by wine, defaults to win32
+#   workdir - optional for retaining working directory
+wine_clean_up() {
 	WORKDIR="${2}"
 	if [ -z "${WORKDIR}" -a -d "${WINEDIR}" ]; then
 		# Wait until the currently running wineserver terminates
 		wineserver --wait
-		rm -r ${WINEDIR}
+		rm -rf ${WINEDIR}
 		TESTDIR=${PWD}
 		if [ "${TESTDIR}" != "${OLDPWD}" ]; then
 			# Switch back to old working directory
@@ -80,7 +80,11 @@ assert_equal() {
 	fi
 }
 
-mapArchitecture() {
+# Map wine architecture to the respective NSIS target
+# Parameter:
+#   arch - architecture used by wine
+# Returns makensis compiler option of respective target
+map_architecture() {
 	case ${WINEARCH} in
 		win32)
 			echo "-XTarget x86-unicode"
@@ -94,7 +98,10 @@ mapArchitecture() {
 	esac
 }
 
-makeInstaller() {
-	(cd "${TOPDIR}" && ${MAKENSIS} -NOCD "$(mapArchitecture)" "$@") \
+# Generate NSIS installer
+# Parameters:
+#   additional command line parameters for makensis
+make_installer() {
+	(cd "${TOPDIR}" && ${MAKENSIS} -NOCD "$(map_architecture)" "$@") \
 	|| exit
 }

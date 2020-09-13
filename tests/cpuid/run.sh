@@ -19,7 +19,7 @@ UNINSTALLER="uninstall.exe"
 . "${SOURCEDIR}/../common/funcs.sh"
 
 before() {
-	makeInstaller "-XOutFile ${PWD}/${INSTALLER}" \
+	make_installer "-XOutFile ${PWD}/${INSTALLER}" \
 		"-DCPUID_HELPER_DIR=${HELPERDIR}" \
 		"${SOURCEDIR}/${SCRIPT}"
 }
@@ -30,21 +30,22 @@ after() {
 	[ -f "${UNINSTALLER}" ] && rm "${UNINSTALLER}"
 }
 
-runInstaller() {
+run_installer() {
 	${WINE} ${INSTALLER} /S "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
 }
 
-runUninstaller() {
+run_uninstaller() {
 	${WINE} ${UNINSTALLER} /S "/?=${PWD}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
 }
 
 test_vendor_id() {
         echo "vendor id"
-	for runner in Installer Uninstaller; do
-		result=$(assert_equal "${1}" \
-			$(eval run${runner}))
-		echo "${result} (${runner})"
-	done
+	result=$(assert_equal "${1}" \
+		$(run_installer))
+	echo "${result} (Installer)"
+	result=$(assert_equal "${1}" \
+		$(run_uninstaller))
+	echo "${result} (Uninstaller)"
 }
 
 main() {
@@ -64,7 +65,7 @@ main() {
 }
 
 [ $# -gt 1 ] && shift
-wineSetUp "${@}"
+wine_set_up "${@}"
 if [ "${WINEARCH}" != "win32" ]; then
 	echo "CPUID test requiring win32 Windows architecture is skipped"
 else
@@ -72,4 +73,4 @@ else
 	main
 	after
 fi
-wineCleanUp "${@}"
+wine_clean_up "${@}"

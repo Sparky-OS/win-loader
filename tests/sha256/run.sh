@@ -21,7 +21,7 @@ TESTID=
 . "${SOURCEDIR}/../common/funcs.sh"
 
 before() {
-	makeInstaller "-XOutFile ${PWD}/${INSTALLER}" \
+	make_installer "-XOutFile ${PWD}/${INSTALLER}" \
 		$(test "${WINEARCH}" != "win32" && echo "-DNO_SHA256_HELPER") \
 		"-DSHA256_HELPER_DIR=${HELPERDIR}" \
 		"${SOURCEDIR}/${SCRIPT}"
@@ -34,15 +34,15 @@ after() {
 	[ -f "${UNINSTALLER}" ] && rm "${UNINSTALLER}"
 }
 
-runReference() {
+run_reference() {
 	set -- safety $(sha256sum < "${1}") && shift && echo "${1}"
 }
 
-runInstaller() {
+run_installer() {
 	${WINE} ${INSTALLER} /S "/FILE=${1}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
 }
 
-runUninstaller() {
+run_uninstaller() {
 	${WINE} ${UNINSTALLER} /S "/?=${PWD}" "/FILE=${1}" "/RESULT=${OUTPUT}" && tail -n 1 ${OUTPUT}
 }
 
@@ -97,11 +97,12 @@ EOF
 		# Compute SHA256 digest via Installer and Uninstaller
                 # for the generated test data and compare the result
                 # with the expected one.
-		for runner in Installer Uninstaller; do
-			result=$(assert_equal "${1}" \
-				$(eval run${runner} "${1}"))
-			echo "${result} (${runner})"
-		done
+		result=$(assert_equal "${1}" \
+			$(run_installer "${1}"))
+		echo "${result} (Installer)"
+		result=$(assert_equal "${1}" \
+			$(run_uninstaller "${1}"))
+		echo "${result} (Uninstaller)"
 		rm -f "${1}"
 	fi
 }
@@ -117,8 +118,8 @@ main() {
 }
 
 [ $# -gt 1 ] && shift
-wineSetUp "${@}"
+wine_set_up "${@}"
 before
 main
 after
-wineCleanUp "${@}"
+wine_clean_up "${@}"
