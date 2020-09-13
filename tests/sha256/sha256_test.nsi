@@ -73,7 +73,7 @@ Function ${UN}${__MACRO__}
 	!insertmacro CRYPTHASH_ContextAcquire_Call "${UN}" ${PROV_RSA_AES} ${CRYPT_VERIFYCONTEXT} $5
         ${If} $5 P<> 0
           !insertmacro ${CRYPTHASH_PREFIX}SHA256Digest_Call "${UN}" $5 $4 $0
-          !insertmacro ${CRYPTHASH_PREFIX}ContextRelease_Call "${UN}" $4 $4
+          !insertmacro ${CRYPTHASH_PREFIX}ContextRelease_Call "${UN}" $5 $5
         ${Else}
           FileWrite $3 "Failed to acquire crypto context$\n"
         ${EndIf}
