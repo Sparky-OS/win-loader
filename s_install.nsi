@@ -294,12 +294,9 @@ FunctionEnd
 Function PreSeedLinux
   System::Store 'S'
   StrCpy $1 "preseed.cfg"
-  StrCpy $2 "newc_chunk"
-  StrCpy $3 "initrd.gz"
-  StrCpy $4 "gzip.exe"
-  File "/oname=$INSTDIR\$4" /usr/share/win32/gzip.exe
+  StrCpy $2 "initrd.gz"
 
-  StrCpy $0 "$INSTDIR\$3"
+  StrCpy $0 "$INSTDIR\$2"
   DetailPrint "$(appending_preseeding)"
 
   ; IMPORTANT!!  All accessed files must be in the same
@@ -309,31 +306,31 @@ Function PreSeedLinux
 
   StrCpy $0 "$1"
   ClearErrors
-  FileOpen $5 "$1" w
+  FileOpen $3 "$1" w
   ${IfNot} ${Errors}
-    FileWrite $5 "$preseed_cfg$\n"
-    FileClose $5
+    FileWrite $3 "$preseed_cfg$\n"
+    FileClose $3
     ${IfNot} ${Errors}
       StrCpy $0 "$2"
-      FileOpen $5 "$2" w
+      FileOpen $3 "$2" a
       ${IfNot} ${Errors}
-        ${CPIO_Write} $5 "$1" $0
-        ${If} $0 == 0
-          ${CPIO_Write} $5 "" $0
-        ${EndIf}
-        ${If} $0 != 0
-          StrCpy $0 "$2"
-        ${Else}
-          ExpandEnvStrings $0 '"%COMSPEC%" "/C .\$4 -1 <$2 >>$3"'
-          nsExec::Exec '$0'
-          Pop $0
+        FileSeek $3 0 END
+        ${MINIZ_CPIO_GZ_Open} $3 $4
+        ${If} $4 P<> 0
+          ${MINIZ_CPIO_GZ_Write} $4 $1 $0
+	  ${If} $0 == 0
+            ${MINIZ_CPIO_GZ_Write} $4 "" $0
+          ${EndIf}
+          ${MINIZ_CPIO_GZ_Close} $4 $4
           ${If} $0 != 0
-            StrCpy $0 "$INSTDIR\$4"
+          ${OrIf} $4 != 0
+            StrCpy $0 "$2"
           ${Else}
+            ; Indicate success
             StrCpy $0 ""
           ${EndIf}
         ${EndIf}
-        FileClose $5
+        FileClose $3
       ${EndIf}
     ${EndIf}
   ${EndIf}
