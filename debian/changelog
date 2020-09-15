@@ -10,8 +10,23 @@ win32-loader (0.10.2) UNRELEASED; urgency=medium
   * Use respective prefix path of netboot grub
     - The default netboot grub prefix is /debian-installer/amd64/grub
       but /grub for the patched version.
+  * helpers/instdlg: Consolidate image base definition in one place
+  * tests/sha256: Release crypto context instead of file handle
+  * tests:
+    - Launch shell scripts via -e option to exit in case of failure
+    - Change camelCase functions into lowercase named ones
+    - Map uninstaller init function un..onInit to un.onInit
+    - Move run and check functions of (Un)Installer to common place
+  * tests/cpio: Run tests in uninstaller context as well
+  * SYSINFO_ComputerName replace StrLoc with custom implementation
+  * tests/sysinfo: Run tests in uninstaller context as well
+  * Support output format filters for cpio
+  * miniz compression helper
+  * Provide interface and tests for miniz helper
+  * Use MINIZ_CPIO_GZ_* functions to append preseed.cfg to initrd.gz
+  * Be explicit about path receiving translated installer messages (.nsh)
 
- -- Thomas Gaugler <thomas@dadie.net>  Sun, 02 Aug 2020 18:24:41 +0200
+ -- Thomas Gaugler <thomas@dadie.net>  Tue, 15 Sep 2020 18:42:13 +0200
 
 win32-loader (0.10.1) unstable; urgency=medium
 
