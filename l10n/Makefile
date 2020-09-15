@@ -4,7 +4,7 @@
 
 VPATH ?= .
 MKDIR_P := mkdir -p
-TEMPLATES := templates
+TEMPLATES := $(CURDIR)/templates
 PO := po
 
 # fa: Farsi is disabled because its NSIS translation doesn't convert correctly to its designated codepage (CP1256); see https://bugs.debian.org/939151
