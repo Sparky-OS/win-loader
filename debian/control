@@ -17,7 +17,6 @@ Build-Depends: nsis (>= 3),
                gpgv-win32,
                debian-archive-keyring,
                cpio,
-               gzip,
                wine [i386],
                debhelper-compat (= 13)
 Standards-Version: 4.5.0
