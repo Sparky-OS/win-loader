@@ -49,7 +49,7 @@ ICONSIZES       := 16,24,32,48,256
 DENSITY         := 170
 
 # Standard makensis call
-MAKENSIS	:= makensis -V3
+MAKENSIS	:= makensis -V3 "-XUnicode True"
 
 # Add to it some version'ing and date
 MAKENSIS	+= -DVERSION=$(VERSION) -D4DIGITS_DATE=$(FOUR_DIGITS_DATE)
