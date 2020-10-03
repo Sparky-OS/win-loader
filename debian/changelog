@@ -2,6 +2,7 @@ win32-loader (0.10.2) UNRELEASED; urgency=medium
 
   [ Didier Raboud ]
   * Correct typo in 0.10.1 changelog entry
+  * Coerce same-author d/changelog entries
 
   [ Thomas Gaugler ]
   * Update patch of signed netboot grub EFI file as required by a newly

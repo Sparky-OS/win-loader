@@ -5,8 +5,29 @@ Source: https://salsa.debian.org/installer-team/win32-loader
 
 Files: *
 Copyright: 2007, 2008, 2009 Robert Millan <rmh@debian.org>,
-           2010, 2011 Didier Raboud <odyx@debian.org>,
-           2010, 2011, 2016
+           2010, 2011, 2016 Didier Raboud <odyx@debian.org>,
+           2019, 2020 Thomas Gaugler <thomas@dadie.net>
+License: GPL-3+
+
+Files: helpers/miniz/*
+Copyright: 2013-2014 RAD Game Tools and Valve Software,
+  2010-2014 Rich Geldreich and Tenacious Software LLC
+License: Expat
+
+Files: helpers/sha256/*
+Copyright: 2017 Project Nayuki
+License: Expat
+
+Files: include/*
+ helpers/cpuid/*
+ helpers/instdlg/*
+ helpers/miniz/Makefile
+ helpers/miniz/main.c
+ helpers/sha256/Makefile
+ helpers/sha256/sha256.c
+Copyright: 2003-2020, NSIS Contributors
+License: Zlib
+
 License: GPL-3+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -23,43 +44,6 @@ License: GPL-3+
  .
  On Debian systems, the full text of the GNU General Public License
  version 3 can be found in the file `/usr/share/common-licenses/GPL-3'.
-
-Files: include/*
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
-
-Files: helpers/cpuid/*
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
-
-Files: helpers/instdlg/*
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
-
-Files: helpers/miniz/*
-Copyright: 2013-2014 RAD Game Tools and Valve Software,
-  2010-2014 Rich Geldreich and Tenacious Software LLC
-License: Expat
-
-Files: helpers/miniz/Makefile
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
-
-Files: helpers/miniz/main.c
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
-
-Files: helpers/sha256/*
-Copyright: 2017 Project Nayuki
-License: Expat
-
-Files: helpers/sha256/Makefile
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
-
-Files: helpers/sha256/sha256.c
-Copyright: 2003-2020, NSIS Contributors
-License: Zlib
 
 License: Expat
  The MIT License
