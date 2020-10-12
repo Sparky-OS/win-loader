@@ -180,8 +180,10 @@ ifneq ($(shell wine --version 2>&1),)
 	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win32 \
 		$(realpath $(BUILD_DIR))
 ifeq ($(shell uname -m), x86_64)
+ifeq ($(filter($(shell dpkg-architecture -qDEB_HOST_ARCH 2>/dev/null), amd64)),)
 	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win64 \
 		$(realpath $(BUILD_DIR))
+endif
 endif
 endif
 
