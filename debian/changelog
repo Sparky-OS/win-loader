@@ -1,3 +1,9 @@
+win32-loader (0.10.3) UNRELEASED; urgency=medium
+
+  * Run win64 tests only on 64-bit wine
+
+ -- Thomas Gaugler <thomas@dadie.net>  Mon, 12 Oct 2020 12:29:01 +0200
+
 win32-loader (0.10.2) unstable; urgency=medium
 
   [ Didier Raboud ]
