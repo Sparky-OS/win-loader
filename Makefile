@@ -179,7 +179,6 @@ test:  $(HELPERS:=_helper)
 ifneq ($(shell wine --version 2>&1),)
 	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win32 \
 		$(realpath $(BUILD_DIR))
-ifeq ($(filter($(shell dpkg-architecture -qDEB_BUILD_ARCH 2>/dev/null), amd64)),)
 ifeq ($(notdir $(shell winepath -u c:/windows/system32 2>/dev/null)),syswow64)
 	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win64 \
 		$(realpath $(BUILD_DIR))
