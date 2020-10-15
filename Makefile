@@ -160,7 +160,7 @@ templates/gtk.bmp: templates/gtk_orig.png
 	convert $^ -resize 107x80 BMP3:$@
 
 # Build the icon out of the SVG source
-$(BUILD_DIR)/win32-loader.ico: icon/swirl.svg
+$(BUILD_DIR)/win32-loader.ico: icon/swirl.svg | $(BUILD_DIR)
 	convert -background none -density $(DENSITY) $^ -depth 8 -colors 256 -dither FloydSteinberg -define png:compression-filter=1 -define png:compression-level=9 -define png:compression-strategy=1 -define icon:auto-resize=$(ICONSIZES) $@
 
 $(OUTFILE_NAME): main.nsi maps.ini \
