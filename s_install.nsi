@@ -318,7 +318,7 @@ Function PreSeedLinux
         ${MINIZ_CPIO_GZ_Open} $3 $4
         ${If} $4 P<> 0
           ${MINIZ_CPIO_GZ_Write} $4 $1 $0
-	  ${If} $0 == 0
+          ${If} $0 == 0
             ${MINIZ_CPIO_GZ_Write} $4 "" $0
           ${EndIf}
           ${MINIZ_CPIO_GZ_Close} $4 $4
