@@ -33,76 +33,6 @@
 ${StrRep}
 !endif
 
-!ifdef NOCD
-; TODO: Remove work around 
-; ---
-${STDMACROS_DefIfNotDef} CRYPT_STRING_BASE64 0x00000001
-; Patch grub efi file from netboot
-;
-; This effectively changes grubnetx64-installer.efi.signed into
-; grubnetx64.efi.signed of the grub-efi-amd64-signed_1+2.02+dfsg1+20
-; package (stable).
-;
-; grub efi file from netboot sets the prefix to
-; ($root)debian-installer/amd64/grub
-; In my opinion this prefix lacks the leading /.
-;
-; The default netboot grub efi file (grubnetx64.efi.signed) sets
-; the prefix to ($root)/grub.
-;
-; Return value:
-;   prefix path used by netboot grub
-Function PatchNetBootGrub
-  System::Store 'S'
-  Push "${GRUB2_PREFIX_DI}"
-  ; GenPat grubnetx64-installer.efi.signed grubnetx64.efi.signed patch.bin
-  ; base64 patch.bin
-  StrCpy $1 "\
-VlBBVAEAAIAMAAAAdqwjC7wFhMEEZG7tSOcQqyB2PkvRGZD/R8sbSL0rFwm0AQAAAdgAAAAABQMk\
-BhQDNZ8BANsAAAAFAXgDW28RABGgAQAFCRAAAAAvZ3J1YgGMAGsBAAJwEAEQEwAFIG0p+KPFdcZ7\
-sDO0jPxShA6Rsaaap4xzvcEzfjz2LuEKApgDkSATAAZHATBaMC8GCSqGSIb3DQEJBDEiBCB71dOE\
-yvapyYM6djOPha7mN4EKkQgwPpIsWcC6JrpOcjANBgkqhkiG9w0BAQEFAASCAQAKitvwdpgDDctz\
-IDR45CxgIFnS+gmTNNLJMZ1oGKZkndax9+NrF5IN0VoqyP5YzI8SsbHfZLwHB/MRzJkDBBzaj5+c\
-KJ8Xgjpu0Cba5BrDT4pGMthYeQbZcVKr3yuu+Rxp74q/PC/8hu8dpjpVRO9pMt9dStYBTtRZw8Kz\
-dGpALtO0C5cIRcYkl2PUIK/PC/wobvAnHuJc7/i013FJIt0epxI3OflzoDjgOYTmLvC+GY35Ybes\
-OjHqZk8GTgIRLXyztlY8s5cvvb4DzX45d6vvd2WQq4p4PgG9tRqs2HTx+yhMpbXNrW7TkFg559Kk\
-9NPYEgJXUuYki2dy2F37KycuAP+AEKfP2mjWAQ=="
-  StrLen $2 $1
-  ; Length of binary string
-  IntOp $3 $2 * 3
-  IntOp $3 $3 / 4
-  System::Alloc $3
-  Pop $4
-  ${If} $4 P<> 0
-    System::Call "Crypt32::CryptStringToBinary(t r1, i r2, i ${CRYPT_STRING_BASE64}, p r4, *i r3r3, i 0, i 0) i.r0"
-    ${If} $0 != 0
-      ClearErrors
-      StrCpy $2 "$PLUGINSDIR\patch.bin"
-      FileOpen $1 "$2" w
-      ${IfNot} ${Errors}
-        System::Call "kernel32::WriteFile(p r1, p r4, i r3, *i .r3, p 0) i.r0"
-        FileClose $1
-        ${If} $0 != 0
-          StrCpy $0 "$INSTDIR\${GRUB2_EFI_FILE}"
-          StrCpy $3 "$PLUGINSDIR\${GRUB2_EFI_FILE}"
-          Rename "$0" "$3"
-          vpatch::vpatchfile $2 $3 $0
-          Pop $0
-          DetailPrint $0
-	  ${If} $0 == "OK"
-            StrCpy $0 "grub"
-            Exch $0
-          ${EndIf}
-        ${EndIf}
-      ${EndIf}
-    ${EndIf}
-    System::Free $4
-  ${EndIf}
-  System::Store 'L'
-FunctionEnd
-; ---
-!endif
-
 ; Create boot entry and add it to display list of boot manager
 ; Parameter:
 ;   guid - global unique identifier of boot entry
@@ -655,16 +585,53 @@ SectionEnd
 !ifdef NOCD
 Section /o "GRUB 2 EFI" sec_grub2_efi
   ${If} $arch == "amd64"
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/${GRUB2_EFI_FILE}"
-    Call Get_SHA256_ref
-    ; SHA256 is on stack
-    Push "false"
-    Push "${GRUB2_EFI_FILE}"
-    Push "$INSTDIR"
-    Push "$base_url$base_path_hashes$base_path_images"
-    Call Download
-    Pop $0
+; TODO: Remove work around
+; Use signed grub efi file of testing instead of stable branch (buster)
+;
+; https://deb.debian.org/debian/dists/buster/main/installer-amd64/
+; current/images/netboot/gtk/debian-installer/amd64/grubx64.efi
+; sets the prefix to ($root)debian-installer/amd64/grub
+; This prefix lacks the leading /.
+;
+; ---
+    StrCpy $0 $base_url
+    StrLen $1 $0
+    ${If} $1 > 0
+      ; Skip trailing /
+      IntOp $1 $1 - 1
+      ${DoWhile} $1 > 0
+        IntOp $1 $1 - 1
+        StrCpy $2 $0 1 $1
+        ${If} $2 == '/'
+          IntOp $1 $1 + 1
+          StrCpy $2 $0 -1 $1
+          StrCpy $1 $0 $1
+          ${ExitDo}
+        ${EndIf}
+      ${Loop}
+    ${EndIf}
+    ${If} $2 == "stable"
+      StrCpy $1 "$1testing/"
+      Push "false"
+      Push "false"
+      Push "${GRUB2_EFI_FILE}"
+      Push "$INSTDIR"
+      Push "$1$base_path_hashes$base_path_images"
+      Call Download
+      Pop $0
+    ${Else}
+      Push "$PLUGINSDIR\SHA256SUMS"
+      Push "$base_path_images/${GRUB2_EFI_FILE}"
+      Call Get_SHA256_ref
+      ; SHA256 is on stack
+      Push "false"
+      Push "${GRUB2_EFI_FILE}"
+      Push "$INSTDIR"
+      Push "$base_url$base_path_hashes$base_path_images"
+      Call Download
+      Pop $0
+    ${EndIf}
+; ---
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/${SHIM_EFI_FILE}"
     Call Get_SHA256_ref
@@ -755,24 +722,14 @@ Section /o "Firmware Boot Manager" sec_fwbootmgr
                     StrCpy $0 ${ERROR_ACCESS_DENIED}
                   ${Else}
                     CopyFiles /FILESONLY "$INSTDIR\${SHIM_EFI_FILE}" "$2\${EFI_LOADER}"
-!ifdef NOCD
-                    ; TODO: Remove workaround
-                    ; ---
-                    Call PatchNetBootGrub
-                    Pop $4
-                    ; ---
-!endif
                     CopyFiles /FILESONLY "$INSTDIR\${GRUB2_EFI_FILE}" "$2\${GRUB2_EFI_FILE}"
                     ${BOOTCFG_GetFileSystemUUID} "C:" $3
                     ${If} $3 != ""
 !ifdef NOCD
-                      ; TODO: Remove workaround
-                      ; ---
                       Pop $2
                       Push $2
-                      StrCpy $2 "$2$4"
+                      StrCpy $2 "$2${GRUB2_PREFIX_DI}"
                       CreateDirectory $2
-                      ; ---
 !endif
                       ClearErrors
                       FileOpen $4 "$2\${GRUB2_CFG_FILE}" w
