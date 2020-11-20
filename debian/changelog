@@ -6,6 +6,9 @@ win32-loader (0.10.4) UNRELEASED; urgency=medium
   * Use signed grub efi file of testing instead of buster
     The signed grub efi file of buster lacks the leading / in the prefix.
 
+  [ Updated translations ]
+  * Russian (ru.po) by Yuri Kozlov. Closes: #974891
+
  -- Thomas Gaugler <thomas@dadie.net>  Thu, 15 Oct 2020 15:28:15 +0200
 
 win32-loader (0.10.2) unstable; urgency=medium
