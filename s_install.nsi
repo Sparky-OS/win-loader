@@ -223,7 +223,7 @@ FunctionEnd
 ; Adding the preseed file to the installer's initrd.gz
 Function PreSeedLinux
   System::Store 'S'
-  StrCpy $1 "preseed.cfg"
+  StrCpy $1 ${PRESEED_CFG}
   StrCpy $2 "initrd.gz"
 
   StrCpy $0 "$INSTDIR\$2"
@@ -235,33 +235,28 @@ Function PreSeedLinux
   ; instead of $PLUGINSDIR.
 
   StrCpy $0 "$1"
-  ClearErrors
-  FileOpen $3 "$1" w
-  ${IfNot} ${Errors}
-    FileWrite $3 "$preseed_cfg$\n"
-    FileClose $3
+  ${If} ${FileExists} $1
+    StrCpy $0 "$2"
+    ClearErrors
+    FileOpen $3 "$2" a
     ${IfNot} ${Errors}
-      StrCpy $0 "$2"
-      FileOpen $3 "$2" a
-      ${IfNot} ${Errors}
-        FileSeek $3 0 END
-        ${MINIZ_CPIO_GZ_Open} $3 $4
-        ${If} $4 P<> 0
-          ${MINIZ_CPIO_GZ_Write} $4 $1 $0
-          ${If} $0 == 0
-            ${MINIZ_CPIO_GZ_Write} $4 "" $0
-          ${EndIf}
-          ${MINIZ_CPIO_GZ_Close} $4 $4
-          ${If} $0 != 0
-          ${OrIf} $4 != 0
-            StrCpy $0 "$2"
-          ${Else}
-            ; Indicate success
-            StrCpy $0 ""
-          ${EndIf}
+      FileSeek $3 0 END
+      ${MINIZ_CPIO_GZ_Open} $3 $4
+      ${If} $4 P<> 0
+        ${MINIZ_CPIO_GZ_Write} $4 $1 $0
+        ${If} $0 == 0
+          ${MINIZ_CPIO_GZ_Write} $4 "" $0
         ${EndIf}
-        FileClose $3
+        ${MINIZ_CPIO_GZ_Close} $4 $4
+        ${If} $0 != 0
+        ${OrIf} $4 != 0
+          StrCpy $0 "$2"
+        ${Else}
+          ; Indicate success
+          StrCpy $0 ""
+        ${EndIf}
       ${EndIf}
+      FileClose $3
     ${EndIf}
   ${EndIf}
 
