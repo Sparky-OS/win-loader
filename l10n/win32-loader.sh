@@ -42,10 +42,14 @@ nsis_lang=$(gettext LANG_ENGLISH)
 langstring()
 {
   echo LangString $1 \${$nsis_lang} \
-    "\"$(sed -e 's&\\\|\("\)&$\\\1&g;:l;N;$!bl;s&\n&$\\n&g')\""
+    "\"$(sed -e ':l;s&\\\|\("\)&$\\\1&g;N;$!bl;s&\n&$\\n&g')\""
+  # :l
+  # Label l
   # s&\\\|\("\)&$\\\1&g
   # Subsitute \ with $\ and " with $\"
-  # :l;N;$!bl;s&\n&$\\n&g
+  # N;$!bl
+  # Put all lines together
+  # s&\n&$\\n&g
   # Substitue line feed with $\n
 }
 
@@ -73,6 +77,12 @@ fi
 # The name of your language _in English_ (must be restricted to ascii)
 gettext English > /dev/null
 
+# translate:
+# The MUI_LANGUAGE macro expects the nlf file without extension for your
+# language as a parameter. The nlf file should be found in
+# /usr/share/nsis/Contrib/Language files/
+echo "!insertmacro MUI_LANGUAGE \"$(eval_pgettext NLFID English)\""
+
 # Now comes a string that may be used by NTLDR (or not).  So we need both
 # samples.
 
@@ -98,12 +108,6 @@ echo "${pxe}" | langstring pxe
 echo "${pxe}" | langstring pxe_ntldr
 
 # The bulk of the strings
-
-# translate:
-# The MUI_LANGUAGE macro expects the nlf file without extension for your
-# language as a parameter. The nlf file should be found in
-# /usr/share/nsis/Contrib/Language files/
-echo "!insertmacro MUI_LANGUAGE \"$(eval_pgettext NLFID English)\""
 
 # translate:
 # This is the program name, that appears in the installer windows captions and in the Windows Uninstaller dialog.
