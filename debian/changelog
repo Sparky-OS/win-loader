@@ -5,11 +5,15 @@ win32-loader (0.10.4) UNRELEASED; urgency=medium
   * s_install.nsi: Fix indentation
   * Use signed grub efi file of testing instead of buster
     The signed grub efi file of buster lacks the leading / in the prefix.
+  * l10n: Generate translations only via shell script
+  * Write entries to preseed.cfg one by one
+    By default NSIS limits strings to 1024 characters. Writing each entry
+    destined for preseed.cfg on its own prevents a possible data loss.
 
   [ Updated translations ]
   * Russian (ru.po) by Yuri Kozlov. Closes: #974891
 
- -- Thomas Gaugler <thomas@dadie.net>  Thu, 15 Oct 2020 15:28:15 +0200
+ -- Thomas Gaugler <thomas@dadie.net>  Wed, 06 Jan 2021 18:45:33 +0100
 
 win32-loader (0.10.2) unstable; urgency=medium
 
