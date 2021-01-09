@@ -261,7 +261,7 @@ Function PreSeedLinux
   ${EndIf}
 
   ${If} $0 != ""
-    MessageBox MB_OK|MB_ICONSTOP "$(error_exec)"
+    MessageBox MB_OK|MB_ICONSTOP "$(^ErrorCreating)$0"
     Quit
   ${EndIf}
   System::Store 'L'
