@@ -605,7 +605,12 @@ Section /o "GRUB 2 EFI" sec_grub2_efi
         ${EndIf}
       ${Loop}
     ${EndIf}
+    Push "$PLUGINSDIR\SHA256SUMS"
+    Push "$base_path_images/${GRUB2_EFI_FILE}"
+    Call Get_SHA256_ref
+    Pop $0
     ${If} $2 == "stable"
+    ${AndIf} $0 == "bef7969d0425f89417ab0dd90542a1bace4ebc592ec4ff2d8641795bc8d06001"
       StrCpy $1 "$1testing/"
       Push "false"
       Push "false"
@@ -615,10 +620,7 @@ Section /o "GRUB 2 EFI" sec_grub2_efi
       Call Download
       Pop $0
     ${Else}
-      Push "$PLUGINSDIR\SHA256SUMS"
-      Push "$base_path_images/${GRUB2_EFI_FILE}"
-      Call Get_SHA256_ref
-      ; SHA256 is on stack
+      Push $0 ; SHA256 fingerprint
       Push "false"
       Push "${GRUB2_EFI_FILE}"
       Push "$INSTDIR"
