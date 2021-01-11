@@ -6,7 +6,7 @@ Source: https://salsa.debian.org/installer-team/win32-loader
 Files: *
 Copyright: 2007, 2008, 2009 Robert Millan <rmh@debian.org>,
            2010, 2011, 2016 Didier Raboud <odyx@debian.org>,
-           2019, 2020 Thomas Gaugler <thomas@dadie.net>
+           2019, 2020, 2021 Thomas Gaugler <thomas@dadie.net>
 License: GPL-3+
 
 Files: helpers/miniz/*
