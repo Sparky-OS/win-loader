@@ -1,9 +1,11 @@
-win32-loader (0.10.6) UNRELEASED; urgency=medium
+win32-loader (0.10.6) unstable; urgency=medium
+
+  * Team upload
 
   [ Andika Triwidada ]
   * Update Indonesian translation. Closes: #1007707
 
- -- Holger Wansing <hwansing@mailbox.org>  Fri, 18 Mar 2022 21:34:42 +0100
+ -- Holger Wansing <hwansing@mailbox.org>  Mon, 21 Mar 2022 23:58:02 +0100
 
 win32-loader (0.10.5) unstable; urgency=medium
 
