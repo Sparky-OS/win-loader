@@ -33,15 +33,33 @@ wine_set_up() {
 		# Disable prompt for mono installer
 		WINEDLLOVERRIDES=mscoree=d
 		export WINEARCH WINEDLLOVERRIDES WINEPREFIX
-		${WINE} wineboot
-		err=$?
-		if [ ${err} -ne 0 ]; then
-			# wineboot failed
-			err=95
-		else
+		if ${WINE} wineboot; then
 			for sig in ALRM HUP INT QUIT TERM USR1; do
 				trap "wine_clean_up; after; trap - $sig EXIT; exit 1" "$sig"
 			done
+		else
+			# wineboot failed
+			err=$?
+			case $(dpkg --print-architecture 2>/dev/null) in
+			i386)
+				if [ "${WINEARCH}" = "win64" ]; then
+					err=95
+				fi
+				;;
+			amd64)
+				if [ "${WINEARCH}" = "win32" ]; then
+					for arch in $(dpkg \
+						--print-foreign-architectures\
+						2>/dev/null); do
+						if [ ${arch} = "i386" ]; then
+							err=95
+							break
+						fi
+					done
+					err=95
+				fi
+				;;
+			esac
 		fi
 	fi
 	return ${err}

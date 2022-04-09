@@ -25,20 +25,28 @@ after() {
 }
 
 [ $# -gt 1 ] && shift
-wine_set_up $@
-err=$?
-case ${err} in
-0)
+err=0
+if wine_set_up $@; then
 	main
-	;;
-2)
-	echo "Wine is not available"
-	;;
-95)
-	echo "Wine with ${WINEARCH} architecture is not supported on this host"
-	;;
-*)
-	echo "Failed to boot wine"
-	;;
-esac
+else
+	err=$?
+	case ${err} in
+	2)
+		echo "Wine is not available"
+		err=0
+		;;
+	95)
+		echo "Wine with ${WINEARCH} architecture is not supported on this host"
+		err=0
+		;;
+	*)
+		echo "Failed to boot wine"
+		;;
+	esac
+
+	if [ ${err} -eq 0 ]; then
+		echo "Skip tests"
+	fi
+fi
 wine_clean_up
+return ${err}
