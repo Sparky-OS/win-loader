@@ -176,14 +176,8 @@ $(OUTFILE_NAME): main.nsi maps.ini \
 	du -h $(OUTFILE_NAME)
 
 test:  $(HELPERS:=_helper)
-ifneq ($(shell wine --version 2>&1),)
-	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win32 \
-		$(realpath $(BUILD_DIR))
-ifeq ($(notdir $(shell winepath -u c:/windows/system32 2>/dev/null)),syswow64)
-	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win64 \
-		$(realpath $(BUILD_DIR))
-endif
-endif
+	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win32
+	$(CURDIR)/tests/run.sh $(realpath $(BUILD_DIR)) win64
 
 iso: $(BUILD_DIR)/stable.iso $(BUILD_DIR)/daily.iso
 $(BUILD_DIR)/stable.iso: \
