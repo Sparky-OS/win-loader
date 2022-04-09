@@ -1,3 +1,13 @@
+win32-loader (0.10.7) UNRELEASED; urgency=medium
+
+  * Retain WINEARCH and WINEPREFIX enviroment variables
+  * Check wine availability via command -v
+  * Disable prompt for mono installer within wine
+  * Avoid immediate exit for expected command fails
+  * Delegate skipping of tests to the test runner script
+
+ -- Thomas Gaugler <thomas@dadie.net>  Sat, 09 Apr 2022 19:21:39 +0200
+
 win32-loader (0.10.6) unstable; urgency=medium
 
   * Team upload
