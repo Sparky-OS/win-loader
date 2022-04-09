@@ -23,7 +23,7 @@ wine_set_up() {
 	else
 		cd $(mktemp -d)
 	fi
-	${WINE} --version >/dev/null 2>&1
+	command -v ${WINE} >/dev/null 2>&1
 	err=$?
 	if [ ${err} -ne 0 ]; then
 		# wine is not available
