@@ -6,9 +6,7 @@
 MAKENSIS=makensis
 OLDPWD="${PWD}"
 WINE=wine
-WINEARCH=
 WINEDIR=.wine
-WINEPREFIX=
 
 # Set up wine environment
 # Parameters:
