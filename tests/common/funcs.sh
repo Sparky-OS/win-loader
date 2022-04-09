@@ -30,7 +30,9 @@ wine_set_up() {
 		err=2
 	else
 		WINEPREFIX="${PWD}/${WINEDIR}"
-		export WINEARCH WINEPREFIX
+		# Disable prompt for mono installer
+		WINEDLLOVERRIDES=mscoree=d
+		export WINEARCH WINEDLLOVERRIDES WINEPREFIX
 		${WINE} wineboot
 		err=$?
 		if [ ${err} -ne 0 ]; then
