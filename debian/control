@@ -19,7 +19,7 @@ Build-Depends:
  locales-all,
  mingw-w64,
  nsis (>= 3),
- wine [i386],
+ wine [i386] <!nocheck>
 Standards-Version: 4.5.1
 Rules-Requires-Root: no
 Vcs-Browser: https://salsa.debian.org/installer-team/win32-loader
