@@ -5,13 +5,14 @@ msgstr ""
 "Project-Id-Version: win32-loader_i10n\n"
 "Report-Msgid-Bugs-To: win32-loader@packages.debian.org\n"
 "POT-Creation-Date: 2019-09-01 11:42+0200\n"
-"PO-Revision-Date: 2011-12-24 23:58+0600\n"
+"PO-Revision-Date: 2022-12-04 17:16+0600\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. translate:
 #. This must be a valid string recognised by Nsis.  If your
@@ -84,7 +85,7 @@ msgstr "Debian-Installer жүктеушісі"
 
 #: win32-loader.c:89
 msgid "Cannot find win32-loader.ini."
-msgstr "win32-loader.ini файлы табылмайды."
+msgstr "win32-loader.ini файлы табылмады."
 
 #: win32-loader.c:90
 msgid "win32-loader.ini is incomplete.  Contact the provider of this medium."
@@ -268,7 +269,7 @@ msgstr "Байланысу..."
 #.
 #: win32-loader.c:133
 msgid "$1 left - $2 of $4$0$(^Byte) ($3$0$(^Byte)/s)"
-msgstr ""
+msgstr "$1 қалды - $2 бар, барлығы $4$0$(^Byte) ($3$0$(^Byte)/s)"
 
 #: win32-loader.c:134
 msgid "Select which version of Debian-Installer to use:"
