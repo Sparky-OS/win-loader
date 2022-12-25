@@ -12,6 +12,9 @@ win32-loader (0.10.7) UNRELEASED; urgency=medium
   [ Baurzhan Muftakhidinov ]
   * Updated Kazakh translation.
 
+  [ d manye ]
+  * Updated Catalan translation.
+
  -- Thomas Gaugler <thomas@dadie.net>  Tue, 03 May 2022 21:21:47 +0200
 
 win32-loader (0.10.6) unstable; urgency=medium
