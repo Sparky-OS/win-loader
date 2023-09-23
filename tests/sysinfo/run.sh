@@ -47,7 +47,7 @@ test_it() {
 }
 
 test_domain() {
-        t="Domain"
+    t="Domain"
 	domain=$(hostname -d 2>/dev/null)
 	if [ -n "${domain}" ]; then
 		test_it "${domain}" "${t}"
@@ -59,22 +59,19 @@ test_domain() {
 }
 
 test_hostname() {
-        t="Hostname"
+    t="Hostname"
 	test_it "$(hostname -s)" "${t}"
 }
 
 test_keyboard_layout() {
-        t="Keyboard_Layout"
-	layout="0x0000"
-	if [ -n "${DISPLAY}" ]; then
-		# United States - English (0x409)
-		layout="0x0409"
-	fi
+    t="Keyboard_Layout"
+	# United States - English (0x409)
+	layout="0x0409"
 	test_it "${layout}" "${t}"
 }
 
 test_username() {
-        t="Username"
+    t="Username"
 	test_it "$(logname 2>/dev/null || echo ${LOGNAME})" "${t}"
 }
 
