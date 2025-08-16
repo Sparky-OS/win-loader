@@ -8,6 +8,8 @@ win32-loader (0.10.7) UNRELEASED; urgency=medium
   * Delegate skipping of tests to the test runner script
   * Mark test dependencies with <!nocheck>, Closes: #1010488
   * d/control: Update to Standards-Version 4.6.0
+  * Expect US keyboard layout in test
+  * Remove obsolete workaround (netboot grubx64.efi of Trixie is fine)
 
   [ Baurzhan Muftakhidinov ]
   * Updated Kazakh translation.
@@ -15,7 +17,10 @@ win32-loader (0.10.7) UNRELEASED; urgency=medium
   [ d manye ]
   * Updated Catalan translation.
 
- -- Thomas Gaugler <thomas@dadie.net>  Tue, 03 May 2022 21:21:47 +0200
+  [ Gioele Barabucci ]
+  * d/rules: Remove gzip-win32 from list of build dependencies
+
+ -- Thomas Gaugler <thomas@dadie.net>  Sat, 16 Aug 2025 16:39:31 +0200
 
 win32-loader (0.10.6) unstable; urgency=medium
 

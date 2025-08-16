@@ -580,55 +580,6 @@ SectionEnd
 !ifdef NOCD
 Section /o "GRUB 2 EFI" sec_grub2_efi
   ${If} $arch == "amd64"
-; TODO: Remove work around
-; Use signed grub efi file of testing instead of stable branch (buster)
-;
-; https://deb.debian.org/debian/dists/buster/main/installer-amd64/
-; current/images/netboot/gtk/debian-installer/amd64/grubx64.efi
-; sets the prefix to ($root)debian-installer/amd64/grub
-; This prefix lacks the leading /.
-;
-; ---
-    StrCpy $0 $base_url
-    StrLen $1 $0
-    ${If} $1 > 0
-      ; Skip trailing /
-      IntOp $1 $1 - 1
-      ${DoWhile} $1 > 0
-        IntOp $1 $1 - 1
-        StrCpy $2 $0 1 $1
-        ${If} $2 == '/'
-          IntOp $1 $1 + 1
-          StrCpy $2 $0 -1 $1
-          StrCpy $1 $0 $1
-          ${ExitDo}
-        ${EndIf}
-      ${Loop}
-    ${EndIf}
-    Push "$PLUGINSDIR\SHA256SUMS"
-    Push "$base_path_images/${GRUB2_EFI_FILE}"
-    Call Get_SHA256_ref
-    Pop $0
-    ${If} $2 == "stable"
-    ${AndIf} $0 == "bef7969d0425f89417ab0dd90542a1bace4ebc592ec4ff2d8641795bc8d06001"
-      StrCpy $1 "$1testing/"
-      Push "false"
-      Push "false"
-      Push "${GRUB2_EFI_FILE}"
-      Push "$INSTDIR"
-      Push "$1$base_path_hashes$base_path_images"
-      Call Download
-      Pop $0
-    ${Else}
-      Push $0 ; SHA256 fingerprint
-      Push "false"
-      Push "${GRUB2_EFI_FILE}"
-      Push "$INSTDIR"
-      Push "$base_url$base_path_hashes$base_path_images"
-      Call Download
-      Pop $0
-    ${EndIf}
-; ---
     Push "$PLUGINSDIR\SHA256SUMS"
     Push "$base_path_images/${SHIM_EFI_FILE}"
     Call Get_SHA256_ref
